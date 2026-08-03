@@ -342,6 +342,6 @@ def render_all(results_path: str, outdir: str = "results/figures"):
 if __name__ == "__main__":
     import sys
 
-    src = sys.argv[1] if len(sys.argv) > 1 else "results/tiny_main.json"
+    src = sys.argv[1] if len(sys.argv) > 1 else "results/main_final.json"
     for p in render_all(src):
         print("wrote", p)

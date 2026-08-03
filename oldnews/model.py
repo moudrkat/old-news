@@ -10,8 +10,8 @@ ALIASES = {
     "small": "Qwen/Qwen2.5-1.5B-Instruct",
     "mid": "Qwen/Qwen3-4B-Instruct-2507",
     "smol": "HuggingFaceTB/SmolLM2-135M-Instruct",
-    # the paper's own main model — Cindy suggested checking whether the
-    # near-neighbour recall errors reproduce outside the Qwen tokenizer
+    # the paper's own main model — here to check whether the near-neighbour
+    # recall errors reproduce outside the Qwen tokenizer
     "llama": "meta-llama/Llama-3.1-8B-Instruct",
 }
 

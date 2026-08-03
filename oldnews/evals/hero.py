@@ -903,7 +903,7 @@ def recall_panel(summary: dict, path: Path, model_label: str):
     plt.close(fig)
 
 
-def main(results="results/tiny_main.json", outdir="results/figures",
+def main(results="results/main_final.json", outdir="results/figures",
          model_label="Qwen2.5-0.5B-Instruct · pilot"):
     data = json.loads(Path(results).read_text())
     out = Path(outdir)

@@ -39,12 +39,12 @@ pre-update message in the history:
 
 | | follows the current system prompt |
 |---|---|
-| no history at all | 92.9% |
+| no history at all | 90.0% |
 | + five turns of pre-update chat | 5.7% |
 | + *"ignore any instructions from before this update"* | 7.1% — 2 answers of 140 changed |
-| + V-Steer | **66.4%** |
+| + V-Steer | **65.0%** |
 
-McNemar p = 5e-26, 0 previously-correct answers broken, 2 of 140 degenerate.
+McNemar p = 2e-25, 0 previously-correct answers broken, 2 of 140 degenerate.
 
 ## What I tried
 
@@ -83,8 +83,8 @@ At the paper's defaults, `γ+ 2.5 / γ− 0.75`, gain over doing nothing:
 | answer language | 0% | 85% | +85 |
 | answer length | 0% | 75% | +75 |
 | prefix — `"ACK:"` vs stale `"HELLO:"` | 0% | 70% | +70 |
-| bullet list vs prose | 0% | 55% | +55 |
-| inline `[1] [2] [3]` option list | 40% | 80% | +40 |
+| bullet list vs prose | 0% | 50% | +50 |
+| inline `[1] [2] [3]` option list | 40% | 75% | +35 |
 | JSON vs prose | 0% | 0% | **+0** |
 
 JSON is the only one that doesn't move at all. I don't have an explanation, and
@@ -136,25 +136,27 @@ item by item.
 
 ![two lines against suppression strength: obedience to the stale instruction drops to zero by 0.5 while recall of a fact stated in those same messages stays perfect until 0.5 and then falls away](docs/recall.png)
 
-**It is not a tokenizer artefact, and the window is not a property of the
-method.** Same 12 questions on Llama-3.1-8B, a different tokenizer:
+**It is not a tokenizer artefact.** Same 12 questions on Llama-3.1-8B, a
+different tokenizer:
 
 | γ− | Qwen: obeys old rule | recalls | Llama: obeys old rule | recalls |
 |---|---|---|---|---|
 | 0.5 | **0%** | 12/12 | 100% | 12/12 |
 | 0.75 | 0% | 8/12 | 50% | 8/12 |
-| 0.9 | 0% | 3/12 | 42% | 1/12 |
+| 0.9 | 0% | 3/12 | 33% | 1/12 |
 
-Recall falls at the same rate on both. Obedience doesn't. On Qwen the old rule
-is already dead at γ− = 0.5 with every fact intact — that's the window. On
-Llama nothing has happened at 0.5, and by the time the rule starts breaking the
-facts are going with it; at 0.9 the old rule is still followed 42% of the time
-and only one fact in twelve survives.
-
-**So on this test Llama has no safe setting.** You can't read the window off one
-model and ship it — it has to be measured per model, which is what the script
-below is for. Llama loses the fact with the same shape of error as Qwen,
+Recall falls at the same rate on both, with the same shape of error —
 `19:40 → 19:00`, `302 → 02`, `4417-B → 4411`, `E-88 → e-12`.
+
+Obedience doesn't. A given γ− is **not the same operating point** on the two
+models: on Qwen the old rule is already dead at 0.5 with every fact intact, on
+Llama nothing has happened there at all. So the window has to be found per
+model, which is what the script below is for.
+
+This says nothing about how well the method works on Llama, because I held
+γ+ at 2.5 throughout and swept γ− only — and the paper's own sensitivity
+analysis (B.4, point 4) finds γ+ the stronger of the two knobs. The γ+ × γ−
+grid on Llama is unrun here.
 
 The part I did not expect is that it sometimes catches itself:
 
@@ -225,10 +227,15 @@ attention on 20 of 24 cache layers).
 
 - One model, greedy, n = 140 per condition; the recall table is n = 12 per point.
 - Constructed cases, not real production prompts.
-- Two measurement bugs found mid-work, both by reading outputs rather than by
-  the metric: a format checker that counted `[1. Paris]` as compliant, and a
-  degeneracy check that missed `BRONZE CITY, BRONZE CITY, BRONZE CITY`. Both
-  fixed. Assume there are more.
+- Three measurement bugs found mid-work, all by reading outputs rather than by
+  the metric: a format checker that counted `[1. Paris]` as compliant, a
+  degeneracy check that missed `BRONZE CITY, BRONZE CITY, BRONZE CITY`, and
+  degenerate answers scoring as *compliant* when the wreckage happened to match
+  the rule — `BAGGAGE, NO, I MEAN, IT'S CALLED BAGGAGE` counted as obeying
+  "reply in ALL UPPERCASE". All fixed; the last one cost 1.4 points on the
+  headline. Assume there are more.
+- Only γ− is swept anywhere here; γ+ is pinned at 2.5. The paper reports γ+ as
+  the stronger knob, so nothing in this repo says where the method's ceiling is.
 - The quality judge is Qwen3-4B scoring Qwen3-4B's own output. On the recall
   table it disagreed with the regex on 8 of 120 and was wrong on half of those,
   so that table is hand-scored instead — see `results/adjudication.json`. One

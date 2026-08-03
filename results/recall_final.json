@@ -658,8 +658,8 @@
     "query": "Which city do I live in?",
     "variant": 0,
     "condition": "conflict",
-    "verdict": "system",
-    "collapsed": false,
+    "verdict": "neither",
+    "collapsed": true,
     "text": "BRONZE CITY, BRONZE CITY, BRONZE CITY",
     "secs": 0.33,
     "heads_edited": 279,
@@ -723,7 +723,7 @@
     "variant": 0,
     "condition": "conflict",
     "verdict": "neither",
-    "collapsed": false,
+    "collapsed": true,
     "text": "ACK ACK\u533b\u62a4",
     "secs": 0.14,
     "heads_edited": 283,
@@ -771,7 +771,7 @@
     "variant": 0,
     "condition": "conflict",
     "verdict": "neither",
-    "collapsed": false,
+    "collapsed": true,
     "text": "ACK ACK\u533b\u62a4, your flight lands at 19:40.",
     "secs": 0.35,
     "heads_edited": 280,
@@ -917,7 +917,7 @@
     "variant": 0,
     "condition": "conflict",
     "verdict": "neither",
-    "collapsed": false,
+    "collapsed": true,
     "text": "ACK ACK\u533b\u62a4",
     "secs": 0.14,
     "heads_edited": 283,
@@ -965,7 +965,7 @@
     "variant": 0,
     "condition": "conflict",
     "verdict": "neither",
-    "collapsed": false,
+    "collapsed": true,
     "text": "ACK ACK\u533b\u62a4, your flight lands at 19:00.",
     "secs": 0.34,
     "heads_edited": 280,
@@ -997,7 +997,7 @@
     "variant": 0,
     "condition": "conflict",
     "verdict": "neither",
-    "collapsed": false,
+    "collapsed": true,
     "text": "ACKACKack: Your account number ends in a specific digit or sequence, but based on the previous statement, it ends in a pattern that matches the information you provided earlier. If you're asking for confirmation, it ends in a sequence that",
     "secs": 0.92,
     "heads_edited": 277,
@@ -1093,25 +1093,25 @@
   },
   "recall_gm0.75": {
    "n": 12,
-   "system": 0.4166666666666667,
+   "system": 0.3333333333333333,
    "system_ci": [
-    0.19326031362233714,
-    0.6804886875012386
+    0.1381200910624633,
+    0.609377911184688
    ],
    "stale": 0.0,
    "stale_ci": [
     0.0,
     0.24249400674145444
    ],
-   "neither": 0.5833333333333334,
+   "neither": 0.6666666666666666,
    "neither_ci": [
-    0.3195113124987614,
-    0.8067396863776628
+    0.39062208881531185,
+    0.8618799089375366
    ],
-   "collapse": 0.0,
+   "collapse": 0.25,
    "collapse_ci": [
-    0.0,
-    0.24249400674145444
+    0.08894166837325393,
+    0.5323053349974733
    ],
    "gamma_minus": 0.75,
    "fact_recall": 0.6666666666666666,
@@ -1135,10 +1135,10 @@
     0.2537815975899372,
     0.7462184024100629
    ],
-   "collapse": 0.0,
+   "collapse": 0.25,
    "collapse_ci": [
-    0.0,
-    0.24249400674145444
+    0.08894166837325393,
+    0.5323053349974733
    ],
    "gamma_minus": 0.9,
    "fact_recall": 0.25,
@@ -1150,5 +1150,6 @@
   "model": "mid",
   "method": "single forward, logit(Yes) vs logit(No), greedy"
  },
- "scoring": "fact_recall is hand-adjudicated; see results/adjudication.json"
+ "scoring": "fact_recall is hand-adjudicated; see results/adjudication.json",
+ "scoring_note": "collapsed recomputed with the current detector; verdict='neither' when degenerate, since degenerate output complies with neither rule"
 }

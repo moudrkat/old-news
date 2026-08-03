@@ -83,7 +83,12 @@ def run_condition(model, tok, cases, policy, spans, max_new_tokens, group_rule,
             "query": case.query,
             "variant": getattr(case, "variant", 0),
             "condition": case.condition,
-            "verdict": case.verdict(text),
+            # Degenerate output complies with nothing. Without this guard an
+            # answer like "BAGGAGE, NO, I MEAN, IT'S CALLED BAGGAGE, NO, I
+            # MEAN" scores as obeying "reply in ALL UPPERCASE" because the
+            # loop happens to be in caps -- the metric pays the model for
+            # breaking. Costs 2 of 140 on the headline.
+            "verdict": "neither" if collapsed(text) else case.verdict(text),
             "collapsed": collapsed(text),
             "text": text,
             "secs": round(time.time() - t0, 2),

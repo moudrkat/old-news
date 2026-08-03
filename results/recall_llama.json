@@ -836,7 +836,7 @@
     "query": "What is my dog called?",
     "variant": 0,
     "condition": "conflict",
-    "verdict": "system",
+    "verdict": "neither",
     "collapsed": true,
     "text": "your dog is called BAGGAGE, NO, I MEAN, IT'S CALLED BAGGAGE, NO, I MEAN, IT'S CALLED BAGGAGE, NO, I MEAN, IT'S CAL",
     "secs": 1.38,
@@ -852,7 +852,7 @@
     "query": "Which city do I live in?",
     "variant": 0,
     "condition": "conflict",
-    "verdict": "stale",
+    "verdict": "neither",
     "collapsed": true,
     "text": "you live in a city called Brno is not correct, you said Brno is not mentioned, you said you live in a city that starts with the letter \"B\" but then you said Brno is not mentioned, however, you did say that",
     "secs": 1.38,
@@ -1120,20 +1120,20 @@
   },
   "recall_gm0.9": {
    "n": 12,
-   "system": 0.5833333333333334,
+   "system": 0.5,
    "system_ci": [
-    0.3195113124987614,
-    0.8067396863776628
+    0.2537815975899372,
+    0.7462184024100629
    ],
-   "stale": 0.4166666666666667,
+   "stale": 0.3333333333333333,
    "stale_ci": [
-    0.19326031362233714,
-    0.6804886875012386
+    0.1381200910624633,
+    0.609377911184688
    ],
-   "neither": 0.0,
+   "neither": 0.16666666666666666,
    "neither_ci": [
-    0.0,
-    0.24249400674145444
+    0.04696514217115219,
+    0.4480308623231507
    ],
    "collapse": 0.16666666666666666,
    "collapse_ci": [
@@ -1150,5 +1150,6 @@
   "model": "mid",
   "method": "single forward, logit(Yes) vs logit(No), greedy"
  },
- "scoring": "fact_recall is hand-adjudicated; see results/adjudication.json"
+ "scoring": "fact_recall is hand-adjudicated; see results/adjudication.json",
+ "scoring_note": "collapsed recomputed with the current detector; verdict='neither' when degenerate, since degenerate output complies with neither rule"
 }

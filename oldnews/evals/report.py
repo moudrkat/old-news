@@ -3,7 +3,7 @@
 Everything is derived from the stored per-case rows, so a run recorded before
 these statistics existed can still be analysed:
 
-    python -m oldnews.evals.report results/tiny_main.json
+    python -m oldnews.evals.report results/main_final.json
 """
 
 from __future__ import annotations
@@ -77,7 +77,7 @@ def to_markdown(data: dict, rep: dict) -> str:
 
 
 def main():
-    src = Path(sys.argv[1] if len(sys.argv) > 1 else "results/tiny_main.json")
+    src = Path(sys.argv[1] if len(sys.argv) > 1 else "results/main_final.json")
     data = json.loads(src.read_text())
     rep = build(data)
     data["stats"] = rep

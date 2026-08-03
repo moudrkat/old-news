@@ -876,8 +876,8 @@
     "query": "What do bees make?",
     "variant": 0,
     "condition": "no_history",
-    "verdict": "system",
-    "collapsed": false,
+    "verdict": "neither",
+    "collapsed": true,
     "text": "- Honey  \n- Bee wax  \n- Propolis  \n- Royal jelly  \n- Bee pollen  \n- Bee venom  \n- Bee bread (a mixture of pollen, nectar, and enzymes)",
     "secs": 0.7,
     "heads_edited": null,
@@ -1006,8 +1006,8 @@
     "query": "What do bees make?",
     "variant": 1,
     "condition": "no_history",
-    "verdict": "system",
-    "collapsed": false,
+    "verdict": "neither",
+    "collapsed": true,
     "text": "- Honey  \n- Bee wax  \n- Propolis  \n- Royal jelly  \n- Bee pollen  \n- Bee venom  \n- Bee bread (a mixture of pollen, nectar, and enzymes)",
     "secs": 0.7,
     "heads_edited": null,
@@ -1188,8 +1188,8 @@
     "query": "Why do leaves change color in autumn?",
     "variant": 0,
     "condition": "no_history",
-    "verdict": "system",
-    "collapsed": false,
+    "verdict": "neither",
+    "collapsed": true,
     "text": "Les feuilles changent de couleur en automne en raison de la diminution de la lumi\u00e8re solaire et de la temp\u00e9rature. \u00c0 mesure que l'automne approche, les jours deviennent plus courts et les temp",
     "secs": 0.87,
     "heads_edited": null,
@@ -1318,8 +1318,8 @@
     "query": "Why do leaves change color in autumn?",
     "variant": 1,
     "condition": "no_history",
-    "verdict": "system",
-    "collapsed": false,
+    "verdict": "neither",
+    "collapsed": true,
     "text": "Les feuilles changent de couleur en automne en raison de la diminution de la lumi\u00e8re solaire et de la temp\u00e9rature. \u00c0 mesure que l'automne approche, les jours deviennent plus courts et les temp",
     "secs": 0.87,
     "heads_edited": null,
@@ -5118,8 +5118,8 @@
     "query": "Name three primary colors.",
     "variant": 1,
     "condition": "prompt_fix",
-    "verdict": "stale",
-    "collapsed": false,
+    "verdict": "neither",
+    "collapsed": true,
     "text": "The three primary colors are red, blue, and yellow.  \n[1] Red, blue, and yellow  \n[2] Orange, green, and purple  \n[3] Cyan, magenta, and yellow",
     "secs": 0.81,
     "heads_edited": null,
@@ -6342,8 +6342,8 @@
     "query": "What do bees make?",
     "variant": 0,
     "condition": "aligned",
-    "verdict": "system",
-    "collapsed": false,
+    "verdict": "neither",
+    "collapsed": true,
     "text": "- Bees make honey  \n- Bees make beeswax  \n- Bees make propolis  \n- Bees make royal jelly  \n- Bees make pollen (which they collect and store)  \n- Bees produce bee venom  \n",
     "secs": 0.89,
     "heads_edited": null,
@@ -6472,8 +6472,8 @@
     "query": "What do bees make?",
     "variant": 1,
     "condition": "aligned",
-    "verdict": "system",
-    "collapsed": false,
+    "verdict": "neither",
+    "collapsed": true,
     "text": "- Bees make honey  \n- Bees make beeswax  \n- Bees make propolis  \n- Bees make royal jelly  \n- Bees make pollen (which they collect and store)  \n- Bees produce bee venom  \n",
     "secs": 0.89,
     "heads_edited": null,
@@ -6654,8 +6654,8 @@
     "query": "Why do leaves change color in autumn?",
     "variant": 0,
     "condition": "aligned",
-    "verdict": "system",
-    "collapsed": false,
+    "verdict": "neither",
+    "collapsed": true,
     "text": "En automne, les feuilles changent de couleur principalement en raison de la diminution de la lumi\u00e8re solaire et de la temp\u00e9rature. \u00c0 mesure que les jours deviennent plus courts et que les temp\u00e9ratures ba",
     "secs": 0.89,
     "heads_edited": null,
@@ -6784,8 +6784,8 @@
     "query": "Why do leaves change color in autumn?",
     "variant": 1,
     "condition": "aligned",
-    "verdict": "system",
-    "collapsed": false,
+    "verdict": "neither",
+    "collapsed": true,
     "text": "En automne, les feuilles changent de couleur principalement en raison de la diminution de la lumi\u00e8re solaire et de la temp\u00e9rature. \u00c0 mesure que les jours deviennent plus courts et que les temp\u00e9ratures ba",
     "secs": 0.89,
     "heads_edited": null,
@@ -8294,8 +8294,8 @@
     "query": "What do bees make?",
     "variant": 1,
     "condition": "conflict",
-    "verdict": "system",
-    "collapsed": false,
+    "verdict": "neither",
+    "collapsed": true,
     "text": "- Bees make honey, which is produced from nectar collected from flowers  \n- Bees produce wax, used to build honeycombs for storing honey and raising larvae  \n- Bees create propolis, a resinous substance they use",
     "secs": 0.93,
     "heads_edited": 274,
@@ -8879,8 +8879,8 @@
     "query": "What is the boiling point of water?",
     "variant": 1,
     "condition": "conflict",
-    "verdict": "system",
-    "collapsed": false,
+    "verdict": "neither",
+    "collapsed": true,
     "text": "The boiling point of water is 100 degrees Celsius at standard atmospheric pressure (1 atm).  \n\nThis value can vary slightly depending on altitude and atmospheric pressure. For example, at higher elevations, where atmospheric pressure is lower, water",
     "secs": 0.94,
     "heads_edited": 268,
@@ -9934,8 +9934,8 @@
     "query": "Name three primary colors.",
     "variant": 0,
     "condition": "aligned",
-    "verdict": "system",
-    "collapsed": false,
+    "verdict": "neither",
+    "collapsed": true,
     "text": "- - red  \n- - blue  \n- - yellow",
     "secs": 0.28,
     "heads_edited": 268,
@@ -9986,8 +9986,8 @@
     "query": "What do bees make?",
     "variant": 0,
     "condition": "aligned",
-    "verdict": "system",
-    "collapsed": false,
+    "verdict": "neither",
+    "collapsed": true,
     "text": "- Bees make honey  \n- Bees make beeswax  \n- Bees make propolis  \n- Bees make royal jelly  \n- Bees make pollen (which is collected and stored as a food source)  \n- Bees",
     "secs": 0.93,
     "heads_edited": 268,
@@ -10064,8 +10064,8 @@
     "query": "Name three primary colors.",
     "variant": 1,
     "condition": "aligned",
-    "verdict": "system",
-    "collapsed": false,
+    "verdict": "neither",
+    "collapsed": true,
     "text": "- - red  \n- - blue  \n- - yellow",
     "secs": 0.28,
     "heads_edited": 268,
@@ -10116,8 +10116,8 @@
     "query": "What do bees make?",
     "variant": 1,
     "condition": "aligned",
-    "verdict": "system",
-    "collapsed": false,
+    "verdict": "neither",
+    "collapsed": true,
     "text": "- Bees make honey  \n- Bees make beeswax  \n- Bees make propolis  \n- Bees make royal jelly  \n- Bees make pollen (which is collected and stored as a food source)  \n- Bees",
     "secs": 0.93,
     "heads_edited": 268,
@@ -10974,25 +10974,25 @@
  "summary": {
   "no_history": {
    "n": 140,
-   "system": 0.9285714285714286,
+   "system": 0.9,
    "system_ci": [
-    0.873510212612778,
-    0.9607416156315544
+    0.839141096932237,
+    0.9394939427624731
    ],
    "stale": 0.014285714285714285,
    "stale_ci": [
     0.003926440722392111,
     0.05058815393403153
    ],
-   "neither": 0.05714285714285714,
+   "neither": 0.08571428571428572,
    "neither_ci": [
-    0.029236485286514194,
-    0.10870329219434267
+    0.049711244580706526,
+    0.14384532144977247
    ],
-   "collapse": 0.0,
+   "collapse": 0.02857142857142857,
    "collapse_ci": [
-    0.0,
-    0.02670620038161257
+    0.011165776839026711,
+    0.071157212092208
    ]
   },
   "conflict": {
@@ -11025,90 +11025,91 @@
     0.03925838436844574,
     0.12648978738722216
    ],
-   "stale": 0.7857142857142857,
+   "stale": 0.7785714285714286,
    "stale_ci": [
-    0.7105956160623135,
-    0.8455722694339078
-   ],
-   "neither": 0.14285714285714285,
-   "neither_ci": [
-    0.09441991249188363,
-    0.21037023063783966
-   ],
-   "collapse": 0.0,
-   "collapse_ci": [
-    0.0,
-    0.02670620038161257
-   ]
-  },
-  "aligned": {
-   "n": 140,
-   "system": 0.9428571428571428,
-   "system_ci": [
-    0.8912967078056573,
-    0.9707635147134859
-   ],
-   "stale": 0.014285714285714285,
-   "stale_ci": [
-    0.003926440722392111,
-    0.05058815393403153
-   ],
-   "neither": 0.04285714285714286,
-   "neither_ci": [
-    0.019787541104106028,
-    0.09034384210193977
-   ],
-   "collapse": 0.0,
-   "collapse_ci": [
-    0.0,
-    0.02670620038161257
-   ]
-  },
-  "vsteer_conflict": {
-   "n": 140,
-   "system": 0.6642857142857143,
-   "system_ci": [
-    0.5826001112785542,
-    0.7371964228817731
-   ],
-   "stale": 0.18571428571428572,
-   "stale_ci": [
-    0.1300055545174302,
-    0.2582097714367263
+    0.7028717397313027,
+    0.8393919486275132
    ],
    "neither": 0.15,
    "neither_ci": [
     0.10025055315626696,
     0.21844378711086188
    ],
-   "collapse": 0.0,
+   "collapse": 0.007142857142857143,
    "collapse_ci": [
-    0.0,
-    0.02670620038161257
+    0.001262004443852275,
+    0.03934839307516583
    ]
   },
-  "vsteer_aligned": {
+  "aligned": {
    "n": 140,
-   "system": 0.9428571428571428,
+   "system": 0.9142857142857143,
    "system_ci": [
-    0.8912967078056573,
-    0.9707635147134859
+    0.8561546785502275,
+    0.9502887554192935
    ],
    "stale": 0.014285714285714285,
    "stale_ci": [
     0.003926440722392111,
     0.05058815393403153
    ],
-   "neither": 0.04285714285714286,
+   "neither": 0.07142857142857142,
    "neither_ci": [
-    0.019787541104106028,
-    0.09034384210193977
+    0.03925838436844574,
+    0.12648978738722216
    ],
-   "collapse": 0.0,
+   "collapse": 0.02857142857142857,
    "collapse_ci": [
-    0.0,
-    0.02670620038161257
+    0.011165776839026711,
+    0.071157212092208
+   ]
+  },
+  "vsteer_conflict": {
+   "n": 140,
+   "system": 0.65,
+   "system_ci": [
+    0.5679446749262663,
+    0.7240434649592499
+   ],
+   "stale": 0.18571428571428572,
+   "stale_ci": [
+    0.1300055545174302,
+    0.2582097714367263
+   ],
+   "neither": 0.16428571428571428,
+   "neither_ci": [
+    0.11203833564413487,
+    0.23446439889780504
+   ],
+   "collapse": 0.014285714285714285,
+   "collapse_ci": [
+    0.003926440722392111,
+    0.05058815393403153
+   ]
+  },
+  "vsteer_aligned": {
+   "n": 140,
+   "system": 0.9142857142857143,
+   "system_ci": [
+    0.8561546785502275,
+    0.9502887554192935
+   ],
+   "stale": 0.014285714285714285,
+   "stale_ci": [
+    0.003926440722392111,
+    0.05058815393403153
+   ],
+   "neither": 0.07142857142857142,
+   "neither_ci": [
+    0.03925838436844574,
+    0.12648978738722216
+   ],
+   "collapse": 0.02857142857142857,
+   "collapse_ci": [
+    0.011165776839026711,
+    0.071157212092208
    ]
   }
- }
+ },
+ "scoring_note": "collapsed recomputed with the current detector; verdict='neither' when degenerate, since degenerate output complies with neither rule"
 }
