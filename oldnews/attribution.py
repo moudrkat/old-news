@@ -152,11 +152,18 @@ def span_attributions(
 
     c = torch.zeros(len(layers), H_q, T)
     for l, layer in enumerate(layers):
-        W_o = layer.self_attn.o_proj.weight.detach().float()  # [D, H_q*d]
-        u = (W_o.t() @ r).view(H_q, d)  # per-head readout in value space
-        v = pre.cache.layers[l].values[0].detach().float()  # [H_kv, T, d]
-        v = v.repeat_interleave(pre.n_rep, dim=0)  # -> [H_q, T, d]
-        c[l] = pre.alpha[l].cpu() * (v.cpu() * u.cpu().unsqueeze(1)).sum(-1)
+        # Stay in the model's own dtype on the device. Casting o_proj to float32
+        # here allocates a second copy of a [D, H_q*d] weight per layer, which
+        # is enough to OOM an 8B model on a 16 GB card even though every result
+        # ends up on the CPU. Only the small per-head readout and the finished
+        # contribution are promoted to float32.
+        W_o = layer.self_attn.o_proj.weight.detach()          # [D, H_q*d]
+        u = (W_o.t() @ r.to(W_o.dtype)).view(H_q, d)          # [H_q, d], small
+        v = pre.cache.layers[l].values[0].detach()            # [H_kv, T, d]
+        v = v.repeat_interleave(pre.n_rep, dim=0)             # -> [H_q, T, d]
+        contrib = (v * u.unsqueeze(1)).sum(-1).float().cpu()  # [H_q, T]
+        c[l] = pre.alpha[l].cpu() * contrib
+        del W_o, u, v, contrib
 
     phi: dict[int, torch.Tensor] = {}
     for lv in sorted({x for x in levels if x is not None}):

@@ -128,6 +128,34 @@ measurement.
 
 ![two lines against suppression strength: obedience to the stale instruction drops to zero by 0.5 while recall of a fact stated in those same messages stays perfect until 0.5 and then falls away](docs/recall.png)
 
+**It is not a tokenizer artefact.** The paper's own main model does the same
+thing, on the same 12 questions, with a different tokenizer:
+
+| γ− | Qwen3-4B recalls | Llama-3.1-8B recalls |
+|---|---|---|
+| 0.5 | 12/12 | 12/12 |
+| 0.75 | 8/12 | 10/12 |
+| 0.9 | 4/12 | 3/12 |
+
+Llama needs a stronger dose before the old instruction breaks at all, and then
+loses the fact the same way, with the same shape of error — `19:40 → 19:00`,
+`302 → 02`, `4417-B → 4411`, `E-88 → e-12`. Twice it caught itself mid-answer:
+
+```
+"Your dog is called Bubbles, no, I made a mistake, you…"
+```
+
+which reads less like the fact being gone and more like retrieval being
+destabilised.
+
+```bash
+python examples/recall_across_models.py --model llama    # or --model mid
+```
+
+prints the table and every miss, split into confabulation and degenerate text.
+Raw generations for both models are in `results/`, so the misses can be
+re-scored with a different judge.
+
 ## Watching it instead of scoring it
 
 The eval here runs against a local model with torch, because it needs the KV
