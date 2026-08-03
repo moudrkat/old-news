@@ -140,6 +140,31 @@ Authority drops, memory stays, with a wide window in between. n = 12 per point.
 
 ![two lines against suppression strength: obedience to the stale instruction falls to zero while recall of a fact stated in those same messages stays at 100% until the very end of the range](docs/recall.png)
 
+## Watching it instead of scoring it
+
+The eval here runs against a local model with torch, because it needs the KV
+cache and it runs hundreds of generations. That is the right tool for counting
+and the wrong one for looking: it tells you 49.3% and nothing about what the
+model did.
+
+[brainscope](https://github.com/moudrkat/brainscope) is the other half — same
+method, served behind an OpenAI-compatible endpoint with the internals on
+screen. `oldnews/live.py` is a plain HTTP client for it, standard library only,
+no dependency and no import:
+
+```bash
+pip install brainscope && brainscope --model tiny     # in one terminal
+python -m oldnews.live --family prefix --gamma-plus 8 # in another
+```
+
+```
+without  [neither] Three primary colors are red, blue, and yellow.
+steered  [system ] ACK: The primary colors are red, green, and blue.
+22/48 head groups rescaled · 13 tokens boosted · 72 demoted
+```
+
+Then open the hierarchy tab to see which heads were listening to what.
+
 ## What's in here
 
 ```
