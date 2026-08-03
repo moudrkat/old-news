@@ -894,8 +894,10 @@ def recall_panel(summary: dict, path: Path, model_label: str):
     ax.set_xticks(xs)
     ax.set_xlabel("γ−   how hard the pre-update messages are suppressed",
                   color=INK2, fontsize=10.5, labelpad=9)
+    # parked in the empty wedge between the two curves on the right; at the old
+    # left anchor the "still obeys" row sat on top of the falling red line
     ax.legend(frameon=False, fontsize=10.5, labelcolor=INK2, loc="center left",
-              bbox_to_anchor=(0.02, 0.42))
+              bbox_to_anchor=(0.40, 0.15))
 
     fig.text(0.945, 0.035, f"{model_label} · n = {pts[0][1]['n']} per point",
              fontsize=9, color=MUTED, ha="right")
