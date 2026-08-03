@@ -91,6 +91,8 @@ JSON is the only one that doesn't move at all. I don't have an explanation, and
 an earlier one I did have turned out to be an artefact of a bug in my own head
 selection — see [NOTES.md](NOTES.md).
 
+![horizontal bars of the recovery each constraint family gets, from a casing conflict at plus one hundred points down to JSON versus prose at zero](docs/per_family.png)
+
 ![the same question answered with and without the fix: without it the model obeys a pre-update instruction to begin every reply with HELLO, with it the reply begins with ACK as the current system prompt requires, next to the aggregate rates](docs/hero.png)
 
 ## What the suppressed messages still remember
