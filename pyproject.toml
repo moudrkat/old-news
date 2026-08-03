@@ -1,0 +1,26 @@
+[project]
+name = "old-news"
+version = "0.1.0"
+description = "Stop stale chat history from outranking your current system prompt"
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.11"
+dependencies = ["torch", "transformers", "accelerate"]
+
+[project.optional-dependencies]
+eval = ["matplotlib", "numpy"]
+ui = ["fastapi", "uvicorn[standard]"]
+test = ["pytest"]
+
+[project.scripts]
+old-news-ui = "oldnews.ui.app:main"
+old-news-eval = "oldnews.evals.run:main"
+
+[tool.setuptools]
+packages = ["oldnews", "oldnews.evals", "oldnews.ui"]
+
+[tool.setuptools.package-data]
+"oldnews.ui" = ["static/*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

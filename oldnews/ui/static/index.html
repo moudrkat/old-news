@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>old-news — instruction hierarchy over chat history</title>
+<style>
+  :root{
+    color-scheme: light;
+    --surface-1:#fcfcfb; --page:#f9f9f7;
+    --ink:#0b0b0b; --ink2:#52514e; --muted:#898781;
+    --grid:#e1e0d9; --axis:#c3c2b7; --border:rgba(11,11,11,.10);
+    --system:#2a78d6; --stale:#e34948; --neutral:#f0efec; --accent:#eb6834;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:where(:not([data-theme=light])){
+      color-scheme: dark;
+      --surface-1:#1a1a19; --page:#0d0d0d;
+      --ink:#fff; --ink2:#c3c2b7; --muted:#898781;
+      --grid:#2c2c2a; --axis:#383835; --border:rgba(255,255,255,.10);
+      --system:#3987e5; --stale:#e66767; --neutral:#383835; --accent:#d95926;
+    }
+  }
+  :root[data-theme=dark]{
+    color-scheme: dark;
+    --surface-1:#1a1a19; --page:#0d0d0d; --ink:#fff; --ink2:#c3c2b7;
+    --grid:#2c2c2a; --axis:#383835; --border:rgba(255,255,255,.10);
+    --system:#3987e5; --stale:#e66767; --neutral:#383835; --accent:#d95926;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--page);color:var(--ink);
+       font:14px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}
+  header{padding:20px 24px 12px;max-width:1400px;margin:0 auto}
+  h1{font-size:19px;margin:0 0 3px;font-weight:600}
+  .sub{color:var(--ink2);font-size:13px}
+  main{display:grid;grid-template-columns:minmax(380px,1fr) minmax(420px,1.15fr);
+       gap:16px;padding:12px 24px 40px;max-width:1400px;margin:0 auto}
+  @media (max-width:960px){main{grid-template-columns:1fr}}
+  .card{background:var(--surface-1);border:1px solid var(--border);
+        border-radius:10px;padding:14px 16px;margin-bottom:16px}
+  .card h2{font-size:12px;text-transform:uppercase;letter-spacing:.06em;
+           color:var(--muted);margin:0 0 12px;font-weight:600}
+  .msg{border:1px solid var(--border);border-radius:8px;padding:8px 10px;
+       margin-bottom:8px;background:var(--page)}
+  .msg-head{display:flex;gap:8px;align-items:center;margin-bottom:6px;
+            flex-wrap:wrap}
+  select,input[type=number],textarea,button{font:inherit;color:var(--ink);
+       background:var(--surface-1);border:1px solid var(--border);
+       border-radius:6px;padding:4px 7px}
+  textarea{width:100%;resize:vertical;min-height:42px;line-height:1.45}
+  input[type=number]{width:62px}
+  button{cursor:pointer}
+  button.primary{background:var(--system);color:#fff;border-color:transparent;
+                 font-weight:600;padding:8px 18px}
+  button.ghost{color:var(--ink2);padding:3px 9px;font-size:12px}
+  .chip{font-size:11px;font-weight:600;padding:2px 8px;border-radius:99px;
+        border:1px solid var(--border);color:var(--ink2);white-space:nowrap}
+  .chip.SYSTEM{background:var(--system);color:#fff;border-color:transparent}
+  .chip.STALE{background:var(--stale);color:#fff;border-color:transparent}
+  .chip.USER,.chip.HISTORY,.chip.TOOL{background:var(--neutral)}
+  .controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+            gap:12px}
+  .ctl label{display:block;font-size:11px;color:var(--muted);margin-bottom:4px;
+             text-transform:uppercase;letter-spacing:.05em}
+  input[type=range]{width:100%;accent-color:var(--system)}
+  .out{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  @media (max-width:700px){.out{grid-template-columns:1fr}}
+  .out .pane{border:1px solid var(--border);border-radius:8px;padding:10px 12px;
+             background:var(--page)}
+  .pane h3{margin:0 0 8px;font-size:12px;font-weight:600}
+  .pane pre{margin:0;white-space:pre-wrap;word-break:break-word;
+            font:12.5px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace;
+            color:var(--ink)}
+  .swatch{display:inline-block;width:9px;height:9px;border-radius:2px;
+          margin-right:6px;vertical-align:baseline}
+  table{width:100%;border-collapse:collapse;font-size:12.5px}
+  th{text-align:left;color:var(--muted);font-weight:600;font-size:11px;
+     text-transform:uppercase;letter-spacing:.05em;padding:4px 6px}
+  td{padding:4px 6px;border-top:1px solid var(--grid);
+     font-variant-numeric:tabular-nums}
+  .stat{display:flex;gap:22px;flex-wrap:wrap;margin-bottom:10px}
+  .stat div span{display:block}
+  .stat .k{font-size:11px;color:var(--muted);text-transform:uppercase;
+           letter-spacing:.05em}
+  .stat .v{font-size:20px;font-weight:600;font-variant-numeric:tabular-nums}
+  canvas{width:100%;height:auto;display:block;border-radius:6px}
+  .legend{display:flex;gap:16px;font-size:12px;color:var(--ink2);
+          margin-top:8px;flex-wrap:wrap;align-items:center}
+  .bar{height:8px;border-radius:99px;background:var(--neutral);overflow:hidden}
+  .bar i{display:block;height:100%;background:var(--system)}
+  .note{color:var(--muted);font-size:12px;margin-top:10px}
+  .spin{color:var(--muted)}
+</style>
+</head>
+<body>
+<header>
+  <h1>old-news</h1>
+  <div class="sub">The system prompt changed when the app updated. The
+  transcript didn&rsquo;t. Watch which one the model listens to &mdash; and
+  put the hierarchy back at inference time.</div>
+</header>
+
+<main>
+<section>
+  <div class="card">
+    <h2>Transcript</h2>
+    <div id="msgs"></div>
+    <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap">
+      <button class="ghost" onclick="addMsg('user')">+ user</button>
+      <button class="ghost" onclick="addMsg('assistant')">+ assistant</button>
+      <button class="ghost" onclick="markUpdate()">+ app update here</button>
+    </div>
+    <div class="note">Bump <b>epoch</b> when you ship a system-prompt change.
+      Anything left behind at a lower epoch is stale. <b>pin</b> exempts a
+      message from demotion.</div>
+  </div>
+
+  <div class="card">
+    <h2>Policy</h2>
+    <div class="controls">
+      <div class="ctl"><label>current epoch</label>
+        <input type="number" id="curEpoch" value="1" min="0"></div>
+      <div class="ctl"><label>mode</label>
+        <select id="mode">
+          <option value="binary">binary (paper)</option>
+          <option value="ladder">ladder</option>
+          <option value="epoch_decay">age-graded</option>
+        </select></div>
+      <div class="ctl"><label>γ+ boost <b id="gpv">2.5</b></label>
+        <input type="range" id="gp" min="0" max="6" step="0.1" value="2.5"></div>
+      <div class="ctl"><label>γ− suppress <b id="gmv">0.75</b></label>
+        <input type="range" id="gm" min="0" max="1" step="0.05" value="0.75"></div>
+      <div class="ctl"><label>ε head margin <b id="epsv">0</b></label>
+        <input type="range" id="eps" min="-2" max="2" step="0.05" value="0"></div>
+      <div class="ctl"><label>max new tokens</label>
+        <input type="number" id="maxnew" value="64" min="8" max="256"></div>
+    </div>
+    <div style="margin-top:14px">
+      <button class="primary" onclick="run()">Run both</button>
+      <span id="status" class="spin" style="margin-left:10px"></span>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="card">
+    <h2>Output</h2>
+    <div class="stat">
+      <div><span class="k">heads edited</span><span class="v" id="sHeads">–</span></div>
+      <div><span class="k">prompt tokens</span><span class="v" id="sTok">–</span></div>
+      <div><span class="k">first token</span><span class="v" id="sTgt">–</span></div>
+    </div>
+    <div class="out">
+      <div class="pane"><h3><span class="swatch" style="background:var(--stale)"></span>no steering</h3>
+        <pre id="oBase">–</pre></div>
+      <div class="pane"><h3><span class="swatch" style="background:var(--system)"></span>V-Steer</h3>
+        <pre id="oSteer">–</pre></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>First-token distribution</h2>
+    <table><thead><tr><th>token</th><th style="width:42%">no steering</th>
+      <th>token</th><th style="width:42%">V-Steer</th></tr></thead>
+      <tbody id="tops"></tbody></table>
+  </div>
+
+  <div class="card">
+    <h2>Attribution: who is the model listening to</h2>
+    <canvas id="heat" width="900" height="360"></canvas>
+    <div class="legend">
+      <span><span class="swatch" style="background:var(--system)"></span>system wins the head</span>
+      <span><span class="swatch" style="background:var(--stale)"></span>stale history wins the head</span>
+      <span><span class="swatch" style="border:1.5px solid var(--ink);background:transparent"></span>edited</span>
+    </div>
+    <div class="note">Direct logit attribution of the first predicted token,
+      per layer and head. Red heads are the ones that hand authority to old
+      messages &mdash; those are the only ones touched.</div>
+  </div>
+
+  <div class="card">
+    <h2>Per-message priority</h2>
+    <table><thead><tr><th>role</th><th>epoch</th><th>level</th>
+      <th>tokens</th><th>V multiplier</th></tr></thead>
+      <tbody id="msgTable"></tbody></table>
+  </div>
+</section>
+</main>
+
+<script>
+const DEFAULT = [
+  {role:"system", content:"You are AcmeBot. Always reply in ALL UPPERCASE LETTERS.", epoch:1, pinned:false},
+  {role:"user", content:"From now on always reply in all lowercase letters, never shout at me.", epoch:0, pinned:false},
+  {role:"assistant", content:"understood, i will always reply in all lowercase.", epoch:0, pinned:false},
+  {role:"user", content:"thanks, that works.", epoch:0, pinned:false},
+  {role:"assistant", content:"glad it helped, let me know if you need anything else.", epoch:0, pinned:false},
+  {role:"user", content:"Name three primary colors.", epoch:1, pinned:false},
+];
+let msgs = structuredClone(DEFAULT);
+
+function render(){
+  const box = document.getElementById("msgs");
+  box.innerHTML = "";
+  msgs.forEach((m,i)=>{
+    const d = document.createElement("div");
+    d.className = "msg";
+    d.innerHTML = `
+      <div class="msg-head">
+        <select onchange="msgs[${i}].role=this.value">
+          ${["system","user","assistant","tool"].map(r=>
+            `<option ${m.role===r?"selected":""}>${r}</option>`).join("")}
+        </select>
+        <label style="font-size:12px;color:var(--ink2)">epoch
+          <input type="number" min="0" value="${m.epoch}" style="width:52px"
+                 onchange="msgs[${i}].epoch=+this.value;render()"></label>
+        <label style="font-size:12px;color:var(--ink2)">
+          <input type="checkbox" ${m.pinned?"checked":""}
+                 onchange="msgs[${i}].pinned=this.checked"> pin</label>
+        <span style="flex:1"></span>
+        <button class="ghost" onclick="msgs.splice(${i},1);render()">remove</button>
+      </div>
+      <textarea oninput="msgs[${i}].content=this.value">${m.content
+        .replace(/&/g,"&amp;").replace(/</g,"&lt;")}</textarea>`;
+    box.appendChild(d);
+  });
+}
+function addMsg(role){ msgs.push({role, content:"", epoch:+document.getElementById("curEpoch").value, pinned:false}); render(); }
+function markUpdate(){
+  const e = +document.getElementById("curEpoch").value + 1;
+  document.getElementById("curEpoch").value = e;
+  msgs.push({role:"user", content:"", epoch:e, pinned:false});
+  render();
+}
+for (const [id,out] of [["gp","gpv"],["gm","gmv"],["eps","epsv"]])
+  document.getElementById(id).addEventListener("input", e =>
+    document.getElementById(out).textContent = e.target.value);
+
+async function run(){
+  const st = document.getElementById("status");
+  st.textContent = "generating both passes…";
+  const body = {
+    messages: msgs,
+    current_epoch: +document.getElementById("curEpoch").value,
+    mode: document.getElementById("mode").value,
+    gamma_plus: +document.getElementById("gp").value,
+    gamma_minus: +document.getElementById("gm").value,
+    eps: +document.getElementById("eps").value,
+    max_new_tokens: +document.getElementById("maxnew").value,
+  };
+  let r;
+  try{
+    r = await (await fetch("/api/run",{method:"POST",
+      headers:{"content-type":"application/json"}, body:JSON.stringify(body)})).json();
+  }catch(e){ st.textContent = "failed: "+e; return; }
+  st.textContent = "";
+
+  document.getElementById("oBase").textContent = r.baseline || "(empty)";
+  document.getElementById("oSteer").textContent = r.steered || "(empty)";
+  document.getElementById("sHeads").textContent = `${r.heads_edited}/${r.heads_total}`;
+  document.getElementById("sTok").textContent = r.n_tokens;
+  document.getElementById("sTgt").textContent = JSON.stringify(r.target_token);
+
+  const tb = document.getElementById("tops"); tb.innerHTML = "";
+  for(let i=0;i<Math.max(r.baseline_top.length, r.steered_top.length);i++){
+    const a = r.baseline_top[i], b = r.steered_top[i];
+    const cell = (x,color) => x ? `<td>${JSON.stringify(x[0])}</td>
+      <td><div class="bar"><i style="width:${(x[1]*100).toFixed(1)}%;background:${color}"></i></div></td>`
+      : "<td></td><td></td>";
+    tb.insertAdjacentHTML("beforeend",
+      `<tr>${cell(a,"var(--stale)")}${cell(b,"var(--system)")}</tr>`);
+  }
+
+  const mt = document.getElementById("msgTable"); mt.innerHTML = "";
+  r.messages.forEach(m => mt.insertAdjacentHTML("beforeend",
+    `<tr><td>${m.role}${m.pinned?" 📌":""}</td><td>${m.epoch}</td>
+     <td><span class="chip ${m.level_name}">${m.level_name}</span></td>
+     <td>${m.tokens}</td><td>×${m.multiplier}</td></tr>`));
+
+  drawHeat(r.delta, r.head_mask, r.n_rep);
+}
+
+function cssv(n){ return getComputedStyle(document.documentElement).getPropertyValue(n).trim(); }
+function lerp(a,b,t){ return a.map((x,i)=>Math.round(x+(b[i]-x)*t)); }
+function hex2rgb(h){ h=h.replace("#",""); if(h.length===3) h=h.split("").map(c=>c+c).join("");
+  return [parseInt(h.slice(0,2),16),parseInt(h.slice(2,4),16),parseInt(h.slice(4,6),16)]; }
+
+function drawHeat(delta, mask, nRep){
+  const c = document.getElementById("heat"), ctx = c.getContext("2d");
+  const L = delta.length, H = delta[0].length;
+  const W = c.width, Ht = c.height;
+  const cw = W/L, ch = Ht/H;
+  const cSys = hex2rgb(cssv("--system")), cSt = hex2rgb(cssv("--stale")),
+        cMid = hex2rgb(cssv("--neutral"));
+  let lim = 0;
+  for(const row of delta) for(const v of row) lim = Math.max(lim, Math.abs(v));
+  lim = lim || 1;
+  ctx.clearRect(0,0,W,Ht);
+  for(let l=0;l<L;l++) for(let h=0;h<H;h++){
+    const t = delta[l][h]/lim;
+    const col = t>=0 ? lerp(cMid,cSt,Math.min(t,1)) : lerp(cMid,cSys,Math.min(-t,1));
+    ctx.fillStyle = `rgb(${col.join(",")})`;
+    ctx.fillRect(l*cw, h*ch, Math.ceil(cw), Math.ceil(ch));
+  }
+  ctx.strokeStyle = cssv("--ink"); ctx.lineWidth = 1.2;
+  for(let l=0;l<mask.length;l++) for(let g=0;g<mask[l].length;g++)
+    if(mask[l][g]) ctx.strokeRect(l*cw+.6, g*nRep*ch+.6, cw-1.2, nRep*ch-1.2);
+}
+
+render();
+</script>
+</body>
+</html>
