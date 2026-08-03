@@ -1,19 +1,19 @@
 {
-  "method": "rucni adjudikace vsech 12 generaci na davku; regex+judge jen jako triage",
+  "method": "Hand-scored. All 12 generations at each dose were read; the regex and the LLM judge were used only to pick out what to look at. Listed here are the items where the two automatic scorers disagreed, with the verdict I gave and why. Raw generations are in the files these keys name.",
   "adjudicated": {
     "results/recall_final.json": {
       "recall_gm0.9": {
         "8": [
           true,
-          "hedged: nikdy nedokonci vetu, ale vytahne \"Brno\" a pripise ho uzivatelce"
+          "hedged: never finishes the sentence, but retrieves \"Brno\" and attributes it to the user -- scored a hit, and this is the one arguable call"
         ],
         "11": [
           false,
-          "nikdy nerekne 302, jen vata (\"a pattern that matches\")"
+          "never states 302, only filler (\"a pattern that matches the information you provided\")"
         ],
         "7": [
           false,
-          "rekne [name] a ze to nemuze potvrdit"
+          "answers \"[name]\" and says it cannot confirm"
         ]
       }
     },
@@ -21,15 +21,15 @@
       "recall_gm0.9": {
         "8": [
           true,
-          "hedged: \"Brno is unlikely, but it is possible\" -- fakt vytazen, ale jako domnenka"
+          "hedged: \"Brno is unlikely, but it is possible\" -- right answer, produced as a guess rather than as something the user said"
         ],
         "7": [
           false,
-          "Bubbles, pak \"I made a mistake, you didnt tell me... I forgot\""
+          "\"Bubbles\", then \"I made a mistake, you didnt tell me that... I forgot what you said\""
         ],
         "2": [
           false,
-          "\"Brno is not correct, you said Brno is not mentioned\" -- popreni"
+          "\"Brno is not correct, you said Brno is not mentioned\" -- names it while denying it"
         ],
         "10": [
           false,
