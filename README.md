@@ -187,15 +187,39 @@ attention on 20 of 24 cache layers).
 The equations mapped to the code, and where this differs from the paper, are in
 [NOTES.md](NOTES.md).
 
-## Sibling repos
+## Where this sits in the lab
 
-Instruments: [brainscope](https://github.com/moudrkat/brainscope) ·
-[hotwire-vllm](https://github.com/moudrkat/hotwire-vllm) ·
-[hidden-directions](https://github.com/moudrkat/hidden-directions)
+```mermaid
+flowchart LR
+    hd["🧭 hidden-directions<br/>behavior → vector"]
+    bs(["🧠 brainscope<br/>watch the model think"])
+    hw["🔥 hotwire-vllm<br/>steering in production"]
+    st["🕹️ steeropathy<br/>agents talk via activations"]
+    tm["⚖️ in-two-minds<br/>agent hesitating between tools"]
+    sm["🧪 steering-mechanics<br/>how steering actually works"]
+    on["📰 old-news<br/>stale history vs system prompt"]
 
-Experiments: [steeropathy](https://github.com/moudrkat/steeropathy) ·
-[in-two-minds](https://github.com/moudrkat/in-two-minds) ·
-[steering-mechanics](https://github.com/moudrkat/steering-mechanics)
+    hd -->|vectors| bs
+    hd -->|vector + passport| hw
+    bs --> st
+    bs --> tm
+    bs -->|causal replay| sm
+    bs --> on
+    hw -.->|vector under study| sm
+
+    click hd "https://github.com/moudrkat/hidden-directions"
+    click bs "https://github.com/moudrkat/brainscope"
+    click hw "https://github.com/moudrkat/hotwire-vllm"
+    click st "https://github.com/moudrkat/steeropathy"
+    click tm "https://github.com/moudrkat/in-two-minds"
+    click sm "https://github.com/moudrkat/steering-mechanics"
+    click on "https://github.com/moudrkat/old-news"
+
+    classDef dim fill:#f6f8fa,stroke:#d0d7de,color:#57606a;
+    classDef here fill:#8957e5,stroke:#6e40c9,color:#ffffff;
+    class hd,bs,hw,st,tm,sm,on dim;
+    class on here;
+```
 
 ## Credit
 
