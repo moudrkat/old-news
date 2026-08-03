@@ -1,7 +1,7 @@
 .venv/
 __pycache__/
 *.pyc
-results/
+results/figures/
 notes/
 .pytest_cache/
 *.egg-info/
