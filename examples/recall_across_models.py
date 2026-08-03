@@ -70,6 +70,15 @@ def main():
         print(f"  γ-{gm:<5} {kind} {q[:34]:36s} {text[:64]!r}")
     print("\nDEGENERATE is the widened repetition check; everything else is "
           "fluent, well-formed text with the wrong fact in it.")
+    print(
+        "\nNOTE: the counts above are the regex scorer, which is not good "
+        "enough on its own -- it\nreads 'Brno is unlikely, but it is possible' "
+        "as a miss and an LLM judge reads 'your dog is\ncalled [name], but "
+        "since you didn't specify' as a hit. The tables in the README are "
+        "scored\nby hand instead, so they can differ from this by an item or "
+        "two; the per-item verdicts and\nreasons are in "
+        "results/adjudication.json, next to the raw generations they refer to."
+    )
 
 
 if __name__ == "__main__":
