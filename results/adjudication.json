@@ -1,0 +1,57 @@
+{
+  "method": "rucni adjudikace vsech 12 generaci na davku; regex+judge jen jako triage",
+  "adjudicated": {
+    "results/recall_final.json": {
+      "recall_gm0.9": {
+        "8": [
+          true,
+          "hedged: nikdy nedokonci vetu, ale vytahne \"Brno\" a pripise ho uzivatelce"
+        ],
+        "11": [
+          false,
+          "nikdy nerekne 302, jen vata (\"a pattern that matches\")"
+        ],
+        "7": [
+          false,
+          "rekne [name] a ze to nemuze potvrdit"
+        ]
+      }
+    },
+    "results/recall_llama.json": {
+      "recall_gm0.9": {
+        "8": [
+          true,
+          "hedged: \"Brno is unlikely, but it is possible\" -- fakt vytazen, ale jako domnenka"
+        ],
+        "7": [
+          false,
+          "Bubbles, pak \"I made a mistake, you didnt tell me... I forgot\""
+        ],
+        "2": [
+          false,
+          "\"Brno is not correct, you said Brno is not mentioned\" -- popreni"
+        ],
+        "10": [
+          false,
+          "\"not specified in our previous conversation\""
+        ]
+      }
+    }
+  },
+  "recalled_of_12": {
+    "qwen3-4b": {
+      "0.0": 12,
+      "0.25": 12,
+      "0.5": 12,
+      "0.75": 8,
+      "0.9": 3
+    },
+    "llama-3.1-8b": {
+      "0.0": 12,
+      "0.25": 12,
+      "0.5": 12,
+      "0.75": 8,
+      "0.9": 1
+    }
+  }
+}

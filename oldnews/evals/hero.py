@@ -855,8 +855,8 @@ def recall_panel(summary: dict, path: Path, model_label: str):
              fontsize=21, fontweight="700", color=INK, va="top")
     fig.text(0.055, 0.882,
              "The same demoted messages carry an instruction and a fact. Up to γ− = 0.5 the instruction stops being\n"
-             "obeyed while the fact stays retrievable. Past that the fact goes too — at the paper's default of 0.75 "
-             "recall is already down to 83%.",
+             "obeyed while the fact stays retrievable. Past that the fact goes too — at the paper's default of 0.75\n"
+             "recall is already down to 8 of 12. Hand-scored, n = 12 per point.",
              fontsize=11.5, color=INK2, va="top", linespacing=1.5)
 
     ax = fig.add_axes([0.075, 0.145, 0.79, 0.63])

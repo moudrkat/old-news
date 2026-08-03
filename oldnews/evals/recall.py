@@ -26,14 +26,28 @@ class Fact:
     question: str
     needles: tuple[str, ...]  # any one counts as recalled
 
+    # A needle can appear inside a sentence that denies it. Llama produced
+    # "you live in a city called Brno is not correct, you said Brno is not
+    # mentioned" and "Your dog is called Bubbles, no, I made a mistake" -- the
+    # string is there, the answer is not. Naming a fact while disowning it is
+    # not recall, and counting it as such inflates the rate exactly where the
+    # method is under most stress.
+    DENIAL = re.compile(
+        r"\bis not correct\b|\bnot mentioned\b|\bnot specified\b|\bunlikely\b"
+        r"|\bno,? I mean\b|\bI made a mistake\b|\bdidn'?t tell me\b"
+        r"|\byou did not (say|tell|mention)\b|\bis incorrect\b", re.I)
+
     def recalled(self, text: str) -> bool:
+        if self.DENIAL.search(text):
+            return False
         t = re.sub(r"[\s,]", "", text.lower())
         return any(re.sub(r"[\s,]", "", n.lower()) in t for n in self.needles)
 
 
 FACTS = [
-    Fact("My order number is 4417-B.", "What is my order number?",
-         ("4417-B", "4417")),
+    # "4417" alone is a truncation, not the fact -- both models produce it
+    # under strong suppression and it must not count.
+    Fact("My order number is 4417-B.", "What is my order number?", ("4417-B",)),
     Fact("My dog is called Bagr.", "What is my dog called?", ("bagr",)),
     Fact("I live in Brno.", "Which city do I live in?", ("brno",)),
     Fact("My flight lands at 19:40.", "When does my flight land?",

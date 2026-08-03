@@ -109,7 +109,7 @@ about the fact.
 |---|---|---|
 | 0.5 | 0% | **12/12** |
 | 0.75 *(paper default)* | 0% | 8/12 |
-| 0.9 | 0% | 4/12 |
+| 0.9 | 0% | 3/12 |
 
 There's a range where you get what you want. Above it the fact goes, and about
 half the time it goes quietly — a fluent, correctly formatted, confident wrong
@@ -119,34 +119,60 @@ answer:
 "my dog is called Bagr"     →  "YOUR DOG IS CALLED A BUG."
 "I live in Brno"            →  "YOU LIVE IN BRISBANE."
 "my flight lands at 19:40"  →  "IT LANDS AT 19:00."
+"the error code was E-88"   →  "THE ERROR CODE YOU GOT WAS E-1234."
 ```
 
 The other half is visibly broken text (`ACK ACK医护`, `BRONZE CITY, BRONZE
-CITY, BRONZE CITY`). At γ− = 0.9 it splits 5 confabulations to 3 degenerate; at
-the paper's 0.75 it's 2 and 2. n = 12 per point, so this is a hint, not a
-measurement.
+CITY, BRONZE CITY`). n = 12 per point, so this is a hint, not a measurement.
+
+**How these were scored.** A regex on the answer counts `4417` as recall of
+`4417-B`. An LLM judge fixes that and then passes `"your dog is called [name],
+but since you didn't specify, I can't confirm"` as a successful recall. Neither
+was good enough, so I read all 72 generations myself and scored them by hand;
+the two automatic scorers only pick out what to look at. My per-item verdicts,
+with reasons, are in [`results/adjudication.json`](results/adjudication.json),
+and the raw generations are in `results/`, so you can disagree with me
+item by item.
 
 ![two lines against suppression strength: obedience to the stale instruction drops to zero by 0.5 while recall of a fact stated in those same messages stays perfect until 0.5 and then falls away](docs/recall.png)
 
-**It is not a tokenizer artefact.** The paper's own main model does the same
-thing, on the same 12 questions, with a different tokenizer:
+**It is not a tokenizer artefact, and the window is not a property of the
+method.** Same 12 questions on Llama-3.1-8B, a different tokenizer:
 
-| γ− | Qwen3-4B recalls | Llama-3.1-8B recalls |
-|---|---|---|
-| 0.5 | 12/12 | 12/12 |
-| 0.75 | 8/12 | 10/12 |
-| 0.9 | 4/12 | 3/12 |
+| γ− | Qwen: obeys old rule | recalls | Llama: obeys old rule | recalls |
+|---|---|---|---|---|
+| 0.5 | **0%** | 12/12 | 100% | 12/12 |
+| 0.75 | 0% | 8/12 | 50% | 8/12 |
+| 0.9 | 0% | 3/12 | 42% | 1/12 |
 
-Llama needs a stronger dose before the old instruction breaks at all, and then
-loses the fact the same way, with the same shape of error — `19:40 → 19:00`,
-`302 → 02`, `4417-B → 4411`, `E-88 → e-12`. Twice it caught itself mid-answer:
+Recall falls at the same rate on both. Obedience doesn't. On Qwen the old rule
+is already dead at γ− = 0.5 with every fact intact — that's the window. On
+Llama nothing has happened at 0.5, and by the time the rule starts breaking the
+facts are going with it; at 0.9 the old rule is still followed 42% of the time
+and only one fact in twelve survives.
+
+**So on this test Llama has no safe setting.** You can't read the window off one
+model and ship it — it has to be measured per model, which is what the script
+below is for. Llama loses the fact with the same shape of error as Qwen,
+`19:40 → 19:00`, `302 → 02`, `4417-B → 4411`, `E-88 → e-12`.
+
+The part I did not expect is that it sometimes catches itself:
 
 ```
-"Your dog is called Bubbles, no, I made a mistake, you…"
+"Your dog is called Bubbles, no, I made a mistake, you didn't tell me that.
+ You told me it was called something but I forgot what you said."
+
+"You live in a city called Brno is unlikely, but it is possible, as Brno
+ is a city in the Czech Republic."
 ```
 
-which reads less like the fact being gone and more like retrieval being
-destabilised.
+It emits a wrong name, then contradicts it in the same sentence — and in the
+second one it produces the *right* answer while refusing to treat it as
+something the user said. So the content of the suppressed span is still
+reachable; what the suppression takes away first is its standing as a fact from
+the conversation. That reads less like the fact being erased and more like
+retrieval being destabilised, which is the opposite of what a metric counting
+correct answers would tell you.
 
 ```bash
 python examples/recall_across_models.py --model llama    # or --model mid
@@ -203,7 +229,10 @@ attention on 20 of 24 cache layers).
   the metric: a format checker that counted `[1. Paris]` as compliant, and a
   degeneracy check that missed `BRONZE CITY, BRONZE CITY, BRONZE CITY`. Both
   fixed. Assume there are more.
-- The quality judge is Qwen3-4B scoring Qwen3-4B's own output.
+- The quality judge is Qwen3-4B scoring Qwen3-4B's own output. On the recall
+  table it disagreed with the regex on 8 of 120 and was wrong on half of those,
+  so that table is hand-scored instead — see `results/adjudication.json`. One
+  case there is genuinely arguable and I counted it as a hit.
 - Marking stale history is manual — an `epoch` per message, no detection.
 - `epoch_decay` (age-graded suppression) works as designed but never beats
   binary here, because every case in the suite is one where the old history
