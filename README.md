@@ -111,7 +111,7 @@ Details in [NOTES.md](NOTES.md) so nobody repeats it.
 | 5.0 | 0.5 | 47% | 97% | 47% |
 | 8.0 | 1.0 | 65% | 93% | 57% |
 
-On `options` alone that's 45% → 75%. The paper never sweeps `γ+` past 2.5.
+On `options` alone that's 45% → 75%.
 
 Push further and it stops meaning anything. At `γ+ 20` the checker reports 95%
 while the model is writing `function function function`, and at `γ+ 10` it
@@ -123,10 +123,9 @@ deterministic single-forward-pass judge (`oldnews/evals/judge.py`).
 
 ## It doesn't cause amnesia
 
-The paper doesn't measure this and it decides whether the method is usable at
-all. If demoting old messages also made the model forget them it would be no
-good — a user's order number doesn't stop being true when the system prompt
-changes.
+If demoting old messages also made the model forget them, the whole thing would
+be no good — a user's order number doesn't stop being true when the system
+prompt changes.
 
 So I put an instruction and a fact in the same demoted messages and swept:
 
@@ -168,15 +167,15 @@ attention on 20 of 24 cache layers).
 - My first format checker was too narrow and counted `[1. Paris]` as compliant,
   which inflated one result until I read the outputs. Fixed, but the collapse
   detector is probably still too narrow.
-- `epoch_decay` (age-graded suppression, my extension) works as designed but
+- `epoch_decay` (age-graded suppression) works as designed but
   never beats binary here, because every case in the suite is one where the old
   history should lose. No case yet that rewards keeping recent history.
 - No general-capability regression check (the paper uses MMLU/IFEval/BBH).
 - Head selection is per KV head, not per query head — under grouped-query
-  attention the cache can't be edited finer. My reduction, not the paper's.
+  attention the cache can't be edited any finer.
 - No comparison against an activation steering vector yet. That's next.
 
-Deviations from the paper, with the equations mapped to the code, are in
+The equations mapped to the code, and where this differs from the paper, are in
 [NOTES.md](NOTES.md).
 
 ## Sibling repos
@@ -191,10 +190,11 @@ Experiments: [steeropathy](https://github.com/moudrkat/steeropathy) ·
 
 ## Credit
 
-The method is theirs — *Steering Instruction Hierarchies at Inference Time*,
-Siqi Zeng, Sewoong Lee, Han Zhao, Julia Hockenmaier, arXiv:2607.26228, COLM
-2026. Their code is at
-[cindy2000sh/v-steer](https://github.com/cindy2000sh/v-steer); I wrote this from
-the paper without reading it, so anything broken here is mine.
+*Steering Instruction Hierarchies at Inference Time* — Siqi Zeng, Sewoong Lee,
+Han Zhao, Julia Hockenmaier, arXiv:2607.26228, COLM 2026. Code:
+[cindy2000sh/v-steer](https://github.com/cindy2000sh/v-steer).
+
+This repo is written from the paper rather than from their code, so any bug here
+is a bug in my reading of it.
 
 MIT.
