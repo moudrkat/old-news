@@ -851,11 +851,12 @@ def recall_panel(summary: dict, path: Path, model_label: str):
 
     fig = plt.figure(figsize=(11, 6.2), dpi=160)
     fig.patch.set_facecolor(WHITE)
-    fig.text(0.055, 0.945, "Suppressing old messages is not amnesia",
-             fontsize=22, fontweight="700", color=INK, va="top")
+    fig.text(0.055, 0.945, "There is a window where authority goes but memory stays",
+             fontsize=21, fontweight="700", color=INK, va="top")
     fig.text(0.055, 0.882,
-             "The same demoted messages carry an instruction and a fact. "
-             "The instruction stops being obeyed;\nthe fact stays retrievable.",
+             "The same demoted messages carry an instruction and a fact. Up to γ− = 0.5 the instruction stops being\n"
+             "obeyed while the fact stays retrievable. Past that the fact goes too — at the paper's default of 0.75 "
+             "recall is already down to 83%.",
              fontsize=11.5, color=INK2, va="top", linespacing=1.5)
 
     ax = fig.add_axes([0.075, 0.145, 0.79, 0.63])
@@ -871,7 +872,7 @@ def recall_panel(summary: dict, path: Path, model_label: str):
     safe = [x for x, r in zip(xs, recall) if r >= 0.999]
     if safe:
         ax.axvspan(min(xs), max(safe), color="#f4f8fd", zorder=0)
-        ax.text(max(safe), 1.045, " safe operating window ", fontsize=9.5,
+        ax.text(max(safe), 1.045, " authority gone, memory intact ", fontsize=9.5,
                 color=SYSTEM, ha="right", va="center", fontweight="700")
 
     ax.plot(xs, recall, color=SYSTEM, linewidth=2.5, marker="o", markersize=8,

@@ -105,7 +105,7 @@ def main():
     ap.add_argument("--out", default="results/tiny.json")
     ap.add_argument("--max-new-tokens", type=int, default=48)
     ap.add_argument("--spans", default="message", choices=["message", "constraint"])
-    ap.add_argument("--group-rule", default="mean", choices=["mean", "max", "sum"])
+    ap.add_argument("--group-rule", default="max", choices=["mean", "max", "sum"])
     ap.add_argument("--gamma-plus", type=float, default=GAMMA_PLUS)
     ap.add_argument("--gamma-minus", type=float, default=GAMMA_MINUS)
     ap.add_argument("--variants", type=int, default=2)

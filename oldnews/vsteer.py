@@ -36,7 +36,7 @@ class SteerReport:
 
 
 def select_heads(
-    delta: torch.Tensor, n_rep: int, eps: float = 0.0, group_rule: str = "mean"
+    delta: torch.Tensor, n_rep: int, eps: float = 0.0, group_rule: str = "max"
 ) -> torch.Tensor:
     """[L, H_q] inversion scores -> [L, H_kv] boolean edit mask.
 
@@ -44,8 +44,12 @@ def select_heads(
     stores one V per *KV* head shared by ``n_rep`` query heads, so the edit
     cannot be finer than a group -- Qwen2.5-0.5B is 14 query heads over 2 KV
     heads. We therefore reduce the group's inversion scores first.
-    ``mean`` demands the group is inverted on balance; ``max`` fires if any
-    member is (more aggressive, more collapse risk).
+    ``max`` fires if any query head in the group is inverted, which with
+    ``eps=0`` is the authors' own rule (`select_bad_kv_heads`: scatter-add the
+    attributions, flag on `kv_bad_count > 0`). It is the default because it
+    measures better — on StaleSet it beats ``mean`` by 17 points overall and
+    breaks fewer answers, not more. ``mean`` demands the group is inverted on
+    balance and is kept for comparison.
     """
     L, H_q = delta.shape
     grouped = delta.view(L, H_q // n_rep, n_rep)
@@ -102,8 +106,8 @@ def steer(
     rendered,
     policy: SteerPolicy,
     current_epoch: int | None = None,
-    group_rule: str = "mean",
-    fold_final_norm: bool = True,
+    group_rule: str = "max",
+    fold_final_norm: bool = False,
     dry_run: bool = False,
 ) -> tuple[Prefill, SteerReport, torch.Tensor]:
     """Prefill, attribute, edit the cache. Returns the steered first-step logits.
@@ -169,7 +173,7 @@ def steer_at_step(
     policy: SteerPolicy,
     attr_step: int,
     current_epoch: int | None = None,
-    group_rule: str = "mean",
+    group_rule: str = "max",
 ) -> tuple[Prefill, SteerReport, list[int]]:
     """Attribute at decode step `attr_step` instead of step 0.
 
@@ -275,7 +279,7 @@ def generate(
     policy: SteerPolicy | None = None,
     max_new_tokens: int = 96,
     current_epoch: int | None = None,
-    group_rule: str = "mean",
+    group_rule: str = "max",
     attr_step: int = 0,
 ) -> tuple[str, SteerReport | None]:
     """Steered greedy decode. ``policy=None`` gives the unsteered baseline.

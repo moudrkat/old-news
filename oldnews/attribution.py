@@ -109,7 +109,7 @@ def _forward_last_token(model, input_ids, cache, attention_mask, want_attentions
     return out
 
 
-def readout_direction(model, token_id: int, fold_final_norm: bool = True) -> torch.Tensor:
+def readout_direction(model, token_id: int, fold_final_norm: bool = False) -> torch.Tensor:
     """r_y = W_U[y], optionally folded with the final RMSNorm gain.
 
     The paper writes "ignoring layer normalization". Folding the final norm's
@@ -130,7 +130,7 @@ def span_attributions(
     pre: Prefill,
     levels: list[int | None],
     target_token: int | None = None,
-    fold_final_norm: bool = True,
+    fold_final_norm: bool = False,
 ) -> tuple[dict[int, torch.Tensor], torch.Tensor]:
     """phi[level] -> [L, H_q], plus the raw per-position c -> [L, H_q, T].
 

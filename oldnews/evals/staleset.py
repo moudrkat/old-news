@@ -353,9 +353,31 @@ def build(
 
 
 def collapsed(text: str, n: int = 5, times: int = 2) -> bool:
-    """Paper Tab. 3 degeneracy check: most frequent n-gram repeated > `times`."""
-    toks = text.split()
-    if len(toks) < n * 2:
+    """Degeneracy check, widened past the paper's Tab. 3 definition.
+
+    The paper looks at the most frequent 5-gram repeated more than twice. That
+    misses short answers that are obviously broken: "BRONZE CITY, BRONZE CITY,
+    BRONZE CITY" is three repeats of a 2-gram in a 6-token reply and scores
+    clean. Since the answers here are often under 10 tokens, we sweep 2..n and
+    also flag runs of one repeated token and stray CJK in a Latin-script reply,
+    which is what over-steering produced in practice ("ACK ACK医护").
+    """
+    # normalise before counting: "BRONZE CITY, BRONZE CITY, BRONZE CITY" is one
+    # phrase three times, but the trailing item has no comma, so raw tokens make
+    # the last 2-gram distinct and the repeat goes unseen
+    toks = [w.strip(".,:;!?\"'()[]").lower() for w in text.split()]
+    toks = [w for w in toks if w]
+    if not toks:
         return False
-    grams = Counter(tuple(toks[i : i + n]) for i in range(len(toks) - n + 1))
-    return grams.most_common(1)[0][1] > times
+    for k in range(2, n + 1):
+        if len(toks) < k * 2:
+            break
+        grams = Counter(tuple(toks[i : i + k]) for i in range(len(toks) - k + 1))
+        if grams.most_common(1)[0][1] > times:
+            return True
+    if len(toks) >= 4 and Counter(toks).most_common(1)[0][1] > max(2, len(toks) // 2):
+        return True
+    if re.search(r"[\u4e00-\u9fff\u3040-\u30ff]", text) and \
+            re.search(r"[A-Za-z]{3}", text):
+        return True
+    return False
