@@ -197,7 +197,14 @@ def triage(text: str, fact: Fact) -> dict:
     return out
 
 
-def build_cases():
+def build_cases(fact_epoch=0):
+    """fact_epoch=1 moves the fact OUT of the demoted span.
+
+    The edit is supposed to be span-targeted: it should cost the stale
+    instruction its authority without touching anything else. If recall of the
+    fact falls just as far when the fact sits in the CURRENT epoch, the damage
+    is not targeted at all and every number here means something different.
+    """
     cases = []
     for fam in FAMILIES:
         for fact in FACTS:
@@ -205,8 +212,8 @@ def build_cases():
                 Msg("system", fam["system"], epoch=1),
                 Msg("user", fam["stale"], epoch=0),
                 Msg("assistant", fam["ack"], epoch=0),
-                Msg("user", fact.statement, epoch=0),
-                Msg("assistant", fam["note"], epoch=0),
+                Msg("user", fact.statement, epoch=fact_epoch),
+                Msg("assistant", fam["note"], epoch=fact_epoch),
                 Msg("user", fact.question, epoch=1),
             ]
             cases.append(dict(family=fam["key"], check=fam["check"],
@@ -221,6 +228,10 @@ def main():
     ap.add_argument("--out", default=None)
     ap.add_argument("--gamma-plus", default=",".join(map(str, GAMMA_PLUS)))
     ap.add_argument("--gamma-minus", default=",".join(map(str, GAMMA_MINUS)))
+    ap.add_argument("--always-steer", action="store_true",
+                    help="postav politiku i pri gamma- = 0 (ablace jen gamma+)")
+    ap.add_argument("--fact-epoch", type=int, default=0,
+                    help="1 = fakt NEni v potlacovanem useku (kontrola cileni)")
     args = ap.parse_args()
 
     out = args.out or f"results/atlas_{args.model}.json"
@@ -234,7 +245,7 @@ def main():
 
     gps = [float(x) for x in args.gamma_plus.split(",")]
     gms = [float(x) for x in args.gamma_minus.split(",")]
-    cases = build_cases()
+    cases = build_cases(fact_epoch=args.fact_epoch)
     total = len(gps) * len(gms) * len(cases)
     print(f"{args.model}: {len(cases)} pripadu x {len(gps)} gamma+ x "
           f"{len(gms)} gamma- = {total} generaci\n")
@@ -243,8 +254,13 @@ def main():
     t0 = time.time()
     for gp in gps:
         for gm in gms:
-            pol = None if gm == 0 else SteerPolicy(
-                mode="binary", gamma_plus=gp, gamma_minus=gm)
+            # gamma- = 0 used to mean "no policy at all", which quietly made
+            # the three gamma+ values identical there and left the gamma+-only
+            # ablation unrun: 3 of 21 cells were the same generation three
+            # times. With --always-steer the policy is built anyway, so the
+            # boost can be measured without any suppression.
+            pol = SteerPolicy(mode="binary", gamma_plus=gp, gamma_minus=gm) \
+                if (gm or args.always_steer) else None
             stale = recalled = 0
             for c in cases:
                 key = (gp, gm, c["family"], c["fact"].question)
@@ -267,7 +283,9 @@ def main():
             print(f"[{time.time()-t0:6.0f}s] g+={gp:<4g} g-={gm:<5g}  "
                   f"stara instrukce vyhrala {stale:2d}/{n}  "
                   f"fakt vybaven {recalled:2d}/{n}", flush=True)
-            json.dump({"model": args.model, "families": [f["key"] for f in FAMILIES],
+            json.dump({"model": args.model, "always_steer": bool(args.always_steer),
+                       "fact_epoch": args.fact_epoch,
+                       "families": [f["key"] for f in FAMILIES],
                        "max_new_tokens": args.max_new_tokens, "greedy": True,
                        "note": ("Automaticke znacky jsou TRIAGE, ne verdikt. "
                                 "Cisla, na kterych zalezi, se ctou rucne."),

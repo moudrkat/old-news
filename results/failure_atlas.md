@@ -186,6 +186,55 @@ The manipulation is not purely frequency: the common members are also rounder
 and more regular (12:00, 100, 1234-A). "High-prior string" covers both, which is
 the hypothesis, but a cleaner design would vary frequency at matched regularity.
 
+## A mode the rubric had no room for, and two that did not survive
+
+Fixed categories cannot discover anything — every answer lands in one of the
+boxes by construction. `examples/discover_modes.py` asks instead for a
+four-word free-text description of what is odd, with formatting explicitly
+excluded (the first pass without that exclusion returned "unnecessary greeting
+prefix" 71 times, which is the `prefix` family working correctly).
+
+**Kept: non-terminating recall.** The model states the CORRECT value, repeats it
+three to six times, and cannot settle on it. No alternative is offered — it just
+keeps re-litigating until it runs out of tokens.
+
+    "Your order number is 4417, but I was told it was 4417 but then I was told
+     it was 4417 but then I was told it was 4417..."
+
+The eight-category judge had scattered these across DISOWNED (6), UNSOURCED (5)
+and DEGENERATE (3), which is what a missing category looks like from the
+inside.
+
+It is **Llama-specific, and not a size effect**. Across seven models from 0.5B
+to 8B and six families:
+
+| model | family | B | loop fires |
+|---|---|---|---|
+| Qwen2.5-0.5B / 1.5B | Qwen2.5 | 0.5 / 1.5 | 0 / 756 |
+| Phi-3.5-mini | Phi | 3.8 | 0 / 756 |
+| Qwen3-4B | Qwen3 | 4.0 | 1 / 756 |
+| OLMo-2-7B | OLMo | 7.3 | 0 / 756 |
+| **Llama-3.1-8B** | Llama | 8.0 | **13 / 756** |
+| Aya-expanse-8B | Aya | 8.0 | 0 / 756 |
+
+OLMo and Aya are the same size as Llama and never do it. And it is
+dose-dependent — 0, 2, 2, 0, 4, 5 as γ− rises — so it is caused by the edit
+rather than merely revealed by it.
+
+**Rejected: "incorrect time conversion"** (62 hits in the cluster listing).
+When `19:40` is recalled correctly the 12-hour conversion is right 31 times and
+wrong 0. The cluster is near-neighbour substitution described differently.
+
+**Rejected: Phi's repetition.** Phi restates the correct value three or more
+times in 219 of 756 answers, which looked like a second, affirming flavour of
+non-termination — "indeed, brno is where you reside. affirmative, brno is the
+city in question." But the rate is *highest with no steering at all* (51/108 at
+γ− = 0) and falls to 15/108 at γ− = 0.95. It is Phi's ordinary style, and the
+edit suppresses it. Not a failure mode.
+
+Two of three candidates did not survive checking. That ratio is the reason the
+one that did is worth reporting.
+
 ## Caveats
 
 - **The best cell is chosen post hoc** from 21, on the same data it is reported
