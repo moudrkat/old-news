@@ -55,6 +55,56 @@ The reply:
 
 Does the reply follow that rule? Reply with exactly one word, Yes or No."""
 
+# --- failure taxonomy -------------------------------------------------------
+#
+# What breaking looks like, not whether it broke. "Did it recall the fact" is
+# already answered exactly by looking for the needle, and asking a judge that
+# question is how the earlier one went wrong: it passed "your dog is called
+# [name], but since you didn't specify, I can't confirm" as successful recall.
+#
+# So the taxonomy is built out of independent Yes/No probes rather than one
+# multi-class prompt. That keeps the single-forward-pass determinism, and each
+# label arrives with its own margin -- a case where every probe sits near zero
+# is a case a person should read, not one to report with false confidence.
+#
+# The categories are the ones actually seen in V-Steer output at high gamma,
+# not invented: a confabulated near-neighbour ("4411" for "4417-B"), the model
+# arguing with itself inside one answer, and the one worth the paper -- the
+# right answer produced while refusing to treat it as something the user said.
+
+_HEAD = """You are analysing one answer from an assistant.
+
+Earlier in the conversation the user stated: {gold_statement}
+The user then asked: {query}
+
+The assistant's answer:
+{answer}
+
+"""
+
+PROBES = {
+    "states_a_value": _HEAD + (
+        "Does the answer commit to a specific value in reply to the question "
+        "-- a name, number, time, or place -- rather than declining or asking "
+        "back? Reply with exactly one word, Yes or No."),
+    "denies_being_told": _HEAD + (
+        "Does the answer claim that the user never said this, or that the "
+        "assistant was not told, or that it cannot confirm what the user "
+        "said? Reply with exactly one word, Yes or No."),
+    "contradicts_itself": _HEAD + (
+        "Does the answer contradict itself -- asserting something and then "
+        "retracting or reversing it within the same answer? Reply with "
+        "exactly one word, Yes or No."),
+    "degenerate": _HEAD + (
+        "Is the answer broken text -- repeating itself, trailing off into "
+        "nonsense, or not readable as ordinary prose? Reply with exactly one "
+        "word, Yes or No."),
+}
+
+# Below this |margin| the judge is not saying anything and the case goes to a
+# person. Calibrate it against hand labels with `calibrate`; do not guess it.
+ABSTAIN = 1.0
+
 
 @dataclass
 class Verdict:
@@ -105,6 +155,81 @@ class Judge:
 
     def follows(self, rule: str, answer: str) -> Verdict:
         return self.ask(CONSTRAINT_PROMPT.format(rule=rule, answer=answer.strip()))
+
+    def taxonomy(self, gold_statement: str, query: str, answer: str) -> dict:
+        """One Verdict per probe. The label is what you do with them, not this.
+
+        Nothing here asks whether the fact was recalled -- that is exact and is
+        done by looking for the needle. These ask what the answer is DOING.
+        """
+        return {name: self.ask(tpl.format(gold_statement=gold_statement,
+                                          query=query, answer=answer.strip()))
+                for name, tpl in PROBES.items()}
+
+
+def classify(needle_present: bool, probes: dict, abstain: float = ABSTAIN) -> str:
+    """Fold the probes into one label, and abstain rather than guess.
+
+    The category worth the paper is `right_answer_denied_source`: the needle IS
+    there and the answer simultaneously refuses to treat it as user-stated.
+    Counting correct answers scores that as a success; counting failures scores
+    it as a miss. It is neither.
+    """
+    if any(abs(v.margin) < abstain for v in probes.values()):
+        return "unsure"
+    if probes["degenerate"].yes:
+        return "degenerate"
+    if needle_present and probes["denies_being_told"].yes:
+        return "right_answer_denied_source"
+    if probes["contradicts_itself"].yes:
+        return "self_contradiction"
+    if needle_present:
+        return "recalled"
+    if probes["states_a_value"].yes:
+        return "confabulation"
+    if probes["denies_being_told"].yes:
+        return "disclaimed_non_answer"
+    return "no_answer"
+
+
+def calibrate(rows: list[dict], hand: dict[str, str], judge: Judge,
+              abstain: float = ABSTAIN) -> dict:
+    """How often does the judge agree with a person, per category?
+
+    `hand` maps a row id to a hand-assigned label. Report this next to any
+    number the judge produced -- an uncalibrated judge on this task is exactly
+    the mistake that made the first attempt worthless.
+    """
+    per, wrong, abstained = {}, [], 0
+    for r in rows:
+        rid = r.get("id") or f"{r['gamma_plus']}_{r['gamma_minus']}_{r['family']}_{r['question']}"
+        if rid not in hand:
+            continue
+        probes = judge.taxonomy(r.get("gold_statement", ""), r["question"], r["text"])
+        got = classify(bool(r.get("recalled")), probes, abstain)
+        want = hand[rid]
+        if got == "unsure":
+            abstained += 1
+            continue
+        bucket = per.setdefault(want, [0, 0])
+        bucket[1] += 1
+        if got == want:
+            bucket[0] += 1
+        else:
+            wrong.append({"id": rid, "hand": want, "judge": got,
+                          "margins": {k: round(v.margin, 2) for k, v in probes.items()},
+                          "text": r["text"]})
+    scored = sum(v[1] for v in per.values())
+    return {
+        "n_hand_labelled": len([r for r in rows if (r.get("id") or "") in hand]) or len(hand),
+        "abstained": abstained,
+        "scored": scored,
+        "agreement": round(sum(v[0] for v in per.values()) / scored, 3) if scored else None,
+        "per_category": {k: {"agreed": v[0], "of": v[1],
+                             "rate": round(v[0] / v[1], 3) if v[1] else None}
+                         for k, v in sorted(per.items())},
+        "disagreements": wrong,
+    }
 
 
 def cohen_kappa(a: list[bool], b: list[bool]) -> float:
