@@ -1,110 +1,119 @@
-# Where the union rule works, and where it never does
+# What a stale instruction costs, and how much of it steering buys back
 
 A follow-up to V-Steer (Zeng et al., COLM 2026, arXiv:2607.26228). V-Steer
-reports aggregate effectiveness per model; this characterises the failure at
-scale instead — across models and constraint types — rather than reporting one
-aggregate number.
+reports aggregate effectiveness per model. This asks what the failure looks
+like at scale — across models and constraint types — and what the method is
+worth against a proper baseline.
 
 ## What was run
 
-756 cases per model: **6 constraint families × 6 facts × 21 (γ+, γ−) cells**
-(γ+ ∈ {1.0, 2.5, 4.0}, γ− ∈ {0, 0.5, 0.65, 0.75, 0.85, 0.9, 0.95}), greedy
-decoding throughout. Three models: a small one, a mid-sized one, and Llama.
+Three models. Three conditions, all scored the same way.
 
-Each case is a stale/system instruction conflict of the kind Control Illusion
-(Geng et al., AAAI 2026, arXiv:2502.15851) uses: a rule stated earlier in the
-conversation, contradicted by the system prompt, plus a fact the answer has to
-carry. The recorded outcome is **which rule won** — `system`, `stale`, or
-`neither` — together with whether the fact was recalled and a set of
-failure markers.
-
-Code: `examples/failure_atlas.py` · data: `results/atlas_{small,mid,llama}.json`
-· figure: `examples/make_atlas_figure.py` → `results/atlas_families.png`
-
-## The main result: the constraint family predicts the outcome, not the model
-
-How often the system instruction won, out of 126 cases per family per model:
-
-| family | small | mid | Llama |
+| condition | history | steering | n per model |
 |---|---|---|---|
-| options | 93 % | 75 % | 88 % |
-| case | 86 % | 72 % | 11 % |
-| length | 100 % | 33 % | 35 % |
-| json | 86 % | 0 % | 52 % |
-| prefix | 79 % | 17 % | 23 % |
-| **bullet** | **0 %** | **0 %** | **4 %** |
+| **ceiling** | no conflicting rule | none | 108 |
+| **conflict** | stale rule present | none | 108 |
+| **grid** | stale rule present | 21 (γ+, γ−) cells | 756 |
 
-Two things fall out of this table.
+Each case pairs a current system constraint with a mutually exclusive one
+stated earlier in the conversation, plus a fact the answer has to carry.
+6 constraint families × 6 facts, and for the ceiling also × 3 phrasings.
+Greedy throughout.
 
-**`options` is recovered everywhere and `bullet` is recovered nowhere.** Those
-two are stable across all three models — 75–93 % and 0–4 %. Whatever the method
-does, it does not touch the bullet-list constraint on any model tested.
+The reported measure is a **useful answer**: the system constraint obeyed
+**and** the fact present. Format alone is not enough — under a strong edit one
+model emits `{"question": "When does my flight land?"}`, which is valid JSON and
+answers nothing.
 
-**Everything between them is model-dependent, and the spread inside one model is
-larger than the spread between models.** The mid model runs from 0 % to 75 %
-depending only on which constraint is in play. A single per-model effectiveness
-number averages over that spread and hides it.
+Code: `examples/failure_atlas.py`, `examples/phrasing_atlas.py` ·
+figure: `examples/make_recovery_figure.py` → `results/recovery.png`
 
-## The failure taxonomy: the fact comes back, the format does not
+## Result
 
-The `neither` bucket — where no rule won — is 67/756 (small), 128/756 (mid),
-121/756 (Llama). Broken down:
-
-| | small | mid | Llama |
+| model | ceiling | conflict, no steering | best cell |
 |---|---|---|---|
-| fact simply absent | 57 % | 23 % | 29 % |
-| **recalled, format violated** | 37 % | **55 %** | 40 % |
-| self-correction mid-answer | — | 2 % | **27 %** |
-| repeats a word | 2 % | 14 % | 3 % |
-| near neighbour of the fact | 3 % | 5 % | 1 % |
+| small | 38 % | 25 % | **86 %** (γ+ 4, γ− 0.5) |
+| mid | 93 % | **0 %** | 50 % (γ+ 4, γ− 0.65) |
+| Llama | 97 % | **3 %** | 56 % (γ+ 4, γ− 0.5) |
 
-The largest bucket on the mid model is not a recall failure at all. In **70 of
-70** of those cases the needle was recalled correctly — what broke was the
-constraint. Almost all of them are `length`: the median answer runs 38 words
-where the compliant answers run 17, padded with invented context. One example
-answers "your dog is called Bagr" correctly and then adds that the name is
-"perhaps inspired by the ancient Persian word for 'to be strong'", which is not
-a fact anyone supplied.
+**One sentence three turns back takes two of the three models from near-perfect
+to nothing.** That is the finding the ceiling condition makes visible, and it is
+larger than anything the method does afterwards. Without the ceiling there is no
+way to see it: 0 % looks like a hard task rather than a destroyed one.
 
-So on that model the dominant failure mode is not *forgetting*. It is
-**answering correctly at the wrong length, and filling the overrun with
-confabulation.** A metric that only checks whether the needle appears scores all
-70 of those as successes.
+**The method recovers about half of it** — 0 → 50 %, 3 → 56 %. Real, and short
+of the 93–97 % the models reach with nothing fighting them.
 
-**Self-correction is a Llama-specific mode** — 33 of its 121 `neither` cases,
-against 3 on mid and none on small. The model produces an answer and then walks
-it back within the same turn.
+**On the small model it goes above the ceiling**: 38 % → 86 %. That model cannot
+follow "answer in JSON" by instruction at all (0/18 unconflicted) but produces
+`{"order_number": "4417-B"}` under the edit. Same for `prefix` (6 % → 100 % in
+its best cell) and `bullet` (0 % → 100 %). The edit is not only restoring
+compliance there, it is creating compliance the prompt never gets.
 
-## Near neighbours
+**One operating point works across all three models** — γ+ = 4 with γ− between
+0.5 and 0.65 is the best cell for each, independently.
 
-The near-neighbour measure (small edit distance *and* matching shape — `4417-B`
-→ `4417-C`, `19:40` → `19:04`) was built expecting it to be a major mode. It is
-not: 1–5 % of failures. When these models fail they either omit the fact or
-break the format; they rarely produce a plausible wrong one. That is a useful
-negative for anyone designing a detector around near-miss matching.
+## Two measurement bugs, and what they had produced
 
-## Caveats, stated plainly
+Both were found by running the ceiling condition and disbelieving the result.
 
-- **The automatic markers are triage, not verdicts.** `empty`, `garbled`,
-  `repeats_a_word`, `self_correction` and the neighbour measure are heuristics.
-  Every number here that matters should be confirmed by reading the generations.
-  In this project three separate automatic scorers have each failed in a way
-  that changed a conclusion, so this is not boilerplate.
-- **One phrasing per constraint family.** Control Illusion's own result is that
-  phrasing moves these outcomes, so per-family numbers may move with a
-  reformulation. The *ordering* — options high, bullet zero — is what survives
-  a phrasing change, and that is the claim being made.
-- **Greedy only.** No sampling variance is measured; repeated runs are identical
-  by construction.
-- **`which_rule_won` is itself a judgement** made by rule, not by reading. The
-  `system`/`stale` split is the least certain column in the table.
+**`check_json` returned "system" for any text starting with `{`.** It parsed
+nothing. Under a strong edit the small model emits `{\n {}` and
+`{"question": "When does my flight land?"}` — invalid, or valid and empty — and
+both scored as the system instruction winning, while the unsteered model's
+correct `Your order number is 4417-B.` scored as a loss. The metric was
+rewarding shape and punishing the answer. Fixed to require `json.loads` to
+succeed; `recalled` stays a separate column, so format and content are never
+conflated again.
 
-## What would make this a paper
+**`check_bullet` required two bullet lines.** A one-fact question has a one-line
+answer, so a correct `• 4417-B` could never score. That single threshold
+produced the entire earlier finding that *bullet lists are never recovered on
+any model*. They are: 47 %, 7 %, 33 % once one bullet counts as a bulleted list.
 
-1. Hand-read a stratified sample — ~50 cases per model across the families — to
-   put an error bar on the automatic labels.
-2. A second phrasing per family, to separate "this constraint is hard" from
-   "this wording is hard".
-3. The batch judge over the full set, so the `neither` bucket is classified by
-   reading rather than by heuristic. The judge harness exists
-   (`oldnews/evals/judge.py`, taxonomy + calibration, 9 tests green).
+Both bugs ran in the direction that manufactures a result. The generations were
+all kept, so `examples/rescore_atlas.py` re-applies the corrected checkers to
+saved text with no GPU: 83, 9 and 55 verdicts moved out of 756 per model.
+
+## Failure taxonomy
+
+Of the cases where neither rule won, the largest bucket on the mid model is not
+a recall failure. In **70 of 70** the fact was recalled correctly and the format
+broke — mostly `length`, median 38 words where compliant answers run 17, with
+the overrun filled by confabulation ("Bagr … perhaps inspired by the ancient
+Persian word for 'to be strong'", which nobody supplied). A metric that only
+checks whether the needle appears scores all 70 as successes.
+
+**Self-correction is Llama-specific** — 33 of its 121 unresolved cases, against
+3 on mid and none on small: it answers, then walks it back in the same turn.
+
+**Near neighbours are rare.** The near-miss measure (small edit distance *and*
+matching character shape — `19:40` → `19:04`) was built expecting a major mode.
+It is 1–5 %. These models omit the fact or break the format; they seldom emit a
+plausible wrong one. A useful negative for anyone building a near-miss detector.
+
+## Caveats
+
+- **The best cell is chosen post hoc** from 21, on the same data it is reported
+  on. It is an upper bound, not an expected value. That γ+ = 4 / γ− ≈ 0.5 wins
+  on all three models independently is the reason to think it is not pure
+  selection noise, but it is not a held-out result.
+- **The automatic markers are triage.** `empty`, `garbled`, `self_correction`
+  and the neighbour measure are heuristics. Two of the six checkers were wrong
+  in a way that changed a headline, which is the argument for reading before
+  believing, not against it.
+- **`options` scores the absence of a pattern as compliance**, so its ceiling is
+  100 % by construction and its numbers mean less than the others'.
+- **Greedy only.** Reruns are identical; no sampling variance is measured.
+- The ceiling uses 3 phrasings per constraint, the grid only 1. A phrasing sweep
+  over the full grid is running.
+
+## What would close it out
+
+1. The phrasing sweep, to separate "this constraint is hard" from "this sentence
+   is hard" — Control Illusion (Geng et al., AAAI 2026, arXiv:2502.15851) shows
+   the wording moves these outcomes, so a per-family claim needs it.
+2. A held-out split for the operating point: choose (γ+, γ−) on three families,
+   report on the other three.
+3. Read a stratified sample by hand and put an error bar on the automatic
+   labels. The judge harness exists (`oldnews/evals/judge.py`, 9 tests green).

@@ -12,6 +12,7 @@ one, and ships a programmatic checker that says which one the output obeyed.
 
 from __future__ import annotations
 
+import json
 import re
 from collections import Counter
 from dataclasses import dataclass, field
@@ -78,18 +79,40 @@ def check_prefix(text: str) -> str:
 
 
 def check_json(text: str) -> str:
-    t = text.strip().lstrip("`").lstrip("json").strip()
+    """Obeying "answer as JSON" means emitting JSON, not starting with a brace.
+
+    The first version returned "system" for anything whose first character was
+    `{`. Under a strong edit the small model emits `{\n {}` and
+    `{"question": "When does my flight land?"}` -- neither is valid JSON, and
+    the second carries no answer at all -- and both scored as the system
+    instruction winning, while the unsteered model's correct
+    `Your order number is 4417-B.` scored as a loss. That inverts the
+    measurement exactly where it matters most.
+    """
+    t = text.strip()
+    if not t:
+        return "neither"
+    if t.startswith("```"):                       # fenced block: take the inside
+        t = re.sub(r"^```(?:json)?\s*|\s*```$", "", t, flags=re.S).strip()
     if t.startswith("{") or t.startswith("["):
+        try:
+            json.loads(t)
+        except Exception:
+            return "neither"                      # JSON-shaped but not JSON
         return "system"
-    return "stale" if t else "neither"
+    return "stale"
 
 
 def check_bullet(text: str) -> str:
     lines = [l.strip() for l in text.strip().splitlines() if l.strip()]
     if not lines:
         return "neither"
-    bullets = sum(bool(re.match(r"^[-*•]\s+", l)) for l in lines)
-    if bullets >= max(2, len(lines) // 2):
+    bullets = sum(bool(re.match(r"^[-*\u2022]\s*", l)) for l in lines)
+    # A one-fact question has a one-line answer, so demanding two bullets made
+    # a correct "\u2022 4417-B" unscoreable -- and that alone produced the
+    # "bullet is never recovered on any model" result. One bullet is a bulleted
+    # list when there is one item.
+    if bullets and bullets >= max(1, len(lines) // 2):
         return "system"
     if bullets == 0:
         return "stale"

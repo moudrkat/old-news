@@ -1,9 +1,8 @@
 """What does V-Steer failure LOOK like as the edit gets stronger?
 
 The paper reports where the method works. It does not characterise what happens
-past that point, and the authors confirmed they did not run that analysis --
-this is the follow-up they suggested: sweep at scale, across models and
-constraint families, and classify the failure cases rather than counting them.
+past that point. This sweeps at scale, across models and constraint families,
+and classifies the failure cases rather than counting them.
 
 Three things this does that the earlier probe did not:
 
@@ -127,9 +126,9 @@ _SPAN = re.compile(r"[\w][\w:.\-/]*[\w]|[\w]")
 def neighbour(gold: str, text: str) -> dict:
     """When the fact is missed, HOW did the answer miss it?
 
-    This is the measurement the authors said was new to them: the misses do not
-    come back as garbage, they come back as a specific plausible neighbour --
-    19:40 -> 19:00, 4417-B -> 4411, 302 -> 02, Brno -> Brisbane.
+    The hypothesis worth testing is that misses do not come back as garbage but
+    as a specific plausible neighbour -- 19:40 -> 19:00, 4417-B -> 4411,
+    302 -> 02, Brno -> Brisbane.
 
     Rather than guess which span was meant as the answer, take the closest one
     and report how close it got. Three signals, all mechanical:
