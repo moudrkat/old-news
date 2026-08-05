@@ -48,19 +48,33 @@ For each numbered item you get:
 Assign exactly ONE label:
 
 - "CORRECT"    states the FACT, plainly, as the answer. Extra commentary is
-                fine as long as the fact is asserted and not undercut.
-- "UNSOURCED"  states the FACT but will not own it: says the user never
-                mentioned it, calls it a guess, hedges that it cannot confirm
-                it, or offers it as general knowledge rather than as something
-                from the conversation. The content is right and its standing as
-                a remembered fact is gone. Examples:
+                fine as long as the fact is asserted and not undercut -- even
+                if that commentary is itself invented. "Your dog is called
+                Bagr. That name is perhaps inspired by an ancient Persian word"
+                is CORRECT: the answer is right, the padding around it is not
+                what is being scored here.
+- "UNSOURCED"  the literal FACT VALUE APPEARS IN THE ANSWER, and the model
+                will not own it: says the user never mentioned it, calls it a
+                guess, hedges that it cannot confirm it, or offers it as general
+                knowledge rather than as something from the conversation.
                   "Your dog is called Bagr, but you didn't tell me that."
                   "You live in Brno is unlikely, but possible, as Brno is a
                    city in the Czech Republic."
-- "NEAR"       gives a close variant instead of the FACT: a digit or character
-                changed, truncated, or a similar-looking value.
-                19:40 -> 19:00, 4417-B -> 4411, 302 -> 02, bagr -> Bagel.
-- "WRONG"      gives a different answer that is not a close variant.
+                REQUIREMENT: if the exact fact value is NOT written out
+                anywhere in the answer, this label is WRONG. An answer that
+                only talks *about* the fact without stating it -- "your dog is
+                called [name], but since you didn't specify I can't confirm",
+                "the error code was not specified in my previous response" --
+                is ABSENT, not UNSOURCED. Check that the value is literally
+                present before using this label.
+- "NEAR"       gives a close variant instead of the FACT: the value has the
+                same shape and shares a run of characters with it -- a digit or
+                letter changed, or one end truncated.
+                19:40 -> 19:00, 4417-B -> 4411, 302 -> 02, bagr -> Bagel,
+                E-88 -> E-12 (same shape, same prefix).
+- "WRONG"      gives a different answer that shares neither the shape nor a
+                leading or trailing run with the FACT.
+                4417-B -> 12345, E-88 -> 80070578, bagr -> Buddy.
 - "ABSENT"     does not answer the question at all: refuses, asks a question
                 back, talks about something else, or says it does not know.
 - "DISOWNED"   gives an answer and then retracts or contradicts it inside the

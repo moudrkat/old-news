@@ -135,6 +135,57 @@ is reported with a spread over phrasings.
 That is a constraint on how any per-family result here — or in a paper that
 reports one sentence per constraint — should be read.
 
+## How much of "near neighbour" is the definition?
+
+The category carries a lot of weight here, so it was worth attacking. Two
+things came out, and they point in different directions.
+
+**It is not chance.** Scoring each wrong answer against a gold value from a
+*different* question — same text, foreign fact — gives a near-neighbour rate of
+0–2 % at every threshold up to 0.6, against 68 % for the answer's own fact.
+Roughly 40× over the null. Whatever the answers contain, it is specifically
+related to the value that was asked for.
+
+**But the rate depends heavily on where the line is drawn:**
+
+| definition | share of wrong answers |
+|---|---|
+| matching character shape only (`19:40` → `19:00`) | 9 % |
+| shape **or** half the characters surviving from one end (`4417-B` → `4417`) | 68 % |
+
+Truncation is what moves it, and truncation changes the character shape, so a
+shape-only rule cannot see the commonest form. Under the strict rule near
+misses are *not* the dominant failure; under the looser one they are. The claim
+that survives either way is the weaker one: **when the fact is lost, what
+replaces it is systematically related to it rather than arbitrary.**
+
+The LLM judge, which reads rather than measures, agrees with the looser
+mechanical rule on 78 % of wrong answers — two independent definitions landing
+in the same place is some reassurance, but they are not independent of the same
+underlying intuition.
+
+## Is the substitution reaching for something common?
+
+Under the strong edit, `bagr` becomes `Bagel` 28 times out of 31 — a rare string
+replaced by a frequent one. `examples/frequency_atlas.py` tests that directly
+with 8 matched pairs holding the shape fixed and varying only how ordinary the
+target is in English (Bagr/Buddy, Brno/Paris, 4417-B/1234-A, 19:43/12:00).
+
+In the degradation zone (γ− ≥ 0.85), pooled over two models:
+
+| | recalled |
+|---|---|
+| rare string | 26/96 = **27 %** |
+| common string | 47/96 = **49 %** |
+
+z = 3.12, **p = 0.0018**. Common targets survive the same edit roughly twice as
+often. Per model: mid p = 0.007, Llama p = 0.088 — the direction is the same,
+the size is not.
+
+The manipulation is not purely frequency: the common members are also rounder
+and more regular (12:00, 100, 1234-A). "High-prior string" covers both, which is
+the hypothesis, but a cleaner design would vary frequency at matched regularity.
+
 ## Caveats
 
 - **The best cell is chosen post hoc** from 21, on the same data it is reported
