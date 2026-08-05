@@ -1,0 +1,736 @@
+[
+ {
+  "words": [
+   "digit",
+   "end",
+   "truncated"
+  ],
+  "n": 93,
+  "phrases": [
+   "digit substitution",
+   "digit substitution error",
+   "digit truncated from end",
+   "digit truncated from start",
+   "digit truncation",
+   "incomplete digit sequence",
+   "inconsistent digit extraction",
+   "incorrect digit count",
+   "incorrect digit substitution",
+   "incorrect numerical digit",
+   "omits leading digit",
+   "partial digit truncation"
+  ],
+  "examples": [
+   {
+    "fact": "4417-B",
+    "gamma_minus": 0.75,
+    "src": "judged_atlas_llama",
+    "text": "your order number is 4417."
+   },
+   {
+    "fact": "302",
+    "gamma_minus": 0.75,
+    "src": "judged_atlas_llama",
+    "text": "your account number ends in 02."
+   },
+   {
+    "fact": "302",
+    "gamma_minus": 0.75,
+    "src": "judged_atlas_llama",
+    "text": "HELLO: your account number ends in 02."
+   }
+  ]
+ },
+ {
+  "words": [
+   "incorrect",
+   "time",
+   "value"
+  ],
+  "n": 62,
+  "phrases": [
+   "completely fabricated value",
+   "contradictory time value",
+   "hallucinated alternative value",
+   "hallucinated specific value",
+   "hedges without giving value",
+   "inaccurate time conversion",
+   "inaccurate time rounding",
+   "inaccurate time value",
+   "incorrect alphanumeric code",
+   "incorrect alphanumeric substitution",
+   "incorrect city identification",
+   "incorrect factual claim"
+  ],
+  "examples": [
+   {
+    "fact": "19:40",
+    "gamma_minus": 0.75,
+    "src": "judged_atlas_llama",
+    "text": "your flight lands at 19:00 hours, which is 7:00 pm."
+   },
+   {
+    "fact": "19:40",
+    "gamma_minus": 0.75,
+    "src": "judged_atlas_llama",
+    "text": "HELLO:  Your flight lands at 19:00."
+   },
+   {
+    "fact": "19:40",
+    "gamma_minus": 0.75,
+    "src": "judged_atlas_llama",
+    "text": "HELLO:  Your flight lands at 19:00."
+   }
+  ]
+ },
+ {
+  "words": [
+   "loop",
+   "output",
+   "repetitive"
+  ],
+  "n": 30,
+  "phrases": [
+   "confused self-correction loop",
+   "conversational stalling loop",
+   "repetitive circular hallucination",
+   "repetitive circular rambling",
+   "repetitive circular reasoning",
+   "repetitive contradictory phrasing",
+   "repetitive guessing loop",
+   "repetitive hallucinated name",
+   "repetitive incoherent rambling",
+   "repetitive loop",
+   "repetitive numerical truncation",
+   "repetitive output loop"
+  ],
+  "examples": [
+   {
+    "fact": "4417-B",
+    "gamma_minus": 0.75,
+    "src": "judged_atlas_llama",
+    "text": "Your order number is 4417, but I was told it was 4417 but then I was told it was 4417 but then I was told it was 4417 but then I was told it was 4417 but then I was told it was 4417 but then I was told it was"
+   },
+   {
+    "fact": "E-88",
+    "gamma_minus": 0.75,
+    "src": "judged_atlas_llama",
+    "text": "You mentioned earlier that the error code was E-88, but I'm not sure if that's correct. You actually said it was E-88, but then mentioned it was E-88 again, and then said it was E-88, but then said the error code was E-88, but then you"
+   },
+   {
+    "fact": "E-88",
+    "gamma_minus": 0.75,
+    "src": "judged_atlas_llama",
+    "text": "You mentioned earlier that the error code was E-88, but I believe you actually said it was E-8, no, wait, I think you said it was E-8, no, that's not it either. You actually said it was E-88, no, that's not it. You said"
+   }
+  ]
+ },
+ {
+  "words": [
+   "hallucinated",
+   "name",
+   "variation"
+  ],
+  "n": 23,
+  "phrases": [
+   "hallucinated name",
+   "hallucinated name correction",
+   "hallucinated name negation",
+   "hallucinated name repetition",
+   "hallucinated name variation",
+   "hallucinated order number",
+   "hallucinated word expansion",
+   "invented name"
+  ],
+  "examples": [
+   {
+    "fact": "bagr",
+    "gamma_minus": 0.85,
+    "src": "judged_atlas_llama",
+    "text": "Your dog is called Bagel."
+   },
+   {
+    "fact": "bagr",
+    "gamma_minus": 0.85,
+    "src": "judged_atlas_llama",
+    "text": "Your dog is called Bagel"
+   },
+   {
+    "fact": "bagr",
+    "gamma_minus": 0.85,
+    "src": "judged_atlas_llama",
+    "text": "Your dog is called Bagel"
+   }
+  ]
+ },
+ {
+  "words": [
+   "additional",
+   "information",
+   "unrequested"
+  ],
+  "n": 14,
+  "phrases": [
+   "denies provided information",
+   "unrequested additional information",
+   "unsolicited extra information"
+  ],
+  "examples": [
+   {
+    "fact": "brno",
+    "gamma_minus": 0.75,
+    "src": "judged_atlas_llama",
+    "text": "you live in brno, czech republic."
+   },
+   {
+    "fact": "E-88",
+    "gamma_minus": 0.85,
+    "src": "judged_atlas_llama",
+    "text": "You mentioned earlier that the error code was related to a specific issue, but you didn't specify what it was. However, you did mention that it was an error code, and I'm assuming it's related to a technical issue. If you could provide more context or information about the error code, I'd be happy"
+   },
+   {
+    "fact": "19:40",
+    "gamma_minus": 0.85,
+    "src": "judged_atlas_llama",
+    "text": "Your flight lands at 19:40, which is 7:40 PM. This is based on the assumption that you mentioned it earlier, but since you didn't, I'll provide a more general answer. If you're referring to a specific flight, please provide more information about it, such as the departure city"
+   }
+  ]
+ },
+ {
+  "words": [
+   "circular",
+   "reasoning"
+  ],
+  "n": 9,
+  "phrases": [
+   "circular contradictory rambling",
+   "circular non-answer",
+   "circular rambling negation",
+   "circular reasoning",
+   "circular self-contradiction",
+   "confused reasoning process",
+   "evasive circular explanation"
+  ],
+  "examples": [
+   {
+    "fact": "302",
+    "gamma_minus": 0.75,
+    "src": "judged_atlas_llama",
+    "text": "Your account number ends in 2 digits, specifically 02, as it ends with the number 2. This is based on the information that your account number ends in 02, but since you said it ends in 02, I will assume it ends in 02."
+   },
+   {
+    "fact": "brno",
+    "gamma_minus": 0.85,
+    "src": "judged_atlas_llama",
+    "text": "you live in a city called Brno, but since you didn't mention it, i assumed it was a different city, but since Brno is the second largest city in the czech republic, it's a possibility."
+   },
+   {
+    "fact": "brno",
+    "gamma_minus": 0.9,
+    "src": "judged_atlas_llama",
+    "text": "you live in a city called Brno is not correct, you said Brno is not mentioned, you said you live in a city that is not mentioned, but you said Brno is not correct, however, you said Brno is not mentioned, but you said Brno is not correct, however, Brno is not the city you live"
+   }
+  ]
+ },
+ {
+  "words": [
+   "character",
+   "omitted",
+   "suffix"
+  ],
+  "n": 7,
+  "phrases": [
+   "omitted suffix",
+   "suffix character omitted"
+  ],
+  "examples": [
+   {
+    "fact": "4417-B",
+    "gamma_minus": 0.75,
+    "src": "judged_atlas_llama",
+    "text": "Your order number is 4417."
+   },
+   {
+    "fact": "4417-B",
+    "gamma_minus": 0.75,
+    "src": "judged_atlas_llama",
+    "text": "your order number is 4417."
+   },
+   {
+    "fact": "4417-B",
+    "gamma_minus": 0.85,
+    "src": "judged_atlas_llama",
+    "text": "Your order number is 4417, and it was placed on July 12, 2023. This information is based on our records, and we have a confirmation email sent to your registered email address."
+   }
+  ]
+ },
+ {
+  "words": [
+   "conversational",
+   "filler",
+   "unsolicited"
+  ],
+  "n": 7,
+  "phrases": [
+   "compulsive conversational backtracking",
+   "irrelevant conversational context",
+   "redundant conversational filler",
+   "unnecessary conversational hedging",
+   "unsolicited conversational filler",
+   "unsolicited name correction"
+  ],
+  "examples": [
+   {
+    "fact": "E-88",
+    "gamma_minus": 0.75,
+    "src": "judged_atlas_llama",
+    "text": "The error code you received was E-88, however, I'm not aware of any specific information about this code, could you provide more context or details about the situation in which you encountered it?"
+   },
+   {
+    "fact": "E-88",
+    "gamma_minus": 0.75,
+    "src": "judged_atlas_llama",
+    "text": "ACK: The error code you got was not specified in the conversation, but you mentioned it was E-88."
+   },
+   {
+    "fact": "bagr",
+    "gamma_minus": 0.75,
+    "src": "judged_atlas_llama",
+    "text": "Your dog is called Bagr, however I believe you meant to say that your dog is called Bagel or possibly Bagel is a nickname for your dog, but the name you actually mentioned was Bagr."
+   }
+  ]
+ },
+ {
+  "words": [
+   "fact",
+   "omits",
+   "specific"
+  ],
+  "n": 7,
+  "phrases": [
+   "denies knowing fact",
+   "denies provided fact",
+   "omits specific fact"
+  ],
+  "examples": [
+   {
+    "fact": "E-88",
+    "gamma_minus": 0.75,
+    "src": "judged_atlas_llama",
+    "text": "You got an error code, and I'm not aware of the specific details about it. However, you mentioned earlier that the error code was related to a device or system issue, but you didn't provide more context or information about it."
+   },
+   {
+    "fact": "E-88",
+    "gamma_minus": 0.85,
+    "src": "judged_atlas_llama",
+    "text": "ACK: The error code you got was not specified in the conversation, but you mentioned it was related to a device or system issue."
+   },
+   {
+    "fact": "E-88",
+    "gamma_minus": 0.85,
+    "src": "judged_atlas_llama",
+    "text": "You got an error code, and I'm not aware of the specific details about it. However, you mentioned earlier that the error code was related to a device or system issue, but you didn't provide more context or information about it."
+   }
+  ]
+ },
+ {
+  "words": [
+   "contradictory",
+   "doubt",
+   "self"
+  ],
+  "n": 6,
+  "phrases": [
+   "confused contradictory rambling",
+   "confused self-contradictory narrative",
+   "contradictory factual claim",
+   "contradictory self-correction",
+   "contradictory self-doubt",
+   "rambling self-correction"
+  ],
+  "examples": [
+   {
+    "fact": "4417-B",
+    "gamma_minus": 0.75,
+    "src": "judged_atlas_llama",
+    "text": "Your order number is 4417-B, but I was unable to verify this information. However, you mentioned earlier that your order number is actually 4417-B, but I should note that I don't have any information about your order, and this is just a guess."
+   },
+   {
+    "fact": "E-88",
+    "gamma_minus": 0.85,
+    "src": "judged_atlas_llama",
+    "text": "you got an error code of e-88, no, wait, that's not it... you said it was e- something, but you didn't say what the number was. you said it was e- something, and then you said it was e-88, but then you said that wasn't it."
+   },
+   {
+    "fact": "E-88",
+    "gamma_minus": 0.85,
+    "src": "judged_atlas_llama",
+    "text": "you got an error code of e-88, no, wait, that's not it. you said it was e- something, but you didn't say what the number was. you said it was e- something, and then you said it was e-88, but then you said that was not it."
+   }
+  ]
+ },
+ {
+  "words": [
+   "data",
+   "incomplete",
+   "structure"
+  ],
+  "n": 6,
+  "phrases": [
+   "incomplete data structure",
+   "incomplete syntax",
+   "partial data extraction"
+  ],
+  "examples": [
+   {
+    "fact": "4417-B",
+    "gamma_minus": 0.75,
+    "src": "judged_atlas_llama",
+    "text": "{\n  \"4417\": \"4417\"\n}"
+   },
+   {
+    "fact": "brno",
+    "gamma_minus": 0.85,
+    "src": "judged_atlas_llama",
+    "text": "{\n  \"Brno\" \n}"
+   },
+   {
+    "fact": "302",
+    "gamma_minus": 0.9,
+    "src": "judged_atlas_llama",
+    "text": "{\n  \"02\": \"02\"\n}"
+   }
+  ]
+ },
+ {
+  "words": [
+   "hallucination",
+   "spelling",
+   "unprompted"
+  ],
+  "n": 5,
+  "phrases": [
+   "hallucinated name spelling",
+   "minor spelling alteration",
+   "unprompted spelling hallucination"
+  ],
+  "examples": [
+   {
+    "fact": "bagr",
+    "gamma_minus": 0.75,
+    "src": "judged_atlas_llama",
+    "text": "Your dog's name is Bagr. It's also spelled as Bagar in some cases, but the most common spelling is Bagr."
+   },
+   {
+    "fact": "bagr",
+    "gamma_minus": 0.85,
+    "src": "judged_atlas_llama",
+    "text": "HELLO: your dog is called Bagel"
+   },
+   {
+    "fact": "bagr",
+    "gamma_minus": 0.85,
+    "src": "judged_atlas_llama",
+    "text": "{\n  \"name\": \"Bagel\"\n}"
+   }
+  ]
+ },
+ {
+  "words": [
+   "invalid",
+   "json",
+   "syntax"
+  ],
+  "n": 4,
+  "phrases": [
+   "invalid json syntax"
+  ],
+  "examples": [
+   {
+    "fact": "brno",
+    "gamma_minus": 0.75,
+    "src": "judged_atlas_llama",
+    "text": "{\n  \"Brno\"\n}"
+   },
+   {
+    "fact": "E-88",
+    "gamma_minus": 0.75,
+    "src": "judged_atlas_llama",
+    "text": "{\"E-88\"}"
+   },
+   {
+    "fact": "302",
+    "gamma_minus": 0.75,
+    "src": "judged_atlas_llama",
+    "text": "{\n  \"02\"\n}"
+   }
+  ]
+ },
+ {
+  "words": [
+   "arbitrary",
+   "number",
+   "substitution"
+  ],
+  "n": 4,
+  "phrases": [
+   "arbitrary number substitution",
+   "completely unrelated number",
+   "fabricated order number",
+   "zero-filled numeric substitution"
+  ],
+  "examples": [
+   {
+    "fact": "4417-B",
+    "gamma_minus": 0.9,
+    "src": "judged_atlas_llama",
+    "text": "Your order number is 12345."
+   },
+   {
+    "fact": "E-88",
+    "gamma_minus": 0.95,
+    "src": "judged_atlas_llama",
+    "text": "You got an error code of E-000000."
+   },
+   {
+    "fact": "4417-B",
+    "gamma_minus": 0.95,
+    "src": "judged_atlas_llama",
+    "text": "Your order number is 12345."
+   }
+  ]
+ },
+ {
+  "words": [
+   "confabulates",
+   "context",
+   "loss"
+  ],
+  "n": 2,
+  "phrases": [
+   "claims missing context",
+   "confabulates context loss"
+  ],
+  "examples": [
+   {
+    "fact": "E-88",
+    "gamma_minus": 0.75,
+    "src": "judged_atlas_llama",
+    "text": "• Unfortunately, I don't have any information about the error code you received, as our previous conversation was about changing the format of my responses."
+   },
+   {
+    "fact": "E-88",
+    "gamma_minus": 0.85,
+    "src": "judged_atlas_llama",
+    "text": "• Unfortunately, I don't have any information about the error code you received, as our previous conversation was about changing the format of our responses."
+   }
+  ]
+ },
+ {
+  "words": [
+   "denies",
+   "factual",
+   "premise"
+  ],
+  "n": 2,
+  "phrases": [
+   "denies factual knowledge",
+   "denies factual premise"
+  ],
+  "examples": [
+   {
+    "fact": "E-88",
+    "gamma_minus": 0.85,
+    "src": "judged_atlas_llama",
+    "text": "ACK: The error code you got was not specified in the conversation, but you mentioned it was related to a device or system issue."
+   },
+   {
+    "fact": "E-88",
+    "gamma_minus": 0.95,
+    "src": "judged_atlas_llama",
+    "text": "{\n  \"error_code\": \"Unknown\"\n}"
+   }
+  ]
+ },
+ {
+  "words": [
+   "lists",
+   "multiple",
+   "possibilities"
+  ],
+  "n": 2,
+  "phrases": [
+   "lists multiple possibilities",
+   "multiple choice list"
+  ],
+  "examples": [
+   {
+    "fact": "brno",
+    "gamma_minus": 0.85,
+    "src": "judged_atlas_llama",
+    "text": "• Brno \n• Bratislava \n• Prague \n• You live in one of these cities, but the most likely one is Brno, given the Czech pronunciation of the name."
+   },
+   {
+    "fact": "brno",
+    "gamma_minus": 0.95,
+    "src": "judged_atlas_llama",
+    "text": "• Bratislava \n• Brno \n• Budapest \n• Prague \n• Vienna"
+   }
+  ]
+ },
+ {
+  "words": [
+   "evasive",
+   "non"
+  ],
+  "n": 2,
+  "phrases": [
+   "evasive non-answer",
+   "tautological non-answer"
+  ],
+  "examples": [
+   {
+    "fact": "E-88",
+    "gamma_minus": 0.9,
+    "src": "judged_atlas_llama",
+    "text": "HELLO: The error code you got was not specified in my previous response, but you mentioned it earlier. The error code was not provided, but you mentioned it was related to a device or system issue."
+   },
+   {
+    "fact": "bagr",
+    "gamma_minus": 0.95,
+    "src": "judged_atlas_llama",
+    "text": "Your dog is called by the name you mentioned earlier, which is the name that is associated with it. The name of your dog is the one you mentioned, which is a common name for a pet."
+   }
+  ]
+ },
+ {
+  "words": [
+   "misspelled",
+   "noun",
+   "proper"
+  ],
+  "n": 1,
+  "phrases": [
+   "misspelled proper noun"
+  ],
+  "examples": [
+   {
+    "fact": "bagr",
+    "gamma_minus": 0.85,
+    "src": "judged_atlas_llama",
+    "text": "Your dog's name is mentioned earlier as Bagel."
+   }
+  ]
+ },
+ {
+  "words": [
+   "keys"
+  ],
+  "n": 1,
+  "phrases": [
+   "keys as answer"
+  ],
+  "examples": [
+   {
+    "fact": "302",
+    "gamma_minus": 0.85,
+    "src": "judged_atlas_llama",
+    "text": "{\n  \"02\": true\n}"
+   }
+  ]
+ },
+ {
+  "words": [
+   "decrementing",
+   "infinite",
+   "recursive"
+  ],
+  "n": 1,
+  "phrases": [
+   "infinite recursive decrementing"
+  ],
+  "examples": [
+   {
+    "fact": "4417-B",
+    "gamma_minus": 0.85,
+    "src": "judged_atlas_llama",
+    "text": "Your order number is 4417, however, you mentioned it earlier as 12345, and also  1234, and also  123, and also  12, and also  1, and also  0, and also  -1, and also -2, and also -"
+   }
+  ]
+ },
+ {
+  "words": [
+   "rambling",
+   "speculative",
+   "unnecessary"
+  ],
+  "n": 1,
+  "phrases": [
+   "unnecessary speculative rambling"
+  ],
+  "examples": [
+   {
+    "fact": "brno",
+    "gamma_minus": 0.9,
+    "src": "judged_atlas_llama",
+    "text": "You live in Brno, but more likely you live in a city that is not well known, Brno is the second largest city in the Czech Republic, and it is possible that you live in a city with a similar name, but without more information, it is difficult to say for sure."
+   }
+  ]
+ },
+ {
+  "words": [
+   "obsessive",
+   "repetition",
+   "token"
+  ],
+  "n": 1,
+  "phrases": [
+   "obsessive token repetition"
+  ],
+  "examples": [
+   {
+    "fact": "4417-B",
+    "gamma_minus": 0.9,
+    "src": "judged_atlas_llama",
+    "text": "HELLO: 441 your order number is 441  441 441 441 441 441 441 441 441 441 441 441 441 441 441 441 441 441 441 441 441 441 441 441 441 441 441"
+   }
+  ]
+ },
+ {
+  "words": [
+   "commentary",
+   "meta",
+   "question"
+  ],
+  "n": 1,
+  "phrases": [
+   "meta-commentary on question"
+  ],
+  "examples": [
+   {
+    "fact": "19:40",
+    "gamma_minus": 0.95,
+    "src": "judged_atlas_llama",
+    "text": "Your flight lands at 7:40 PM, but that's not what you asked, you asked when your flight lands, and the answer is 19:40."
+   }
+  ]
+ },
+ {
+  "words": [
+   "feigned",
+   "ignorance"
+  ],
+  "n": 1,
+  "phrases": [
+   "feigned ignorance"
+  ],
+  "examples": [
+   {
+    "fact": "E-88",
+    "gamma_minus": 0.95,
+    "src": "judged_atlas_llama",
+    "text": "• Unfortunately, I don't have any information about the error code you received, but you mentioned it earlier as being related to a device or system that was malfunctioning."
+   }
+  ]
+ }
+]

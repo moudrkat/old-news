@@ -80,10 +80,23 @@ Assign exactly ONE label:
 - "DISOWNED"   gives an answer and then retracts or contradicts it inside the
                 same reply. "Bubbles, no, I made a mistake, you didn't tell me
                 that." Use this even if one of the versions was correct.
+- "UNRESOLVED" states the CORRECT value, repeatedly, and cannot settle on it.
+                No alternative is ever offered -- the answer just keeps
+                re-litigating whether the value is right, often with "but",
+                "then", "I'm not sure", until it runs out of tokens.
+                  "Your order number is 4417, but I was told it was 4417 but
+                   then I was told it was 4417 but then I was told it was 4417"
+                  "you said it was E-88, but then mentioned it was E-88 again,
+                   and then said it was E-88, but then said..."
+                This is NOT DISOWNED (which retracts and usually offers
+                something else) and NOT DEGENERATE (the text is grammatical and
+                the content is correct). The failure is the inability to stop.
 - "DEGENERATE" empty, or repetition/word-salad with no usable content.
 
 Order of precedence when more than one could apply:
-  DEGENERATE > DISOWNED > UNSOURCED > CORRECT > NEAR > WRONG > ABSENT.
+  DEGENERATE > UNRESOLVED > DISOWNED > UNSOURCED > CORRECT > NEAR > WRONG > ABSENT.
+UNRESOLVED outranks DISOWNED and UNSOURCED: if the right value is repeated and
+never replaced, that is the label, whatever hedging surrounds it.
 So a reply that states the fact and then retracts it is DISOWNED, and one that
 states it while denying it was ever said is UNSOURCED, never CORRECT.
 
@@ -175,7 +188,7 @@ def main():
                                "records": records}, ensure_ascii=False))
 
     labs = ["CORRECT", "UNSOURCED", "NEAR", "WRONG", "ABSENT", "DISOWNED",
-            "DEGENERATE", "UNCLEAR"]
+            "UNRESOLVED", "DEGENERATE", "UNCLEAR"]
     gms = sorted({r["gamma_minus"] for r in records})
     print(f"\ng+=4:  {'g-':>5} " + "".join(f"{l[:9]:>11}" for l in labs))
     for gm in gms:
