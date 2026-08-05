@@ -87,10 +87,33 @@ checks whether the needle appears scores all 70 as successes.
 **Self-correction is Llama-specific** — 33 of its 121 unresolved cases, against
 3 on mid and none on small: it answers, then walks it back in the same turn.
 
-**Near neighbours are rare.** The near-miss measure (small edit distance *and*
-matching character shape — `19:40` → `19:04`) was built expecting a major mode.
-It is 1–5 %. These models omit the fact or break the format; they seldom emit a
-plausible wrong one. A useful negative for anyone building a near-miss detector.
+**Near neighbours are the dominant error, and they have a dose response.**
+
+A first pass put them at 1–5 %, which was a measurement error twice over: the
+taxonomy tested for them only after "format kept, fact lost" had already claimed
+the case, and it required a matching character shape — which truncation breaks
+(`4417-B` → `4417` is `dddd-a` → `dddd`), even though truncation is the single
+commonest form. Counting a neighbour as a small edit distance *and* (matching
+shape **or** half the characters surviving from either end):
+
+| share of WRONG answers that are a near neighbour (γ+ = 4) | γ−0.65 | 0.75 | 0.85 | 0.9 | 0.95 |
+|---|---|---|---|---|---|
+| small | 30 % | 24 % | 6 % | 8 % | 3 % |
+| mid | 0 % | 100 % | 77 % | 30 % | 24 % |
+| Llama | 80 % | 75 % | 81 % | 67 % | 55 % |
+
+When the edit costs the model the fact, the fact usually does not vanish — it is
+replaced by something adjacent. The commonest substitutions on Llama are
+`302` → `02` (32×), `bagr` → `Bagel` (17×), `4417-B` → `4411` (15×),
+`19:40` → `19:00` (11×). As a share of all answers the rate peaks and then falls
+(Llama 0 → 11 → 25 → 58 → 56 → 50 %): past the peak the answers degrade past the
+point where anything neighbour-shaped survives.
+
+**Self-correction scales with the edit, and only on Llama.** 3 % of answers at
+γ− = 0 rising to 25 % at γ− = 0.9, against 0–6 % on the other two at every
+setting. The model produces an answer and disowns it inside the same turn. It is
+not noise at the breaking point — it grows monotonically with the suppression,
+which makes it a property of the edit rather than of degeneration in general.
 
 ## Phrasing: per-family numbers are not stable, the model-level number is
 
