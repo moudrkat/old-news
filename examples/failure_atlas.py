@@ -85,9 +85,13 @@ FAMILIES = [
          note="Noted, I will remember that. [1] fine [2] change it [3] ignore"),
 ]
 
-# Deliberately past the working range: the question is what breaking looks like.
+# Deliberately past the working range: the question is what breaking looks like,
+# and in what order. Dense between 0.5 and 0.95 because that is where the
+# earlier probe showed recall coming apart (12/12 -> 8/12 -> 3/12), so that is
+# where the stages have to be resolved -- a coarse grid can show that it broke
+# but not what it passed through on the way.
 GAMMA_PLUS = [1.0, 2.5, 4.0]
-GAMMA_MINUS = [0.0, 0.5, 0.75, 0.9, 0.97]
+GAMMA_MINUS = [0.0, 0.5, 0.65, 0.75, 0.85, 0.9, 0.95]
 
 _GARBLE = re.compile(r"(.)\1{6,}|[^\W\d_]{25,}", re.U)
 _HEDGE = re.compile(
@@ -95,6 +99,82 @@ _HEDGE = re.compile(
     r"|i (?:don't|do not) (?:have|recall|remember)"
     r"|i (?:made a mistake|was wrong|apologi[sz]e)"
     r"|(?:but|however|although) (?:i|you) )", re.I)
+
+
+def _shape(s: str) -> str:
+    """Character classes only: '4417-B' -> 'dddd-a', '19:40' -> 'dd:dd'."""
+    return "".join("d" if c.isdigit() else "a" if c.isalpha() else c for c in s)
+
+
+def _edit(a: str, b: str) -> int:
+    """Levenshtein. Short strings only, so the simple table is fine."""
+    if a == b:
+        return 0
+    prev = list(range(len(b) + 1))
+    for i, ca in enumerate(a, 1):
+        cur = [i]
+        for j, cb in enumerate(b, 1):
+            cur.append(min(prev[j] + 1, cur[j - 1] + 1,
+                           prev[j - 1] + (ca != cb)))
+        prev = cur
+    return prev[-1]
+
+
+# Candidate answer values: words, and runs that look like a code or a time.
+_SPAN = re.compile(r"[\w][\w:.\-/]*[\w]|[\w]")
+
+
+def neighbour(gold: str, text: str) -> dict:
+    """When the fact is missed, HOW did the answer miss it?
+
+    This is the measurement the authors said was new to them: the misses do not
+    come back as garbage, they come back as a specific plausible neighbour --
+    19:40 -> 19:00, 4417-B -> 4411, 302 -> 02, Brno -> Brisbane.
+
+    Rather than guess which span was meant as the answer, take the closest one
+    and report how close it got. Three signals, all mechanical:
+
+      distance     normalised edit distance of the nearest span (0 = exact)
+      same_shape   that span has the gold's character-class pattern, so
+                   19:40 -> 19:00 counts and 19:40 -> "I don't know" does not
+      prefix       how many leading characters survived
+      suffix       how many trailing ones did (302 -> 02 keeps the tail, not
+                   the head, and truncation from either end is still a
+                   neighbour)
+
+    A near neighbour is a small distance AND a matching shape. Neither alone is
+    enough: "4418" and "Brisbane" are both one measure away from looking right.
+    """
+    g = (gold or "").strip()
+    t = (text or "").strip()
+    if not g or not t:
+        return {"distance": None, "span": None, "same_shape": False,
+                "prefix": 0, "suffix": 0}
+    gl, gshape = g.lower(), _shape(g)
+    best, span = None, None
+    for m in _SPAN.finditer(t):
+        s = m.group(0)
+        if abs(len(s) - len(g)) > max(4, len(g)):      # hopelessly wrong length
+            continue
+        d = _edit(gl, s.lower()) / max(len(g), len(s))
+        if best is None or d < best:
+            best, span = d, s
+    if span is None:
+        return {"distance": None, "span": None, "same_shape": False,
+                "prefix": 0, "suffix": 0}
+    sl = span.lower()
+    pre = 0
+    for a, b in zip(gl, sl):
+        if a != b:
+            break
+        pre += 1
+    suf = 0
+    for a, b in zip(reversed(gl), reversed(sl)):
+        if a != b:
+            break
+        suf += 1
+    return {"distance": round(best, 3), "span": span,
+            "same_shape": _shape(span) == gshape, "prefix": pre, "suffix": suf}
 
 
 def triage(text: str, fact: Fact) -> dict:
@@ -105,7 +185,7 @@ def triage(text: str, fact: Fact) -> dict:
         n.lower() in t.lower() for n in fact.needles)
     longest_run = max((len(list(g)) for g in re.findall(r"((\b\w+\b)(?:\s+\2)+)", t)),
                       default=0)
-    return {
+    out = {
         "recalled": bool(hit),
         "empty": not words,
         "garbled": bool(_GARBLE.search(t)),
@@ -113,6 +193,9 @@ def triage(text: str, fact: Fact) -> dict:
         "repeats_a_word": longest_run > 0,
         "words": len(words),
     }
+    out.update({f"near_{k}": v for k, v in
+                neighbour(fact.needles[0] if fact.needles else "", t).items()})
+    return out
 
 
 def build_cases():
