@@ -92,6 +92,26 @@ matching character shape — `19:40` → `19:04`) was built expecting a major mo
 It is 1–5 %. These models omit the fact or break the format; they seldom emit a
 plausible wrong one. A useful negative for anyone building a near-miss detector.
 
+## Phrasing: per-family numbers are not stable, the model-level number is
+
+Three independently worded versions of each constraint, same six facts, same
+grid (γ+ ∈ {2.5, 4}, γ− ∈ {0, 0.75, 0.95}), 648 generations per model.
+
+Across the 18 model × family combinations, rewording the *same* constraint moves
+the useful-answer rate by a **median of 11 points, up to 31** (mid/`bullet`:
+3 %, 33 %, 33 %). Only 5 of 18 combinations hold still within 5 points.
+
+Pooled over families the model-level rate is far steadier — 6 to 10 points.
+
+The family *ordering* survives in part: `options` is top on mid and Llama under
+all three wordings and `json` is bottom on mid under all three, but `bullet`
+moves from last to first on mid. So "this model resists stale instructions"
+is a reportable number; "this constraint type resists them" is not, unless it
+is reported with a spread over phrasings.
+
+That is a constraint on how any per-family result here — or in a paper that
+reports one sentence per constraint — should be read.
+
 ## Caveats
 
 - **The best cell is chosen post hoc** from 21, on the same data it is reported
@@ -105,14 +125,15 @@ plausible wrong one. A useful negative for anyone building a near-miss detector.
 - **`options` scores the absence of a pattern as compliance**, so its ceiling is
   100 % by construction and its numbers mean less than the others'.
 - **Greedy only.** Reruns are identical; no sampling variance is measured.
-- The ceiling uses 3 phrasings per constraint, the grid only 1. A phrasing sweep
-  over the full grid is running.
+- The ceiling and the phrasing sweep use 3 wordings per constraint; the main
+  21-cell grid uses 1. The per-family rows of the main grid therefore carry the
+  instability measured above.
 
 ## What would close it out
 
-1. The phrasing sweep, to separate "this constraint is hard" from "this sentence
-   is hard" — Control Illusion (Geng et al., AAAI 2026, arXiv:2502.15851) shows
-   the wording moves these outcomes, so a per-family claim needs it.
+1. More wordings per constraint. Three gives a spread; it does not give a
+   confidence interval on the spread, and Control Illusion (Geng et al., AAAI
+   2026, arXiv:2502.15851) predicts this is where per-family claims live or die.
 2. A held-out split for the operating point: choose (γ+, γ−) on three families,
    report on the other three.
 3. Read a stratified sample by hand and put an error bar on the automatic
