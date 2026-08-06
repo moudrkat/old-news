@@ -219,6 +219,38 @@ not instruction priority.
 
 ---
 
+## 6b. How many heads the diagnosis actually selects
+
+The method flags a KV head when the demoted span outscores the privileged one by
+more than ε, with ε = 0 by default. Measured on Control Illusion — the dataset
+the original head-fraction table uses — over 120 cases:
+
+| model | KV heads | ε = 0 | ε = 0.05 | ε = 0.1 |
+|---|---|---|---|---|
+| Llama-3.1-8B | 256 | **96.1 %** (246) | 0.1 % | 0.0 % |
+| Qwen3-4B | 288 | **94.5 %** (272) | 3.2 % | 0.9 % |
+| Qwen2.5-1.5B | 56 | **98.5 %** | 5.9 % | 1.4 % |
+
+Two things follow.
+
+**At ε = 0 the diagnosis is barely a diagnosis.** It selects 94–98 % of heads,
+uniformly across all six conflict types (95.8–96.5 % on Llama). "Steer the heads
+where the hierarchy is inverted" and "steer every head" differ by a few per cent
+of the mask. That matters because the published all-heads baseline matches DLA
+on accuracy while collapsing far more often — at this selection rate there is
+little margin left in which the two could differ.
+
+**The threshold is a cliff, not a slope.** Moving ε from 0 to 0.05 takes Llama
+from 96 % to 0.1 %. So δ is positive for nearly every head and larger than 0.05
+for almost none: the attributions cluster just above zero. Any result that
+depends on the identity of the selected heads is therefore extremely sensitive
+to a parameter that is not swept in the original work.
+
+This also settles a measurement question raised in correspondence: a 96 % figure
+observed under a different role mapping on different data reproduces at 94–98 %
+here, on the dataset the original table used. It is a property of the criterion,
+not of the mapping.
+
 ## 7. Six measurement bugs, and what they had produced
 
 All six were found by disbelieving a result, none by a test. Four had already
