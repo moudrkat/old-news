@@ -53,6 +53,53 @@ compliance there, it is creating compliance the prompt never gets.
 **One operating point works across all three models** — γ+ = 4 with γ− between
 0.5 and 0.65 is the best cell for each, independently.
 
+## The two ablations the grid could not run
+
+The original grid built no policy at all when γ− = 0, which quietly made the
+three γ+ values identical there — 3 of 21 cells were the same generation three
+times — and left the boost term untested. Both ablations below were run after
+fixing that (`--always-steer`, `--fact-epoch`).
+
+### Where the benefit is, and where the damage is
+
+| model | | compliance | recall |
+|---|---|---|---|
+| Qwen2.5-1.5B | no edit | 9/36 | 36/36 |
+| | paper defaults γ+2.5 / γ−0.75 | 33/36 | **16/36** |
+| | **boost only, γ+ = 4** | 22/36 | **33/36** |
+| Qwen3-4B | no edit | 0/36 | 36/36 |
+| | paper defaults | 15/36 | 29/36 |
+| | **boost only** | 6/36 | **36/36** |
+| Llama-3.1-8B | no edit | 1/36 | 36/36 |
+| | paper defaults | 14/36 | 26/36 |
+| | **boost only** | 10/36 | **36/36** |
+
+The boost term alone delivers **40–70 % of the compliance gain at essentially no
+cost to recall**. The suppression term buys the remaining 30–60 % and costs
+20–55 % of recall. On Llama the two are statistically indistinguishable on
+compliance (p = 0.32) while differing sharply on recall (p = 0.0007); on Qwen3-4B
+the suppression term does real work (p = 0.020) and the trade is a genuine one.
+
+Which point on that trade to take is an application question. The point here is
+that it is a trade, it is large, and the grid as originally written could not
+see it.
+
+### The edit is precisely targeted
+
+Same conflict, same γ, but the fact moved OUT of the demoted span into the
+current epoch:
+
+| model | γ− | fact inside the span | fact outside |
+|---|---|---|---|
+| Qwen3-4B | 0.75 / 0.9 / 0.95 | 29 / 9 / 2 of 36 | **36 / 36 / 36** |
+| Llama-3.1-8B | 0.75 / 0.9 / 0.95 | 24 / 6 / 3 of 36 | **36 / 36 / 36** |
+
+Not one lost fact, at any dose, on either model (p < 0.0001 against the in-span
+condition). **The damage is confined to the suppressed span** — every failure
+mode catalogued above is span-local, not a general degradation of the model.
+That is a real point in the method's favour, and it also says exactly where to
+look for the mechanism.
+
 ## Two measurement bugs, and what they had produced
 
 Both were found by running the ceiling condition and disbelieving the result.
