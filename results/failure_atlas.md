@@ -455,46 +455,48 @@ edit suppresses it. Not a failure mode.
 Two of three candidates did not survive checking. That ratio is the reason the
 one that did is worth reporting.
 
-## The second dataset, and the control that undercuts it
+## The second dataset, and what its reversed file actually shows
 
 Control Illusion (Geng et al., AAAI 2026) is 100 task instructions crossed with
-6 mutually exclusive constraint pairs, all of them exactly checkable by a
-counter — no judge, and none of my own checkers. Mapping constraint1 to the
-current system rule and constraint2 to the stale one, on Llama-3.1-8B with
-n = 16 per conflict type:
+6 mutually exclusive constraint pairs, every one checkable by a counter — no
+judge, and none of my own StaleSet checkers. constraint1 maps to the current
+system rule, constraint2 to the stale one. Llama-3.1-8B, n = 16 per type.
 
 | | no suppression | best cell |
 |---|---|---|
 | original ordering | 13/96 | **64/96** |
-| **reversed ordering** | 68/96 | **46/96** |
+| reversed ordering | 35/96 | **66/96** |
 
-The original direction looks like a clean replication: 13 → 64, all six conflict
-types moving the right way, sign test p = 0.031. `language` is the one that does
-not recover (0 → 1 of 16) while the format constraints reach 8–15 of 16.
+**It replicates in both directions.** Original: 13 → 64, all six conflict types
+positive, sign test p = 0.031. Reversed: 35 → 66, four of six positive
+(p = 0.69) — and the two that do not move have no room to. `word_length`
+reversed asks for *under 50 words* and the model writes 53–349 for these tasks,
+so it is 0/16 at every dose; `language` reversed is 16/16 before any steering.
+Of the four types with headroom, all four improve.
 
-**The reversed file kills the obvious reading.** With the two constraints
-swapped, the baseline is already high — 68/96 — and steering makes it *worse*,
-68 → 46, with zero of six types improving. `case` goes 14 → 1 and
-`keyword_frequency` 10 → 3.
+**A fifth checker bug, found here.** The first version of this analysis
+hardcoded each conflict's direction from the original file — constraint1 is
+English, uppercase, at least 300 words. The reversed file swaps all six, so
+every verdict on that run was inverted: 485 of 576 flipped once the checker read
+the direction from the case instead of assuming it. On that inverted scoring I
+concluded that steering *hurts* when the order is flipped (68 → 46) and built an
+explanation about additive versus restrictive constraints. Both are withdrawn.
+Zero verdicts changed on the two original-direction files, which is what
+confirms the direction was right there.
 
-The asymmetry has a plain explanation, and it is not flattering. In the original
-file the current constraint is always the **additive** one — answer in English,
-in capitals, at least 300 words, include these keywords, at least 5 times, at
-least 10 sentences. In the reversed file the current constraint is the
-**restrictive** one — French, lowercase, under 50 words, exclude the keywords,
-fewer than 2, fewer than 5. Models satisfy restrictive constraints by default,
-which is the 68/96 baseline, and boosting the system span produces longer and
-more elaborate output, which satisfies additive constraints and violates
-restrictive ones.
+**What the language conflict actually measures.** Counting French answers
+directly rather than through the checker:
 
-So a serious alternative to "the edit restores the current instruction" is **"the
-edit makes the output more, and on this dataset more happens to be what the
-current instruction asks for."** Nothing here separates them, and the original
-direction alone cannot: every one of its six current constraints is additive.
+| | no suppression | best cell |
+|---|---|---|
+| original (system = English, stale = French) | 16/16 French | 13/16 French |
+| reversed (system = French, stale = English) | 16/16 French | 16/16 French |
 
-Separating them needs constraint pairs that are matched for direction — an
-additive current rule against an additive stale rule. That is not in either file
-and would have to be built.
+The model writes French whenever French appears anywhere in the context,
+whichever rule is current. That family is not measuring instruction priority at
+all — it is measuring that a mentioned language sticks. It is also why
+`language` "never recovers" in the original direction: there is nothing there to
+recover.
 
 ## Statistics: the observations are not independent, and it matters
 
