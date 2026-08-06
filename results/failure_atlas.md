@@ -56,12 +56,31 @@ ceiling condition makes visible, and it is larger than anything the method does
 afterwards. Without a ceiling, 0 % reads as a hard task rather than a destroyed
 one.
 
-**What the edit then does depends on where the model started.** The three models
-with a ceiling under 50 % end up *above* it (33→56, 38→86, 48→61): the edit is
-producing compliance the prompt never gets. The four with a ceiling above 85 %
-never get back to it (97→56, 94→78, 93→50, 85→58): the edit recovers roughly
-half of what the conflict took. Phi sits at the crossover and loses slightly
-(53→44).
+**The best-cell column is optimistic and has to be corrected first.** It is
+chosen post hoc from 21 cells on the same data it reports. Selecting the cell on
+three constraint families and evaluating on the other three — averaged over all
+20 such splits — costs **7 to 17 points, mean 13**:
+
+| model | ceiling | post hoc | held-out |
+|---|---|---|---|
+| Qwen2.5-0.5B | 33 % | 56 % | **46 %** |
+| Qwen2.5-1.5B | 38 % | 86 % | **72 %** |
+| Command-R7B | 48 % | 61 % | 46 % |
+| Phi-3.5-mini | 53 % | 44 % | 27 % |
+| OLMo-2-7B | 85 % | 58 % | 43 % |
+| Qwen3-4B | 93 % | 50 % | 43 % |
+| Aya-expanse-8B | 94 % | 78 % | 66 % |
+| Llama-3.1-8B | 97 % | 56 % | 43 % |
+
+**On held-out numbers only two models of eight end up above their ceiling** —
+the two weakest, at 33 % and 38 %. Command-R7B exceeded on the post-hoc figure
+and does not on the honest one, so the earlier "everything under 50 % exceeds"
+boundary was an artefact of the selection.
+
+What survives: the models that could already comply lose **27 to 50 points**
+they had (97→43, 94→66, 93→43, 85→43, 53→27), and the two weakest gain 13 and
+34 points they never had. The direction is model-dependent and the losses are
+large; the exact crossover is not something eight models can locate.
 
 So "V-Steer recovers instruction following" and "V-Steer creates instruction
 following" are both true, of different models, and which one applies is
