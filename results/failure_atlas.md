@@ -335,6 +335,33 @@ one that did is worth reporting.
   on. It is an upper bound, not an expected value. That γ+ = 4 / γ− ≈ 0.5 wins
   on all three models independently is the reason to think it is not pure
   selection noise, but it is not a held-out result.
+- **The judge is reliable overall and uneven in detail.** Scoring the same 188
+  answers twice under two different batch compositions — temperature 0, but the
+  other eleven items in a call are context — gives 87.8 % agreement and Cohen's
+  kappa 0.852. Per category the picture is not flat:
+
+  | category | reproduced on the second pass |
+  |---|---|
+  | ABSENT | 100 % |
+  | CORRECT | 97 % |
+  | NEAR | 94 % |
+  | DISOWNED | 81 % |
+  | WRONG | 79 % |
+  | UNSOURCED | 75 % |
+  | UNRESOLVED | **58 %** |
+
+  The headline — near-misses dominate and arrive first — rests on the three
+  categories that reproduce at 94–100 %. The rare and more interesting ones
+  carry real instrument noise, and UNRESOLVED, the category added last, is the
+  least stable of all. Where those matter, the mechanical detectors (repeat
+  count plus contested-framing markers, edit distance plus surviving ends) are
+  deterministic and should be treated as primary, with the judge as
+  corroboration rather than evidence.
+  `examples/judge_reliability.py` reproduces this.
+- **Hand validation** on a stratified sample of 42, scored by the same person
+  who wrote the rubric: 6/6 on CORRECT, ABSENT and DEGENERATE, 5/6 on NEAR,
+  WRONG and DISOWNED, 2/6 on UNSOURCED before that rule was tightened. Not a
+  second annotator, and not repeated after the rule changed.
 - **The automatic markers are triage.** `empty`, `garbled`, `self_correction`
   and the neighbour measure are heuristics. Two of the six checkers were wrong
   in a way that changed a headline, which is the argument for reading before
