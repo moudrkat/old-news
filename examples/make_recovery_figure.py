@@ -30,8 +30,13 @@ import matplotlib.pyplot as plt
 
 WHITE, INK, INK2, MUTED, GRID = "#ffffff", "#0b0b0b", "#52514e", "#898781", "#e1e0d9"
 CEIL, CONF, BEST = "#8a6fbf", "#e34948", "#2a78d6"
-MODELS = ("small", "mid", "llama")
-LABEL = {"small": "malý", "mid": "střední", "llama": "Llama"}
+# Ordered by ceiling: the whole point of the figure is that where a model ends
+# up is predicted by where it could start.
+MODELS = ("tiny", "small", "commandr", "phi", "olmo", "mid", "aya", "llama")
+LABEL = {"tiny": "Qwen2.5\n0.5B", "small": "Qwen2.5\n1.5B",
+         "commandr": "Command-R\n7B", "phi": "Phi-3.5\n3.8B",
+         "olmo": "OLMo-2\n7B", "mid": "Qwen3\n4B", "aya": "Aya\n8B",
+         "llama": "Llama-3.1\n8B"}
 
 
 def wilson(k, n, z=1.96):
@@ -45,10 +50,20 @@ def useful(rs):
     return sum(r["which_rule_won"] == "system" and r["recalled"] for r in rs)
 
 
+def load(kind, m):
+    """Prefer the rescored file where one exists -- the runs made before the
+    two checker fixes have one, the later ones never needed it."""
+    for suffix in (".rescored.json", ".json"):
+        f = f"results/{kind}_{m}{suffix}"
+        if os.path.exists(f):
+            return json.load(open(f))["records"]
+    raise FileNotFoundError(f"{kind}_{m}")
+
+
 rows = {}
 for m in MODELS:
-    A = json.load(open(f"results/atlas_{m}.rescored.json"))["records"]
-    C = json.load(open(f"results/ceiling_{m}.rescored.json"))["records"]
+    A = load("atlas", m)
+    C = load("ceiling", m)
     base = [r for r in A if r["gamma_minus"] == 0.0]
     cells = collections.defaultdict(list)
     for r in A:
@@ -60,13 +75,14 @@ for m in MODELS:
                "cell": (gp, gm)}
 
 plt.rcParams["font.sans-serif"] = ["DejaVu Sans", "system-ui", "sans-serif"]
-fig = plt.figure(figsize=(11, 6.3), dpi=160)
+fig = plt.figure(figsize=(13, 6.6), dpi=160)
 fig.patch.set_facecolor(WHITE)
 fig.text(0.055, 0.945, "Co zastaralá instrukce stojí a kolik jde vrátit",
          fontsize=22, fontweight="700", color=INK, va="top")
 fig.text(0.055, 0.878,
-         "Užitečná odpověď = systémové omezení dodrženo A fakt v odpovědi.\n"
-         "Jedna věta z minulosti srazí dva ze tří modelů z 93–97 % na 0–3 %.",
+         "Užitečná odpověď = systémové omezení dodrženo A fakt v odpovědi. "
+         "Modely seřazené podle stropu.\n"
+         "Modely se stropem do 48 % se editem dostanou nad něj. Od 53 % výš už nikdy.",
          fontsize=12, color=INK2, va="top", linespacing=1.5)
 
 ax = fig.add_axes([0.075, 0.185, 0.90, 0.495])
@@ -79,7 +95,7 @@ ax.tick_params(colors=MUTED, labelsize=12, length=0)
 ax.set_axisbelow(True)
 ax.yaxis.grid(True, color=GRID, lw=0.8)
 
-w = 0.25
+w = 0.27
 for j, (key, color) in enumerate((("strop", CEIL), ("konflikt", CONF),
                                   ("nejlepší", BEST))):
     xs = [i + (j - 1) * w for i in range(len(MODELS))]
@@ -90,14 +106,14 @@ for j, (key, color) in enumerate((("strop", CEIL), ("konflikt", CONF),
         ax.plot([x, x], [lo, hi], color=WHITE, lw=1.6, zorder=3)
         ax.plot([x, x], [lo, hi], color=color, lw=1.0, alpha=0.55, zorder=4)
     for x, y in zip(xs, ys):
-        ax.text(x, y + 0.028, f"{100*y:.0f} %", ha="center", fontsize=11,
+        ax.text(x, y + 0.025, f"{100*y:.0f}", ha="center", fontsize=9.5,
                 color=INK2, fontweight="700")
 
 ax.set_xticks(range(len(MODELS)))
-ax.set_xticklabels([LABEL[m] for m in MODELS], fontsize=13.5, color=INK)
+ax.set_xticklabels([LABEL[m] for m in MODELS], fontsize=10.5, color=INK)
 ax.set_yticks([0, 0.25, 0.5, 0.75, 1.0])
 ax.set_yticklabels(["0", "25 %", "50 %", "75 %", "100 %"])
-ax.set_ylim(0, 1.10)
+ax.set_ylim(0, 1.13)
 ax.set_xlim(-0.55, len(MODELS) - 0.45)
 
 # A legend row under the subtitle. Three labels written above one bar group
@@ -111,14 +127,17 @@ for x, (txt, color) in zip((0.075, 0.30, 0.545),
     fig.text(x + 0.025, 0.753, txt, fontsize=11.5, color=INK2,
              fontweight="700", va="center")
 
-ax.annotate("malý model se dostane\nnad vlastní strop", (0 + w, 0.86),
-            xytext=(46, 40), textcoords="offset points", ha="left",
-            color=INK, fontsize=11.5, linespacing=1.45,
-            arrowprops=dict(arrowstyle="-", color=MUTED, lw=1,
-                            connectionstyle="arc3,rad=-0.2"))
+# The split is empirical, not round: every model with a ceiling <= 48 % ends up
+# above it, every model from 53 % up does not. Phi (53 %) is the first on the
+# far side and it loses slightly, so it belongs on the right.
+ax.axvline(2.5, color=MUTED, lw=1, ls=(0, (4, 4)), zorder=1)
+ax.text(1.0, 1.015, "strop ≤ 48 %\nedit ho PŘEKROČÍ", fontsize=10.5,
+        color=INK, ha="center", fontweight="700", linespacing=1.4)
+ax.text(5.2, 1.015, "strop ≥ 53 %\nedit se k němu NEVRÁTÍ", fontsize=10.5,
+        color=INK, ha="center", fontweight="700", linespacing=1.4)
 
 fig.text(0.945, 0.072,
-         "6 rodin × 3 formulace × 6 faktů · strop n=108, bez řízení n=108, "
+         "6 rodin omezení × 6 faktů · strop n=108 (3 formulace), bez řízení n=108, "
          "nejlepší buňka n=36 a vybrána post hoc z 21 · úsečky 95% Wilson",
          fontsize=9, color=MUTED, ha="right")
 fig.text(0.945, 0.026,

@@ -68,6 +68,19 @@ following" are both true, of different models, and which one applies is
 predicted by the unconflicted ceiling. That is a distinction a single aggregate
 effectiveness number cannot carry.
 
+**Half of that pattern is arithmetic and should be discounted.** A model at a
+97 % ceiling has three points of room above it and a model at 33 % has
+sixty-seven; "low ceiling → exceeds it" is close to guaranteed by the bound, so
+the correlation itself carries little information and the 48/53 threshold is
+chosen on the same eight points it describes.
+
+What is not arithmetic is the size of the loss on the other side. The
+high-ceiling models do not land just under their ceilings — they land
+**20 to 45 points below** (97→56, 93→50, 85→58, 94→78). A bound cannot produce
+that; it can only stop a number from going higher. The defensible claim is the
+absolute one: models that could already comply lose 20–45 points they had, and
+models that could not gain 13–48 points they never had.
+
 **One operating point works nearly everywhere** — γ+ = 4 with γ− between 0.5 and
 0.65 is the best cell on seven of eight models, chosen independently.
 
