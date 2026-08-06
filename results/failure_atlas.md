@@ -36,28 +36,40 @@ figure: `examples/make_recovery_figure.py` → `results/recovery.png`
 
 ## Result
 
+Useful answer = the system constraint obeyed **and** the fact present, on all
+eight models. Ordered by ceiling:
+
 | model | ceiling | conflict, no steering | best cell |
 |---|---|---|---|
-| small | 38 % | 25 % | **86 %** (γ+ 4, γ− 0.5) |
-| mid | 93 % | **0 %** | 50 % (γ+ 4, γ− 0.65) |
-| Llama | 97 % | **3 %** | 56 % (γ+ 4, γ− 0.5) |
+| Qwen2.5-0.5B | 33 % | 33 % | **56 %** (γ+4 / γ−0.5) |
+| Qwen2.5-1.5B | 38 % | 25 % | **86 %** (γ+4 / γ−0.5) |
+| Command-R7B | 48 % | 0 % | **61 %** (γ+2.5 / γ−0.65) |
+| Phi-3.5-mini | 53 % | 0 % | 44 % (γ+4 / γ−0.5) |
+| OLMo-2-7B | 85 % | 19 % | 58 % (γ+4 / γ−0.65) |
+| Qwen3-4B | 93 % | 0 % | 50 % (γ+4 / γ−0.65) |
+| Aya-expanse-8B | 94 % | 3 % | 78 % (γ+4 / γ−0.65) |
+| Llama-3.1-8B | 97 % | 3 % | 56 % (γ+4 / γ−0.5) |
 
-**One sentence three turns back takes two of the three models from near-perfect
-to nothing.** That is the finding the ceiling condition makes visible, and it is
-larger than anything the method does afterwards. Without the ceiling there is no
-way to see it: 0 % looks like a hard task rather than a destroyed one.
+**One sentence three turns back takes the capable models from near-perfect to
+nothing** — 93–97 % down to 0–3 % on four of the eight. That is the finding the
+ceiling condition makes visible, and it is larger than anything the method does
+afterwards. Without a ceiling, 0 % reads as a hard task rather than a destroyed
+one.
 
-**The method recovers about half of it** — 0 → 50 %, 3 → 56 %. Real, and short
-of the 93–97 % the models reach with nothing fighting them.
+**What the edit then does depends on where the model started.** The three models
+with a ceiling under 50 % end up *above* it (33→56, 38→86, 48→61): the edit is
+producing compliance the prompt never gets. The four with a ceiling above 85 %
+never get back to it (97→56, 94→78, 93→50, 85→58): the edit recovers roughly
+half of what the conflict took. Phi sits at the crossover and loses slightly
+(53→44).
 
-**On the small model it goes above the ceiling**: 38 % → 86 %. That model cannot
-follow "answer in JSON" by instruction at all (0/18 unconflicted) but produces
-`{"order_number": "4417-B"}` under the edit. Same for `prefix` (6 % → 100 % in
-its best cell) and `bullet` (0 % → 100 %). The edit is not only restoring
-compliance there, it is creating compliance the prompt never gets.
+So "V-Steer recovers instruction following" and "V-Steer creates instruction
+following" are both true, of different models, and which one applies is
+predicted by the unconflicted ceiling. That is a distinction a single aggregate
+effectiveness number cannot carry.
 
-**One operating point works across all three models** — γ+ = 4 with γ− between
-0.5 and 0.65 is the best cell for each, independently.
+**One operating point works nearly everywhere** — γ+ = 4 with γ− between 0.5 and
+0.65 is the best cell on seven of eight models, chosen independently.
 
 ## The two ablations the grid could not run
 
