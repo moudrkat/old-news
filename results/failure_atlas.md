@@ -191,6 +191,41 @@ setting. The model produces an answer and disowns it inside the same turn. It is
 not noise at the breaking point — it grows monotonically with the suppression,
 which makes it a property of the edit rather than of degeneration in general.
 
+## The two odd categories, measured deterministically
+
+The reliability test said the rare categories carry instrument noise, and a
+second hand read of 30 answers said worse: after tightening the rule, UNSOURCED
+was still right in only 1 of 5 — four of five did not contain the fact at all
+and were plain non-answers. And every UNRESOLVED in that sample sat at γ− = 0.5
+and was *affirming* repetition, which is Phi's ordinary style, not the Llama
+doubt loop. The judge's label and the phenomenon share a name and are not the
+same thing.
+
+So both are measured by rule instead, deterministically:
+
+  unsourced  the fact string IS present AND a denial pattern fires
+             (`Fact.DENIAL` — "is not correct", "you didn't tell me", …)
+  loop       the correct value repeats 3+ times AND 3+ contested-framing markers
+
+| model | unsourced, by rule | judge said | loop, by rule | judge said |
+|---|---|---|---|---|
+| Qwen2.5-0.5B | 0/756 | 3 | 0/756 | 0 |
+| Qwen2.5-1.5B | 0/756 | 4 | 0/756 | 0 |
+| Phi-3.5-mini | 0/756 | 0 | 0/756 | **217** |
+| Qwen3-4B | 1/756 | 9 | 1/756 | 0 |
+| OLMo-2-7B | 0/756 | 0 | 0/756 | 0 |
+| **Llama-3.1-8B** | **16/756** | 19 | **13/756** | 0 |
+| Aya-expanse-8B | 0/756 | 26 | 0/756 | 0 |
+| Command-R7B | 0/756 | 8 | 0/756 | 0 |
+
+The judge's 26 UNSOURCED on Aya are all false positives — mechanically there is
+not one — and its 217 UNRESOLVED on Phi are that model's repetition habit.
+
+Measured by rule, **both odd behaviours belong to Llama alone**: 16/756 and
+13/756 against 0–1 everywhere else, across eight models and seven families.
+That is a cleaner claim than the judge could support, and it is reproducible
+without an API.
+
 ## Phrasing: per-family numbers are not stable, the model-level number is
 
 Three independently worded versions of each constraint, same six facts, same
