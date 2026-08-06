@@ -482,6 +482,17 @@ the magnitude (−48 to −94 points) is the argument, not the p-value.
 - **`options` scores the absence of a pattern as compliance**, so its ceiling is
   100 % by construction and its numbers mean less than the others'.
 - **Greedy only.** Reruns are identical; no sampling variance is measured.
+- **The ceiling condition is shorter than the conflict condition** — 53 tokens
+  against 102 at the median, because removing the stale rule removes two turns.
+  So "ceiling vs conflict" confounds the conflict with 49 tokens of context. A
+  49-token difference is not a plausible cause of a 93 → 0 collapse, but the
+  clean control would be a same-length prior instruction that does not conflict,
+  and that was not run.
+- **The edit is not a small perturbation.** The demoted span is **74 % of the
+  marked context tokens** (the system message is 16 %, the current question
+  10 %). Multiplying three quarters of the context by 0.05 is a large
+  intervention, and the failure modes here should be read with that in mind
+  rather than as evidence about gentle edits.
 - The ceiling and the phrasing sweep use 3 wordings per constraint; the main
   21-cell grid uses 1. The per-family rows of the main grid therefore carry the
   instability measured above.
