@@ -1,0 +1,29 @@
+{
+ "model": "mid",
+ "n_query_heads": 1152,
+ "n_kv_heads": 288,
+ "n_rep": 4,
+ "coin_under_max_rule": 0.9375,
+ "n_cases": 120,
+ "query_heads_delta_positive": 0.4966,
+ "median_abs_delta": 0.000136,
+ "flagged": {
+  "max_eps0.0": 0.9455,
+  "max_eps0.01": 0.2122,
+  "max_eps0.05": 0.0321,
+  "max_eps0.1": 0.0089,
+  "mean_eps0.0": 0.5049,
+  "mean_eps0.01": 0.0368,
+  "mean_eps0.05": 0.0025,
+  "mean_eps0.1": 0.0007,
+  "swap_eps0.0": 0.9464,
+  "swap_eps0.01": 0.2119,
+  "swap_eps0.05": 0.0311,
+  "swap_eps0.1": 0.009,
+  "norm_eps0.0": 0.9464,
+  "norm_eps0.01": 0.0026,
+  "norm_eps0.05": 0.0,
+  "norm_eps0.1": 0.0
+ },
+ "note": "delta = phi[demoted] - phi[privileged]. 'swap' negates it, 'norm' divides each phi by its span token count."
+}

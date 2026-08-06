@@ -1,0 +1,29 @@
+{
+ "model": "olmo",
+ "n_query_heads": 1024,
+ "n_kv_heads": 1024,
+ "n_rep": 1,
+ "coin_under_max_rule": 0.5,
+ "n_cases": 120,
+ "query_heads_delta_positive": 0.485,
+ "median_abs_delta": 0.000498,
+ "flagged": {
+  "max_eps0.0": 0.485,
+  "max_eps0.01": 0.0485,
+  "max_eps0.05": 0.0063,
+  "max_eps0.1": 0.0024,
+  "mean_eps0.0": 0.485,
+  "mean_eps0.01": 0.0485,
+  "mean_eps0.05": 0.0063,
+  "mean_eps0.1": 0.0024,
+  "swap_eps0.0": 0.515,
+  "swap_eps0.01": 0.0463,
+  "swap_eps0.05": 0.004,
+  "swap_eps0.1": 0.0016,
+  "norm_eps0.0": 0.5018,
+  "norm_eps0.01": 0.0009,
+  "norm_eps0.05": 0.0,
+  "norm_eps0.1": 0.0
+ },
+ "note": "delta = phi[demoted] - phi[privileged]. 'swap' negates it, 'norm' divides each phi by its span token count."
+}
