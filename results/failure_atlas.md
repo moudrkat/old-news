@@ -109,6 +109,26 @@ mode catalogued above is span-local, not a general degradation of the model.
 That is a real point in the method's favour, and it also says exactly where to
 look for the mechanism.
 
+### The substitution and the hesitation are two different failures
+
+Capping generation separates them. At 24 tokens Llama's baseline is still 36/36,
+so the condition is clean (8 tokens is not — it truncates before the answer, and
+even unsteered recall drops to 28/36).
+
+| γ− | near-miss @24 tok | @64 tok | hesitation @24 tok | @64 tok |
+|---|---|---|---|---|
+| 0.65 | 4/36 | 4/36 | 0/36 | 0/36 |
+| 0.75 | 9/36 | 9/36 | 0/36 | 2/36 |
+| 0.85 | 21/36 | 21/36 | **0/36** | 4/36 |
+| 0.9 | 19/36 | 20/36 | **0/36** | 6/36 |
+| 0.95 | 17/36 | 18/36 | **1/36** | 6/36 |
+
+**The substitution is complete within 24 tokens and another 40 do not change
+it** — it is fixed at retrieval. **The hesitation does not exist at 24 tokens
+at all**; it appears only in the long tail, which means it requires the model to
+read back its own output. Two dissociated failures with different causes, which
+is why they respond differently to everything else measured here.
+
 ## Two measurement bugs, and what they had produced
 
 Both were found by running the ceiling condition and disbelieving the result.
