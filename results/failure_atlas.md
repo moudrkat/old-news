@@ -66,11 +66,34 @@ eight models. Ordered by ceiling:
 | Aya-expanse-8B | 94 % | 3 % | 78 % (γ+4 / γ−0.65) |
 | Llama-3.1-8B | 97 % | 3 % | 56 % (γ+4 / γ−0.5) |
 
-**One sentence three turns back takes the capable models from near-perfect to
-nothing** — 93–97 % down to 0–3 % on four of the eight. That is the finding the
-ceiling condition makes visible, and it is larger than anything the method does
-afterwards. Without a ceiling, 0 % reads as a hard task rather than a destroyed
-one.
+**The collapse is real but it is not one sentence doing it.** A length-matched
+control — a prior instruction that exists, is acknowledged, and does *not*
+conflict — splits it in two:
+
+| Llama-3.1-8B | useful answer |
+|---|---|
+| no prior turns at all | 97 % |
+| prior turns present, non-conflicting instruction | **56 %** |
+| prior turns present, conflicting instruction | 3 % |
+
+Roughly half the collapse is bought by the mere presence of two assistant turns,
+before any conflict. Same on Aya (94 → 65 → 3) and Qwen3-4B (92 → 73 → 0);
+unchanged on the four models whose ceilings were low anyway.
+
+The reason is visible in what those turns say. The non-conflicting
+acknowledgement reads "Understood, I will be polite and take my time from now
+on" — **plain prose**: no capitals, no `ACK:`, no JSON, no bullets. It is
+already a demonstration of the wrong format. The drop is concentrated exactly
+where that bites: on Llama, `case` 100 → 28, `prefix` 100 → 17, `json` 100 → 50,
+`bullet` 83 → 50, while `length` holds at 100 → 94 and `options` at 100 → 100.
+
+So the honest decomposition is: **two assistant turns in the wrong format do
+about half the damage, and the conflicting instruction does the other half.**
+The earlier "one sentence three turns back takes a model from near-perfect to
+nothing" attributed all of it to the sentence. The clean control would have the
+acknowledgement turns obey the *system* rule — `staleset.build` ships exactly
+that condition under the name `aligned`, and neither this experiment nor the
+phrasing one uses it. That is the next thing to run.
 
 **The best-cell column is optimistic and has to be corrected first.** It is
 chosen post hoc from 21 cells on the same data it reports. Selecting the cell on
