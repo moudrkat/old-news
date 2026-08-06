@@ -76,7 +76,11 @@ def main() -> None:
         with torch.no_grad():
             pre = prefill(model, ids)
             phi, _ = span_attributions(model, pre, r.levels)
-            delta = inversion(phi, pol.privileged, (0,))
+            # `(0,)` here was the bug: level 0 is the SYSTEM message, not the
+            # demoted one, so this computed phi[system] - phi[system] = 0 and
+            # flagged nothing on every model and every eps. The demoted levels
+            # come from the policy.
+            delta = inversion(phi, pol.privileged, pol.demoted)
             mask = select_heads(delta, pre.n_rep, args.eps, "max")
         frac = float(mask.float().mean())
         n_heads = mask.numel()
