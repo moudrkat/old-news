@@ -171,8 +171,29 @@ NEUTRAL = dict(
     ack="Understood, I will be polite and take my time from now on.",
     note="Noted, I will remember that.")
 
+# The neutral prior above is neutral in CONTENT and not in FORM: its
+# acknowledgements are plain prose, which is already a demonstration that the
+# system's format rule is not being followed. On Llama that alone costs
+# 97 -> 56 %. ALIGNED fixes the form: the same non-conflicting instruction,
+# acknowledged in whatever format the system rule demands, so nothing in the
+# transcript demonstrates a violation. What is left is the instruction itself.
+ALIGNED = {
+    "case": dict(ack="UNDERSTOOD, I WILL DO THAT FROM NOW ON.",
+                 note="NOTED, I WILL REMEMBER THAT."),
+    "prefix": dict(ack="ACK: understood, I will do that from now on.",
+                   note="ACK: noted, I will remember that."),
+    "json": dict(ack='{"reply": "understood, I will do that from now on"}',
+                 note='{"reply": "noted, I will remember that"}'),
+    "bullet": dict(ack="- Understood\n- I will do that from now on",
+                   note="- Noted\n- I will remember that"),
+    "length": dict(ack="Understood. I will do that.",
+                   note="Noted. I will remember."),
+    "options": dict(ack="Understood, I will do that from now on.",
+                    note="Noted, I will remember that."),
+}
 
-def build_cases(control=False, neutral=False):
+
+def build_cases(control=False, neutral=False, aligned=False):
     """control=True removes the conflict: same system rule, same fact, but the
     stale instruction and the turns that obey it are gone.
 
@@ -190,13 +211,16 @@ def build_cases(control=False, neutral=False):
     for fam, variants in PHRASINGS.items():
         for vi, v in enumerate(variants, 1):
             for fact in FACTS:
-                src = NEUTRAL if neutral else v
+                if aligned:
+                    src = dict(NEUTRAL, **ALIGNED[fam])
+                else:
+                    src = NEUTRAL if neutral else v
                 msgs = [Msg("system", v["system"], epoch=1)]
-                if neutral or not control:
+                if neutral or aligned or not control:
                     msgs += [Msg("user", src["stale"], epoch=0),
                              Msg("assistant", src["ack"], epoch=0)]
                 msgs += [Msg("user", fact.statement, epoch=0),
-                         Msg("assistant", src["note"] if (neutral or not control)
+                         Msg("assistant", src["note"] if (neutral or aligned or not control)
                              else "Noted.", epoch=0),
                          Msg("user", fact.question, epoch=1)]
                 cases.append(dict(family=fam, phrasing=vi, check=CHECKS[fam],
@@ -213,11 +237,15 @@ def main():
     ap.add_argument("--gamma-minus", default=",".join(map(str, GAMMA_MINUS)))
     ap.add_argument("--control", action="store_true",
                     help="strop: stejne pravidlo, zadny konflikt, zadne rizeni")
+    ap.add_argument("--aligned", action="store_true",
+                    help="jako --neutral, ale potvrzovaci tahy jsou ve formatu, "
+                         "ktery zada systemove pravidlo -- nic v prepisu pak "
+                         "nedemonstruje poruseni")
     ap.add_argument("--neutral", action="store_true",
                     help="strop se stejnou DELKOU kontextu: predchozi instrukce "
                          "existuje a je poslusnuta, ale neodporuje")
     args = ap.parse_args()
-    if args.control or args.neutral:
+    if args.control or args.neutral or args.aligned:
         args.gamma_plus, args.gamma_minus = "1.0", "0.0"
 
     out = args.out or f"results/phrasing_{args.model}.json"
@@ -231,7 +259,8 @@ def main():
 
     gps = [float(x) for x in args.gamma_plus.split(",")]
     gms = [float(x) for x in args.gamma_minus.split(",")]
-    cases = build_cases(control=args.control, neutral=args.neutral)
+    cases = build_cases(control=args.control, neutral=args.neutral,
+                        aligned=args.aligned)
     total = len(gps) * len(gms) * len(cases)
     print(f"{args.model}: {len(cases)} pripadu ({len(PHRASINGS)} rodin x 3 formulace "
           f"x {len(FACTS)} faktu) x {len(gps)*len(gms)} bunek = {total} generaci\n",
@@ -271,6 +300,7 @@ def main():
                        "max_new_tokens": args.max_new_tokens, "greedy": True,
                        "control": bool(args.control),
                        "neutral_prior": bool(args.neutral),
+                       "aligned_form": bool(args.aligned),
                        "note": ("Automaticke znacky jsou TRIAGE, ne verdikt. "
                                 "v1 je doslova formulace z failure_atlas.py, takze "
                                 "obe studie lezi na jedne ose."

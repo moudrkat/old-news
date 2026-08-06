@@ -455,6 +455,47 @@ edit suppresses it. Not a failure mode.
 Two of three candidates did not survive checking. That ratio is the reason the
 one that did is worth reporting.
 
+## The second dataset, and the control that undercuts it
+
+Control Illusion (Geng et al., AAAI 2026) is 100 task instructions crossed with
+6 mutually exclusive constraint pairs, all of them exactly checkable by a
+counter — no judge, and none of my own checkers. Mapping constraint1 to the
+current system rule and constraint2 to the stale one, on Llama-3.1-8B with
+n = 16 per conflict type:
+
+| | no suppression | best cell |
+|---|---|---|
+| original ordering | 13/96 | **64/96** |
+| **reversed ordering** | 68/96 | **46/96** |
+
+The original direction looks like a clean replication: 13 → 64, all six conflict
+types moving the right way, sign test p = 0.031. `language` is the one that does
+not recover (0 → 1 of 16) while the format constraints reach 8–15 of 16.
+
+**The reversed file kills the obvious reading.** With the two constraints
+swapped, the baseline is already high — 68/96 — and steering makes it *worse*,
+68 → 46, with zero of six types improving. `case` goes 14 → 1 and
+`keyword_frequency` 10 → 3.
+
+The asymmetry has a plain explanation, and it is not flattering. In the original
+file the current constraint is always the **additive** one — answer in English,
+in capitals, at least 300 words, include these keywords, at least 5 times, at
+least 10 sentences. In the reversed file the current constraint is the
+**restrictive** one — French, lowercase, under 50 words, exclude the keywords,
+fewer than 2, fewer than 5. Models satisfy restrictive constraints by default,
+which is the 68/96 baseline, and boosting the system span produces longer and
+more elaborate output, which satisfies additive constraints and violates
+restrictive ones.
+
+So a serious alternative to "the edit restores the current instruction" is **"the
+edit makes the output more, and on this dataset more happens to be what the
+current instruction asks for."** Nothing here separates them, and the original
+direction alone cannot: every one of its six current constraints is additive.
+
+Separating them needs constraint pairs that are matched for direction — an
+additive current rule against an additive stale rule. That is not in either file
+and would have to be built.
+
 ## Statistics: the observations are not independent, and it matters
 
 Every cell reuses the same 6 facts crossed with the same 6 constraint families,
