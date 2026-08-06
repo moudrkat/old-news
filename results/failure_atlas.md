@@ -7,7 +7,13 @@ worth against a proper baseline.
 
 ## What was run
 
-Three models. Three conditions, all scored the same way.
+**11 856 generations**, all kept. Eight models (Qwen2.5-0.5B/1.5B, Phi-3.5-mini,
+Qwen3-4B, Gemma-4-E2B, OLMo-2-7B, Llama-3.1-8B, Aya-expanse-8B, Command-R7B) and
+six conditions. `examples/report_numbers.py` recomputes every figure below from
+the stored generations, so the write-up can be checked against the data rather
+than trusted.
+
+Three conditions carry the main result, all scored the same way.
 
 | condition | history | steering | n per model |
 |---|---|---|---|
@@ -76,9 +82,12 @@ fixing that (`--always-steer`, `--fact-epoch`).
 
 The boost term alone delivers **40–70 % of the compliance gain at essentially no
 cost to recall**. The suppression term buys the remaining 30–60 % and costs
-20–55 % of recall. On Llama the two are statistically indistinguishable on
-compliance (p = 0.32) while differing sharply on recall (p = 0.0007); on Qwen3-4B
-the suppression term does real work (p = 0.020) and the trade is a genuine one.
+20–55 % of recall.
+
+Only on Llama are the two indistinguishable on compliance (p = 0.32) while
+differing sharply on recall (p = 0.0007) — there the suppression term is close
+to free to drop. On Qwen3-4B (p = 0.020) and Qwen2.5-1.5B (p = 0.002) it does
+real work, and the trade is a genuine one.
 
 Which point on that trade to take is an application question. The point here is
 that it is a trade, it is large, and the grid as originally written could not
@@ -269,8 +278,8 @@ The eight-category judge had scattered these across DISOWNED (6), UNSOURCED (5)
 and DEGENERATE (3), which is what a missing category looks like from the
 inside.
 
-It is **Llama-specific, and not a size effect**. Across seven models from 0.5B
-to 8B and six families:
+It is **Llama-specific, and not a size effect**. Across eight models from 0.5B
+to 8B and seven families:
 
 | model | family | B | loop fires |
 |---|---|---|---|
@@ -280,6 +289,7 @@ to 8B and six families:
 | OLMo-2-7B | OLMo | 7.3 | 0 / 756 |
 | **Llama-3.1-8B** | Llama | 8.0 | **13 / 756** |
 | Aya-expanse-8B | Aya | 8.0 | 0 / 756 |
+| Command-R7B | Command-R | 8.0 | 0 / 756 |
 
 OLMo and Aya are the same size as Llama and never do it. And it is
 dose-dependent — 0, 2, 2, 0, 4, 5 as γ− rises — so it is caused by the edit
