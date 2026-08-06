@@ -166,25 +166,42 @@ underlying intuition.
 
 ## Is the substitution reaching for something common?
 
-Under the strong edit, `bagr` becomes `Bagel` 28 times out of 31 — a rare string
-replaced by a frequent one. `examples/frequency_atlas.py` tests that directly
-with 8 matched pairs holding the shape fixed and varying only how ordinary the
-target is in English (Bagr/Buddy, Brno/Paris, 4417-B/1234-A, 19:43/12:00).
+Under a strong edit `bagr` becomes `Bagel` 28 times out of 31 — a rare string
+replaced by a frequent one. `examples/frequency_atlas.py` tests that with 8
+matched pairs holding the shape and the question fixed and varying only how
+ordinary the target is (Bagr/Buddy, Brno/Paris, Kvapil/Miller, taupe/green,
+4417-B/1234-A, E-88/A-1, 19:43/12:00, 302/100), on six models.
 
-In the degradation zone (γ− ≥ 0.85), pooled over two models:
+The degradation zone is defined per model — the cells where overall recall has
+fallen below 80 % but is not yet zero — because a fixed γ− threshold puts OLMo
+and Phi in a range where nothing has degraded yet and there is nothing to see.
 
-| | recalled |
-|---|---|
-| rare string | 26/96 = **27 %** |
-| common string | 47/96 = **49 %** |
+| model | rare | common | difference | p |
+|---|---|---|---|---|
+| Qwen2.5-0.5B | 14/80 | 26/80 | +15 | 0.029 |
+| Qwen2.5-1.5B | 20/80 | 26/80 | +8 | 0.29 |
+| Qwen3-4B | 13/48 | 26/48 | +27 | 0.007 |
+| Phi-3.5 | 31/48 | 31/48 | 0 | 1.00 |
+| OLMo-2-7B | 43/64 | 40/64 | −5 | 0.58 |
+| Llama-3.1-8B | 26/64 | 33/64 | +11 | 0.21 |
+| **pooled** | **147/384** | **182/384** | **+9** | **0.011** |
 
-z = 3.12, **p = 0.0018**. Common targets survive the same edit roughly twice as
-often. Per model: mid p = 0.007, Llama p = 0.088 — the direction is the same,
-the size is not.
+Real but modest, and **not universal**: four of six models point the same way,
+Phi shows nothing and OLMo tips slightly the other way.
 
-The manipulation is not purely frequency: the common members are also rounder
-and more regular (12:00, 100, 1234-A). "High-prior string" covers both, which is
-the hypothesis, but a cleaner design would vary frequency at matched regularity.
+The manipulation confounds two things — word frequency (Bagr/Buddy) and numeric
+regularity (19:43/12:00) — so they are worth splitting:
+
+| pairs differing in | rare | common | difference | p |
+|---|---|---|---|---|
+| word frequency | 80/192 | 100/192 | +10 | **0.041** |
+| numeric regularity | 67/192 | 82/192 | +8 | 0.12 |
+
+Both point the same way and the cleaner manipulation is the significant one, so
+the confound does not explain the effect away — but neither does the effect
+carry the weight the `bagr → Bagel` anecdote suggests. The honest statement is
+that a common target survives roughly ten points further into the edit, on most
+but not all models.
 
 ## A mode the rubric had no room for, and two that did not survive
 
