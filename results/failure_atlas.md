@@ -507,27 +507,62 @@ the magnitude (−48 to −94 points) is the argument, not the p-value.
 3. Read a stratified sample by hand and put an error bar on the automatic
    labels. The judge harness exists (`oldnews/evals/judge.py`, 9 tests green).
 
-## Open: the mechanism, which is not measured here
+## The mechanism, measured
+
+`examples/why_near.py` teacher-forces both conditions to the position where the
+value is emitted, so the two are asked the same question at the same place, and
+compares next-token distributions. 6 facts × 3 doses × 3 models, one constraint
+family — a probe, not a rate estimate.
+
+**Robust across all three models: the correct token is attenuated, not
+overwritten.** Its probability falls by a median of 261× (Llama), 261×
+(Qwen2.5-1.5B) and 54 471× (Qwen3-4B) — from 1.0000 to as little as 0.0005.
+Nothing pushes a wrong token up; the right one is pushed down until something
+else is left standing.
+
+**Which thing is left standing is model-dependent, and this is where the
+"falls back on the prior" story half-fails:**
+
+| model | median rank of the substitute in the *unsteered* distribution | in the top 10 |
+|---|---|---|
+| Llama-3.1-8B | 10 | 6/11 |
+| Qwen2.5-1.5B | 7 | 11/17 |
+| **Qwen3-4B** | **91** | 3/9 |
+
+On two models the replacement is usually a standing competitor the edit merely
+let win — `19:40` → `19:00` takes rank 3, `302` → `2` rank 3, `bagr` → `Bagel`
+rank 10. On Qwen3-4B it is typically rank ~91, and in one case **rank 36 931**,
+where the winning token is `<|im_end|>`: the model ends the turn rather than
+emit a value. That is not a substitution at all, and no prior-fallback account
+covers it.
+
+Two specific readings that the distributions settle:
+
+- **"Truncation" is the sequence-ending token winning.** `4417-B` → `4417`
+  is the model choosing `.` over `-B` (rank 13 on Llama, rank 4 on
+  Qwen2.5-1.5B). Calling it "half the characters survived" describes the string;
+  the distribution says the model closed the number early.
+- **`brno` resists.** Its token holds rank 1 with p = 0.957 even at γ− = 0.95 on
+  Llama, and where it does fail the replacements are `Brussels` and `Bris` at
+  ranks 46–602 — semantic neighbours from far down, not high-prior strings.
+
+So: attenuation is the mechanism, and *what fills the gap* is not one thing.
+
+## Still open
 
 Everything above is phenomenology. Why the substitutions look the way they do is
 untested, and the write-up should not be read as claiming otherwise. Three
 questions, in the order they are worth asking:
 
-1. **Is the substitution the model's own runner-up?** `examples/why_near.py`
-   teacher-forces both conditions to the position where the value is emitted and
-   compares distributions. If the token the steered model picks was already near
-   the top of the *unsteered* distribution, the edit removed evidence and let a
-   standing competitor win. If it sits at rank 500 unsteered, "falls back on the
-   prior" is wrong and something else is happening. Written, not yet run.
-2. **Does attention to the demoted span change?** Scaling V leaves the Q·K
+1. **Does attention to the demoted span change?** Scaling V leaves the Q·K
    product untouched, so mechanically it should not — the model keeps attending
    at full strength to a span whose payload has been attenuated. That is the
    author's own hypothesis for the disowning behaviour and it has not been
    checked against a measurement.
-3. **Where does "sourcing" live?** An answer that states the fact and denies
+2. **Where does "sourcing" live?** An answer that states the fact and denies
    being told it has kept the content and lost something else. Nothing here
    localises that, and it may not be localisable at all.
 
-Until (1) and (2) are run, the phrase "slides toward a high-frequency string"
-in this document is a description of the outputs, not a claim about the
-computation.
+The phrase "slides toward a high-frequency string" is retired: it is right for
+two models and wrong for the third, and "the correct token is attenuated until
+something else wins" covers all three.
