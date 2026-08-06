@@ -411,6 +411,37 @@ edit suppresses it. Not a failure mode.
 Two of three candidates did not survive checking. That ratio is the reason the
 one that did is worth reporting.
 
+## Statistics: the observations are not independent, and it matters
+
+Every cell reuses the same 6 facts crossed with the same 6 constraint families,
+so a z-test over 36 "observations" per cell overstates the evidence — the true
+unit is the family, the fact, the pair or the model, depending on the claim. All
+headline claims were recomputed on the clustered unit, with a sign test (which
+assumes nothing about the distribution) alongside a paired t.
+
+| claim | cluster | clustered result |
+|---|---|---|
+| boost-only preserves recall | family | Qwen3-4B and Llama **6/6 families positive**, p = 0.031, t(5) = 7.0 and 7.9; Qwen2.5-1.5B 5/6, +47 points |
+| the edit is span-local | family | **6/6 families**, +83 to +100 points, p = 0.031, both models |
+| the conflict destroys compliance | model | 7/8 models negative, −48 to −94 points, sign p = 0.070 |
+| common strings survive better | pair | **does not survive**: +9.3 points mean, t(7) = 2.28 (p ≈ 0.06), sign test 6/8, p = 0.29 |
+
+Two things follow.
+
+**The two ablations hold up under any reasonable unit.** The direction is
+unanimous across all six constraint families, and the effect sizes are 20–100
+points. Nothing about the clustering weakens them.
+
+**The frequency result does not, and the earlier p = 0.011 was an artefact of
+the wrong unit.** With eight pairs there is not enough independent evidence to
+call it. The mean is +9.3 points and six of eight pairs point the right way,
+which is worth reporting as a direction and not as a finding. It needs more
+pairs, not more generations per pair — a distinction the naive test hides.
+
+For the conflict effect, the sign test on eight models bottoms out at p = 0.008
+even when every model agrees, so p = 0.070 is close to the floor available and
+the magnitude (−48 to −94 points) is the argument, not the p-value.
+
 ## Caveats
 
 - **The best cell is chosen post hoc** from 21, on the same data it is reported
