@@ -156,15 +156,27 @@ matching character shape alone, 68 % once truncation counts — and "dominant"
 **Non-terminating recall.** One mode has no home in a fixed rubric: the model
 states the correct value, repeats it three to six times, and cannot settle on
 it, with no alternative ever offered. Measured by rule (value repeated ≥3× and
-≥3 contested-framing markers) it is **Llama-specific across all eight models**:
-13/756 against 0–1 elsewhere, including OLMo-2-7B and Aya-8B at the same size.
-It rises with γ⁻. The eight-category judge scattered these across three labels,
-which is what a missing category looks like from inside.
+≥3 contested-framing markers):
+
+| | 0.5B | 1.5B | 3B | 4B | 7B | 8B |
+|---|---|---|---|---|---|---|
+| Qwen2.5 ladder | 0/756 | 0/756 | 0/756 | — | 0/756 | — |
+| Qwen3 | — | — | — | 1/756 | — | — |
+| Phi-3.5 / OLMo-2 / Aya / Command-R | — | — | 0/756 | — | 0/756 | 0/756 |
+| **Llama-3.1** | | | | | | **13/756** |
+
+**It is not a size effect.** A same-family ladder spanning 14× in parameters —
+Qwen2.5 at 0.5B, 1.5B, 3B and 7B — gives zero at every size, with no trend. It
+is zero on every other family too, including OLMo-2-7B and Aya-8B at Llama's own
+size. One model of ten does it, and it rises with γ⁻. The eight-category judge
+scattered these across three labels, which is what a missing category looks like
+from inside.
 
 **Right content, refused as a source.** An answer that states the fact and
 denies being told it — "you live in a city called Brno, but since you didn't
 mention it, i assumed it was a different city". Measured by rule (fact present
-AND a denial pattern fires) this is also Llama-only: 16/756 against 0–1.
+AND a denial pattern fires) this is also Llama-only: 16/756 against 0–1 on the
+other nine, again with no size trend inside the Qwen2.5 ladder.
 
 ---
 
