@@ -163,9 +163,21 @@ GAMMA_PLUS = [2.5, 4.0]
 GAMMA_MINUS = [0.0, 0.75, 0.95]
 
 
-def build_cases(control=False):
+# A prior instruction that is real, obeyed, and compatible with every system
+# rule in the set. Used for the length-matched ceiling: without it, "no conflict"
+# also means "two turns shorter", and the two explanations are not separable.
+NEUTRAL = dict(
+    stale="From now on, please be polite and take your time with your answers.",
+    ack="Understood, I will be polite and take my time from now on.",
+    note="Noted, I will remember that.")
+
+
+def build_cases(control=False, neutral=False):
     """control=True removes the conflict: same system rule, same fact, but the
     stale instruction and the turns that obey it are gone.
+
+    neutral=True keeps the turns and the length but makes the prior instruction
+    non-conflicting, which is the ceiling the comparison actually wants.
 
     This is the ceiling, and without it the headline table cannot be read. A
     family scoring 0 % under conflict has two explanations that predict the
@@ -178,12 +190,13 @@ def build_cases(control=False):
     for fam, variants in PHRASINGS.items():
         for vi, v in enumerate(variants, 1):
             for fact in FACTS:
+                src = NEUTRAL if neutral else v
                 msgs = [Msg("system", v["system"], epoch=1)]
-                if not control:
-                    msgs += [Msg("user", v["stale"], epoch=0),
-                             Msg("assistant", v["ack"], epoch=0)]
+                if neutral or not control:
+                    msgs += [Msg("user", src["stale"], epoch=0),
+                             Msg("assistant", src["ack"], epoch=0)]
                 msgs += [Msg("user", fact.statement, epoch=0),
-                         Msg("assistant", v["note"] if not control
+                         Msg("assistant", src["note"] if (neutral or not control)
                              else "Noted.", epoch=0),
                          Msg("user", fact.question, epoch=1)]
                 cases.append(dict(family=fam, phrasing=vi, check=CHECKS[fam],
@@ -200,8 +213,11 @@ def main():
     ap.add_argument("--gamma-minus", default=",".join(map(str, GAMMA_MINUS)))
     ap.add_argument("--control", action="store_true",
                     help="strop: stejne pravidlo, zadny konflikt, zadne rizeni")
+    ap.add_argument("--neutral", action="store_true",
+                    help="strop se stejnou DELKOU kontextu: predchozi instrukce "
+                         "existuje a je poslusnuta, ale neodporuje")
     args = ap.parse_args()
-    if args.control:
+    if args.control or args.neutral:
         args.gamma_plus, args.gamma_minus = "1.0", "0.0"
 
     out = args.out or f"results/phrasing_{args.model}.json"
@@ -215,7 +231,7 @@ def main():
 
     gps = [float(x) for x in args.gamma_plus.split(",")]
     gms = [float(x) for x in args.gamma_minus.split(",")]
-    cases = build_cases(control=args.control)
+    cases = build_cases(control=args.control, neutral=args.neutral)
     total = len(gps) * len(gms) * len(cases)
     print(f"{args.model}: {len(cases)} pripadu ({len(PHRASINGS)} rodin x 3 formulace "
           f"x {len(FACTS)} faktu) x {len(gps)*len(gms)} bunek = {total} generaci\n",
@@ -254,6 +270,7 @@ def main():
                        "families": list(PHRASINGS), "phrasings_per_family": 3,
                        "max_new_tokens": args.max_new_tokens, "greedy": True,
                        "control": bool(args.control),
+                       "neutral_prior": bool(args.neutral),
                        "note": ("Automaticke znacky jsou TRIAGE, ne verdikt. "
                                 "v1 je doslova formulace z failure_atlas.py, takze "
                                 "obe studie lezi na jedne ose."

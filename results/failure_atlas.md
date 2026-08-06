@@ -506,3 +506,28 @@ the magnitude (−48 to −94 points) is the argument, not the p-value.
    report on the other three.
 3. Read a stratified sample by hand and put an error bar on the automatic
    labels. The judge harness exists (`oldnews/evals/judge.py`, 9 tests green).
+
+## Open: the mechanism, which is not measured here
+
+Everything above is phenomenology. Why the substitutions look the way they do is
+untested, and the write-up should not be read as claiming otherwise. Three
+questions, in the order they are worth asking:
+
+1. **Is the substitution the model's own runner-up?** `examples/why_near.py`
+   teacher-forces both conditions to the position where the value is emitted and
+   compares distributions. If the token the steered model picks was already near
+   the top of the *unsteered* distribution, the edit removed evidence and let a
+   standing competitor win. If it sits at rank 500 unsteered, "falls back on the
+   prior" is wrong and something else is happening. Written, not yet run.
+2. **Does attention to the demoted span change?** Scaling V leaves the Q·K
+   product untouched, so mechanically it should not — the model keeps attending
+   at full strength to a span whose payload has been attenuated. That is the
+   author's own hypothesis for the disowning behaviour and it has not been
+   checked against a measurement.
+3. **Where does "sourcing" live?** An answer that states the fact and denies
+   being told it has kept the content and lost something else. Nothing here
+   localises that, and it may not be localisable at all.
+
+Until (1) and (2) are run, the phrase "slides toward a high-frequency string"
+in this document is a description of the outputs, not a claim about the
+computation.

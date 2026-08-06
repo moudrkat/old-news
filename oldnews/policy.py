@@ -39,6 +39,11 @@ class SteerPolicy:
     decay: float = 0.5  # epoch_decay: per-epoch retention of influence
     ladder: dict[int, float] = field(default_factory=dict)  # ladder: level -> m
     eps: float = 0.0  # head-selection margin
+    # Choose heads as if gamma_minus had this value, then apply the real
+    # multipliers. Only for the ablation: at gamma_minus = 0 the selection
+    # criterion degenerates (see vsteer._demoted_levels), so isolating the
+    # boost term needs the head set held fixed.
+    select_as_if_gamma_minus: float | None = None
 
     def multiplier(self, level: int | None, age: int = 0) -> float:
         """Multiplier for a token at ``level``, ``age`` epochs behind current."""

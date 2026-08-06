@@ -21,7 +21,17 @@ ALIASES = {
     "granite": "ibm-granite/granite-4.1-8b",           # 8B
     "aya": "CohereLabs/aya-expanse-8b",                # 8B, multilingual
     "commandr": "CohereLabs/c4ai-command-r7b-12-2024",  # 7B
-    "gemma": "google/gemma-4-E2B-it",                  # 2B
+    # Gemma-4 is not supported: E2B fails at prefill (Gemma4Config has no
+    # num_attention_heads -- the config is nested), and E4B additionally shares
+    # KV across layers and uses sliding-window attention on 20 of 24 cache
+    # layers, where a demoted span can fall outside the window entirely.
+    #
+    # A Qwen2.5 size ladder, so "is it size or is it the model family" can be
+    # asked inside one family instead of across eight.
+    "q3b": "Qwen/Qwen2.5-3B-Instruct",
+    "q7b": "Qwen/Qwen2.5-7B-Instruct",
+    "q14b": "Qwen/Qwen2.5-14B-Instruct",
+    "qwen3-8b": "Qwen/Qwen3-8B",
 }
 
 

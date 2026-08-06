@@ -14,6 +14,8 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 
+import dataclasses
+
 import torch
 
 from .attribution import Prefill, _forward_last_token, inversion, prefill, span_attributions
@@ -156,7 +158,24 @@ def steer(
 
 
 def _demoted_levels(rendered, policy: SteerPolicy) -> set[int]:
-    """Which levels this policy actually suppresses for this transcript."""
+    """Which levels this policy actually suppresses for this transcript.
+
+    With gamma_minus = 0 nothing is suppressed, so this is empty, and
+    `inversion` then reduces to `delta = -phi[privileged]`: head selection
+    silently switches from "the stale span beats the system span" to "the system
+    span has negative attribution", which is a different and roughly unrelated
+    set of heads. That makes a gamma_minus = 0 run useless as an ablation of the
+    suppression term -- it is not the same edit minus one part, it is another
+    edit.
+
+    `select_as_if_gamma_minus` fixes the head set while leaving the multipliers
+    alone, so the boost can be measured on exactly the heads the full edit
+    would have chosen.
+    """
+    ref = getattr(policy, "select_as_if_gamma_minus", None)
+    if ref:
+        policy = dataclasses.replace(policy, gamma_minus=ref,
+                                     select_as_if_gamma_minus=None)
     mult = token_multipliers(rendered, policy)
     return {
         lv

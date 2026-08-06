@@ -230,6 +230,11 @@ def main():
     ap.add_argument("--gamma-minus", default=",".join(map(str, GAMMA_MINUS)))
     ap.add_argument("--always-steer", action="store_true",
                     help="postav politiku i pri gamma- = 0 (ablace jen gamma+)")
+    ap.add_argument("--select-as-if", type=float, default=None,
+                    help="vyber hlavy, jako by gamma- melo tuto hodnotu. Bez "
+                         "toho se pri gamma- = 0 kriterium vyberu zvrhne na "
+                         "-phi[system] a ablace meri jiny edit, ne tentyz bez "
+                         "potlaceni.")
     ap.add_argument("--fact-epoch", type=int, default=0,
                     help="1 = fakt NEni v potlacovanem useku (kontrola cileni)")
     args = ap.parse_args()
@@ -259,7 +264,8 @@ def main():
             # ablation unrun: 3 of 21 cells were the same generation three
             # times. With --always-steer the policy is built anyway, so the
             # boost can be measured without any suppression.
-            pol = SteerPolicy(mode="binary", gamma_plus=gp, gamma_minus=gm) \
+            pol = SteerPolicy(mode="binary", gamma_plus=gp, gamma_minus=gm,
+                              select_as_if_gamma_minus=args.select_as_if) \
                 if (gm or args.always_steer) else None
             stale = recalled = 0
             for c in cases:
@@ -284,6 +290,7 @@ def main():
                   f"stara instrukce vyhrala {stale:2d}/{n}  "
                   f"fakt vybaven {recalled:2d}/{n}", flush=True)
             json.dump({"model": args.model, "always_steer": bool(args.always_steer),
+                       "select_as_if": args.select_as_if,
                        "fact_epoch": args.fact_epoch,
                        "families": [f["key"] for f in FAMILIES],
                        "max_new_tokens": args.max_new_tokens, "greedy": True,
