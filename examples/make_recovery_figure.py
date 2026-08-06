@@ -20,6 +20,7 @@ Reads the *.rescored.json files -- two checkers were wrong and the numbers here
 are the corrected ones (see examples/rescore_atlas.py).
 """
 import collections
+import itertools
 import json
 import math
 import os
@@ -60,19 +61,32 @@ def load(kind, m):
     raise FileNotFoundError(f"{kind}_{m}")
 
 
+FAMS = ["case", "prefix", "json", "bullet", "length", "options"]
+
 rows = {}
 for m in MODELS:
     A = load("atlas", m)
     C = load("ceiling", m)
     base = [r for r in A if r["gamma_minus"] == 0.0]
-    cells = collections.defaultdict(list)
+    by = collections.defaultdict(lambda: collections.defaultdict(list))
     for r in A:
-        cells[(r["gamma_plus"], r["gamma_minus"])].append(r)
-    gp, gm = max(cells, key=lambda k: useful(cells[k]) / len(cells[k]))
+        by[(r["gamma_plus"], r["gamma_minus"])][r["family"]].append(r)
+    cells = sorted(by)
+    # Held-out dose selection. Picking the best cell on the same data it is
+    # reported on inflates it by 7-17 points, so the cell is chosen on three
+    # constraint families and scored on the other three, averaged over all 20
+    # splits. The bar is the honest number, not the best one.
+    tot = [0, 0]
+    for tr in itertools.combinations(FAMS, 3):
+        te = [f for f in FAMS if f not in tr]
+        best = max(cells, key=lambda c: useful([x for f in tr for x in by[c][f]]) /
+                   len([x for f in tr for x in by[c][f]]))
+        ev = [x for f in te for x in by[best][f]]
+        tot[0] += useful(ev)
+        tot[1] += len(ev)
     rows[m] = {"strop": (useful(C), len(C)),
                "konflikt": (useful(base), len(base)),
-               "nejlepší": (useful(cells[(gp, gm)]), len(cells[(gp, gm)])),
-               "cell": (gp, gm)}
+               "nejlepší": tuple(tot)}
 
 plt.rcParams["font.sans-serif"] = ["DejaVu Sans", "system-ui", "sans-serif"]
 fig = plt.figure(figsize=(13, 6.6), dpi=160)
@@ -82,7 +96,8 @@ fig.text(0.055, 0.945, "Co zastaralá instrukce stojí a kolik jde vrátit",
 fig.text(0.055, 0.878,
          "Užitečná odpověď = systémové omezení dodrženo A fakt v odpovědi. "
          "Modely seřazené podle stropu.\n"
-         "Modely se stropem do 48 % se editem dostanou nad něj. Od 53 % výš už nikdy.",
+         "Dávka vybraná na jiných rodinách omezení, ne na týchž datech. "
+         "Nad strop se dostanou jen dva nejslabší modely.",
          fontsize=12, color=INK2, va="top", linespacing=1.5)
 
 ax = fig.add_axes([0.075, 0.185, 0.90, 0.495])
@@ -121,7 +136,7 @@ ax.set_xlim(-0.55, len(MODELS) - 0.45)
 for x, (txt, color) in zip((0.075, 0.30, 0.545),
                            (("bez konfliktu", CEIL),
                             ("konflikt, bez řízení", CONF),
-                            ("nejlepší dávka", BEST))):
+                            ("nejlepší dávka (held-out)", BEST))):
     fig.patches.append(plt.Rectangle((x, 0.741), 0.017, 0.025, color=color,
                                      transform=fig.transFigure, zorder=5))
     fig.text(x + 0.025, 0.753, txt, fontsize=11.5, color=INK2,
@@ -130,15 +145,16 @@ for x, (txt, color) in zip((0.075, 0.30, 0.545),
 # The split is empirical, not round: every model with a ceiling <= 48 % ends up
 # above it, every model from 53 % up does not. Phi (53 %) is the first on the
 # far side and it loses slightly, so it belongs on the right.
-ax.axvline(2.5, color=MUTED, lw=1, ls=(0, (4, 4)), zorder=1)
-ax.text(1.0, 1.015, "strop ≤ 48 %\nedit ho PŘEKROČÍ", fontsize=10.5,
-        color=INK, ha="center", fontweight="700", linespacing=1.4)
-ax.text(5.2, 1.015, "strop ≥ 53 %\nedit se k němu NEVRÁTÍ", fontsize=10.5,
-        color=INK, ha="center", fontweight="700", linespacing=1.4)
+ax.axvline(1.5, color=MUTED, lw=1, ls=(0, (4, 4)), zorder=1)
+ax.text(0.5, 1.02, "edit skončí NAD stropem", fontsize=10.5,
+        color=INK, ha="center", fontweight="700")
+ax.text(4.8, 1.02, "edit skončí POD stropem — ztráta až 54 bodů",
+        fontsize=10.5, color=INK, ha="center", fontweight="700")
 
 fig.text(0.945, 0.072,
          "6 rodin omezení × 6 faktů · strop n=108 (3 formulace), bez řízení n=108, "
-         "nejlepší buňka n=36 a vybrána post hoc z 21 · úsečky 95% Wilson",
+         "dávka vybrána held-out na 3 rodinách a skórována na zbylých 3, průměr "
+         "přes všech 20 rozdělení · úsečky 95% Wilson",
          fontsize=9, color=MUTED, ha="right")
 fig.text(0.945, 0.026,
          "V-Steer (Zeng et al., COLM 2026, arXiv:2607.26228) · "
@@ -151,5 +167,7 @@ for out in ("results/recovery.png",
     fig.savefig(out, facecolor=WHITE)
     print(out)
 for m in MODELS:
-    print(f"  {m:6s} strop {rows[m]['strop']}  konflikt {rows[m]['konflikt']}  "
-          f"nejlepsi {rows[m]['nejlepší']} v {rows[m]['cell']}")
+    r = rows[m]
+    print(f"  {m:9s} strop {100*r['strop'][0]/r['strop'][1]:5.1f} %  "
+          f"konflikt {100*r['konflikt'][0]/r['konflikt'][1]:5.1f} %  "
+          f"held-out {100*r['nejlepší'][0]/r['nejlepší'][1]:5.1f} %")

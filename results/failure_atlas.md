@@ -77,10 +77,13 @@ the two weakest, at 33 % and 38 %. Command-R7B exceeded on the post-hoc figure
 and does not on the honest one, so the earlier "everything under 50 % exceeds"
 boundary was an artefact of the selection.
 
-What survives: the models that could already comply lose **27 to 50 points**
-they had (97→43, 94→66, 93→43, 85→43, 53→27), and the two weakest gain 13 and
-34 points they never had. The direction is model-dependent and the losses are
-large; the exact crossover is not something eight models can locate.
+What survives: the models that could already comply end up below where they
+started, by 2 to 54 points — Llama 97→43 (−54), Qwen3-4B 93→43 (−50),
+OLMo 85→43 (−42), Aya 94→66 (−28), Phi 53→27 (−26), Command-R 48→46 (−2) — and
+the two weakest gain 13 and 34 points they never had. The direction is
+model-dependent and the losses are large. Eight models cannot locate the
+crossover, and Command-R at −2 sits close enough to zero that the sign is not
+established for it.
 
 So "V-Steer recovers instruction following" and "V-Steer creates instruction
 following" are both true, of different models, and which one applies is
