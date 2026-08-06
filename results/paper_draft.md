@@ -14,27 +14,30 @@ how often the current instruction wins. We ask three questions it does not: how
 large is the hole being filled, which half of the edit fills it, and what the
 failures look like when it does not.
 
-18 894 greedy generations across ten models (0.5B–8B, six families, including a
-same-family size ladder), two datasets, six ablation conditions.
+21 126 greedy generations across ten models (0.5B–8B, six families, including a
+same-family size ladder), two datasets, seven conditions.
 
-Three results survive adversarial review and cluster-robust inference:
+**One result is strong enough to carry a claim:**
 
-1. **A prior instruction costs far more through its demonstrations than through
-   its content.** Two assistant turns that answer in the wrong format take
-   Llama-3.1-8B from 99 % to 56 % before any conflicting instruction exists; the
-   conflicting instruction then takes it to 3 %.
-2. **The two halves of the edit do different jobs.** With the head mask held
-   fixed and γ⁺ matched, dropping the suppression term costs 23–50 % of the
-   compliance gain and recovers *all* of the lost recall (36/36 against 16–29/36
-   on three models, every constraint family agreeing).
-3. **The failure is attenuation, not overwriting.** At the token where the value
-   is emitted, the correct token's probability falls by 261× to 54 471×;
-   nothing promotes a competitor. What wins instead is model-dependent — a
-   top-10 standing competitor on two models, rank ~91 on a third, and once the
-   end-of-turn token.
+**The two halves of the edit do different jobs, and the suppression half trades
+recall for compliance.** With the head mask held fixed and γ⁺ matched, dropping
+suppression costs compliance (paired McNemar p = 0.002, 0.006, 0.023 on three
+models) and restores recall completely — 36/36 against 16/36, 29/36 and 26/36,
+with **zero counterexamples on any constraint family or any fact on any model**
+(b = 20, 7, 10 against c = 0, 0, 0). On the useful-answer metric (compliance ∧
+recall) at matched γ⁺ = 4 the suppression term is net *negative* on one model,
+a wash on a second, and positive on the third.
 
-We also report six measurement bugs found in our own instruments, four of which
-had produced findings, and the process that found them.
+The original work cannot see this trade, because γ⁻ = 0 there means "no edit"
+rather than "boost only": with no demoted levels the head-selection criterion
+degenerates to δ = −φ[privileged] and selects a different mask.
+
+Two further observations are reported as directions, not findings, with the
+reasons they do not yet support more: what the failures look like (§4), and how
+many heads the diagnosis selects (§6b).
+
+We also report seven measurement bugs found in our own instruments, five of
+which had produced findings, and the two review passes that found them.
 
 ---
 
@@ -82,26 +85,38 @@ Four conditions, identical except for what precedes the question.
 | prior turns in plain prose, no conflict | 33 % | 34 % | 48 % | 41 % | 73 % | 84 % | 56 % | 65 % |
 | prior turns + conflicting instruction | 28 % | 25 % | 0 % | 0 % | 0 % | 19 % | 3 % | 3 % |
 
-Read the first two rows together. **The condition we started with — no prior
-turns — is not the ceiling.** Every model does better when two prior assistant
-turns demonstrate the required format, and the weak models do dramatically
-better: Qwen2.5-0.5B goes 31 % → 83 %, Command-R7B 47 % → 94 %. These models can
-follow the constraints; they cannot follow them from an instruction alone.
+**The conflict row uses only phrasing v1; the three ceiling rows average over
+three phrasings.** Restricted to v1 on both sides, which is the only matched
+comparison:
 
-Read the first and third rows together. **Demonstrations of the wrong format are
-most of the damage.** The non-conflicting prior instruction ("please be polite
-and take your time") is acknowledged in plain prose — no capitals, no `ACK:`, no
-JSON — and that alone costs Llama 99 → 56 and Qwen3-4B 100 → 73. The drop is
-concentrated exactly where prose competes: on Llama, `case` 100 → 28,
-`prefix` 100 → 17, `json` 100 → 50, while `length` holds at 100 → 94.
+| phrasing v1 only | 0.5B | 1.5B | Cmd-R | Phi | Qwen3-4B | OLMo | Llama | Aya |
+|---|---|---|---|---|---|---|---|---|
+| prior turns obey the system rule | 78 | 86 | 92 | 83 | 100 | 97 | 100 | 94 |
+| no prior turns | 28 | 42 | 53 | 61 | 94 | 81 | 100 | 97 |
+| prior turns in prose, no conflict | 33 | 36 | 53 | 53 | 56 | 81 | 81 | 86 |
+| prior turns + conflicting instruction | 28 | 25 | 0 | 0 | 0 | 19 | 3 | 3 |
 
-Only then does the conflicting *sentence* take it the rest of the way, to 0–3 %.
+Two things, and the second corrects an earlier version of this section.
 
-This decomposition matters for the framing of the whole area. "A stale
-instruction overrides the system prompt" is measured, in this benchmark and
-plausibly in others, against transcripts in which the assistant has also
-demonstrated the stale behaviour twice. The instruction and the demonstration
-are separable, and they are not the same size.
+**Two aligned demonstrations lift the weak models and do nothing for the strong
+ones.** Qwen2.5-0.5B goes 28 → 78, Qwen2.5-1.5B 42 → 86, Command-R 53 → 92,
+while Llama is 100 → 100 and Aya 97 → 94. That is few-shot format copying, not
+a raised ceiling: these models can produce the formats when shown, and cannot
+from the instruction alone. It is also a reason not to call the no-prior-turns
+condition a ceiling — for weak models it is far below what they can do.
+
+**The conflicting sentence does most of the damage, not the demonstrations.** An
+earlier version of this section claimed the reverse, on unmatched items. Matched,
+prose acknowledgements cost Llama 100 → 81 and the conflicting sentence then
+costs 81 → 3 — roughly four times as much. Prose acknowledgements cost *nothing*
+on four of eight models (0.5B +5, Command-R 0, OLMo 0, and 1.5B −6). Where they
+do bite (Qwen3-4B −38, Llama −19, Aya −11, Phi −8) the drop is concentrated in
+the families where prose competes with the format.
+
+So the honest decomposition is: the demonstrations matter on some models and not
+others, and the sentence dominates on all of them. The `ceiling` condition is
+also not demonstration-free — it still contains an assistant turn reading
+"Noted.", which violates `case`, `prefix`, `json` and `bullet`.
 
 ---
 
@@ -116,15 +131,34 @@ head mask held to what the full edit selects, γ⁺ matched at 2.5:
 | Qwen3-4B | 0/36, recall 36/36 | 13/36, recall 29/36 | 3/36, recall **36/36** |
 | Llama-3.1-8B | 1/36, recall 36/36 | 14/36, recall 26/36 | 5/36, recall **36/36** |
 
-Dropping suppression is significantly worse on compliance on all three
-(p = 0.001, 0.005, 0.016) and significantly better on recall on all three
-(p = 1e-7, 5e-3, 7e-4), with all six constraint families agreeing on the recall
-direction in each case (sign test p = 0.031 per model).
+Both arms are the *same* 36 items, so the test is paired. An earlier version
+used an unpaired two-proportion z-test, which is both the wrong test and
+pseudo-replicated.
 
-**The suppression term buys 50–77 % of the compliance and costs all of the
-recall.** That is a trade with a knob on it, and the knob is not reported in the
-original work because γ⁻ = 0 there means "no edit" rather than "boost only" —
-see §7.
+| | compliance, McNemar | by family (6) | by fact (6) | recall, McNemar | by family | by fact |
+|---|---|---|---|---|---|---|
+| Qwen2.5-1.5B | b1/c13, **0.0018** | 1+/3− p=0.63 | 0+/5− p=0.06 | b20/c0, **1.9e-6** | 6+/0− p=0.03 | 5+/0− p=0.06 |
+| Qwen3-4B | b1/c11, **0.0063** | 0+/4− p=0.13 | 0+/6− p=0.03 | b7/c0, **0.016** | 6+/0− p=0.03 | 3+/0− p=0.25 |
+| Llama-3.1-8B | b2/c11, **0.0225** | 1+/3− p=0.63 | 0+/6− p=0.03 | b10/c0, **0.0020** | 6+/0− p=0.03 | 4+/0− p=0.13 |
+
+**Neither claim clears a sign test on both clustering axes**, and an earlier
+version quoted, for each claim, whichever axis worked. With 6 clusters the sign
+test floors at p = 0.031 even when every cluster agrees, so it is a weak
+instrument here regardless.
+
+What the recall effect has instead is the absence of counterexamples:
+**b = 20, 7, 10 against c = 0, 0, 0** — not one item in 108 moves the other way —
+and no negative cluster on either axis (family 6+/0−, fact 5+/0−, 3+/0−, 4+/0−;
+the non-significant fact-axis p-values come from ties, not from disagreement).
+The compliance effect is directionally consistent at the item level but has
+1–2 counterexamples and fails the family axis outright.
+
+**On the headline metric the trade is close to a wash.** Useful answers
+(compliance ∧ recall) at matched γ⁺ = 4: Qwen2.5-1.5B **21/36 boost-only against
+15/36 full**, Llama 13 against 14, Qwen3-4B 6 against 13. So suppression is net
+negative on one model, a tie on another, and clearly positive only on the third.
+"The suppression term buys compliance and costs recall" is right; "it is worth
+it" is not established.
 
 **The edit is mostly span-local.** With the fact moved out of the demoted span,
 recall is 36/36 at every dose on Qwen3-4B and Llama. On Qwen2.5-1.5B it is
@@ -231,37 +265,40 @@ not instruction priority.
 
 ---
 
-## 6b. How many heads the diagnosis actually selects
+## 6b. What the head criterion actually selects
 
 The method flags a KV head when the demoted span outscores the privileged one by
-more than ε, with ε = 0 by default. Measured on Control Illusion — the dataset
-the original head-fraction table uses — over 120 cases:
+more than ε, with ε = 0 by default, and a KV head counts as flagged if **any**
+query head in its group does (the union rule, App. A.2). Measured on Control
+Illusion over 120 cases:
 
-| model | KV heads | ε = 0 | ε = 0.05 | ε = 0.1 |
-|---|---|---|---|---|
-| Llama-3.1-8B | 256 | **96.1 %** (246) | 0.1 % | 0.0 % |
-| Qwen3-4B | 288 | **94.5 %** (272) | 3.2 % | 0.9 % |
-| Qwen2.5-1.5B | 56 | **98.5 %** | 5.9 % | 1.4 % |
+| model | q/kv | n_rep | ε = 0 | what a coin flip would give | implied per-query-head rate |
+|---|---|---|---|---|---|
+| Llama-3.1-8B | 32/8 | 4 | 96.1 % | 93.75 % | **55.6 %** |
+| Qwen3-4B | 32/8 | 4 | 94.5 % | 93.75 % | **51.7 %** |
+| Qwen2.5-1.5B | 12/2 | 6 | 98.5 % | **98.44 %** | **50.2 %** |
 
-Two things follow.
+An earlier version of this section reported the 94–98 % as evidence that "the
+diagnosis is barely a diagnosis" and presented the cross-model ordering as a
+result. Both were wrong: **the ordering is exactly the ordering of `n_rep`**, and
+the union rule over a group of 4 or 6 produces 93.75 % or 98.44 % from a coin
+flip alone. The measured numbers are barely above that.
 
-**At ε = 0 the diagnosis is barely a diagnosis.** It selects 94–98 % of heads,
-uniformly across all six conflict types (95.8–96.5 % on Llama). "Steer the heads
-where the hierarchy is inverted" and "steer every head" differ by a few per cent
-of the mask. That matters because the published all-heads baseline matches DLA
-on accuracy while collapsing far more often — at this selection rate there is
-little margin left in which the two could differ.
+Inverting the group rule gives the quantity that matters — the fraction of
+*query* heads with δ > 0: **50.2 %, 51.7 %, 55.6 %**. The inversion score is
+symmetric about zero. That is a sharper statement than the one it replaces: it is
+not that the threshold is set too low, it is that **δ carries almost no signal at
+the query-head level, and the union rule turns near-noise into a near-universal
+mask.**
 
-**The threshold is a cliff, not a slope.** Moving ε from 0 to 0.05 takes Llama
-from 96 % to 0.1 %. So δ is positive for nearly every head and larger than 0.05
-for almost none: the attributions cluster just above zero. Any result that
-depends on the identity of the selected heads is therefore extremely sensitive
-to a parameter that is not swept in the original work.
-
-This also settles a measurement question raised in correspondence: a 96 % figure
-observed under a different role mapping on different data reproduces at 94–98 %
-here, on the dataset the original table used. It is a property of the criterion,
-not of the mapping.
+Two caveats on our own measurement. ε is an absolute threshold on a raw
+logit-contribution difference, so it is not comparable across models; and φ sums
+over span positions, and our demoted span (constraint2 plus an acknowledgement)
+is several times longer than the privileged span (constraint1 alone), which
+inflates δ mechanically. Both would have to be fixed — per-query-head δ
+distributions, `group_rule="mean"` alongside `max`, a label-swap permutation
+baseline, and length-normalised φ — before this becomes a claim about the
+method rather than about our mapping.
 
 ## 7. Six measurement bugs, and what they had produced
 
@@ -276,6 +313,7 @@ produced a finding.
 | `check_case` needed one letter | `4417-B` (capital B) scored compliant, `302` scored neither | verdicts decided by whether the fact contained a letter |
 | Control Illusion direction hardcoded | every verdict on the reversed file inverted, 485/576 | "steering makes it worse when the order is flipped", plus an additive-versus-restrictive theory |
 | flagged-head measurement passed level 0 as demoted | level 0 is the system message, so it computed φ−φ = 0 | 0 % of heads flagged on every model |
+| §3 used an unpaired z-test on paired items, and reported the clustering axis that worked | overstated both halves of the ablation | "significantly better on both" — neither clears both axes |
 
 And one design bug with the same shape: **γ⁻ = 0 does not ablate the suppression
 term.** With no demoted levels, `inversion()` reduces to `δ = −φ[privileged]`,
