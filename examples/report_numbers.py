@@ -18,10 +18,13 @@ import math
 import os
 import re
 
-MODELS = ["tiny", "small", "phi", "mid", "gemma", "olmo", "llama", "aya", "commandr"]
-LABEL = {"tiny": "Qwen2.5-0.5B", "small": "Qwen2.5-1.5B", "phi": "Phi-3.5-mini",
-         "mid": "Qwen3-4B", "gemma": "Gemma-4-E2B", "olmo": "OLMo-2-7B",
-         "llama": "Llama-3.1-8B", "aya": "Aya-expanse-8B",
+# Gemma-4 is not here on purpose: it fails at prefill (nested config) and E4B
+# additionally shares KV across layers, so the implementation cannot steer it.
+MODELS = ["tiny", "small", "q3b", "phi", "mid", "q7b", "olmo", "llama", "aya",
+          "commandr"]
+LABEL = {"tiny": "Qwen2.5-0.5B", "small": "Qwen2.5-1.5B", "q3b": "Qwen2.5-3B",
+         "phi": "Phi-3.5-mini", "mid": "Qwen3-4B", "q7b": "Qwen2.5-7B",
+         "olmo": "OLMo-2-7B", "llama": "Llama-3.1-8B", "aya": "Aya-expanse-8B",
          "commandr": "Command-R7B"}
 
 
@@ -70,13 +73,24 @@ def main():
 
     section("1. Kolik dat")
     total = 0
-    for kind in ("atlas", "ceiling", "phrasing", "frequency", "plusonly",
-                 "offspan", "short8", "short24"):
-        n = sum(len(load(kind, m)) for m in MODELS)
-        n += sum(len(json.load(open(f))["records"])
-                 for f in glob.glob(f"results/{kind}_*.json")
-                 if not any(f.endswith(f"{kind}_{m}.json") or
-                            f.endswith(f"{kind}_{m}.rescored.json") for m in MODELS))
+    for kind in ("atlas", "ceiling", "neutral", "phrasing", "frequency",
+                 "plusonly", "boostfixed", "offspan", "short8", "short24",
+                 "ci", "ci16", "cirev", "whynear"):
+        # Count files, not the model list -- a run that exists for a model not
+        # in MODELS was silently uncounted before, and the total in the write-up
+        # was wrong because of it.
+        seen, n = set(), 0
+        for f in glob.glob(f"results/{kind}_*.json"):
+            stem = f[len(f"results/{kind}_"):].replace(".rescored.json", "").replace(".json", "")
+            if stem in seen or "_" in stem.replace("qwen3-8b", "q8"):
+                if stem in seen:
+                    continue
+            blob = json.load(open(f))
+            rows = blob.get("records") or blob.get("rows") or []
+            if f.endswith(".rescored.json"):
+                continue
+            seen.add(stem)
+            n += len(rows)
         if n:
             print(f"  {kind:12s} {n:6d} generaci")
             total += n

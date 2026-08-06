@@ -7,11 +7,22 @@ worth against a proper baseline.
 
 ## What was run
 
-**11 856 generations**, all kept. Eight models (Qwen2.5-0.5B/1.5B, Phi-3.5-mini,
-Qwen3-4B, Gemma-4-E2B, OLMo-2-7B, Llama-3.1-8B, Aya-expanse-8B, Command-R7B) and
-six conditions. `examples/report_numbers.py` recomputes every figure below from
-the stored generations, so the write-up can be checked against the data rather
-than trusted.
+**18 894 generations**, all kept. Ten models — Qwen2.5-0.5B / 1.5B / 3B / 7B,
+Qwen3-4B, Phi-3.5-mini, OLMo-2-7B, Llama-3.1-8B, Aya-expanse-8B, Command-R7B —
+of which the four Qwen2.5 sizes plus Qwen3-4B form a ladder inside one family,
+so "is this size or is it the model" can be asked without confounding size with
+tokenizer and post-training. Gemma-4 is absent because this implementation
+cannot steer it: E2B fails at prefill (the config is nested, so
+`num_attention_heads` is not where the code looks) and E4B additionally shares
+KV across layers and uses sliding-window attention on 20 of 24 cache layers,
+where a demoted span can fall outside the window. Qwen3-8B does not fit in bf16
+on a 16 GB card.
+
+`examples/report_numbers.py` recomputes every figure below from the stored
+generations, so the write-up can be checked against the data rather than
+trusted. Two of its numbers were wrong when last checked (the total, and a
+"70 of 70") and are corrected here — which is the argument for having the
+script, not against it.
 
 Three conditions carry the main result, all scored the same way.
 
@@ -20,6 +31,11 @@ Three conditions carry the main result, all scored the same way.
 | **ceiling** | no conflicting rule | none | 108 |
 | **conflict** | stale rule present | none | 108 |
 | **grid** | stale rule present | 21 (γ+, γ−) cells | 756 |
+
+The conflict row says 108 records but only **36 distinct generations**: at
+γ− = 0 no policy is built, so the three γ+ values produce byte-identical greedy
+output. Every interval and test involving that baseline is computed on 36 items,
+not 108, and the tables below use it as such.
 
 Each case pairs a current system constraint with a mutually exclusive one
 stated earlier in the conversation, plus a fact the answer has to carry.
@@ -115,66 +131,61 @@ fixing that (`--always-steer`, `--fact-epoch`).
 
 ### Where the benefit is, and where the damage is
 
-| model | | compliance | recall |
+The first version of this ablation was wrong and its conclusion is withdrawn. It
+compared boost-only at γ+ = 4 against the full edit at γ+ = 2.5, and — worse —
+head selection silently changed between the arms: with γ− = 0 no level is
+demoted, so `inversion()` reduces to `delta = -phi[privileged]` and selection
+switches from "the stale span beats the system span" to "the system span has
+negative attribution", a different and roughly unrelated head set. That is not
+the same edit with one term removed. `--select-as-if` now holds the head mask to
+what the full edit would choose, and γ+ is matched.
+
+Corrected, at γ+ = 2.5 on both arms and the same heads:
+
+| model | no edit | full edit γ−0.75 | boost only |
 |---|---|---|---|
-| Qwen2.5-1.5B | no edit | 9/36 | 36/36 |
-| | paper defaults γ+2.5 / γ−0.75 | 33/36 | **16/36** |
-| | **boost only, γ+ = 4** | 22/36 | **33/36** |
-| Qwen3-4B | no edit | 0/36 | 36/36 |
-| | paper defaults | 15/36 | 29/36 |
-| | **boost only** | 6/36 | **36/36** |
-| Llama-3.1-8B | no edit | 1/36 | 36/36 |
-| | paper defaults | 14/36 | 26/36 |
-| | **boost only** | 10/36 | **36/36** |
+| Qwen2.5-1.5B | 9/36, recall 36/36 | 33/36, recall **16/36** | 21/36, recall **36/36** |
+| Qwen3-4B | 0/36, recall 36/36 | 13/36, recall 29/36 | 3/36, recall **36/36** |
+| Llama-3.1-8B | 1/36, recall 36/36 | 14/36, recall 26/36 | 5/36, recall **36/36** |
 
-The boost term alone delivers **40–70 % of the compliance gain at essentially no
-cost to recall**. The suppression term buys the remaining 30–60 % and costs
-20–55 % of recall.
+**The suppression term does real work on compliance and costs all of the
+recall.** Dropping it is significantly worse on compliance on every model
+(p = 0.001, 0.005, 0.016) and significantly better on recall on every model
+(p = 1e-7, 5e-3, 7e-4), with all six constraint families agreeing on the recall
+direction in each case (sign test p = 0.031).
 
-Only on Llama are the two indistinguishable on compliance (p = 0.32) while
-differing sharply on recall (p = 0.0007) — there the suppression term is close
-to free to drop. On Qwen3-4B (p = 0.020) and Qwen2.5-1.5B (p = 0.002) it does
-real work, and the trade is a genuine one.
+Boost alone delivers **23–50 % of the compliance gain** — 12 of 24 points on
+Qwen2.5-1.5B, 3 of 13 on Qwen3-4B, 4 of 13 on Llama — while leaving recall
+untouched at 36/36. The earlier "40–70 % at no cost" was produced by the larger
+boost and the changed head set, not by the ablation.
 
-Which point on that trade to take is an application question. The point here is
-that it is a trade, it is large, and the grid as originally written could not
-see it.
+So the trade is real and it is not free either way. Which side to take is an
+application question; the measurement only says the two terms do different jobs.
 
-### The edit is precisely targeted
+### The edit is mostly, but not entirely, span-local
 
-Same conflict, same γ, but the fact moved OUT of the demoted span into the
-current epoch:
+Same conflict, same γ, with the fact moved OUT of the demoted span into the
+current epoch. In binary mode a current-epoch message gets multiplier exactly
+1.0, so its values are never touched — the question is whether suppressing span
+A degrades retrieval from span B anyway.
 
-| model | γ− | fact inside the span | fact outside |
-|---|---|---|---|
-| Qwen3-4B | 0.75 / 0.9 / 0.95 | 29 / 9 / 2 of 36 | **36 / 36 / 36** |
-| Llama-3.1-8B | 0.75 / 0.9 / 0.95 | 24 / 6 / 3 of 36 | **36 / 36 / 36** |
+| model | γ− 0.75 / 0.9 / 0.95, fact inside | fact outside |
+|---|---|---|
+| Qwen3-4B | 29 / 9 / 2 of 36 | **36 / 36 / 36** |
+| Llama-3.1-8B | 24 / 6 / 3 of 36 | **36 / 36 / 36** |
+| **Qwen2.5-1.5B** | — | **31 / 32 / 30 of 36** |
 
-Not one lost fact, at any dose, on either model (p < 0.0001 against the in-span
-condition). **The damage is confined to the suppressed span** — every failure
-mode catalogued above is span-local, not a general degradation of the model.
-That is a real point in the method's favour, and it also says exactly where to
-look for the mechanism.
+Two of three models lose nothing at any dose. **The third loses 11–17 % at every
+dose, including the lowest**, which is a flat offset rather than a dose response
+— so it is not obviously collateral damage from the edit, but it is not zero
+either, and an earlier version of this document reported only the two clean
+models and generalised from them. That was selective.
 
-### The substitution and the hesitation are two different failures
-
-Capping generation separates them. At 24 tokens Llama's baseline is still 36/36,
-so the condition is clean (8 tokens is not — it truncates before the answer, and
-even unsteered recall drops to 28/36).
-
-| γ− | near-miss @24 tok | @64 tok | hesitation @24 tok | @64 tok |
-|---|---|---|---|---|
-| 0.65 | 4/36 | 4/36 | 0/36 | 0/36 |
-| 0.75 | 9/36 | 9/36 | 0/36 | 2/36 |
-| 0.85 | 21/36 | 21/36 | **0/36** | 4/36 |
-| 0.9 | 19/36 | 20/36 | **0/36** | 6/36 |
-| 0.95 | 17/36 | 18/36 | **1/36** | 6/36 |
-
-**The substitution is complete within 24 tokens and another 40 do not change
-it** — it is fixed at retrieval. **The hesitation does not exist at 24 tokens
-at all**; it appears only in the long tail, which means it requires the model to
-read back its own output. Two dissociated failures with different causes, which
-is why they respond differently to everything else measured here.
+The test also has little power where it passes: the baseline is 36/36, so there
+is no headroom, and n = 36 leaves a 95 % interval that still admits several
+percent of true loss. The honest reading is that the edit is *mostly* span-local
+and that a harder off-span fact — one not already at ceiling — would be needed
+to say more.
 
 ## Two measurement bugs, and what they had produced
 
@@ -200,17 +211,27 @@ saved text with no GPU: 83, 9 and 55 verdicts moved out of 756 per model.
 
 ## Failure taxonomy
 
-Of the cases where neither rule won, the largest bucket on the mid model is not
-a recall failure. In **70 of 70** the fact was recalled correctly and the format
-broke — mostly `length`, median 38 words where compliant answers run 17, with
-the overrun filled by confabulation ("Bagr … perhaps inspired by the ancient
-Persian word for 'to be strong'", which nobody supplied). A metric that only
-checks whether the needle appears scores all 70 as successes.
+Of the cases where neither rule won on Qwen3-4B, **64 of 119 were recalled
+correctly and broke the format** — the earlier text said "70 of 70", which was
+computed on a pre-filtered sub-bucket and then written as if it described the
+whole. Roughly half of that bucket really are recall failures, which is the
+opposite of what the sentence claimed.
+
+What survives is the mode itself: the format failures are mostly `length`,
+median 38 words against 17 for compliant answers, and the overrun is filled with
+confabulation ("Bagr … perhaps inspired by the ancient Persian word for 'to be
+strong'", which nobody supplied). A needle-presence metric scores those as
+successes.
 
 **Self-correction is Llama-specific** — 33 of its 121 unresolved cases, against
 3 on mid and none on small: it answers, then walks it back in the same turn.
 
-**Near neighbours are the dominant error, and they have a dose response.**
+**Near neighbours are a large share of the errors on some models, and the word
+"dominant" was too strong.** Across all eight models the loose rule gives 12 %
+(Qwen2.5-1.5B), 14 % (Qwen2.5-0.5B), 16 % (Command-R), 20 % (Aya), 36 % (OLMo),
+40 % (Qwen3-4B), 41 % (Phi) and **73 % (Llama)** of wrong answers. Over half on
+one model of eight; under the strict shape-only rule, on none. The dose
+response below is Llama's.
 
 A first pass put them at 1–5 %, which was a measurement error twice over: the
 taxonomy tested for them only after "format kept, fact lost" had already claimed
@@ -481,7 +502,26 @@ the magnitude (−48 to −94 points) is the argument, not the p-value.
   believing, not against it.
 - **`options` scores the absence of a pattern as compliance**, so its ceiling is
   100 % by construction and its numbers mean less than the others'.
-- **Greedy only.** Reruns are identical; no sampling variance is measured.
+- **Greedy only.** Reruns are identical, so no interval anywhere reflects
+  generation stochasticity. The item set is fixed and exhaustive rather than
+  sampled, so the Wilson intervals should be read as describing these 6 facts ×
+  6 families, not a population.
+- **No multiplicity correction.** Counting only what appears above there are
+  well over a hundred comparisons — argmaxes over 21 cells for ten models, three
+  models × two outcomes in the ablation, eight models in the loop table, six
+  models plus subgroups in the frequency section, eighteen model×family phrasing
+  contrasts. No p-value here is adjusted for that, and the ones that get quoted
+  are the small ones. Treat any single p near 0.05 as decoration; the claims
+  worth keeping are the ones with unanimous direction across clusters and effect
+  sizes of tens of points.
+- **Four checkers have been wrong so far**, all found by disbelieving a result
+  rather than by testing: `check_json` accepted anything starting with `{`,
+  `check_bullet` required two bullet lines, `check_length` scored the empty
+  string as compliant, and `check_case` decided a bare-value answer by whether
+  the fact happened to contain a letter. All fixed and everything rescored from
+  stored text. `check_options` still scores the *absence* of a pattern as
+  compliance, which is why the headline metric is compliance AND recall rather
+  than compliance alone.
 - **The ceiling condition is shorter than the conflict condition** — 53 tokens
   against 102 at the median, because removing the stale rule removes two turns.
   So "ceiling vs conflict" confounds the conflict with 49 tokens of context. A

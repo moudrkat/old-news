@@ -59,6 +59,17 @@ def _case_ratio(text: str) -> float:
 
 
 def check_case(text: str) -> str:
+    """Uppercase vs lowercase, but only when there is enough text to tell.
+
+    A bare-value answer decides the verdict by accident: "4417-B" has one
+    letter and it is a capital, so it scored as obeying "reply in ALL CAPS",
+    while "302" has none and scored "neither". Whether the case constraint was
+    obeyed then depended on whether the fact happened to contain a letter. Two
+    letters is still thin, so the floor is three.
+    """
+    letters = [c for c in text if c.isalpha()]
+    if len(letters) < 3:
+        return "neither"
     r = _case_ratio(text)
     if r < 0:
         return "neither"
@@ -162,6 +173,15 @@ def check_options(text: str) -> str:
 
 
 def check_length(text: str) -> str:
+    """Short vs long, with the empty string excluded.
+
+    This used to return "system" for "" -- an answer that says nothing obeys
+    "at most two short sentences" on a word count. Any family whose compliance
+    is the ABSENCE of something has to guard the empty case explicitly, or a
+    dead model scores as the best-behaved one.
+    """
+    if not text.strip():
+        return "neither"
     words = len(text.split())
     sentences = len([s for s in re.split(r"[.!?]+", text) if s.strip()])
     if words <= 30 and sentences <= 2:
