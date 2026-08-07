@@ -16,9 +16,11 @@ asked for three turns ago is still in the context.
 >
 > **Read this first if you are here for the method:** where the stale
 > instruction sits in its own message, *deleting* it beats steering on 7 of 10
-> models — so use the delete. Where it is entangled with information you still
-> need, the question is open and unrun. See
-> [the baseline](#the-baseline-and-where-it-wins) before the rest.
+> models. Where it is entangled with information you still need, deletion
+> collapses to zero — but *rewriting* the message beats steering on strong
+> models. The edit wins in exactly one place: an entangled message on a model too
+> weak to follow the rule unaided, where it doubles the alternative. See
+> [the baseline](#the-baseline-and-where-it-wins).
 
 The full write-up, with every claim's standing marked, is
 [`results/REPLICATION.md`](results/REPLICATION.md).
@@ -108,27 +110,56 @@ can excise the stale instruction surgically while leaving everything you still
 need. On a transcript like that, delete it; steering is the harder route to a
 worse answer.
 
-**The case that would justify the edit is the one I have not run:** an
-instruction and live information sharing a turn.
+**The case that decides it is an instruction and live information sharing a
+turn:**
 
 > "From now on always reply in lowercase — oh, and my order number is 4417-B."
 
 Delete that message and the order number goes with it. The edit demotes the
 message's values while the fact stays in context, and
 [the recall curve](#what-the-suppressed-messages-still-remember) says the fact
-survives at γ− = 0.5. That is where the two approaches should separate, and
-there is no data here either way. It needs a `build_cases` variant that
-concatenates the fact into the stale message; it is unrun.
+survives at γ− = 0.5. That is where the approaches should separate — and it is
+run below.
 
 There is also a structural difference these numbers cannot show. Deleting a
 message invalidates the KV prefix from that point and forces a re-prefill;
 the edit is in-place on the cache and keeps it. At long context that is a real
 operational gap, and nothing here measures it.
 
-**So, honestly scoped:** where the stale instruction is cleanly separable,
-deletion wins and this repo cannot recommend the edit. Where it is entangled
-with content you need — which is most real transcripts — the question is open,
-and it is the one worth running next.
+### The entangled case, run
+
+`examples/entangled.py` puts the stale instruction and the needed fact in one
+turn. Useful answers over 36 items:
+
+| | no fix | delete the message | rewrite the message | V-edit (best of 4) |
+|---|---|---|---|---|
+| Llama-3.1-8B | 6/36 | 0/36 | **36/36** | 23/36 |
+| Qwen3-4B | 0/36 | 0/36 | **34/36** | 15/36 |
+| Qwen2.5-1.5B | 10/36 | 0/36 | 15/36 | **30/36** |
+
+**Deletion collapses to zero on all three** — it fixes compliance and destroys
+recall, so the baseline from the previous section does not transfer here at all.
+But **rewriting the message** — strip the instruction clause, keep the fact —
+beats the edit on both stronger models.
+
+**The exception is the one place this method earns its keep.** On Qwen2.5-1.5B
+the edit gets 30/36 against rewriting's 15/36, and holds at 30 across both γ+
+values. Rewriting removes the conflict but leaves compliance at 15/36, because
+that model cannot produce the formats from the instruction alone. The edit's γ+
+term amplifies the current instruction instead of merely deleting its
+competition, which no prompt-level fix does.
+
+**So, honestly scoped:**
+
+- Instruction separable at message level → **delete it**.
+- Entangled, on a model that follows the rule unaided → **rewrite it**.
+- Entangled on a weak model, or wherever you cannot rewrite the transcript at
+  all → **the edit**, and on Qwen2.5-1.5B it is twice as good as the alternative.
+
+Caveats: n = 36, greedy, one seed, three models; the rewrite arm assumes a clean
+sentence boundary a real transcript will not give you; rewriting needs to know
+*which span* is the instruction, where the edit needs only the epoch label; and
+the edit's column is a best-of-four while rewriting has no free parameters.
 
 ## What I tried
 

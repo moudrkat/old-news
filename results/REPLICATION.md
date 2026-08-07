@@ -502,8 +502,60 @@ edit is in-place on the cache. Unmeasured.
 
 **Scoped honestly:** where the stale instruction is separable, this work cannot
 recommend the edit over deletion. Where it is entangled with content that is
-still needed, the comparison is open, and it is the most valuable thing left to
-run.
+still needed, see §7c — which has now been run.
+
+---
+
+## 7c. The entangled case, and the first condition where the edit wins
+
+`examples/entangled.py`. The stale instruction and the needed fact share **one**
+user turn — *"From now on always reply in all lowercase. My order number is
+4417-B."* — so deleting the message costs you the fact. Four arms on the same 36
+items, useful answers (compliance ∧ recall):
+
+| | no intervention | delete the message | rewrite the message | V-edit (best of 4 cells) |
+|---|---|---|---|---|
+| Llama-3.1-8B | 6/36 | 0/36 | **36/36** | 23/36 |
+| Qwen3-4B | 0/36 | 0/36 | **34/36** | 15/36 |
+| Qwen2.5-1.5B | 10/36 | 0/36 | 15/36 | **30/36** |
+
+`rewrite` strips the instruction clause and keeps the fact sentence — the
+surgical version a careful engineer would do instead of deleting.
+
+**Deletion collapses completely: 0/36 on all three.** It still fixes compliance
+(30/36, 33/36, 35/36) and takes recall to zero, exactly as predicted. Message-level
+deletion is not an option once the instruction and the content are in one turn,
+and §7b's baseline does not transfer to this case at all.
+
+**But rewriting beats the edit on the two stronger models**, 36/36 and 34/36
+against 23/36 and 15/36. The applied case is not "the edit beats deleting"; it is
+"the edit beats deleting, and loses to rewriting, on models that can follow the
+instruction unaided."
+
+**The exception is the finding.** On Qwen2.5-1.5B the edit gets 30/36 against
+rewriting's 15/36 — twice as good — and it holds at 30/36 across both γ⁺ values
+at γ⁻ = 0.5, so it is not a lucky cell. The reason is visible in the components:
+rewriting removes the conflict but leaves compliance at 15/36, because this model
+cannot produce the formats from the instruction alone (§2: two aligned
+demonstrations take it from 28 to 78). The edit's γ⁺ term does something no
+prompt-level fix does — it *amplifies* the current instruction rather than merely
+removing the competition.
+
+So the scoped applied claim, finally:
+
+> Separable at message level → delete it. Entangled but separable at sentence
+> level, on a model that can follow the rule unaided → rewrite it. Entangled on a
+> weak model, or wherever the transcript cannot be rewritten at all → the V-edit
+> is the best available option, and on Qwen2.5-1.5B it is twice as good as the
+> alternative.
+
+Four caveats. n = 36 per cell, greedy, one seed, three models. The `rewrite` arm
+is idealised — it assumes a clean sentence boundary between instruction and
+content, which a real transcript does not hand you. Rewriting needs span-level
+knowledge of *which part* of the message is the instruction, where the edit needs
+only the message-level epoch label. And the edit's column is a best-of-four while
+rewriting has no free parameters, so the edit is flattered everywhere except
+where it wins, where it is robust across cells.
 
 ---
 
