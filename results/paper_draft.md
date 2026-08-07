@@ -32,9 +32,16 @@ The original work cannot see this trade, because γ⁻ = 0 there means "no edit"
 rather than "boost only": with no demoted levels the head-selection criterion
 degenerates to δ = −φ[privileged] and selects a different mask.
 
-Two further observations are reported as directions, not findings, with the
-reasons they do not yet support more: what the failures look like (§4), and how
-many heads the diagnosis selects (§6b).
+**A second claim, negative, now carries four controls (§6b).** Under our role
+mapping the head-selection score is near-noise at the query-head level — 48.9–53.5 %
+of query heads on eight models — and the union rule over a GQA group turns that
+into a mask covering 94–99 % of KV heads, tracking `n_rep` rather than the model.
+Nearly every head is flagged whichever span is called stale, and length-normalising
+φ does not move it. Two MHA models, where the union rule is the identity, land at
+50.4 % and 48.5 %.
+
+One observation is reported as a direction, not a finding, with the reasons it
+does not yet support more: what the failures look like (§4).
 
 We also report seven measurement bugs found in our own instruments, five of
 which had produced findings, and the two review passes that found them.
@@ -270,35 +277,64 @@ not instruction priority.
 The method flags a KV head when the demoted span outscores the privileged one by
 more than ε, with ε = 0 by default, and a KV head counts as flagged if **any**
 query head in its group does (the union rule, App. A.2). Measured on Control
-Illusion over 120 cases:
+Illusion, 120 cases, eight models, prefill only (`examples/head_criterion.py`):
 
-| model | q/kv | n_rep | ε = 0 | what a coin flip would give | implied per-query-head rate |
-|---|---|---|---|---|---|
-| Llama-3.1-8B | 32/8 | 4 | 96.1 % | 93.75 % | **55.6 %** |
-| Qwen3-4B | 32/8 | 4 | 94.5 % | 93.75 % | **51.7 %** |
-| Qwen2.5-1.5B | 12/2 | 6 | 98.5 % | **98.44 %** | **50.2 %** |
+| model | q/kv heads | n_rep | a coin flip under the union rule | ε = 0 | ε = 0.01 | ε = 0.05 |
+|---|---|---|---|---|---|---|
+| Phi-3.5-mini | 1024/1024 | 1 | 50.00 % | 50.4 % | 10.6 % | 2.2 % |
+| OLMo-2-7B | 1024/1024 | 1 | 50.00 % | 48.5 % | 4.9 % | 0.6 % |
+| Llama-3.1-8B | 1024/256 | 4 | 93.75 % | 96.1 % | 0.9 % | 0.1 % |
+| Qwen3-4B | 1152/288 | 4 | 93.75 % | 94.6 % | 21.2 % | 3.2 % |
+| Qwen2.5-1.5B | 336/56 | 6 | 98.44 % | 98.5 % | 40.2 % | 5.9 % |
+| Qwen2.5-0.5B | 336/48 | 7 | 99.22 % | 99.0 % | 6.9 % | 0.3 % |
+| Qwen2.5-7B | 784/112 | 7 | 99.22 % | 97.2 % | 21.4 % | 3.1 % |
+| Qwen2.5-3B | 576/72 | 8 | 99.61 % | 99.1 % | 44.6 % | 9.5 % |
 
 An earlier version of this section reported the 94–98 % as evidence that "the
-diagnosis is barely a diagnosis" and presented the cross-model ordering as a
-result. Both were wrong: **the ordering is exactly the ordering of `n_rep`**, and
-the union rule over a group of 4 or 6 produces 93.75 % or 98.44 % from a coin
-flip alone. The measured numbers are barely above that.
+diagnosis is barely a diagnosis", presented the cross-model ordering as a result,
+and *inferred* a per-query-head rate from the union rule by assuming the heads in
+a group were independent. The ordering was a property of the attention layout,
+and the inference has now been replaced by direct measurement.
 
-Inverting the group rule gives the quantity that matters — the fraction of
-*query* heads with δ > 0: **50.2 %, 51.7 %, 55.6 %**. The inversion score is
-symmetric about zero. That is a sharper statement than the one it replaces: it is
-not that the threshold is set too low, it is that **δ carries almost no signal at
-the query-head level, and the union rule turns near-noise into a near-universal
-mask.**
+**The flagged fraction is a function of the attention layout, not of the model.**
+It tracks `n_rep` almost perfectly — one inversion in eight, Qwen2.5-7B against
+Qwen2.5-1.5B — and lands within 2.4 points of what a coin flip would give under
+the union rule, *below* it on four of the eight. The two MHA models are the clean
+case: with `n_rep` = 1 the union rule is the identity, nothing can be inflated,
+and the mask comes out at 50.4 % and 48.5 %.
 
-Two caveats on our own measurement. ε is an absolute threshold on a raw
-logit-contribution difference, so it is not comparable across models; and φ sums
-over span positions, and our demoted span (constraint2 plus an acknowledgement)
-is several times longer than the privileged span (constraint1 alone), which
-inflates δ mechanically. Both would have to be fixed — per-query-head δ
-distributions, `group_rule="mean"` alongside `max`, a label-swap permutation
-baseline, and length-normalised φ — before this becomes a claim about the
-method rather than about our mapping.
+Four controls, all at ε = 0:
+
+- **Per query head.** The fraction of *query* heads with δ > 0 is 48.9–53.5 % on
+  every model. Inferred, it had looked like 50.2–55.6 %; measured, it is flatter.
+- **Group rule.** Replacing the union with the mean gives 46.7–59.9 % — the
+  per-query-head rate. The union rule is what carries the mask from 50 % to 99 %.
+- **Label swap.** Exchanging privileged and demoted negates δ. On the six GQA
+  models nearly every head is flagged *both ways* — 96.1 % under δ and 95.8 %
+  under −δ on Llama, 99.1 % and 99.5 % on Qwen2.5-3B — which is only possible if
+  the group holds query heads of both signs. On the two MHA models the two are
+  exact complements by construction (48.5/51.5, 50.4/49.6), and both sit at
+  chance.
+- **Length-normalised φ.** Dividing each φ by its span's token count — our own
+  stated confound, the demoted span being several times the longer — moves
+  nothing: 96.3 % against 96.1 % on Llama, under 1 point on every model.
+
+So the sharper statement, and the one the controls now support: **δ carries
+almost no signal at the query-head level, the union rule turns that near-noise
+into a near-universal mask, and neither the length confound nor the choice of
+group rule explains it away.** Under our role mapping, the default operating
+point ε = 0 edits essentially every KV head, which makes "select the heads that
+attend to the stale span" hard to distinguish from "scale all of V".
+
+What this does *not* settle. ε is an absolute threshold on a raw
+logit-contribution difference and is not comparable across models: median |δ|
+runs from 1.9e-05 on Llama to 9.8e-04 on Qwen2.5-1.5B, a factor of 50, and the
+same ε = 0.01 leaves 0.9 % of Llama's heads flagged against 44.6 % of
+Qwen2.5-3B's. A percentile threshold would be the comparable version and has not
+been run. And the roles are *our* mapping of Control Illusion onto an epoch
+structure — constraint1 privileged, constraint2 demoted with an acknowledgement —
+not the authors'; a gap against their Tab. 12 is informative about the mapping as
+much as about the method.
 
 ## 7. Six measurement bugs, and what they had produced
 
@@ -362,3 +398,6 @@ there was no second condition).
    gives a spread, not an interval on the spread.
 4. An off-span fact that is not already at ceiling, so the span-locality test
    has power.
+5. A percentile threshold on δ instead of an absolute ε, so the head criterion
+   can be compared across models at a matched mask size (§6b). Prefill only —
+   the cheapest open item here.
