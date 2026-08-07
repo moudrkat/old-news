@@ -387,9 +387,33 @@ it is about the operating point rather than the score:
 That is what an absolute ε cannot give: a mask size meaning the same thing on
 three models whose median |δ| differs by a factor of 15.
 
-What is still open. Whether the selected heads matter **causally** — a random
-mask of matched size is the control, and it is running
-(`examples/mask_control.py`). And the roles remain *our* mapping of Control
+## 6d. The causal control
+
+`examples/mask_control.py`, Llama-3.1-8B, γ⁺ = 4, γ⁻ = 0.5, 36 paired items.
+Four arms differing only in which KV heads are edited; `random` draws the same
+*number* of heads as `selected` flagged for that case, seeded per case.
+
+| arm | mask | useful answers | vs selected (McNemar) |
+|---|---|---|---|
+| no edit | — | 1/36 | — |
+| **selected** | 97.1 % | **20/36** | — |
+| random, matched size | 97.1 % | 16/36 | b = 5, c = 1, p = 0.22 |
+| all KV heads | 100 % | 20/36 | b = 1, c = 1, **p = 1.00** |
+
+**Selection is indistinguishable from editing everything** — 20 against 20, one
+discordant pair in each direction. That is the operating-point claim of §6b
+established causally rather than statistically: at ε = 0 the criterion is not
+selecting, it is passing everything through.
+
+Against a random mask of the same size, selection is directionally better,
+5 discordant pairs to 1, but p = 0.22 on 36 items. **This design has almost no
+power to answer that question**, because at 97.1 % the two masks differ on about
+seven KV heads out of 256. The decisive version is the same experiment run at a
+percentile threshold, where §6c's numbers put the mask near 30 % and there is
+something for the ranking to get right. That has not been run.
+
+What is still open. The percentile-threshold version of this control, on more
+than one model. And the roles remain *our* mapping of Control
 Illusion onto an epoch structure — constraint1 privileged, constraint2 demoted
 with an acknowledgement — not the authors'; a gap against their Tab. 12 is
 informative about the mapping as much as about the method.
