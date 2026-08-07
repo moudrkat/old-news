@@ -6,11 +6,20 @@ For anyone shipping an LLM product who has changed a system prompt and then
 watched the assistant carry on doing the old thing, because something a user
 asked for three turns ago is still in the context.
 
-> **Status: experimental repo, small N.** One model (Qwen3-4B-Instruct-2507),
-> greedy decoding, 140 paired cases per condition, and **constructed cases, not
-> real production prompts**. Treat the numbers as illustrations. Several of them
-> moved a lot during the work, when I found bugs in my own measurement — assume
-> there are more. Limitations at the bottom, grill me.
+> **Status: experimental repo.** Ten models (0.5B–8B, six families, including a
+> same-family size ladder), greedy decoding, 21,126 generations, two datasets,
+> and **constructed cases, not real production prompts**. Treat the numbers as
+> illustrations. Many of them moved a lot during the work: seven bugs in my own
+> measuring instruments, five of which had already produced a finding, and four
+> claims withdrawn — including one headline that reversed twice. Assume there
+> are more. Limitations at the bottom, grill me.
+>
+> **Read this first if you are here for the method:** on this task, *deleting*
+> the stale message beats steering on 7 of 10 models. See
+> [the baseline](#the-baseline-this-does-not-beat) before the rest.
+
+The full write-up, with every claim's standing marked, is
+[`results/paper_draft.md`](results/paper_draft.md).
 
 ## ⚡ Run in 30 s
 
@@ -46,6 +55,52 @@ pre-update message in the history:
 
 McNemar p = 2e-25, 0 previously-correct answers broken, 2 of 140 degenerate.
 
+Shouting at the model does essentially nothing. The edit does a lot. That was
+the original result of this repo, and it is still true — but it is measured
+against a baseline that turns out to be the wrong one, which is the next
+section.
+
+## The baseline this does not beat
+
+Every condition above compares steering against the *conflicted* transcript,
+where several models sit at 0%. I never compared it against what a practitioner
+would actually try first: **delete the stale message from the history**. That
+condition was in `results/` the whole time, built as a ceiling and never treated
+as a competitor.
+
+Useful answers — correct format **and** the fact still recalled — over 108
+items, with the steering cell chosen post hoc as the best of 21:
+
+| | delete the stale message | best steering cell |
+|---|---|---|
+| Llama-3.1-8B | **97.2%** | 55.6% |
+| Aya-8B | **94.4%** | 77.8% |
+| Qwen2.5-7B | **92.6%** | 72.2% |
+| Qwen3-4B | **91.7%** | 44.4% |
+| OLMo-2-7B | **82.4%** | 55.6% |
+| Qwen2.5-3B | **81.5%** | 80.6% |
+| Phi-3.5-mini | **52.8%** | 44.4% |
+| Qwen2.5-1.5B | 37.0% | **83.3%** |
+| Command-R7B | 47.2% | **61.1%** |
+| Qwen2.5-0.5B | 30.6% | **52.8%** |
+
+Deletion wins on seven of ten; steering wins only on the three weakest models.
+Both need the same input — an `epoch` marking which message is stale — so this
+is not deletion getting an unfair advantage.
+
+```bash
+python examples/deletion_baseline.py     # no GPU, reads stored generations
+```
+
+Two things soften it and neither rescues it: the steering column is a post-hoc
+maximum and is if anything flattered, and the deletion condition still contains
+an assistant turn reading `"Noted."`, so it is not a clean no-history condition.
+
+**What this means for the repo.** I can no longer motivate this as "here is how
+you fix a stale instruction in production". What is left is mechanistic and, I
+think, more interesting: what the edit does to a token, and what its
+head-selection threshold fails to do.
+
 ## What I tried
 
 [V-Steer](https://arxiv.org/abs/2607.26228) (Zeng, Lee, Zhao & Hockenmaier,
@@ -75,7 +130,9 @@ automatic detection, you'd have to add the field.
 
 ## Where it works
 
-At the paper's defaults, `γ+ 2.5 / γ− 0.75`, gain over doing nothing:
+At the paper's defaults, `γ+ 2.5 / γ− 0.75`, gain over doing nothing — with
+"doing nothing" being the conflicted transcript, which is
+[the wrong baseline](#the-baseline-this-does-not-beat):
 
 | constraint | no fix | steered | gain |
 |---|---|---|---|
@@ -113,7 +170,16 @@ about the fact.
 
 There's a range where you get what you want. Above it the fact goes, and about
 half the time it goes quietly — a fluent, correctly formatted, confident wrong
-answer:
+answer.
+
+> This table is the original hand-scored probe, n = 12 per point, kept because
+> it is where the question came from. It is superseded by the paired ablation in
+> [`results/paper_draft.md`](results/paper_draft.md) §3, which holds the head
+> mask fixed and matches γ⁺: dropping suppression restores recall completely,
+> 36/36 against 16/36, 29/36 and 26/36, with no item in 108 moving the other
+> way. Whether the trade is *worth* taking is not established — on useful
+> answers it is net negative on one model, a wash on a second, positive only on
+> the third.
 
 ```
 "my dog is called Bagr"     →  "YOUR DOG IS CALLED A BUG."
@@ -184,6 +250,58 @@ prints the table and every miss, split into confabulation and degenerate text.
 Raw generations for both models are in `results/`, so the misses can be
 re-scored with a different judge.
 
+## What the head-selection threshold actually selects
+
+The method flags a head when the stale span outscores the privileged one by more
+than `eps`, default 0, and a KV head counts as flagged if **any** query head in
+its group does. On Control Illusion, 120 cases:
+
+| | group size | a coin flip under that rule | measured at eps = 0 |
+|---|---|---|---|
+| Phi-3.5-mini | 1 | 50.00% | 50.4% |
+| OLMo-2-7B | 1 | 50.00% | 48.5% |
+| Llama-3.1-8B | 4 | 93.75% | 96.1% |
+| Qwen3-4B | 4 | 93.75% | 94.6% |
+| Qwen2.5-1.5B | 6 | 98.44% | 98.5% |
+| Qwen2.5-3B | 8 | 99.61% | 99.1% |
+
+The flagged fraction is essentially `1 - 0.5^group_size`. It tracks the
+attention layout, not the model. The two models without grouped-query attention,
+where the union rule is the identity and nothing can be inflated, land at chance.
+
+**Causally, at the default threshold the criterion is not selecting anything.**
+Editing the flagged heads and editing *every* KV head give 20/36 against 20/36 —
+one discordant item in each direction, McNemar p = 1.00.
+
+```bash
+python examples/mask_control.py --model llama --gamma-plus 4 --gamma-minus 0.5
+```
+
+**But the score itself is not noise, and an earlier version of this section said
+it was.** That claim rested on the fraction of heads scoring above zero *per
+case*, averaged over cases — a number that is identical whether the criterion
+flags the same half of the heads every time or a random half. Measured per head
+**across** cases against a binomial null:
+
+| | heads at p < 0.05 | expected by chance | survive Benjamini-Hochberg | most consistent head |
+|---|---|---|---|---|
+| Llama-3.1-8B | 297 / 1024 | 51 | 174 | 38 / 40 |
+| Qwen3-4B | 254 / 1152 | 58 | 79 | 37 / 40 |
+| Qwen2.5-1.5B | 128 / 336 | 17 | 84 | 37 / 40 |
+
+There is a stable minority of genuinely inverted heads. **The signal is in the
+ranking, and `eps = 0` does not use the ranking.** A percentile threshold puts
+the mask at 30–42% at the 90th on all three models — the cross-model operating
+point an absolute `eps` cannot give, since median |delta| spans 15x across them.
+
+Same script also checks that none of this is bf16 rounding, which was a live
+worry at |delta| ~ 1.9e-05: recomputed in float32 the sign agrees on 99.93%.
+
+```bash
+python examples/head_precision.py --data /tmp/ci/data --model llama --limit 40
+python examples/head_criterion.py --data /tmp/ci/data --model llama
+```
+
 ## Watching it instead of scoring it
 
 The eval here runs against a local model with torch, because it needs the KV
@@ -218,35 +336,80 @@ oldnews/evals/          StaleSet, the judge, figures
 oldnews/ui/             local UI: edit a transcript, watch the hierarchy move
 ```
 
+The experiments the claims above rest on:
+
+```
+examples/deletion_baseline.py  steering vs deleting the stale message (no GPU)
+examples/failure_atlas.py      the gamma+ x gamma- sweep, every generation kept
+examples/head_criterion.py     what the eps=0 union rule flags, four controls
+examples/head_precision.py     float32 recheck, per-head binomial test, percentiles
+examples/mask_control.py       selected vs random-matched vs all heads (causal)
+examples/report_numbers.py     recompute the reported numbers from stored runs
+```
+
 Run `python -m oldnews.compat --model <repo>` before trusting numbers on a new
 model, because the assumptions fail silently. Qwen2.5 and Qwen3 pass,
 google/gemma-4-E4B-it doesn't (KV shared across layers, sliding-window
 attention on 20 of 24 cache layers).
 
+## What I got wrong, and how
+
+Seven bugs in my own measuring instruments. **All were found by disbelieving a
+result; none was found by a test.** Five had already produced a finding. The
+common signature is a checker written from one case and applied to all of them.
+
+| bug | what it had produced |
+|---|---|
+| `check_json` accepted anything starting with `{` | inflated JSON compliance |
+| `check_bullet` required two bullet lines | "bullet lists are never recovered" — they are, on 47/7/33% |
+| `check_length` scored the empty string as compliant | a dead model was the best-behaved one |
+| `check_case` needed one letter | verdicts decided by whether the fact contained a letter |
+| Control Illusion direction hardcoded | "steering makes it worse when the order is flipped" — 485 of 576 verdicts inverted |
+| flagged-head measurement passed level 0 as demoted | "0% of heads flagged on every model" |
+| an unpaired test on paired items | overstated both halves of the ablation |
+
+Plus a design bug worth flagging for anyone reproducing the method: **running
+`gamma- = 0` with `gamma+` active does not ablate the suppression term.** With no
+demoted levels, `inversion()` reduces to `delta = -phi[privileged]`, so head
+selection silently switches to a different and roughly unrelated set. It is not
+the same edit minus one part; it is another edit.
+
+**Withdrawn during the work:** that near misses are the dominant failure mode
+(one model of eight); that common strings survive the edit better than rare ones
+(p = 0.29 once clustered); that substitution and hesitation are dissociable by
+generation length (under greedy decoding the short run is a strict prefix of the
+long one, 756 of 756, so there was never a second condition); and that the
+head-selection score is near-noise — see the section above, which is the third
+version of that claim and the second time its headline reversed.
+
 ## Limitations
 
-- One model, greedy, n = 140 per condition; the recall table is n = 12 per point.
-- Constructed cases, not real production prompts.
-- Three measurement bugs found mid-work, all by reading outputs rather than by
-  the metric: a format checker that counted `[1. Paris]` as compliant, a
-  degeneracy check that missed `BRONZE CITY, BRONZE CITY, BRONZE CITY`, and
-  degenerate answers scoring as *compliant* when the wreckage happened to match
-  the rule — `BAGGAGE, NO, I MEAN, IT'S CALLED BAGGAGE` counted as obeying
-  "reply in ALL UPPERCASE". All fixed; the last one cost 1.4 points on the
-  headline. Assume there are more.
-- Only γ− is swept anywhere here; γ+ is pinned at 2.5. The paper reports γ+ as
-  the stronger knob, so nothing in this repo says where the method's ceiling is.
-- The quality judge is Qwen3-4B scoring Qwen3-4B's own output. On the recall
-  table it disagreed with the regex on 8 of 120 and was wrong on half of those,
-  so that table is hand-scored instead — see `results/adjudication.json`. One
-  case there is genuinely arguable and I counted it as a hit.
-- Marking stale history is manual — an `epoch` per message, no detection.
+- Greedy decoding only. No interval anywhere reflects generation stochasticity,
+  and the item set is fixed and exhaustive rather than sampled.
+- Constructed cases, not real production prompts, and one of the two constraint
+  sets is mine. Control Illusion is the only external one, and it covers
+  compliance, not recall.
+- Observations are not independent — the same 6 facts × 6 families recur in
+  every cell. Headline claims are recomputed clustered; one did not survive.
+- No multiplicity correction across well past a hundred comparisons.
+- Operating points are selected post hoc from 21 cells. Held-out selection —
+  choose on three families, score on the other three, over all 20 splits — costs
+  7–17 points, mean 13.
+- The causal head-mask control is one model at n = 36, and it is underpowered
+  against a random mask: at a 97% mask the two differ on ~7 KV heads of 256. The
+  decisive version runs it at a percentile threshold and is unrun.
+- The quality judge is a model scoring model output. Reliability is measured —
+  87.8% agreement, kappa 0.852 overall, but 58% on the newest category — so
+  claims resting on rare categories use deterministic detectors instead, and the
+  recall table is hand-scored (`results/adjudication.json`).
+- Marking stale history is manual — an `epoch` per message, no detection. This
+  is also why deletion is a fair competitor.
 - `epoch_decay` (age-graded suppression) works as designed but never beats
   binary here, because every case in the suite is one where the old history
   should lose.
 - No general-capability regression check. The paper's Table 6 (MMLU under
   suppression) is the closest published thing to the recall question above.
-- No comparison against an activation steering vector yet. That's next.
+- No comparison against an activation steering vector yet.
 
 The equations mapped to the code, and where this differs from the paper, are in
 [NOTES.md](NOTES.md).

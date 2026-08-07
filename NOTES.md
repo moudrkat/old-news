@@ -42,6 +42,16 @@ Their union rule is `group_rule="max"` here with `eps=0`, and it is now the
 default. Averaging cost **17 points** overall (49.3% → 66.4%) and broke one
 answer that the union rule does not. `mean` is kept as an option.
 
+> **Later, and this reframes the 17 points.** At `eps=0` the union rule flags
+> 94–99% of KV heads against ~50% for `mean` (see the README and
+> `results/paper_draft.md` §6b), and a causal control finds that editing the
+> union-selected heads is indistinguishable from editing *all* of them — 20/36
+> against 20/36, McNemar p = 1.00 (§6d). So the 17 points are most likely "edit
+> nearly everything beats edit half", not "the union rule selects better heads".
+> The score itself does carry signal — a stable minority of heads is
+> consistently inverted across cases (§6c) — but `eps=0` does not use it. If you
+> want the ranking rather than the threshold, use a percentile cut.
+
 **2. The readout direction.** I folded the final RMSNorm's per-dimension gain
 into `r`. Their code takes the bare row, `r_dirs = lm_head.weight[pred_ids]`,
 matching the paper's "ignoring layer normalization". Now the default here too
