@@ -14,9 +14,11 @@ asked for three turns ago is still in the context.
 > claims withdrawn — including one headline that reversed twice. Assume there
 > are more. Limitations at the bottom, grill me.
 >
-> **Read this first if you are here for the method:** on this task, *deleting*
-> the stale message beats steering on 7 of 10 models. See
-> [the baseline](#the-baseline-this-does-not-beat) before the rest.
+> **Read this first if you are here for the method:** where the stale
+> instruction sits in its own message, *deleting* it beats steering on 7 of 10
+> models — so use the delete. Where it is entangled with information you still
+> need, the question is open and unrun. See
+> [the baseline](#the-baseline-and-where-it-wins) before the rest.
 
 The full write-up, with every claim's standing marked, is
 [`results/REPLICATION.md`](results/REPLICATION.md).
@@ -60,7 +62,7 @@ the original result of this repo, and it is still true — but it is measured
 against a baseline that turns out to be the wrong one, which is the next
 section.
 
-## The baseline this does not beat
+## The baseline, and where it wins
 
 Every condition above compares steering against the *conflicted* transcript,
 where several models sit at 0%. I never compared it against what a practitioner
@@ -92,14 +94,41 @@ is not deletion getting an unfair advantage.
 python examples/deletion_baseline.py     # no GPU, reads stored generations
 ```
 
-Two things soften it and neither rescues it: the steering column is a post-hoc
-maximum and is if anything flattered, and the deletion condition still contains
-an assistant turn reading `"Noted."`, so it is not a clean no-history condition.
+The steering column is a post-hoc maximum over 21 cells and is if anything
+flattered, and the deletion condition still contains an assistant turn reading
+`"Noted."`, so it is not a clean no-history condition either.
 
-**What this means for the repo.** I can no longer motivate this as "here is how
-you fix a stale instruction in production". What is left is mechanistic and, I
-think, more interesting: what the edit does to a token, and what its
-head-selection threshold fails to do.
+### But these cases hand deletion the win by construction
+
+Every case in this suite puts the stale instruction in **its own message**,
+separate from the turn carrying the fact — `build_cases(control=True)` in
+`examples/phrasing_atlas.py` deletes the instruction turn and its
+acknowledgement and keeps the fact turn intact. So the comparison assumes you
+can excise the stale instruction surgically while leaving everything you still
+need. On a transcript like that, delete it; steering is the harder route to a
+worse answer.
+
+**The case that would justify the edit is the one I have not run:** an
+instruction and live information sharing a turn.
+
+> "From now on always reply in lowercase — oh, and my order number is 4417-B."
+
+Delete that message and the order number goes with it. The edit demotes the
+message's values while the fact stays in context, and
+[the recall curve](#what-the-suppressed-messages-still-remember) says the fact
+survives at γ− = 0.5. That is where the two approaches should separate, and
+there is no data here either way. It needs a `build_cases` variant that
+concatenates the fact into the stale message; it is unrun.
+
+There is also a structural difference these numbers cannot show. Deleting a
+message invalidates the KV prefix from that point and forces a re-prefill;
+the edit is in-place on the cache and keeps it. At long context that is a real
+operational gap, and nothing here measures it.
+
+**So, honestly scoped:** where the stale instruction is cleanly separable,
+deletion wins and this repo cannot recommend the edit. Where it is entangled
+with content you need — which is most real transcripts — the question is open,
+and it is the one worth running next.
 
 ## What I tried
 
@@ -132,7 +161,7 @@ automatic detection, you'd have to add the field.
 
 At the paper's defaults, `γ+ 2.5 / γ− 0.75`, gain over doing nothing — with
 "doing nothing" being the conflicted transcript, which is
-[the wrong baseline](#the-baseline-this-does-not-beat):
+[the wrong baseline](#the-baseline-and-where-it-wins):
 
 | constraint | no fix | steered | gain |
 |---|---|---|---|

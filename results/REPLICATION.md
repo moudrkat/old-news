@@ -453,6 +453,60 @@ condition whose answer was known and refusing to accept the number.
 
 ---
 
+## 7b. The baseline this was never compared against
+
+Every condition above is measured against the *conflicted* transcript, where
+several models sit at 0 %. None was measured against the alternative a
+practitioner reaches for first: **delete the stale message**. That condition
+existed in `results/` throughout under the name `ceiling`, treated as an upper
+bound rather than as a competitor. `examples/deletion_baseline.py`, no GPU.
+
+Useful answers (compliance ∧ recall) over 108 items, steering cell chosen post
+hoc as the best of 21:
+
+| | delete the stale message | best steering cell |
+|---|---|---|
+| Llama-3.1-8B | **97.2 %** | 55.6 % |
+| Aya-8B | **94.4 %** | 77.8 % |
+| Qwen2.5-7B | **92.6 %** | 72.2 % |
+| Qwen3-4B | **91.7 %** | 44.4 % |
+| OLMo-2-7B | **82.4 %** | 55.6 % |
+| Qwen2.5-3B | **81.5 %** | 80.6 % |
+| Phi-3.5-mini | **52.8 %** | 44.4 % |
+| Qwen2.5-1.5B | 37.0 % | **83.3 %** |
+| Command-R7B | 47.2 % | **61.1 %** |
+| Qwen2.5-0.5B | 30.6 % | **52.8 %** |
+
+Deletion wins on seven of ten, steering only on the three weakest. Both require
+the same input — an epoch label marking which message is stale — so deletion is
+not getting an unfair advantage on that axis.
+
+**But the case construction hands deletion the win.** In
+`phrasing_atlas.build_cases(control=True)` the stale instruction and its
+acknowledgement are their own two messages and are removed; the fact-bearing
+turn is kept intact. Every case in this suite is therefore one where the stale
+instruction is *cleanly separable* from the content the question needs. On such
+a transcript, deletion is obviously correct and the edit is a worse route to a
+worse answer.
+
+The case that would justify the method is unrun: **an instruction and live
+information sharing one turn** — "always reply in lowercase, and my order number
+is 4417-B". Deleting that costs the order number outright; the edit demotes the
+message's values while the fact remains in context, and §3 shows the fact
+surviving at γ⁻ = 0.5. It needs a `build_cases` variant concatenating the fact
+into the stale message, and it has not been run.
+
+There is also a cost asymmetry no number here captures: deleting a message
+invalidates the KV prefix from that point and forces a re-prefill, whereas the
+edit is in-place on the cache. Unmeasured.
+
+**Scoped honestly:** where the stale instruction is separable, this work cannot
+recommend the edit over deletion. Where it is entangled with content that is
+still needed, the comparison is open, and it is the most valuable thing left to
+run.
+
+---
+
 ## 8. Limitations
 
 - **Greedy only.** No interval anywhere reflects generation stochasticity, and
@@ -490,3 +544,9 @@ there was no second condition).
 5. A percentile threshold on δ instead of an absolute ε, so the head criterion
    can be compared across models at a matched mask size (§6b). Prefill only —
    the cheapest open item here.
+6. **The entangled-message condition (§7b)** — an instruction and a needed fact
+   in one turn, so that deletion has to pay for what it removes. This is the
+   only experiment here that could restore the applied case for the method, and
+   it is a variant of `build_cases`, not new machinery.
+7. The causal mask control (§6d) rerun at a percentile threshold, where the mask
+   is near 30 % and there is something for the ranking to get right.
