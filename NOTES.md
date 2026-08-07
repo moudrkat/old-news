@@ -44,7 +44,7 @@ answer that the union rule does not. `mean` is kept as an option.
 
 > **Later, and this reframes the 17 points.** At `eps=0` the union rule flags
 > 94–99% of KV heads against ~50% for `mean` (see the README and
-> `results/paper_draft.md` §6b), and a causal control finds that editing the
+> `results/REPLICATION.md` §6b), and a causal control finds that editing the
 > union-selected heads is indistinguishable from editing *all* of them — 20/36
 > against 20/36, McNemar p = 1.00 (§6d). So the 17 points are most likely "edit
 > nearly everything beats edit half", not "the union rule selects better heads".

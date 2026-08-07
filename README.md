@@ -19,7 +19,7 @@ asked for three turns ago is still in the context.
 > [the baseline](#the-baseline-this-does-not-beat) before the rest.
 
 The full write-up, with every claim's standing marked, is
-[`results/paper_draft.md`](results/paper_draft.md).
+[`results/REPLICATION.md`](results/REPLICATION.md).
 
 ## ⚡ Run in 30 s
 
@@ -174,7 +174,7 @@ answer.
 
 > This table is the original hand-scored probe, n = 12 per point, kept because
 > it is where the question came from. It is superseded by the paired ablation in
-> [`results/paper_draft.md`](results/paper_draft.md) §3, which holds the head
+> [`results/REPLICATION.md`](results/REPLICATION.md) §3, which holds the head
 > mask fixed and matches γ⁺: dropping suppression restores recall completely,
 > 36/36 against 16/36, 29/36 and 26/36, with no item in 108 moving the other
 > way. Whether the trade is *worth* taking is not established — on useful

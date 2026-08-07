@@ -1,11 +1,18 @@
 # What a stale instruction costs, and what a value edit buys back
 
-Draft. Every number here is recomputed from stored generations by
-`examples/report_numbers.py`; nothing is quoted from memory.
+**A replication report on V-Steer** — what reproduced, what did not, and what I
+got wrong twice. This is not a paper and is not written as one: there is no
+competing baseline for most of it, the operating points are selected post hoc,
+and the causal control is one model at n = 36. It is a record of reimplementing
+a published method across ten models and reporting everything the reimplementation
+turned up, including the parts that went against me.
+
+Numbers are recomputed from stored generations rather than quoted from memory;
+the scripts that produce each are named in the sections.
 
 ---
 
-## Abstract
+## Summary
 
 V-Steer (Zeng et al., COLM 2026) resolves instruction-hierarchy conflicts by
 scaling values in the KV cache: the span carrying the current instruction is
