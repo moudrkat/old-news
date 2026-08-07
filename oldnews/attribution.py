@@ -131,11 +131,20 @@ def span_attributions(
     levels: list[int | None],
     target_token: int | None = None,
     fold_final_norm: bool = False,
+    compute_dtype: torch.dtype | None = None,
 ) -> tuple[dict[int, torch.Tensor], torch.Tensor]:
     """phi[level] -> [L, H_q], plus the raw per-position c -> [L, H_q, T].
 
     ``target_token`` defaults to the model's own argmax first token (the
     paper's y_hat), which is what makes this a single-pass, label-free method.
+
+    ``compute_dtype`` forces the readout and the per-head dot product into a
+    given dtype instead of the model's own. It exists because delta = phi_lo -
+    phi_hi has a median magnitude around 1e-5 on some models, and the default
+    path does that dot product in bf16 (8 mantissa bits), so the *sign* of
+    delta -- which is the entire head-selection criterion -- may be rounding
+    noise. Pass torch.float32 to find out. One layer is promoted at a time and
+    freed, so the peak cost is one [D, H_q*d] copy, not L of them.
     """
     if target_token is None:
         target_token = int(pre.logits.argmax())
@@ -158,8 +167,12 @@ def span_attributions(
         # ends up on the CPU. Only the small per-head readout and the finished
         # contribution are promoted to float32.
         W_o = layer.self_attn.o_proj.weight.detach()          # [D, H_q*d]
+        if compute_dtype is not None:
+            W_o = W_o.to(compute_dtype)
         u = (W_o.t() @ r.to(W_o.dtype)).view(H_q, d)          # [H_q, d], small
         v = pre.cache.layers[l].values[0].detach()            # [H_kv, T, d]
+        if compute_dtype is not None:
+            v = v.to(compute_dtype)
         v = v.repeat_interleave(pre.n_rep, dim=0)             # -> [H_q, T, d]
         contrib = (v * u.unsqueeze(1)).sum(-1).float().cpu()  # [H_q, T]
         c[l] = pre.alpha[l].cpu() * contrib

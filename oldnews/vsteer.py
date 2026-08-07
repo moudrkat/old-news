@@ -111,12 +111,20 @@ def steer(
     group_rule: str = "max",
     fold_final_norm: bool = False,
     dry_run: bool = False,
+    head_mask_override=None,
 ) -> tuple[Prefill, SteerReport, torch.Tensor]:
     """Prefill, attribute, edit the cache. Returns the steered first-step logits.
 
     ``dry_run=True`` runs the attribution and reports the bad heads without
     touching the cache -- the audit mode you want in production before you turn
     any knob on.
+
+    ``head_mask_override`` replaces the selected mask with one of your own,
+    leaving the multipliers and everything else identical. It takes either a
+    [L, H_kv] bool tensor or a callable ``(delta, n_rep, selected) -> mask``.
+    This is the control the selection criterion has never been given: if a
+    random mask of the same size does as well as the attributed one, then
+    "edit the heads that attend to the stale span" is not doing the work.
     """
     input_ids = torch.tensor([rendered.input_ids])
     pre = prefill(model, input_ids)
@@ -127,6 +135,10 @@ def steer(
     target = int(pre.logits.argmax())
     delta = inversion(phi, policy.privileged, tuple(sorted(_demoted_levels(rendered, policy))))
     head_mask = select_heads(delta, pre.n_rep, policy.eps, group_rule)
+    if head_mask_override is not None:
+        head_mask = (head_mask_override(delta, pre.n_rep, head_mask)
+                     if callable(head_mask_override) else head_mask_override)
+        head_mask = head_mask.to(torch.bool)
 
     mult = token_multipliers(rendered, policy, current_epoch)
     report = SteerReport(
@@ -300,6 +312,7 @@ def generate(
     current_epoch: int | None = None,
     group_rule: str = "max",
     attr_step: int = 0,
+    head_mask_override=None,
 ) -> tuple[str, SteerReport | None]:
     """Steered greedy decode. ``policy=None`` gives the unsteered baseline.
 
@@ -320,7 +333,8 @@ def generate(
         logits = pre.logits
     else:
         pre, report, logits = steer(
-            model, tokenizer, rendered, policy, current_epoch, group_rule
+            model, tokenizer, rendered, policy, current_epoch, group_rule,
+            head_mask_override=head_mask_override,
         )
 
     # prefill() moves the ids onto the model's device; the decode loop has to

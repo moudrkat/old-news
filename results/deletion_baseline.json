@@ -1,0 +1,130 @@
+{
+ "metric": "useful",
+ "note": "`ceiling` is the no-conflict condition -- the stale instruction removed, the rest of the transcript kept. It still contains an assistant turn reading 'Noted.', so it is not a clean no-history condition. The steering column is a post-hoc max over all cells and is if anything flattered.",
+ "wins": {
+  "steering": 3,
+  "deletion": 7
+ },
+ "rows": [
+  {
+   "model": "tiny",
+   "name": "Qwen2.5-0.5B",
+   "n_delete": 108,
+   "delete_pct": 30.6,
+   "steer_pct": 52.8,
+   "best_gamma_plus": 4.0,
+   "best_gamma_minus": 0.5,
+   "n_steer": 36,
+   "n_cells": 21,
+   "winner": "steering"
+  },
+  {
+   "model": "small",
+   "name": "Qwen2.5-1.5B",
+   "n_delete": 108,
+   "delete_pct": 37.0,
+   "steer_pct": 83.3,
+   "best_gamma_plus": 4.0,
+   "best_gamma_minus": 0.5,
+   "n_steer": 36,
+   "n_cells": 21,
+   "winner": "steering"
+  },
+  {
+   "model": "q3b",
+   "name": "Qwen2.5-3B",
+   "n_delete": 108,
+   "delete_pct": 81.5,
+   "steer_pct": 80.6,
+   "best_gamma_plus": 1.0,
+   "best_gamma_minus": 0.65,
+   "n_steer": 36,
+   "n_cells": 21,
+   "winner": "deletion"
+  },
+  {
+   "model": "mid",
+   "name": "Qwen3-4B",
+   "n_delete": 108,
+   "delete_pct": 91.7,
+   "steer_pct": 44.4,
+   "best_gamma_plus": 4.0,
+   "best_gamma_minus": 0.65,
+   "n_steer": 36,
+   "n_cells": 21,
+   "winner": "deletion"
+  },
+  {
+   "model": "q7b",
+   "name": "Qwen2.5-7B",
+   "n_delete": 108,
+   "delete_pct": 92.6,
+   "steer_pct": 72.2,
+   "best_gamma_plus": 2.5,
+   "best_gamma_minus": 0.5,
+   "n_steer": 36,
+   "n_cells": 21,
+   "winner": "deletion"
+  },
+  {
+   "model": "olmo",
+   "name": "OLMo-2-7B",
+   "n_delete": 108,
+   "delete_pct": 82.4,
+   "steer_pct": 55.6,
+   "best_gamma_plus": 4.0,
+   "best_gamma_minus": 0.65,
+   "n_steer": 36,
+   "n_cells": 21,
+   "winner": "deletion"
+  },
+  {
+   "model": "phi",
+   "name": "Phi-3.5-mini",
+   "n_delete": 108,
+   "delete_pct": 52.8,
+   "steer_pct": 44.4,
+   "best_gamma_plus": 4.0,
+   "best_gamma_minus": 0.5,
+   "n_steer": 36,
+   "n_cells": 21,
+   "winner": "deletion"
+  },
+  {
+   "model": "llama",
+   "name": "Llama-3.1-8B",
+   "n_delete": 108,
+   "delete_pct": 97.2,
+   "steer_pct": 55.6,
+   "best_gamma_plus": 4.0,
+   "best_gamma_minus": 0.5,
+   "n_steer": 36,
+   "n_cells": 21,
+   "winner": "deletion"
+  },
+  {
+   "model": "aya",
+   "name": "Aya-8B",
+   "n_delete": 108,
+   "delete_pct": 94.4,
+   "steer_pct": 77.8,
+   "best_gamma_plus": 4.0,
+   "best_gamma_minus": 0.65,
+   "n_steer": 36,
+   "n_cells": 21,
+   "winner": "deletion"
+  },
+  {
+   "model": "commandr",
+   "name": "Command-R7B",
+   "n_delete": 108,
+   "delete_pct": 47.2,
+   "steer_pct": 61.1,
+   "best_gamma_plus": 2.5,
+   "best_gamma_minus": 0.65,
+   "n_steer": 36,
+   "n_cells": 21,
+   "winner": "steering"
+  }
+ ]
+}
