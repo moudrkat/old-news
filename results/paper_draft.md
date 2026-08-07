@@ -32,13 +32,16 @@ The original work cannot see this trade, because γ⁻ = 0 there means "no edit"
 rather than "boost only": with no demoted levels the head-selection criterion
 degenerates to δ = −φ[privileged] and selects a different mask.
 
-**A second claim, negative, now carries four controls (§6b).** Under our role
-mapping the head-selection score is near-noise at the query-head level — 48.9–53.5 %
-of query heads on eight models — and the union rule over a GQA group turns that
-into a mask covering 94–99 % of KV heads, tracking `n_rep` rather than the model.
-Nearly every head is flagged whichever span is called stale, and length-normalising
-φ does not move it. Two MHA models, where the union rule is the identity, land at
-50.4 % and 48.5 %.
+**A second claim is about the operating point, not the score (§6b–6c).** Under
+our role mapping the union rule flags 94–99 % of KV heads at the default ε = 0,
+tracking the attention layout rather than the model — indistinguishable from
+editing all of V. But δ itself is *not* noise: measured per head across cases
+against a binomial null, 3–8× more heads than chance are consistently inverted
+and 79–174 survive Benjamini-Hochberg, with individual heads firing 37 of 40.
+The signal is in the ranking and ε = 0 discards it; a percentile threshold
+recovers a mask size comparable across models. An earlier draft of this claim
+said the score was near-noise; that was an artefact of averaging a per-case
+marginal, and it is corrected in §6c.
 
 One observation is reported as a direction, not a finding, with the reasons it
 does not yet support more: what the failures look like (§4).
@@ -319,22 +322,77 @@ Four controls, all at ε = 0:
   stated confound, the demoted span being several times the longer — moves
   nothing: 96.3 % against 96.1 % on Llama, under 1 point on every model.
 
-So the sharper statement, and the one the controls now support: **δ carries
-almost no signal at the query-head level, the union rule turns that near-noise
-into a near-universal mask, and neither the length confound nor the choice of
-group rule explains it away.** Under our role mapping, the default operating
-point ε = 0 edits essentially every KV head, which makes "select the heads that
-attend to the stale span" hard to distinguish from "scale all of V".
+Under our role mapping, then, the default operating point ε = 0 edits
+essentially every KV head, which makes "select the heads that attend to the
+stale span" hard to distinguish from "scale all of V".
 
-What this does *not* settle. ε is an absolute threshold on a raw
-logit-contribution difference and is not comparable across models: median |δ|
-runs from 1.9e-05 on Llama to 9.8e-04 on Qwen2.5-1.5B, a factor of 50, and the
-same ε = 0.01 leaves 0.9 % of Llama's heads flagged against 44.6 % of
-Qwen2.5-3B's. A percentile threshold would be the comparable version and has not
-been run. And the roles are *our* mapping of Control Illusion onto an epoch
-structure — constraint1 privileged, constraint2 demoted with an acknowledgement —
-not the authors'; a gap against their Tab. 12 is informative about the mapping as
-much as about the method.
+An earlier version of this section stopped here and concluded that **δ carries
+almost no signal at the query-head level**. That was wrong. The two checks that
+show it wrong are below — the third rewrite of this section and the second time
+its headline has reversed.
+
+## 6c. The two checks that overturned 6b
+
+Both were prompted by an adversarial review pointing out that 6b could not
+distinguish its own conclusion from two artefacts of how it was measured.
+`examples/head_precision.py`, 40 Control Illusion cases, prefill only.
+
+**Was it bf16 rounding? No.** The per-head dot product runs in the model's own
+dtype, bf16 on GPU, and Llama's median |δ| is 1.9e-05. Rounding noise in the
+*sign* of δ would produce exactly the ~50 % and exactly the label-swap symmetry
+reported above. Recomputed in float32:
+
+| | sign agreement | KV mask agreement (ε = 0) | median \|δ\| where the sign flipped |
+|---|---|---|---|
+| Llama-3.1-8B | 99.93 % | 99.98 % | 1.1e-06 |
+| Qwen3-4B | 99.93 % | 99.98 % | 8.4e-06 |
+| Qwen2.5-1.5B | 99.96 % | 100.00 % | 1.2e-05 |
+
+The few heads that flip sit at the arithmetic floor. The measurement is sound;
+the dtype was not the story.
+
+**Is δ actually noise? No — and this is where 6b was wrong.** 6b's statistic was
+`(δ > 0).mean()` per case, averaged over cases. A criterion that flags the *same*
+half of the heads every time gives an identical number to one that flags a random
+half. What separates them is the per-head rate **across** cases against a
+binomial null:
+
+| | heads with p < 0.05 | expected by chance | surviving Benjamini-Hochberg at 5 % | most consistent head |
+|---|---|---|---|---|
+| Llama-3.1-8B | 297 / 1024 | 51 | **174** | 38 / 40 |
+| Qwen3-4B | 254 / 1152 | 58 | **79** | 37 / 40 |
+| Qwen2.5-1.5B | 128 / 336 | 17 | **84** | 37 / 40 |
+
+Three to eight times more heads than chance, a substantial set surviving
+correction for over a thousand simultaneous tests, and individual heads firing 37
+or 38 times out of 40. **There is a stable minority of genuinely inverted heads,
+and 6b's per-case marginal was averaging it away.**
+
+So the corrected claim is not that the criterion is empty. It is narrower, and
+it is about the operating point rather than the score:
+
+> δ identifies a real, stable minority of heads. The default threshold then
+> discards that: at ε = 0 the union rule flags 94–99 % of KV heads, which is
+> indistinguishable from editing all of V. The signal is in the *ranking*, and
+> ε = 0 does not use the ranking.
+
+**A percentile threshold is the comparable operating point**, and it behaves:
+
+| percentile on δ | Llama-3.1-8B | Qwen3-4B | Qwen2.5-1.5B |
+|---|---|---|---|
+| 50th | 96.2 % | 94.6 % | 98.7 % |
+| 90th | 32.3 % | 30.8 % | 42.2 % |
+| 99th | 3.9 % | 3.8 % | 6.8 % |
+
+That is what an absolute ε cannot give: a mask size meaning the same thing on
+three models whose median |δ| differs by a factor of 15.
+
+What is still open. Whether the selected heads matter **causally** — a random
+mask of matched size is the control, and it is running
+(`examples/mask_control.py`). And the roles remain *our* mapping of Control
+Illusion onto an epoch structure — constraint1 privileged, constraint2 demoted
+with an acknowledgement — not the authors'; a gap against their Tab. 12 is
+informative about the mapping as much as about the method.
 
 ## 7. Six measurement bugs, and what they had produced
 

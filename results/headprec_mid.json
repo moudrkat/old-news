@@ -1,0 +1,23 @@
+{
+ "model": "mid",
+ "n_cases": 40,
+ "n_query_heads": 1152,
+ "native_dtype": "torch.bfloat16",
+ "sign_agreement": 0.9993,
+ "mask_agreement": 0.9998,
+ "median_abs_delta_fp32": 0.0012735437543597073,
+ "median_abs_delta_where_flipped": 8.433154500215261e-06,
+ "heads_p05_uncorrected": 254,
+ "heads_expected_by_chance": 57.6,
+ "heads_bh_5pct": 79,
+ "max_head_fires": 37,
+ "min_head_fires": 5,
+ "percentile_flagged": {
+  "50.0": 0.946,
+  "75.0": 0.6298,
+  "90.0": 0.3083,
+  "95.0": 0.1705,
+  "99.0": 0.0377
+ },
+ "note": "Checks 6b could not distinguish: bf16 rounding vs no signal; per-case marginal vs per-head consistency; absolute eps vs matched mask size."
+}
