@@ -150,6 +150,42 @@ class Judge:
         p = float(torch.softmax(torch.stack([y, n]), dim=0)[0])
         return Verdict(yes=margin > 0, margin=margin, p_yes=p)
 
+    # A bare Yes/No probe can collapse. On Qwen2.5-3B every probe in this file
+    # came back "No" with a margin of -16 to -18 regardless of what was being
+    # graded -- including "your order number is 4417-b." asked whether it
+    # states a value. The margin barely moved across inputs, which is the
+    # signature: the model is answering the FORMAT, not the question. A system
+    # line saying both labels are in use, plus worked examples, takes the same
+    # model from 10/20 to 19/20 on hand labels and widens the margin range from
+    # 2 points to 40. Anything scored through `ask` alone should be checked
+    # against `examples/abstain_calibrate.py` before it is believed.
+    GRADER_SYSTEM = ("You grade answers. Reply with exactly one word: Yes or "
+                     "No. Both answers are used often; do not default to "
+                     "either.")
+
+    @torch.no_grad()
+    def ask_shots(self, prompt: str, shots, system: str | None = None) -> Verdict:
+        """`ask`, with worked examples and a grader system line.
+
+        shots are (prompt, "Yes"/"No") pairs rendered as real chat turns, so
+        the model sees the label in the position it is about to write.
+        """
+        msgs = [{"role": "system", "content": system or self.GRADER_SYSTEM}]
+        for shot_prompt, label in shots:
+            msgs += [{"role": "user", "content": shot_prompt},
+                     {"role": "assistant", "content": label}]
+        msgs.append({"role": "user", "content": prompt})
+        text = self.tok.apply_chat_template(msgs, tokenize=False,
+                                            add_generation_prompt=True)
+        ids = torch.tensor([self.tok(text, add_special_tokens=False)["input_ids"]])
+        ids = ids.to(next(self.model.parameters()).device)
+        logits = self.model(input_ids=ids).logits[0, -1].float()
+        y = torch.logsumexp(logits[self._yes], dim=0)
+        n = torch.logsumexp(logits[self._no], dim=0)
+        margin = float(y - n)
+        p = float(torch.softmax(torch.stack([y, n]), dim=0)[0])
+        return Verdict(yes=margin > 0, margin=margin, p_yes=p)
+
     def quality(self, query: str, answer: str) -> Verdict:
         return self.ask(QUALITY_PROMPT.format(query=query, answer=answer.strip()))
 

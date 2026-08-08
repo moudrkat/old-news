@@ -186,6 +186,76 @@ On Qwen3-4B the substitute sometimes comes from very far down — in one case th
 winning token is `<|im_end|>`, at rank 36,931 unsteered. The model closes the
 turn rather than emit a value. Same mechanism, different runner-up.
 
+## 6. It stops being able to say "I was not told"
+
+Every mode above is about a fact that IS in the context and gets quietened. The
+control that decides what they mean is the one where the fact was **never
+there**: if the model abstains then and confabulates when the fact is merely
+attenuated, attenuating evidence is not the same as removing it.
+
+`failure_atlas.py --fact-absent swap` puts a *different* fact's statement in
+the same message slot, so the transcript keeps its shape, length and message
+positions and only the answer is missing (`drop` removes the turn entirely and
+agrees). Three models so far, γ+ = 4, 36 cases per cell.
+
+**Hand-scored**, 30 answers per condition drawn at random across the three
+models, labelled by reading — does the answer explicitly decline (say it was
+not told, or ask the user to supply it)?
+
+| fact never stated | explicit decline |
+|---|---:|
+| no edit | **20 / 30 (67 %)** |
+| edit at γ− = 0.95 | **10 / 30 (33 %)** |
+
+Two-proportion test on the sample: z = 2.74, p = 0.006. The direction is not in
+doubt; the exact rate is a 30-answer estimate and should be read as such.
+
+    no edit    "i'm sorry, i don't have enough information to determine which
+                city you live in."
+    edited     "YOUR ORDER NUMBER IS 209876."
+
+**And the half of the edit responsible is not the half under suspicion.** γ+
+alone — the current instruction amplified, nothing suppressed — already removes
+most of the abstention:
+
+| fact never stated, declines by rule | no edit | **γ+ only** | full edit |
+|---|---:|---:|---:|
+| Qwen2.5-0.5B | 42 % | **17 %** | 11 % |
+| Qwen2.5-1.5B | 67 % | **17 %** | 36 % |
+| Qwen2.5-3B | 44 % | **31 %** | 25 % |
+
+So this is not "the fact went quiet so the model made something up". Turning
+*up* the instruction that is in force is what converts a refusal into an
+invented value: the format has a slot, and a model pushed harder to satisfy the
+format fills it. The suppression half contributes little here. That matters
+because γ+ is the half usually described as the harmless one.
+
+Open: seven models still to run (the 7–8B ones need the card to itself), and
+the hand read is 60 answers, not 600.
+
+### What this cost in instruments, because it is the point of the section
+
+Both automatic scorers failed on this measurement, in opposite directions.
+
+- **A regex over refusal phrasings** missed `I'm sorry, I don't have access to
+  that`, the commonest refusal in the corpus, and reported **1.3 %** where the
+  corrected rule gives **17.7 %**. Enumerating the ways a model can decline is
+  not something a person can do in advance.
+- **The Yes/No judge collapsed.** On Qwen2.5-3B a bare probe answered "No" to
+  every input with a margin of −16 to −18 — including *"your order number is
+  4417-b."* asked whether it states a value. A grader system line plus four
+  worked examples (`Judge.ask_shots`) took it from 10/20 to 19/20 on hand
+  labels and widened the margin range from 2 points to 40.
+- **The repaired judge still failed on the corpus.** It calls 8–24 % of
+  demonstrably correct answers abstentions, and the false positives are
+  concentrated on formatting the calibration set did not contain — `HELLO:
+  Your dog is called Bagr.` scores as a refusal at margin −10.5. Passing a
+  clean calibration set is necessary and nowhere near sufficient.
+
+Which is why the number reported above is the hand one. `abstain_calibrate.py`
+holds the labelled set, and `abstain_judge.py` refuses to score anything if the
+judge cannot pass it.
+
 ## What is universal and what is not
 
 **Universal so far:** attenuation rather than overwriting. Every model

@@ -197,27 +197,48 @@ def triage(text: str, fact: Fact) -> dict:
     return out
 
 
-def build_cases(fact_epoch=0):
+def build_cases(fact_epoch=0, fact_absent="no"):
     """fact_epoch=1 moves the fact OUT of the demoted span.
 
     The edit is supposed to be span-targeted: it should cost the stale
     instruction its authority without touching anything else. If recall of the
     fact falls just as far when the fact sits in the CURRENT epoch, the damage
     is not targeted at all and every number here means something different.
+
+    fact_absent takes the answer out of the conversation altogether. That is
+    the control for the one claim the failure modes rest on: that ATTENUATING
+    the evidence is not the same as REMOVING it. With the fact attenuated the
+    model answers Bagel; the question is what it does when it genuinely was
+    never told, and whether it can say so at all.
+
+      "swap"  the statement is the NEXT fact's, so the transcript keeps its
+              shape, length and message positions and only the answer is
+              missing. The decoy also makes misattribution visible: answering
+              the order-number question with the dog's name is a different
+              failure from inventing a number.
+      "drop"  statement and acknowledgement removed entirely -- a shorter
+              context, kept only as a check that the decoy is not doing the
+              work.
     """
     cases = []
     for fam in FAMILIES:
-        for fact in FACTS:
+        for i, fact in enumerate(FACTS):
+            decoy = FACTS[(i + 1) % len(FACTS)]
+            stated = decoy if fact_absent == "swap" else fact
             msgs = [
                 Msg("system", fam["system"], epoch=1),
                 Msg("user", fam["stale"], epoch=0),
                 Msg("assistant", fam["ack"], epoch=0),
-                Msg("user", fact.statement, epoch=fact_epoch),
-                Msg("assistant", fam["note"], epoch=fact_epoch),
-                Msg("user", fact.question, epoch=1),
             ]
+            if fact_absent != "drop":
+                msgs += [
+                    Msg("user", stated.statement, epoch=fact_epoch),
+                    Msg("assistant", fam["note"], epoch=fact_epoch),
+                ]
+            msgs.append(Msg("user", fact.question, epoch=1))
             cases.append(dict(family=fam["key"], check=fam["check"],
-                              fact=fact, messages=msgs))
+                              fact=fact, messages=msgs,
+                              decoy=decoy if fact_absent == "swap" else None))
     return cases
 
 
@@ -237,6 +258,11 @@ def main():
                          "potlaceni.")
     ap.add_argument("--fact-epoch", type=int, default=0,
                     help="1 = fakt NEni v potlacovanem useku (kontrola cileni)")
+    ap.add_argument("--fact-absent", choices=("no", "swap", "drop"),
+                    default="no",
+                    help="fakt v kontextu vubec nebyl. swap = misto nej je "
+                         "vyrok o jinem faktu (stejna delka i pozice), "
+                         "drop = vyrok i potvrzeni pryc")
     args = ap.parse_args()
 
     out = args.out or f"results/atlas_{args.model}.json"
@@ -250,7 +276,8 @@ def main():
 
     gps = [float(x) for x in args.gamma_plus.split(",")]
     gms = [float(x) for x in args.gamma_minus.split(",")]
-    cases = build_cases(fact_epoch=args.fact_epoch)
+    cases = build_cases(fact_epoch=args.fact_epoch,
+                        fact_absent=args.fact_absent)
     total = len(gps) * len(gms) * len(cases)
     print(f"{args.model}: {len(cases)} pripadu x {len(gps)} gamma+ x "
           f"{len(gms)} gamma- = {total} generaci\n")
@@ -284,6 +311,9 @@ def main():
                     model=args.model, gamma_plus=gp, gamma_minus=gm,
                     family=c["family"], question=c["fact"].question,
                     needles=list(c["fact"].needles), which_rule_won=verdict,
+                    fact_absent=args.fact_absent,
+                    decoy_needles=(list(c["decoy"].needles)
+                                   if c.get("decoy") else []),
                     **tags, text=text))
             n = len(cases)
             print(f"[{time.time()-t0:6.0f}s] g+={gp:<4g} g-={gm:<5g}  "
@@ -292,6 +322,7 @@ def main():
             json.dump({"model": args.model, "always_steer": bool(args.always_steer),
                        "select_as_if": args.select_as_if,
                        "fact_epoch": args.fact_epoch,
+                       "fact_absent": args.fact_absent,
                        "families": [f["key"] for f in FAMILIES],
                        "max_new_tokens": args.max_new_tokens, "greedy": True,
                        "note": ("Automaticke znacky jsou TRIAGE, ne verdikt. "

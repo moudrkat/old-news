@@ -54,3 +54,35 @@ def non_terminating(text: str, needles, min_repeats: int = 3,
                     min_markers: int = 3) -> bool:
     return (value_repeats(text, needles) >= min_repeats
             and len(CONTESTED.findall(text or "")) >= min_markers)
+
+
+# Saying "I was not told that" is the answer the failure modes never produce.
+# It has to be separated from `unsourced`, which uses the same words while the
+# value sits in the sentence -- that is a denial, not an abstention, and the
+# two were pooled in a first pass at 1.6 % until the value test split them.
+ABSTAIN = re.compile(
+    r"\bi (don'?t|do not) know\b|\bi'?m not sure\b|\bnot sure\b"
+    r"|\byou (didn'?t|did not|never) (tell|say|mention|specify|provide)\b"
+    r"|\b(wasn'?t|was not|isn'?t|is not) (told|mentioned|specified|provided)\b"
+    r"|\bnot mentioned\b|\bnot specified\b|\bno information\b"
+    r"|\b(cannot|can'?t|unable to) (recall|remember|find|determine|access|"
+    r"provide|tell)\b"
+    # The commonest refusal by far, and the first version of this rule missed
+    # every one of them: the model does not say "you didn't tell me", it says
+    # it has no access. Same act -- it declines to produce a value.
+    r"|\bi (don'?t|do not) have (access|enough|any|that|this|the ability)\b"
+    r"|\bi have no (access|information|record|way)\b"
+    r"|\b(don'?t|do not) have (enough|sufficient) (information|context|detail)\b"
+    r"|\bi'?m (sorry|afraid),? (but )?i (don'?t|do not|can'?t|cannot)\b"
+    r"|\bas an ai\b|\bno access to\b", re.I)
+
+
+def abstains(text: str, needles) -> bool:
+    """The answer says it was not given the value, and does not give one.
+
+    The second half is what makes it a predicate rather than a phrase match:
+    with the value present this is `unsourced` -- the model states the fact and
+    disowns it -- and counting that as an abstention was worth 11 cases on
+    Llama alone.
+    """
+    return bool(ABSTAIN.search(text or "")) and not value_present(text, needles)
