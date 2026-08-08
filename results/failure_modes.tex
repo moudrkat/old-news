@@ -1,5 +1,5 @@
-% Article version of results/failure_modes.md. Plain English on purpose:
-% the numbers live in the repo, this is the part someone will actually read.
+% Article version of results/failure_modes.md. Written as what it was: someone
+% trying a method, getting a weird answer, and following it across ten models.
 %   pdflatex -output-directory=results results/failure_modes.tex   (twice)
 \documentclass[11pt,a4paper]{article}
 
@@ -23,7 +23,8 @@
 \newenvironment{specimen}{\begin{quote}\itshape\small}{\end{quote}}
 
 \title{\vspace{-1.6cm}\textbf{How it breaks}\\[1mm]
-  \large A fix for stale instructions, and what it does when you overdo it}
+  \large I turned the dial too far on ten models and they all got weird\\
+  \large in their own particular way}
 \author{Kateřina Fajmanová \quad\small\texttt{github.com/moudrkat/old-news}}
 \date{\small\today}
 
@@ -31,66 +32,60 @@
 \maketitle
 \thispagestyle{empty}
 
-\section*{The problem}
+\section*{What I tried}
 
-We change system prompts all the time. Nobody deletes the conversation.
+I have this problem at work. We change a system prompt, nobody deletes the
+conversation, and the model keeps following an instruction a user gave three
+turns ago --- \emph{always reply in lowercase} --- because it is still sitting
+right there in the context.
 
-So the transcript fills up with instructions that were right once --- \emph{always
-reply in lowercase}, \emph{end every answer with a source list} --- and then the
-rule changes and the transcript doesn't. The model keeps doing the old thing,
-because the old thing is still sitting there in the context, in the user's own
-words.
+There is a paper that fixes exactly this. V-Steer (Zeng et al., COLM 2026) finds
+the attention heads leaning on the stale message and turns down what they hear
+from it. The message stays; it just stops carrying weight.
 
-There is a paper that fixes exactly this. V-Steer (Zeng et al., COLM 2026)
-finds the attention heads that are leaning on the stale message and turns down
-what they hear from it. The instruction is still in the transcript; it just stops
-carrying weight.
+It works, which was not the interesting part. I wanted to know what it costs, so
+I turned the dial up until things fell over.
 
-It works. I wanted to know what it costs before putting it near production, so I
-pushed it until it broke.
+\section*{What caught my attention}
 
-\section*{It broke, but not the way I expected}
+I expected refusals. Blank answers. Something obviously broken.
 
-I expected refusals. Blank answers. Something obviously wrong, easy to catch.
+I got this:
 
-Here is what I got instead:
-
-\begin{specimen}
-\textbf{Q: What does my account number end in?} \; (correct: 302)\\
-your account number ends in 02.
-\end{specimen}\vspace{-2mm}
 \begin{specimen}
 \textbf{Q: What is my dog called?} \; (correct: Bagr)\\
 YOUR Dog is called BAGel.
 \end{specimen}\vspace{-2mm}
+\begin{specimen}
+\textbf{Q: What does my account number end in?} \; (correct: 302)\\
+your account number ends in 02.
+\end{specimen}
+
+Not \emph{I don't know}. Not gibberish. \emph{Bagel.} A perfectly confident,
+correctly formatted answer that happens to be a near miss of the truth.
+
+And then this one, which is the reason I kept going:
+
 \begin{specimen}
 \textbf{Q: Which city do I live in?} \; (correct: Brno)\\
 you live in a city called Brno is not correct, you said Brno is not mentioned,
 you said you live in a city that is not mentioned\dots
 \end{specimen}
 
-Fluent. Correct format. Obeys the new system prompt. Wrong.
+The right city is in there. The model refuses to admit anyone said it. Now try
+to catch that automatically: check the answer contains the expected string ---
+passes. Count rule violations --- also passes. Both obvious tests go green on an
+answer nobody can use.
 
-The third one is the one that should worry you. The answer contains the right
-city and refuses to admit anyone said it. Now think about how you would catch
-that. Check whether the answer contains the expected string --- it does, so that
-passes. Count rule violations --- there are none, so that passes too. Both of the
-obvious tests go green on an answer that is useless.
+\section*{So I wanted to know if the others do it too}
 
-That is the actual finding here. Not that a strong edit degrades output; of
-course it does. It is that the degraded output looks exactly like success to the
-things you would normally measure.
+One model doing something strange is an anecdote. I ran the same thing across ten
+--- 0.5B to 8B, six different families --- to see which parts travel.
 
-\section*{Why it looks like that}
-
-I froze both runs at the precise moment the answer word comes out --- same
-question, same position, one with the edit and one without --- and looked at what
-the model was about to say.
-
-The correct word never gets overruled. It gets quieter. Its probability drops,
-and nothing steps up to replace it: whatever was already standing behind it in
-the queue simply walks forward and takes the slot. That is why you get
-\texttt{Bagel} and not gibberish. Bagel was next in line.
+One part travels everywhere. The correct word never gets overruled; it gets
+\emph{quieter}. Its probability drops and nothing steps in to replace it ---
+whatever was already standing behind it in the queue walks forward and takes the
+slot. That is why you get Bagel and not noise. Bagel was next in line.
 
 \begin{figure}[h]
 \centering
@@ -126,55 +121,79 @@ coordinates {
 };
 \end{axis}
 \end{tikzpicture}
-\caption{Every model does the same thing; how hard it does it differs by a factor
-of about 1\,700. On the small models the replacement was the runner-up. On
-Qwen3-4B the edit had to reach down to the 43rd candidate to find one --- which
-is roughly the difference between a typo and a hallucination.}
+\caption{All ten do the same thing; how hard they do it differs by a factor of
+about 1\,700. On the small models the replacement was the runner-up --- the kind
+of error that looks like a typo. On Qwen3-4B the edit reached down to the 43rd
+candidate, which is the kind that looks like a hallucination.}
 \end{figure}
 
-Every model I tried behaves this way, which makes sense: the method turns down
-the volume without moving where the model is looking. It stares straight at the
-fact and hears a whisper.
+\section*{But they are weird in different ways}
+
+This was the part I did not see coming. The mechanism is shared; the personality
+is not.
+
+\textbf{Llama talks.} It is the only model in the set that argues with itself.
+It says the right thing and then takes it back --- \emph{``Bubbles, no, I made a
+mistake, you didn't tell me that''} --- or says it over and over without ever
+settling:
+
+\begin{specimen}
+the error code was E-88, but I'm not sure if that's correct, you actually said it
+was E-88 but then mentioned it was E-88 again and then said E-88 was actually
+E-88 but then said\dots
+\end{specimen}
+
+Both of those habits are essentially Llama's alone: 16 and 15 cases out of 756,
+against zero or one everywhere else. OLMo, Aya and Command-R are the same size
+and never do it, and the whole Qwen2.5 ladder never does it, so it is not about
+scale. It is about that particular model.
+
+\textbf{Qwen3-4B doesn't talk, it wanders off.} It is the quietest of the ten in
+the sense that it doesn't ramble --- and the most extreme in where it lands. When
+it loses the word it reaches far down the list for a replacement, and in one case
+it gave up on words entirely and just ended the turn: the winning token was
+end-of-message, from position 36{,}931.
+
+\textbf{The little Qwens make typos.} 302 becomes 02. 4417-B becomes 4411. The
+replacement is the runner-up, so the damage stays shaped like the truth. That
+sounds harmless and is arguably the worst case, because it is the one a human
+skims straight past.
+
+\textbf{Phi repeats itself, but don't blame the edit.} Phi restates the correct
+value three times in a row a lot --- and it does so \emph{most} when the edit is
+switched off entirely. That is just how Phi talks. I nearly wrote it up as a
+failure mode before checking the unsteered baseline.
 
 \section*{So should you use it?}
 
-Mostly, no --- and the reason is embarrassing.
+Mostly no, and the reason is anticlimactic.
 
-If the stale instruction sits in a message of its own, you can just delete that
-message. On my cases, deleting beats the clever edit on 7 models out of 10. It is
-cheaper, it needs nothing at inference time, and it needs exactly the same thing
-the edit needs: knowing which message is stale.
+If the stale instruction sits in a message of its own, delete the message.
+Deleting beat the clever edit on 7 of my 10 models, it costs nothing at inference
+time, and it needs exactly the same input the edit needs: knowing which message
+is stale.
 
-The edit only becomes interesting when you \emph{can't} delete --- when the same
-message also carries something you still need. ``From now on always reply in
-lowercase --- oh, and my order number is 4417-B.'' Delete that and the order
-number goes with it.
+The edit gets interesting only when you \emph{can't} delete, because the same
+message carries something you still need: \emph{``from now on always reply in
+lowercase --- oh, and my order number is 4417-B''}. Delete that and the order
+number goes too.
 
-Even there, the obvious move usually wins: rewrite the message, keep the fact,
-drop the instruction. No surprise --- you have solved the problem by hand.
+Even then, the obvious move usually wins --- rewrite the message, keep the fact,
+drop the instruction. No surprise there; you have solved it by hand.
 
-But there is one case where rewriting doesn't help, and it is the only genuinely
-non-obvious thing I found. On the two smallest models, removing the conflict
-wasn't enough, because those models couldn't produce the required format from the
-instruction alone --- they needed the old example to imitate. The edit doesn't
-just remove the competition; it turns \emph{up} the current instruction. It made a
-weak model comply where no amount of tidying the transcript could.
-
-That is a small claim. It is also the only one I would defend: this technique is
-not a better way to clean up a transcript, it is a way to make a model follow an
-instruction it otherwise can't.
+Except on the two smallest models, where rewriting wasn't enough. Those models
+couldn't produce the required format from the instruction alone; they needed the
+old example to copy. The edit doesn't only remove the competition, it turns
+\emph{up} the current instruction --- and that made a weak model comply where
+tidying the transcript couldn't. Small claim, but it is the one I would defend:
+this is less a way to clean up a conversation than a way to make a model follow
+an instruction it otherwise can't.
 
 \section*{The fine print}
 
-Ten models from 0.5B to 8B, six families, 27{,}588 answers, all kept. Constructed
+Ten models, 0.5B to 8B, six families, 27{,}588 answers, all kept. Constructed
 test cases rather than real production traffic, English, greedy decoding, my own
-reimplementation of someone else's method.
-
-Along the way I found seven bugs in my own measuring code. Five of them had
-already produced a finding I believed. Four claims came out of this project and
-went back in, including one headline that reversed twice. Assume there are more.
-
-Everything --- write-up, raw generations, the scripts that regenerate every
-number --- is in the repo.
+reimplementation of someone else's method. Everything --- the write-up, the raw
+generations, the scripts that regenerate every number --- is in the repo.
 
 \end{document}
