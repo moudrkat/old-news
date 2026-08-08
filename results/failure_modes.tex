@@ -5,233 +5,195 @@
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage{lmodern}
-\usepackage[margin=3cm]{geometry}
+\usepackage[margin=2.7cm]{geometry}
 \usepackage{booktabs}
 \usepackage{microtype}
 \usepackage{xcolor}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
 \usepackage[colorlinks=true,linkcolor=black,urlcolor=teal,citecolor=black]{hyperref}
 \usepackage{titlesec}
 \usepackage{enumitem}
+\usepackage{tcolorbox}
+
+\definecolor{ink}{HTML}{1F3A5F}      % one hue, one series: position carries the magnitude
+\definecolor{rule}{HTML}{C9CFD6}
 
 \titleformat{\section}{\normalfont\large\bfseries}{\thesection.}{0.6em}{}
-\titleformat{\subsection}{\normalfont\normalsize\bfseries}{\thesubsection}{0.6em}{}
-\setlist{itemsep=2pt,topsep=4pt}
+\setlist{itemsep=1pt,topsep=3pt}
+\setlength{\parskip}{2pt}
 
-\newenvironment{specimen}
-  {\begin{quote}\itshape\small}
-  {\end{quote}}
+\newenvironment{specimen}{\begin{quote}\itshape\small}{\end{quote}}
 
-\title{\vspace{-1.5cm}\textbf{How it breaks}\\[2mm]
-  \large The failure modes of a KV-value edit, and the one mechanism\\
-  they appear to come out of}
-\author{Kateřina Fajmanová\\\small\texttt{github.com/moudrkat/old-news}}
+\title{\vspace{-1.6cm}\textbf{How it breaks}\\[1mm]
+  \large What a KV-value edit actually does when you push it too far}
+\author{Kateřina Fajmanová \quad\small\texttt{github.com/moudrkat/old-news}}
 \date{\small\today}
 
 \begin{document}
 \maketitle
 \thispagestyle{empty}
+\vspace{-6mm}
 
-\begin{abstract}
-\noindent
-When a KV-value edit is pushed past the point where it works, the model does not
-fall silent and does not emit noise. It stays fluent, keeps the requested
-format, obeys the current system prompt --- and is wrong, or right in a way no
-downstream check can use. This note describes those modes on ten models: what
-they look like, how each one is measured, how often it fires, and the single
-mechanism they all appear to share. The measurement history --- what was
-withdrawn, what a hostile review removed --- stays in \texttt{failure\_atlas.md};
-this is a description of the phenomenon.
+\begin{tcolorbox}[colback=white,colframe=rule,boxrule=0.4pt,left=6pt,right=6pt,
+                  top=4pt,bottom=4pt]
+\small
+\textbf{27\,588} generations kept, \textbf{10} models (0.5B--8B, six families plus
+a size ladder inside Qwen2.5), \textbf{2} datasets, \textbf{1\,060} teacher-forced
+readout points, greedy throughout. Seven bugs in my own instruments, five of which
+had already produced a finding, and four claims withdrawn --- including one
+headline that reversed twice. Assume there are more.
+\end{tcolorbox}
 
-This is a follow-up to V-Steer (Zeng, Lee, Zhao, Hockenmaier, COLM 2026,
-\href{https://arxiv.org/abs/2607.26228}{arXiv:2607.26228}). The method is
-theirs; the failure analysis is not in the paper, and the authors have
-explicitly declined to interpret it.
-\end{abstract}
+\section{The problem, and the fix that looks right}
+
+We change system prompts all the time and nobody deletes the conversation. So
+transcripts fill with instructions that were right once --- \emph{always reply in
+lowercase} --- and then the rule changes and the transcript doesn't. V-Steer
+(Zeng et al., COLM 2026, \href{https://arxiv.org/abs/2607.26228}{arXiv:2607.26228})
+scales down the cached value vectors of the heads that lean on the stale span, and
+the old instruction loses its grip.
+
+It works. This note is about what it costs, which meant pushing it until it broke.
+It did not break the way I expected. It never said \emph{I don't know}.
 
 \section{Four answers}
 
 \begin{specimen}
 \textbf{Q: What does my account number end in?} (gold: 302)\\
 your account number ends in 02.
-\end{specimen}
-
+\end{specimen}\vspace{-3mm}
 \begin{specimen}
 \textbf{Q: What is my dog called?} (gold: Bagr)\\
 YOUR Dog is called BAGel.
-\end{specimen}
-
+\end{specimen}\vspace{-3mm}
 \begin{specimen}
 \textbf{Q: Which city do I live in?} (gold: Brno)\\
 you live in a city called Brno is not correct, you said Brno is not mentioned,
-you said you live in a city that is not mentioned, but you said Brno is not
-correct, however, you said Brno is not mentioned\dots
-\end{specimen}
-
+you said you live in a city that is not mentioned\dots
+\end{specimen}\vspace{-3mm}
 \begin{specimen}
 \textbf{Q: What was the error code I got?} (gold: E-88)\\
 You mentioned earlier that the error code was E-88, but I'm not sure if that's
 correct, you actually said it was E-88 but then mentioned it was E-88 again and
-then said E-88 was actually E-88 but then said the error code was E-88 but then
-said the\dots
+then said E-88 was actually E-88 but then said\dots
 \end{specimen}
 
-\noindent
-Ten models (0.5B--8B, six families plus a same-family size ladder), 756
-generations per model in the main grid, greedy decoding, constructed cases.
+\noindent Fluent, correctly cased, obedient to the current system prompt, wrong.
+The third one is the one to worry about: the answer contains the right city and
+refuses to admit anyone said it. Count correct strings --- success. Count rule
+violations --- also success. Two standard metrics, both green.
 
-\section{The mechanism: attenuated, not overwritten}
+\section{One mechanism}
 
-Teacher-force both conditions to the exact position where the answer value is
-emitted, so the same question is asked at the same place, then compare the
-next-token distributions.
+Teacher-force both conditions to the exact position where the value is emitted,
+so the same question is asked in the same place, and compare the next-token
+distributions. On all ten models: \textbf{the correct token is not overwritten,
+it is attenuated.} Nothing promotes a wrong token; the right one is pushed down
+until whatever stood behind it walks forward.
 
-On every model measured, the same thing happens: \textbf{the correct token's
-probability collapses and nothing promotes a wrong one.} The right token is
-pushed down until whatever was already standing behind it wins.
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+  width=12.2cm, height=6.6cm,
+  xmode=log, log basis x=10,
+  xmin=12, xmax=250000,
+  xlabel={\small median attenuation of the gold token's probability ($\times$)},
+  symbolic y coords={Qwen3-4B,Aya-expanse-8B,Qwen2.5-7B,Qwen2.5-3B,Llama-3.1-8B,
+                     Qwen2.5-1.5B,Phi-3.5-mini,Command-R7B,OLMo-2-7B,Qwen2.5-0.5B},
+  ytick=data,
+  y=0.52cm,
+  tick align=outside, tick style={rule},
+  axis line style={rule},
+  ymajorgrids=false, xmajorgrids=true,
+  grid style={rule, dashed, line width=0.3pt},
+  every axis y label/.style={},
+  nodes near coords, nodes near coords align={right},
+  point meta=explicit symbolic,
+  every node near coord/.append style={font=\scriptsize, color=black!70, xshift=2pt},
+]
+% one series, one hue: the x position is the measurement, the label is the
+% rank the substitute held in the unsteered distribution.
+\addplot+[only marks, mark=*, mark size=2.2pt, color=ink,
+          draw=ink, fill=ink] coordinates {
+  (19.9,Qwen2.5-0.5B)   [rank 2]
+  (22.0,OLMo-2-7B)      [rank 4]
+  (30.5,Command-R7B)    [rank 5]
+  (37.4,Phi-3.5-mini)   [rank 4]
+  (44.0,Qwen2.5-1.5B)   [rank 4]
+  (81.9,Llama-3.1-8B)   [rank 6]
+  (481.9,Qwen2.5-3B)    [rank 13]
+  (840.2,Qwen2.5-7B)    [rank 19]
+  (1525.9,Aya-expanse-8B)[rank 26]
+  (35002,Qwen3-4B)      [rank 43]
+};
+\end{axis}
+\end{tikzpicture}
+\caption{Every model attenuates; the magnitude spans more than three orders of
+magnitude ($1\,760\times$ between the mildest model and the harshest). The annotation is the rank the substituted token held in the
+\emph{unsteered} distribution --- on the small models the edit hands the slot to
+the runner-up, on Qwen3-4B it reaches down to rank 43.}
+\end{figure}
 
-\begin{table}[h]
-\centering\small
-\begin{tabular}{lrrrr}
-\toprule
-model & subst. & median attenuation & rank of emitted & rank of gold\\
-      &        & of the gold token  & token, unsteered & token, steered\\
-\midrule
-Qwen2.5-0.5B    & 91 & $19.9\times$    & 2  & 5\\
-OLMo-2-7B       & 20 & $22.0\times$    & 4  & 4\\
-Command-R7B     & 62 & $30.5\times$    & 5  & 4\\
-Phi-3.5-mini    & 33 & $37.4\times$    & 4  & 2\\
-Qwen2.5-1.5B    & 89 & $44.0\times$    & 4  & 4\\
-Llama-3.1-8B    & 72 & $81.9\times$    & 6  & 6\\
-Qwen2.5-3B      & 73 & $481.9\times$   & 13 & 9\\
-Qwen2.5-7B      & 68 & $840.2\times$   & 19 & 7\\
-Aya-expanse-8B  & 64 & $1\,525.9\times$& 26 & 4\\
-Qwen3-4B        & 46 & $35\,002\times$ & 43 & 4\\
-\bottomrule
-\end{tabular}
-\caption{Seven constraint families $\times$ six facts, $\gamma_+ = 4$ and
-$\gamma_- \in \{0.75, 0.9, 0.95\}$: about 100 readout points per model, of which
-the rows counted here are the ones where a substitution actually happened.}
-\end{table}
+The direction is universal and the size is not. The gold token's own rank stays
+in single digits even as its probability falls by four orders --- still near the
+top, just no longer on it. That is what scaling $V$ while leaving attention alone
+predicts: the model looks straight at the fact and receives a whisper.
 
-Two things to read off it. \textbf{The direction is universal:} every model
-attenuates rather than overwrites, and the gold token's own rank stays in single
-digits even as its probability falls by orders of magnitude --- it is still near
-the top, just no longer on it. \textbf{The magnitude is not:} $20\times$ on a
-0.5B model against $35\,000\times$ on Qwen3-4B, and a substitute pulled from
-rank 2 against one pulled from rank 43. The same edit is a nudge on one model
-and a demolition on another.
+\section{The modes, and how each is measured}
 
-That is the prediction from the edit itself: $V$ is scaled, \textbf{attention is
-not touched}. The model still looks at the demoted span at full strength; what
-arrives from there is faint. The answer is then assembled from whatever else is
-available at that position --- and what is available there differs by model,
-which is why the modes below are not the same everywhere.
+\textbf{Near neighbour.} \texttt{302}$\to$\texttt{02} (32$\times$),
+\texttt{bagr}$\to$\texttt{Bagel} (17), \texttt{4417-B}$\to$\texttt{4411} (15) on
+Llama. Scoring each wrong answer against a gold value from a \emph{different}
+question gives 0--2\,\% against 68\,\% for its own, so the replacement is
+specifically related to the target. But the \emph{rate} is mostly the definition:
+9\,\% under a shape-only rule, 68\,\% once truncation counts. ``Near misses
+dominate'' is not a claim this data supports.
 
-\section{Near neighbour: the fact is replaced by something adjacent}
+\textbf{States the fact, denies being told it.} By rule --- the string is present
+\emph{and} a denial pattern fires --- Llama 16/756, three models 1/756, six
+models zero. Dose-dependent on Llama (0, 2, 1, 6, 7 as $\gamma_-$ rises).
 
-\texttt{302}~$\to$~\texttt{02} (32 times), \texttt{bagr}~$\to$~\texttt{Bagel}
-(17), \texttt{4417-B}~$\to$~\texttt{4411} (15), \texttt{19:40}~$\to$~\texttt{19:00}
-(11) on Llama. Not nothing, not \texttt{xqzt}. Bagel.
+\textbf{Non-terminating recall.} The \emph{correct} value three to six times,
+never settling. Llama 15/756, Qwen3-4B 2/756, zero on the other eight.
 
-Share of \emph{wrong} answers that are a near neighbour, loose rule: 12\,\%
-(Qwen2.5-1.5B), 14\,\% (Qwen2.5-0.5B), 16\,\% (Command-R), 20\,\% (Aya),
-36\,\% (OLMo), 40\,\% (Qwen3-4B), 41\,\% (Phi), 73\,\% (Llama).
+\textbf{Format kept, confabulation poured in.} Where neither rule wins on
+Qwen3-4B, 64 of 119 cases recalled the fact correctly and broke the format
+instead --- median 38 words against 17 --- filled with material nobody supplied
+(\emph{``Bagr\dots{} perhaps inspired by the ancient Persian word for `to be
+strong'\,''}).
 
-Two things sharpen this, and they point in opposite directions:
+Both odd modes are deterministic rules, not judge labels. The judge reproduces at
+94--100\,\% on the easy categories and 58\,\% on the newest one, so it does not
+get to decide the interesting ones --- its 26 unsourced labels on Aya are false
+positives, and its 217 unresolved labels on Phi are that model's ordinary
+repetition, which is \emph{highest with no steering at all}.
 
-\begin{itemize}
-\item \textbf{It is not chance.} Scoring each wrong answer against a gold value
-from a \emph{different} question gives a 0--2\,\% near-neighbour rate against
-68\,\% for its own --- roughly $40\times$ over the null.
-\item \textbf{The rate is mostly the definition.} Shape-only: 9\,\%. Shape
-\emph{or} half the characters surviving from one end: 68\,\%. Truncation breaks
-the character shape and truncation is the commonest form, so ``near misses
-dominate'' is not a claim this data supports. ``The replacement is
-systematically related to the target'' is.
-\end{itemize}
+\section{What is universal, and what to actually ship}
 
-\section{It states the fact and denies being told it}
+Universal: attenuation. Not universal, and not a size effect: which mode you get.
+The two odd modes are Llama's almost exclusively, while OLMo, Aya and Command-R
+are the same size and never do it, and the whole Qwen2.5 ladder produces no loops
+at all.
 
-\begin{specimen}
-Your dog is called Bubbles, no, I made a mistake, you didn't tell me that. You
-told me it was called something but I forgot. You said it was called something
-but I forgot what you said.
-\end{specimen}
+The practical consequence is the reason any of this matters. \textbf{Every mode
+here is invisible to the metric you would normally use.} A violation counter
+scores the denial as a miss and the confabulation as a success; a needle-presence
+check scores the denial and the loop as successes.
 
-The value is in the text. The answer refuses to treat it as user-stated.
-Counting correct strings scores this as a success; counting failures scores it
-as a miss; it is neither. The fact appears to keep its content and lose its
-\textbf{standing as a source} --- consistent with the mechanism above, where
-attention still points at the span at full strength while what arrives is faint.
+And the least glamorous result, which is the one I would ship: where the stale
+instruction sits in its own message, \textbf{deleting that message beats the
+method on 7 of 10 models}. The edit earns its place only when the instruction is
+entangled with something you still need --- and even there, rewriting the message
+beats it on the strong models. It wins outright on a model too weak to follow the
+current rule unaided, which is a narrower claim than the one I went looking for.
 
-Measured by rule (the fact string is present \emph{and} a denial pattern fires),
-not by an LLM judge: \textbf{Llama-3.1-8B 16/756}; Qwen3-4B, Qwen2.5-3B and
-Qwen2.5-7B 1/756 each; zero on the other six. Dose-dependent on Llama: 0, 2, 1,
-6, 7 as $\gamma_-$ rises from 0.65 to 0.95. Caused by the edit, not merely
-revealed by it.
-
-\section{Non-terminating recall}
-
-The \emph{correct} value, three to six times, no alternative ever offered, just
-re-litigated until the token budget runs out. By rule (the correct value three
-or more times \emph{and} three or more contested-framing markers):
-\textbf{Llama 15/756, Qwen3-4B 2/756, zero on the other eight.}
-
-\section{Format kept, answer filled with confabulation}
-
-Where neither rule wins on Qwen3-4B, \textbf{64 of 119} cases recalled the fact
-correctly and broke the format instead. Those answers are long --- median 38
-words against 17 for compliant ones --- and the overrun is filled with material
-nobody supplied: \emph{``Bagr \dots{} perhaps inspired by the ancient Persian
-word for `to be strong'{}''}. A needle-presence metric scores every one of these
-as a success.
-
-\section{What is universal and what is not}
-
-\textbf{Universal so far:} attenuation rather than overwriting, on all ten
-models.
-
-\textbf{Not universal, and not a size effect:} which mode you get. The two odd
-modes belong to Llama-3.1-8B almost exclusively (16/756 and 15/756 against 0--2
-everywhere else), while OLMo-2-7B, Aya-8B and Command-R7B are the same size and
-never do it, and a Qwen2.5 ladder at 0.5B/1.5B/3B/7B produces no loops at all.
-It tracks the model, not the parameter count. Why is open.
-
-\textbf{The practical consequence, and the reason any of this matters:} every
-mode here is invisible to the metric normally used. A violation-counting
-behaviour metric scores the denial mode as a miss and the confabulation mode as
-a success; a needle-presence check scores the denial and the loop as successes.
-The failure this edit actually produces is fluent, formatted, and confidently
-adjacent to the truth.
-
-\section{How this was measured, and what did not survive}
-
-\begin{itemize}
-\item The eight-category LLM judge is used \textbf{only where it is reliable}.
-Rescoring the same 188 answers under different batch compositions gives 87.8\,\%
-agreement, $\kappa = 0.852$ overall --- but 58\,\% on the newest category. The
-two odd modes above are therefore deterministic rules, not judge labels.
-\item The judge's 26 unsourced-answer labels on Aya are false positives:
-mechanically there is not one. Its 217 unresolved labels on Phi are that model's
-ordinary affirming repetition --- the rate is \emph{highest with no steering at
-all} (51/108 at $\gamma_- = 0$, falling to 15/108 at 0.95).
-\item Open-ended mode discovery proposed three candidates. \textbf{One
-survived.}
-\item Where a number goes into a claim, the answers behind it were read by hand.
-\end{itemize}
-
-\section*{Limits}
-
-Constructed cases, six facts, seven constraint families, English, greedy
-decoding, one reimplementation of one method. Everything above describes what
-\emph{this} edit does to \emph{these} models on \emph{this} fixture set --- not
-what stale context does in production, which is the thing anyone actually wants
-to know and is not measured here.
-
-\vspace{4mm}
+\vspace{2mm}
 \noindent\small
-Reproduce: \texttt{python examples/mode\_rates.py results/atlas\_*.rescored.json}
-(no GPU, no API). Mechanism: \texttt{python examples/why\_near.py -{}-model llama
--{}-families all}. Raw generations for everything above: \texttt{results/}.
+Constructed cases, six facts, seven constraint families, English, greedy, one
+reimplementation of one method. Reproduce the mode table with
+\texttt{python examples/mode\_rates.py results/atlas\_*.rescored.json} --- no GPU,
+no API. Raw generations for all of it are in \texttt{results/}.
 
 \end{document}
