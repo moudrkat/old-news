@@ -81,9 +81,26 @@ which is why the modes below are not the same everywhere.
 `302` → `02` (32×), `bagr` → `Bagel` (17×), `4417-B` → `4411` (15×),
 `19:40` → `19:00` (11×) on Llama. Not nothing, not `xqzt`. Bagel.
 
-Share of **wrong** answers that are a near neighbour, loose rule: 12 %
-(Qwen2.5-1.5B), 14 % (Qwen2.5-0.5B), 16 % (Command-R), 20 % (Aya), 36 % (OLMo),
-40 % (Qwen3-4B), 41 % (Phi), 73 % (Llama). As a share of *all* answers on Llama
+Share of **wrong** answers that are a near neighbour, over all ten models
+(`python examples/near_rates.py results/atlas_*.json`):
+
+| | Llama | Phi | Qwen3-4B | OLMo | Qwen2.5-7B | Aya | Cmd-R | Qwen2.5-0.5B | Qwen2.5-3B | Qwen2.5-1.5B |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| loose rule | **72 %** | 39 % | 39 % | 36 % | 24 % | 20 % | 16 % | 14 % | 13 % | 12 % |
+| shape only | 16 % | 25 % | 20 % | 22 % | 19 % | 12 % | 19 % | 14 % | 16 % | 17 % |
+
+> Provenance: an earlier ad-hoc pass gave 73 / 41 / 40 for Llama / Phi / Qwen3-4B
+> and did not cover Qwen2.5-3B or 7B. The rule now lives in
+> `examples/near_rates.py`; the ordering is unchanged and three models move by
+> one to two points.
+
+Under the loose rule the spread is 6×, and it is not size: Llama sits at 72 %
+while three models of the same size sit at 16–36 %. Under the shape-only rule
+the spread collapses to 12–25 % and **Llama stops being special** — its
+neighbours are mostly truncations, which break the character shape. Which model
+looks worst here is partly a choice of rule, and that is worth saying out loud.
+
+As a share of *all* answers on Llama
 it rises and then falls with the dose — 0 → 11 → 25 → 58 → 56 → 50 % — because
 past the peak the answers degrade beyond anything neighbour-shaped.
 

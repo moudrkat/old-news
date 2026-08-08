@@ -11,6 +11,7 @@
 \usepackage{xcolor}
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.18}
+\usepgfplotslibrary{groupplots}
 \usepackage[colorlinks=true,linkcolor=black,urlcolor=teal]{hyperref}
 \usepackage{titlesec}
 
@@ -22,9 +23,8 @@
 
 \newenvironment{specimen}{\begin{quote}\itshape\small}{\end{quote}}
 
-\title{\vspace{-1.6cm}\textbf{How it breaks}\\[1mm]
-  \large I turned the dial too far on ten models and they all got weird\\
-  \large in their own particular way}
+\title{\vspace{-1.6cm}\textbf{It never says ``I don't know''}\\[1mm]
+  \large What ten models do when a fix for stale context is pushed too far}
 \author{Kateřina Fajmanová \quad\small\texttt{github.com/moudrkat/old-news}}
 \date{\small\today}
 
@@ -131,6 +131,88 @@ candidate, which is the kind that looks like a hallucination.}
 
 This was the part I did not see coming. The mechanism is shared; the personality
 is not.
+
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}
+\pgfplotsset{
+  modepanel/.style={
+    height=6.6cm, y=0.5cm,
+    symbolic y coords={Qwen2.5-1.5B,Qwen2.5-3B,Qwen2.5-0.5B,Command-R7B,
+                       Aya-expanse-8B,Qwen2.5-7B,OLMo-2-7B,Qwen3-4B,
+                       Phi-3.5-mini,Llama-3.1-8B},
+    ytick=data, xmin=0,
+    tick align=outside, tick style={rule}, axis line style={rule},
+    xmajorgrids=true, grid style={rule, dashed, line width=0.3pt},
+    title style={font=\small, align=center, yshift=1mm},
+    xlabel style={font=\scriptsize, color=black!60},
+    tick label style={font=\scriptsize},
+    every node near coord/.append style={font=\scriptsize, color=black!65,
+                                         xshift=2pt},
+    nodes near coords align={right},
+  },
+}
+\begin{groupplot}[
+  group style={group size=3 by 1, horizontal sep=1.1cm,
+               y descriptions at=edge left},
+  modepanel,
+]
+
+\nextgroupplot[width=6.2cm, xmax=95, title={near miss\\\phantom{X}},
+  xlabel={\% of wrong answers}, xtick={0,25,50,75}, xticklabel={\pgfmathprintnumber{\tick}\,\%},
+  legend style={at={(0.5,-0.22)}, anchor=north, draw=none, font=\scriptsize,
+                legend columns=2, column sep=4pt},
+  legend cell align=left]
+\addplot+[xbar, bar width=1.2pt, color=ink, fill=ink, draw=ink,
+          mark=*, mark size=2.2pt, mark options={fill=ink, draw=ink},
+          nodes near coords,
+          point meta=explicit symbolic]
+coordinates {(12,Qwen2.5-1.5B)[] (13,Qwen2.5-3B)[] (14,Qwen2.5-0.5B)[]
+  (16,Command-R7B)[] (20,Aya-expanse-8B)[] (24,Qwen2.5-7B)[] (36,OLMo-2-7B)[]
+  (39,Qwen3-4B)[] (39,Phi-3.5-mini)[] (72,Llama-3.1-8B)[]};
+\addlegendentry{truncation counts}
+\addplot+[only marks, mark=o, mark size=2.2pt, color=ink,
+          mark options={draw=ink, fill=white, line width=0.5pt}]
+coordinates {(17,Qwen2.5-1.5B) (16,Qwen2.5-3B) (14,Qwen2.5-0.5B)
+  (19,Command-R7B) (12,Aya-expanse-8B) (19,Qwen2.5-7B) (22,OLMo-2-7B)
+  (20,Qwen3-4B) (25,Phi-3.5-mini) (16,Llama-3.1-8B)};
+\addlegendentry{same shape only}
+
+\nextgroupplot[width=3.3cm, xmax=22, title={says it, denies\\being told it},
+  xlabel={cases in 756}, xtick={0,10,20}]
+\addplot+[only marks, mark=o, mark size=1.4pt, color=rule,
+          mark options={draw=rule, fill=white}]
+coordinates {(0,Qwen2.5-1.5B) (0,Qwen2.5-3B) (0,Qwen2.5-0.5B) (0,Command-R7B)
+  (0,Aya-expanse-8B) (0,Qwen2.5-7B) (0,OLMo-2-7B) (0,Qwen3-4B)
+  (0,Phi-3.5-mini) (0,Llama-3.1-8B)};
+\addplot+[xbar, bar width=1.2pt, color=ink, fill=ink, draw=ink,
+          mark=*, mark size=2.2pt, mark options={fill=ink, draw=ink},
+          nodes near coords,
+          point meta=explicit symbolic]
+coordinates {(1,Qwen2.5-3B)[] (1,Qwen2.5-7B)[] (1,Qwen3-4B)[]
+  (16,Llama-3.1-8B)[16]};
+
+\nextgroupplot[width=3.3cm, xmax=22, title={says it and\\cannot stop},
+  xlabel={cases in 756}, xtick={0,10,20}]
+\addplot+[only marks, mark=o, mark size=1.4pt, color=rule,
+          mark options={draw=rule, fill=white}]
+coordinates {(0,Qwen2.5-1.5B) (0,Qwen2.5-3B) (0,Qwen2.5-0.5B) (0,Command-R7B)
+  (0,Aya-expanse-8B) (0,Qwen2.5-7B) (0,OLMo-2-7B) (0,Qwen3-4B)
+  (0,Phi-3.5-mini) (0,Llama-3.1-8B)};
+\addplot+[xbar, bar width=1.2pt, color=ink, fill=ink, draw=ink,
+          mark=*, mark size=2.2pt, mark options={fill=ink, draw=ink},
+          nodes near coords,
+          point meta=explicit symbolic]
+coordinates {(2,Qwen3-4B)[] (15,Llama-3.1-8B)[15]};
+\end{groupplot}
+\end{tikzpicture}
+\caption{Same edit, same questions, ten models. Two of the three habits are
+essentially one model's. The left panel also shows how much the answer depends
+on where you draw the line: count truncations (\emph{4417-B} $\to$ \emph{4417})
+as near misses and Llama is off the scale; require the character shape to
+survive and it is ordinary. The two right-hand panels are deterministic rules,
+not a judge --- open circles are zero.}
+\end{figure}
 
 \textbf{Llama talks.} It is the only model in the set that argues with itself.
 It says the right thing and then takes it back --- \emph{``Bubbles, no, I made a
