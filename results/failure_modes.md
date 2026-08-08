@@ -46,24 +46,35 @@ On every model measured, the same thing happens: **the correct token's
 probability collapses and nothing promotes a wrong one.** The right token is
 pushed down until whatever was already standing behind it wins.
 
-| model | median attenuation of the gold token | median rank of the emitted token in the *unsteered* distribution |
-|---|---|---|
-| Llama-3.1-8B | 267× | 10 |
-| Qwen2.5-1.5B | 261× | 7 |
-| Qwen3-4B | 54,471× | 91 |
+Ten models, seven constraint families, six facts, γ+ = 4 and γ− ∈ {0.75, 0.9,
+0.95} — about 100 readout points each, of which the rows below are the ones
+where a substitution actually happened:
 
-Measured over the readout points where a substitution actually happened (11, 17
-and 9 of 18 respectively) at γ+ = 4, γ− ∈ {0.75, 0.9, 0.95}.
+| model | subst. | median attenuation of the gold token | median rank of the emitted token, *unsteered* | median rank of the gold token, *steered* |
+|---|---:|---:|---:|---:|
+| Qwen2.5-0.5B | 91 | 19.9× | 2 | 5 |
+| OLMo-2-7B | 20 | 22.0× | 4 | 4 |
+| Command-R7B | 62 | 30.5× | 5 | 4 |
+| Phi-3.5-mini | 33 | 37.4× | 4 | 2 |
+| Qwen2.5-1.5B | 89 | 44.0× | 4 | 4 |
+| Llama-3.1-8B | 72 | 81.9× | 6 | 6 |
+| Qwen2.5-3B | 73 | 481.9× | 13 | 9 |
+| Qwen2.5-7B | 68 | 840.2× | 19 | 7 |
+| Aya-expanse-8B | 64 | 1 525.9× | 26 | 4 |
+| Qwen3-4B | 46 | 35 001.8× | 43 | 4 |
+
+Two things to read off it. **The direction is universal:** every model attenuates
+rather than overwrites, and the gold token's own rank stays in single digits even
+as its probability falls by orders of magnitude — it is still near the top, just
+no longer on it. **The magnitude is not:** 20× on a 0.5B model against 35 000× on
+Qwen3-4B, and a substitute pulled from rank 2 against one pulled from rank 43.
+The same edit is a nudge on one model and a demolition on another.
 
 That is the prediction from the edit itself: V is scaled, **attention is not
 touched**. The model still looks at the demoted span at full strength; what
 arrives from there is faint. So the answer is assembled from whatever else is
 available at that position — and *what is available there differs by model*,
 which is why the modes below are not the same everywhere.
-
-> ⚠ **This is the thin part.** 18 readout points per model, one constraint
-> family, three models. A wider run (7 families × 6 facts × 3 doses, ten
-> models) is the first thing to fold in here.
 
 ## 1. Near neighbour — the fact is replaced by something adjacent
 

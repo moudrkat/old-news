@@ -71,13 +71,16 @@ def dist_at(model, tok, rendered, policy, prefix_ids, current_epoch=1):
     """
     if policy is None:
         ids = torch.tensor([rendered.input_ids + prefix_ids], device=model.device)
-        return torch.softmax(model(ids).logits[0, -1], dim=-1)
+        # logits_to_keep=1: only the last position's distribution is ever read,
+        # and a 256k-vocab model computing logits for the whole prefix is what
+        # put Aya and Command-R over the 16 GB card.
+        return torch.softmax(model(ids, logits_to_keep=1).logits[0, -1], dim=-1)
     pre, _report, logits = steer(model, tok, rendered, policy,
                                  current_epoch=current_epoch)
     if not prefix_ids:
         return torch.softmax(logits, dim=-1)
     ids = torch.tensor([prefix_ids], device=model.device)
-    out = model(ids, past_key_values=pre.cache, use_cache=True)
+    out = model(ids, past_key_values=pre.cache, use_cache=True, logits_to_keep=1)
     return torch.softmax(out.logits[0, -1], dim=-1)
 
 
