@@ -1,199 +1,180 @@
-% Article version of results/failure_modes.md.
+% Article version of results/failure_modes.md. Plain English on purpose:
+% the numbers live in the repo, this is the part someone will actually read.
 %   pdflatex -output-directory=results results/failure_modes.tex   (twice)
 \documentclass[11pt,a4paper]{article}
 
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage{lmodern}
-\usepackage[margin=2.7cm]{geometry}
-\usepackage{booktabs}
+\usepackage[margin=3cm]{geometry}
 \usepackage{microtype}
 \usepackage{xcolor}
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.18}
-\usepackage[colorlinks=true,linkcolor=black,urlcolor=teal,citecolor=black]{hyperref}
+\usepackage[colorlinks=true,linkcolor=black,urlcolor=teal]{hyperref}
 \usepackage{titlesec}
-\usepackage{enumitem}
-\usepackage{tcolorbox}
 
-\definecolor{ink}{HTML}{1F3A5F}      % one hue, one series: position carries the magnitude
+\definecolor{ink}{HTML}{1F3A5F}
 \definecolor{rule}{HTML}{C9CFD6}
 
-\titleformat{\section}{\normalfont\large\bfseries}{\thesection.}{0.6em}{}
-\setlist{itemsep=1pt,topsep=3pt}
-\setlength{\parskip}{2pt}
+\titleformat{\section}{\normalfont\large\bfseries}{}{0em}{}
+\setlength{\parskip}{3pt}
 
 \newenvironment{specimen}{\begin{quote}\itshape\small}{\end{quote}}
 
 \title{\vspace{-1.6cm}\textbf{How it breaks}\\[1mm]
-  \large What a KV-value edit actually does when you push it too far}
+  \large A fix for stale instructions, and what it does when you overdo it}
 \author{Kateřina Fajmanová \quad\small\texttt{github.com/moudrkat/old-news}}
 \date{\small\today}
 
 \begin{document}
 \maketitle
 \thispagestyle{empty}
-\vspace{-6mm}
 
-\begin{tcolorbox}[colback=white,colframe=rule,boxrule=0.4pt,left=6pt,right=6pt,
-                  top=4pt,bottom=4pt]
-\small
-\textbf{27\,588} generations kept, \textbf{10} models (0.5B--8B, six families plus
-a size ladder inside Qwen2.5), \textbf{2} datasets, \textbf{1\,060} teacher-forced
-readout points, greedy throughout. Seven bugs in my own instruments, five of which
-had already produced a finding, and four claims withdrawn --- including one
-headline that reversed twice. Assume there are more.
-\end{tcolorbox}
+\section*{The problem}
 
-\section{The problem, and the fix that looks right}
+We change system prompts all the time. Nobody deletes the conversation.
 
-We change system prompts all the time and nobody deletes the conversation. So
-transcripts fill with instructions that were right once --- \emph{always reply in
-lowercase} --- and then the rule changes and the transcript doesn't. V-Steer
-(Zeng et al., COLM 2026, \href{https://arxiv.org/abs/2607.26228}{arXiv:2607.26228})
-scales down the cached value vectors of the heads that lean on the stale span, and
-the old instruction loses its grip.
+So the transcript fills up with instructions that were right once --- \emph{always
+reply in lowercase}, \emph{end every answer with a source list} --- and then the
+rule changes and the transcript doesn't. The model keeps doing the old thing,
+because the old thing is still sitting there in the context, in the user's own
+words.
 
-It works. This note is about what it costs, which meant pushing it until it broke.
-It did not break the way I expected. It never said \emph{I don't know}.
+There is a paper that fixes exactly this. V-Steer (Zeng et al., COLM 2026)
+finds the attention heads that are leaning on the stale message and turns down
+what they hear from it. The instruction is still in the transcript; it just stops
+carrying weight.
 
-\section{Four answers}
+It works. I wanted to know what it costs before putting it near production, so I
+pushed it until it broke.
+
+\section*{It broke, but not the way I expected}
+
+I expected refusals. Blank answers. Something obviously wrong, easy to catch.
+
+Here is what I got instead:
 
 \begin{specimen}
-\textbf{Q: What does my account number end in?} (gold: 302)\\
+\textbf{Q: What does my account number end in?} \; (correct: 302)\\
 your account number ends in 02.
-\end{specimen}\vspace{-3mm}
+\end{specimen}\vspace{-2mm}
 \begin{specimen}
-\textbf{Q: What is my dog called?} (gold: Bagr)\\
+\textbf{Q: What is my dog called?} \; (correct: Bagr)\\
 YOUR Dog is called BAGel.
-\end{specimen}\vspace{-3mm}
+\end{specimen}\vspace{-2mm}
 \begin{specimen}
-\textbf{Q: Which city do I live in?} (gold: Brno)\\
+\textbf{Q: Which city do I live in?} \; (correct: Brno)\\
 you live in a city called Brno is not correct, you said Brno is not mentioned,
 you said you live in a city that is not mentioned\dots
-\end{specimen}\vspace{-3mm}
-\begin{specimen}
-\textbf{Q: What was the error code I got?} (gold: E-88)\\
-You mentioned earlier that the error code was E-88, but I'm not sure if that's
-correct, you actually said it was E-88 but then mentioned it was E-88 again and
-then said E-88 was actually E-88 but then said\dots
 \end{specimen}
 
-\noindent Fluent, correctly cased, obedient to the current system prompt, wrong.
-The third one is the one to worry about: the answer contains the right city and
-refuses to admit anyone said it. Count correct strings --- success. Count rule
-violations --- also success. Two standard metrics, both green.
+Fluent. Correct format. Obeys the new system prompt. Wrong.
 
-\section{One mechanism}
+The third one is the one that should worry you. The answer contains the right
+city and refuses to admit anyone said it. Now think about how you would catch
+that. Check whether the answer contains the expected string --- it does, so that
+passes. Count rule violations --- there are none, so that passes too. Both of the
+obvious tests go green on an answer that is useless.
 
-Teacher-force both conditions to the exact position where the value is emitted,
-so the same question is asked in the same place, and compare the next-token
-distributions. On all ten models: \textbf{the correct token is not overwritten,
-it is attenuated.} Nothing promotes a wrong token; the right one is pushed down
-until whatever stood behind it walks forward.
+That is the actual finding here. Not that a strong edit degrades output; of
+course it does. It is that the degraded output looks exactly like success to the
+things you would normally measure.
+
+\section*{Why it looks like that}
+
+I froze both runs at the precise moment the answer word comes out --- same
+question, same position, one with the edit and one without --- and looked at what
+the model was about to say.
+
+The correct word never gets overruled. It gets quieter. Its probability drops,
+and nothing steps up to replace it: whatever was already standing behind it in
+the queue simply walks forward and takes the slot. That is why you get
+\texttt{Bagel} and not gibberish. Bagel was next in line.
 
 \begin{figure}[h]
 \centering
 \begin{tikzpicture}
 \begin{axis}[
-  width=12.2cm, height=6.6cm,
+  width=12cm, height=6.4cm,
   xmode=log, log basis x=10,
   xmin=12, xmax=250000,
-  xlabel={\small median attenuation of the gold token's probability ($\times$)},
+  xlabel={\small how much quieter the correct word gets},
   symbolic y coords={Qwen3-4B,Aya-expanse-8B,Qwen2.5-7B,Qwen2.5-3B,Llama-3.1-8B,
                      Qwen2.5-1.5B,Phi-3.5-mini,Command-R7B,OLMo-2-7B,Qwen2.5-0.5B},
-  ytick=data,
-  y=0.52cm,
-  tick align=outside, tick style={rule},
-  axis line style={rule},
+  ytick=data, y=0.5cm,
+  tick align=outside, tick style={rule}, axis line style={rule},
   ymajorgrids=false, xmajorgrids=true,
   grid style={rule, dashed, line width=0.3pt},
-  every axis y label/.style={},
+  xticklabel={$10^{\pgfmathprintnumber{\tick}}\times$},
   nodes near coords, nodes near coords align={right},
   point meta=explicit symbolic,
-  every node near coord/.append style={font=\scriptsize, color=black!70, xshift=2pt},
+  every node near coord/.append style={font=\scriptsize, color=black!65, xshift=2pt},
 ]
-% one series, one hue: the x position is the measurement, the label is the
-% rank the substitute held in the unsteered distribution.
-\addplot+[only marks, mark=*, mark size=2.2pt, color=ink,
-          draw=ink, fill=ink] coordinates {
-  (19.9,Qwen2.5-0.5B)   [rank 2]
-  (22.0,OLMo-2-7B)      [rank 4]
-  (30.5,Command-R7B)    [rank 5]
-  (37.4,Phi-3.5-mini)   [rank 4]
-  (44.0,Qwen2.5-1.5B)   [rank 4]
-  (81.9,Llama-3.1-8B)   [rank 6]
-  (481.9,Qwen2.5-3B)    [rank 13]
-  (840.2,Qwen2.5-7B)    [rank 19]
-  (1525.9,Aya-expanse-8B)[rank 26]
-  (35002,Qwen3-4B)      [rank 43]
+\addplot+[only marks, mark=*, mark size=2.2pt, color=ink, draw=ink, fill=ink]
+coordinates {
+  (19.9,Qwen2.5-0.5B)   [next in line]
+  (22.0,OLMo-2-7B)      []
+  (30.5,Command-R7B)    []
+  (37.4,Phi-3.5-mini)   []
+  (44.0,Qwen2.5-1.5B)   []
+  (81.9,Llama-3.1-8B)   []
+  (481.9,Qwen2.5-3B)    []
+  (840.2,Qwen2.5-7B)    []
+  (1525.9,Aya-expanse-8B)[]
+  (35002,Qwen3-4B)      [43rd in line]
 };
 \end{axis}
 \end{tikzpicture}
-\caption{Every model attenuates; the magnitude spans more than three orders of
-magnitude ($1\,760\times$ between the mildest model and the harshest). The annotation is the rank the substituted token held in the
-\emph{unsteered} distribution --- on the small models the edit hands the slot to
-the runner-up, on Qwen3-4B it reaches down to rank 43.}
+\caption{Every model does the same thing; how hard it does it differs by a factor
+of about 1\,700. On the small models the replacement was the runner-up. On
+Qwen3-4B the edit had to reach down to the 43rd candidate to find one --- which
+is roughly the difference between a typo and a hallucination.}
 \end{figure}
 
-The direction is universal and the size is not. The gold token's own rank stays
-in single digits even as its probability falls by four orders --- still near the
-top, just no longer on it. That is what scaling $V$ while leaving attention alone
-predicts: the model looks straight at the fact and receives a whisper.
+Every model I tried behaves this way, which makes sense: the method turns down
+the volume without moving where the model is looking. It stares straight at the
+fact and hears a whisper.
 
-\section{The modes, and how each is measured}
+\section*{So should you use it?}
 
-\textbf{Near neighbour.} \texttt{302}$\to$\texttt{02} (32$\times$),
-\texttt{bagr}$\to$\texttt{Bagel} (17), \texttt{4417-B}$\to$\texttt{4411} (15) on
-Llama. Scoring each wrong answer against a gold value from a \emph{different}
-question gives 0--2\,\% against 68\,\% for its own, so the replacement is
-specifically related to the target. But the \emph{rate} is mostly the definition:
-9\,\% under a shape-only rule, 68\,\% once truncation counts. ``Near misses
-dominate'' is not a claim this data supports.
+Mostly, no --- and the reason is embarrassing.
 
-\textbf{States the fact, denies being told it.} By rule --- the string is present
-\emph{and} a denial pattern fires --- Llama 16/756, three models 1/756, six
-models zero. Dose-dependent on Llama (0, 2, 1, 6, 7 as $\gamma_-$ rises).
+If the stale instruction sits in a message of its own, you can just delete that
+message. On my cases, deleting beats the clever edit on 7 models out of 10. It is
+cheaper, it needs nothing at inference time, and it needs exactly the same thing
+the edit needs: knowing which message is stale.
 
-\textbf{Non-terminating recall.} The \emph{correct} value three to six times,
-never settling. Llama 15/756, Qwen3-4B 2/756, zero on the other eight.
+The edit only becomes interesting when you \emph{can't} delete --- when the same
+message also carries something you still need. ``From now on always reply in
+lowercase --- oh, and my order number is 4417-B.'' Delete that and the order
+number goes with it.
 
-\textbf{Format kept, confabulation poured in.} Where neither rule wins on
-Qwen3-4B, 64 of 119 cases recalled the fact correctly and broke the format
-instead --- median 38 words against 17 --- filled with material nobody supplied
-(\emph{``Bagr\dots{} perhaps inspired by the ancient Persian word for `to be
-strong'\,''}).
+Even there, the obvious move usually wins: rewrite the message, keep the fact,
+drop the instruction. No surprise --- you have solved the problem by hand.
 
-Both odd modes are deterministic rules, not judge labels. The judge reproduces at
-94--100\,\% on the easy categories and 58\,\% on the newest one, so it does not
-get to decide the interesting ones --- its 26 unsourced labels on Aya are false
-positives, and its 217 unresolved labels on Phi are that model's ordinary
-repetition, which is \emph{highest with no steering at all}.
+But there is one case where rewriting doesn't help, and it is the only genuinely
+non-obvious thing I found. On the two smallest models, removing the conflict
+wasn't enough, because those models couldn't produce the required format from the
+instruction alone --- they needed the old example to imitate. The edit doesn't
+just remove the competition; it turns \emph{up} the current instruction. It made a
+weak model comply where no amount of tidying the transcript could.
 
-\section{What is universal, and what to actually ship}
+That is a small claim. It is also the only one I would defend: this technique is
+not a better way to clean up a transcript, it is a way to make a model follow an
+instruction it otherwise can't.
 
-Universal: attenuation. Not universal, and not a size effect: which mode you get.
-The two odd modes are Llama's almost exclusively, while OLMo, Aya and Command-R
-are the same size and never do it, and the whole Qwen2.5 ladder produces no loops
-at all.
+\section*{The fine print}
 
-The practical consequence is the reason any of this matters. \textbf{Every mode
-here is invisible to the metric you would normally use.} A violation counter
-scores the denial as a miss and the confabulation as a success; a needle-presence
-check scores the denial and the loop as successes.
+Ten models from 0.5B to 8B, six families, 27{,}588 answers, all kept. Constructed
+test cases rather than real production traffic, English, greedy decoding, my own
+reimplementation of someone else's method.
 
-And the least glamorous result, which is the one I would ship: where the stale
-instruction sits in its own message, \textbf{deleting that message beats the
-method on 7 of 10 models}. The edit earns its place only when the instruction is
-entangled with something you still need --- and even there, rewriting the message
-beats it on the strong models. It wins outright on a model too weak to follow the
-current rule unaided, which is a narrower claim than the one I went looking for.
+Along the way I found seven bugs in my own measuring code. Five of them had
+already produced a finding I believed. Four claims came out of this project and
+went back in, including one headline that reversed twice. Assume there are more.
 
-\vspace{2mm}
-\noindent\small
-Constructed cases, six facts, seven constraint families, English, greedy, one
-reimplementation of one method. Reproduce the mode table with
-\texttt{python examples/mode\_rates.py results/atlas\_*.rescored.json} --- no GPU,
-no API. Raw generations for all of it are in \texttt{results/}.
+Everything --- write-up, raw generations, the scripts that regenerate every
+number --- is in the repo.
 
 \end{document}
