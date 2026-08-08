@@ -43,27 +43,22 @@ import os
 
 import torch
 
+from failure_atlas import FAMILIES
 from oldnews.evals.recall import FACTS
-from oldnews.evals.staleset import check_case
 from oldnews.model import load
 from oldnews.policy import SteerPolicy
 from oldnews.transcript import Msg, render
 from oldnews.vsteer import generate, steer
 
-FAMILY = dict(
-    key="case", check=check_case,
-    system="Always reply in ALL UPPERCASE LETTERS.",
-    stale="From now on always reply in all lowercase letters, never shout at me.",
-    ack="understood, i will do that from now on.",
-    note="noted, i will remember that.")
+BY_KEY = {f["key"]: f for f in FAMILIES}
 
 
-def build(fact):
-    return [Msg("system", FAMILY["system"], epoch=1),
-            Msg("user", FAMILY["stale"], epoch=0),
-            Msg("assistant", FAMILY["ack"], epoch=0),
+def build(fam, fact):
+    return [Msg("system", fam["system"], epoch=1),
+            Msg("user", fam["stale"], epoch=0),
+            Msg("assistant", fam["ack"], epoch=0),
             Msg("user", fact.statement, epoch=0),
-            Msg("assistant", FAMILY["note"], epoch=0),
+            Msg("assistant", fam["note"], epoch=0),
             Msg("user", fact.question, epoch=1)]
 
 
@@ -91,6 +86,10 @@ def main():
     ap.add_argument("--model", default="llama")
     ap.add_argument("--gamma-plus", type=float, default=4.0)
     ap.add_argument("--gamma-minus", default="0.75,0.9,0.95")
+    ap.add_argument("--families", default="case",
+                    help="constraint families to read out at, or 'all'. One "
+                         "family is 6 readout points per gamma, which is thin "
+                         "for a distribution-level claim.")
     ap.add_argument("--out", default=None)
     args = ap.parse_args()
     out = args.out or f"results/whynear_{args.model}.json"
@@ -98,9 +97,12 @@ def main():
 
     model, tok = load(args.model)
     gms = [float(x) for x in args.gamma_minus.split(",")]
+    fams = ([f["key"] for f in FAMILIES] if args.families == "all"
+            else [k for k in args.families.split(",") if k])
     rows = []
-    for fact in FACTS:
-        msgs = build(fact)
+    for famkey, fact in ((f, x) for f in fams for x in FACTS):
+        fam = BY_KEY[famkey]
+        msgs = build(fam, fact)
         r = render(tok, msgs, current_epoch=1)
         clean, _ = generate(model, tok, r, policy=None, max_new_tokens=48,
                             current_epoch=1)
@@ -114,7 +116,8 @@ def main():
                 cut = k - 1          # the step that emits the value
                 break
         if cut is None:
-            rows.append({"fact": gold, "skipped": "gold not generated unsteered"})
+            rows.append({"fact": gold, "family": famkey,
+                         "skipped": "gold not generated unsteered"})
             print(f"  {gold:>8}  preskoceno (bez editu fakt nevygeneroval)", flush=True)
             continue
         prefix = ids[:cut]
@@ -129,7 +132,7 @@ def main():
             rank_clean = int((p_clean > p_clean[chosen]).sum()) + 1
             rank_gold_steer = int((p_steer > p_steer[gold_tok]).sum()) + 1
             rows.append({
-                "fact": gold, "gamma_minus": gm,
+                "fact": gold, "family": famkey, "gamma_minus": gm,
                 "prefix": tok.decode(prefix),
                 "gold_token": tok.decode([gold_tok]),
                 "steered_token": tok.decode([chosen]),
@@ -139,12 +142,12 @@ def main():
                 "steered_token_p_clean": float(p_clean[chosen]),
                 "steered_token_rank_clean": rank_clean,
             })
-            print(f"  {gold:>8} g-={gm:<5g} vybral {tok.decode([chosen])!r:>12} "
+            print(f"  {famkey:<7} {gold:>8} g-={gm:<5g} vybral {tok.decode([chosen])!r:>12} "
                   f"(bez editu rank {rank_clean:5d}, p={float(p_clean[chosen]):.4f})   "
                   f"gold p {float(p_clean[gold_tok]):.3f} -> {float(p_steer[gold_tok]):.5f}, "
                   f"rank {rank_gold_steer}", flush=True)
         json.dump({"model": args.model, "gamma_plus": args.gamma_plus,
-                   "family": FAMILY["key"], "rows": rows},
+                   "family": ",".join(fams), "rows": rows},
                   open(out, "w"), ensure_ascii=False, indent=1)
     print("\n->", out)
 

@@ -46,7 +46,11 @@ ARMS = ("none", "selected", "random", "all")
 
 
 def make_override(arm: str, seed: int):
-    """A head_mask_override for one arm. Returns None for the unedited arms."""
+    """A head_mask_override for one arm. Returns None for the unedited arms.
+
+    One random draw per case is one coin flip against 36 cases, which is not
+    enough to tell a real gap from a lucky mask -- see --random-reps.
+    """
     if arm in ("none", "selected"):
         return None
 
@@ -71,6 +75,10 @@ def main():
     ap.add_argument("--gamma-minus", type=float, default=0.75)
     ap.add_argument("--max-new-tokens", type=int, default=64)
     ap.add_argument("--arms", default=",".join(ARMS))
+    ap.add_argument("--random-reps", type=int, default=1,
+                    help="independent random masks per case. The selected-vs-"
+                         "random gap is read against the spread across these, "
+                         "not against a single draw.")
     ap.add_argument("--out", default=None)
     args = ap.parse_args()
 
@@ -81,28 +89,34 @@ def main():
     done, records = set(), []
     if os.path.exists(out):
         records = json.load(open(out))["records"]
-        done = {(r["arm"], r["family"], r["question"]) for r in records}
+        done = {(r["arm"], r.get("rep", 0), r["family"], r["question"])
+                for r in records}
         print(f"resuming: {len(records)} records already done")
+
+    # random runs --random-reps times with a different draw each time; the
+    # other arms are deterministic and run once.
+    plan = [(a, rep) for a in arms
+            for rep in (range(args.random_reps) if a == "random" else (0,))]
 
     cases = build_cases()
     model, tok = load(args.model)
     t0 = time.time()
 
-    for arm in arms:
+    for arm, rep in plan:
         pol = None if arm == "none" else SteerPolicy(
             mode="binary", gamma_plus=args.gamma_plus,
             gamma_minus=args.gamma_minus)
         useful = compliant = recalled = 0
         sizes = []
         for i, c in enumerate(cases):
-            key = (arm, c["family"], c["fact"].question)
+            key = (arm, rep, c["family"], c["fact"].question)
             if key in done:
                 continue
             r = render(tok, c["messages"], current_epoch=1)
             text, report = generate(
                 model, tok, r, policy=pol,
                 max_new_tokens=args.max_new_tokens, current_epoch=1,
-                head_mask_override=make_override(arm, seed=1000 + i))
+                head_mask_override=make_override(arm, seed=1000 + i + 10000 * rep))
             verdict = c["check"](text)
             tags = triage(text, c["fact"])
             ok = verdict == "system" and tags["recalled"]
@@ -112,7 +126,7 @@ def main():
             if report is not None:
                 sizes.append(report.n_heads_edited / max(report.n_heads_total, 1))
             records.append(dict(
-                model=args.model, arm=arm, gamma_plus=args.gamma_plus,
+                model=args.model, arm=arm, rep=rep, gamma_plus=args.gamma_plus,
                 gamma_minus=args.gamma_minus, family=c["family"],
                 question=c["fact"].question, which_rule_won=verdict,
                 heads_edited=(report.n_heads_edited if report else 0),
@@ -120,11 +134,13 @@ def main():
                 **tags, text=text))
         n = len(cases)
         frac = f"{100*sum(sizes)/len(sizes):.1f} %" if sizes else "-"
-        print(f"[{time.time()-t0:6.0f}s] {arm:<9} useful {useful:2d}/{n}  "
+        label = f"{arm}#{rep}" if arm == "random" and args.random_reps > 1 else arm
+        print(f"[{time.time()-t0:6.0f}s] {label:<9} useful {useful:2d}/{n}  "
               f"compliant {compliant:2d}/{n}  recall {recalled:2d}/{n}  "
               f"mask {frac}", flush=True)
         json.dump({"model": args.model, "gamma_plus": args.gamma_plus,
                    "gamma_minus": args.gamma_minus, "arms": arms,
+                   "random_reps": args.random_reps,
                    "max_new_tokens": args.max_new_tokens, "greedy": True,
                    "note": ("random draws the same NUMBER of KV heads as selected "
                             "flagged for that case, seeded per case. Only WHICH "
