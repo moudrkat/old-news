@@ -61,10 +61,16 @@ def prefill(model, input_ids: torch.Tensor, attention_mask=None) -> Prefill:
     if attention_mask is None:
         attention_mask = torch.ones(1, T, dtype=torch.long, device=device)
 
+    # logits_to_keep=1: only the cache is taken from this call, and a model
+    # with a 256k vocabulary computing logits for the whole prefix is what put
+    # Aya and Command-R over a 16 GB card -- their weights alone are 15 GB, and
+    # Cohere's `logits * logit_scale` then wants a second copy of a
+    # T x 256000 tensor.
     out = model(
         input_ids=input_ids[:, :-1],
         attention_mask=attention_mask[:, : T - 1],
         use_cache=True,
+        logits_to_keep=1,
     )
     cache = out.past_key_values
 

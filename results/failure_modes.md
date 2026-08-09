@@ -28,8 +28,38 @@ and the single mechanism they all appear to come out of.
 
 Everything here is a **follow-up to V-Steer** (Zeng, Lee, Zhao, Hockenmaier,
 COLM 2026, [arXiv:2607.26228](https://arxiv.org/abs/2607.26228)); the method is
-theirs, the failure analysis is not in the paper, and the authors have
-explicitly declined to interpret it. The measurement history — what was
+theirs, and the authors have explicitly declined to interpret these failures.
+
+What the paper does measure, so that the gap this file fills is stated
+accurately rather than generously:
+
+- **primary constraint accuracy** on Control Illusion and IHEval — does the
+  privileged instruction win;
+- **general-capability retention** (Tab. 6): MMLU −8.5, IFEval −2.3, BBH −1.9 at
+  the default, and the tradeoff is tunable through γ−;
+- **the aligned-constraint no-op check** (Tab. 7), −2.0 average on IHEval where
+  the lower-priority constraint agrees with the system prompt;
+- **generation collapse** (Tab. 3, Tab. 12): "output with the most frequent
+  5-gram repeated >2 times", a degeneracy rate reported alongside every
+  head-selection arm.
+
+So damage *is* looked for. The gap is which damage. A collapse rate built on
+5-gram repetition catches mode 3 below — Llama's non-terminating recall is
+exactly the thing it is designed to see. It cannot see modes 1, 2, 4 or 5: a
+near neighbour is fluent, unrepeated and well-formed, and so is an answer that
+states the fact while denying it. And nothing in the paper asks whether a value
+stated *inside* the demoted span is still recoverable — MMLU, IFEval and BBH
+have no demoted span to lose anything from, and the aligned setting checks
+agreement rather than retention. That question is the one this file answers.
+
+Two of the findings below are extensions of the authors' own observations
+rather than corrections of them. §B.4 already reports that "suppress strength
+γ− has a more moderate effect than boost strength γ+, suggesting that
+amplifying the privileged span matters more than suppressing the conflicting
+one" — §6 here adds what else the boost does. And Fig. 9 already notes that at
+large coefficients hijacking attempts "fail spuriously rather than through
+genuine hierarchy adherence" — the modes below are what that regime looks like
+before the text visibly degrades. The measurement history — what was
 withdrawn, what a hostile review removed — stays in
 [`failure_atlas.md`](failure_atlas.md); this file describes the phenomenon.
 
@@ -186,7 +216,7 @@ On Qwen3-4B the substitute sometimes comes from very far down — in one case th
 winning token is `<|im_end|>`, at rank 36,931 unsteered. The model closes the
 turn rather than emit a value. Same mechanism, different runner-up.
 
-## 6. It stops being able to say "I was not told"
+## 6. What it does when the fact was never there
 
 Every mode above is about a fact that IS in the context and gets quietened. The
 control that decides what they mean is the one where the fact was **never
@@ -196,42 +226,96 @@ attenuated, attenuating evidence is not the same as removing it.
 `failure_atlas.py --fact-absent swap` puts a *different* fact's statement in
 the same message slot, so the transcript keeps its shape, length and message
 positions and only the answer is missing (`drop` removes the turn entirely and
-agrees). Three models so far, γ+ = 4, 36 cases per cell.
+agrees). **All ten models**, γ+ = 4, 36 cases per cell.
 
-**Hand-scored**, 30 answers per condition drawn at random across the three
-models, labelled by reading — does the answer explicitly decline (say it was
-not told, or ask the user to supply it)?
+**Scored by an LLM judge that had to earn it first.** `abstain_judge_gemini.py`
+labels every answer VALUE / DECLINE_SAID / DECLINE_LIMITS / OTHER, and refuses
+to score anything until it reproduces the hand labels in `abstain_calibrate.py`
+— it passed 20/20. The gold value is never shown to the judge, because half
+these cases are the control where the fact was never in the conversation and
+telling the judge what the answer "should" have been gets it grading correctness
+instead. Judge model is `gemini-3.1-flash-lite`, temperature 0, deliberately
+*outside* the ten measured models: the local Qwen2.5-3B judge in
+`abstain_judge.py` (19/20 on the same gate) is itself one of the ten and would
+be grading its own output in one cell. Both were run; where they disagree it is
+because the local one has no way to separate the two kinds of decline below.
 
-| fact never stated | explicit decline |
-|---|---:|
-| no edit | **20 / 30 (67 %)** |
-| edit at γ− = 0.95 | **10 / 30 (33 %)** |
-
-Two-proportion test on the sample: z = 2.74, p = 0.006. The direction is not in
-doubt; the exact rate is a 30-answer estimate and should be read as such.
+The earlier hand-scored figure — 20/30 declines unedited against 10/30 edited,
+z = 2.74 — was 30 answers over three models and is superseded by the grid below.
 
     no edit    "i'm sorry, i don't have enough information to determine which
                 city you live in."
     edited     "YOUR ORDER NUMBER IS 209876."
 
 **And the half of the edit responsible is not the half under suspicion.** γ+
-alone — the current instruction amplified, nothing suppressed — already removes
-most of the abstention:
+alone — the current instruction amplified, nothing suppressed — is what converts
+a refusal into an invented value. All ten models, 36 cases per cell, judged by
+Gemini (below). The measure is **an invented value stated as the answer**, which
+in this control is necessarily a confabulation:
 
-| fact never stated, declines by rule | no edit | **γ+ only** | full edit |
+| fact never stated, states a value | no edit | **γ+ only** | full edit |
 |---|---:|---:|---:|
-| Qwen2.5-0.5B | 42 % | **17 %** | 11 % |
-| Qwen2.5-1.5B | 67 % | **17 %** | 36 % |
-| Qwen2.5-3B | 44 % | **31 %** | 25 % |
+| Qwen2.5-0.5B | 47.2 % | **63.9 %** | 47.2 % |
+| Qwen2.5-1.5B | 16.7 % | **63.9 %** | 41.7 % |
+| Qwen2.5-3B | 2.8 % | **22.2 %** | 22.2 % |
+| Qwen2.5-7B | 16.7 % | **47.2 %** | 38.9 % |
+| Qwen3-4B | 5.6 % | 2.8 % | 0.0 % |
+| Phi-3.5-mini | 11.1 % | 8.3 % | 5.6 % |
+| Llama-3.1-8B | 2.8 % | 8.3 % | 5.6 % |
+| OLMo-2-7B | 66.7 % | 63.9 % | 77.8 % |
+| Command-R-7B | 2.8 % | 8.3 % | 2.8 % |
+| Aya-expanse-8B | 5.6 % | 13.9 % | 8.3 % |
 
-So this is not "the fact went quiet so the model made something up". Turning
-*up* the instruction that is in force is what converts a refusal into an
-invented value: the format has a slot, and a model pushed harder to satisfy the
-format fills it. The suppression half contributes little here. That matters
-because γ+ is the half usually described as the harmless one.
+The no-edit column is genuinely unedited: `failure_atlas.py:295` builds no
+policy at all when `gm == 0` without `--always-steer`, so γ+ never applies
+there. The γ+ column is `run_boost.sh` (`--always-steer --select-as-if 0.95`).
 
-Open: seven models still to run (the 7–8B ones need the card to itself), and
-the hand read is 60 answers, not 600.
+**Scope, stated at the size it earned.** Every Qwen2.5 size moves the same way
+and moves a lot: +16.7, +47.2, +19.4, +30.6 points. The six models from five
+other families sit inside ±8.3, which is one to three cases. So this is a
+Qwen2.5 result, not a universal one — and the earlier three-model version of
+this table (0.5B, 1.5B, 3B) was three Qwen2.5s, which is why it read as general.
+The suppression half still contributes little; γ+ remains the half usually
+described as the harmless one.
+
+### Most of what looks like abstention is not abstention
+
+Reading the generations forced a split that the earlier yes/no probe could not
+make. Two very different answers were both being counted as "declines":
+
+    DECLINE_SAID     "You have not told me the name of your dog."
+    DECLINE_LIMITS   "I'm an AI, I don't have access to real-time flight
+                      information. Please check the airline's website."
+
+The second is true whatever the transcript says. It fires on the KIND of
+question — flights, addresses, account numbers are things an assistant is
+trained to disclaim — not because the model consulted the conversation and found
+nothing. Pooled over the ten unedited cells (360 answers):
+
+| | n |
+|---|---:|
+| canned capability line (`DECLINE_LIMITS`) | **146** |
+| really says it was not told (`DECLINE_SAID`) | **130** |
+| states an invented value (`VALUE`) | 64 |
+| neither (`OTHER`) | 20 |
+
+It is concentrated: Phi 31/36, Qwen3-4B 28/36, Command-R 21/36, Aya 19/36 of
+their unedited answers are the canned line. Those four look pinned near 100 %
+"abstention" under a probe that only asks *did it give a value*, and the pinning
+is a property of the question set. Llama is the opposite — 32/36 grounded.
+
+Anyone measuring abstention, hallucination or "does the model know what it
+doesn't know" is likely mixing these two, and the mix is model-dependent, so it
+does not cancel.
+
+**Not claimed:** Phi appears to move +69 points from `LIMITS` to `SAID` under
+γ+. It is an artefact. Phi's refusal is one template that cites its own limits
+*and* the conversation in the same sentence — "I don't have access to personal
+data unless it's shared with me during our conversation" — so the label turns on
+trailing words rather than behaviour. Hand-read and discarded. The `VALUE`
+column above does not have this problem, which is why the finding rests on it.
+
+Open: the hand read is a stratified sample per model, not every cell.
 
 ### What this cost in instruments, because it is the point of the section
 

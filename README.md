@@ -64,7 +64,7 @@ the original result of this repo, and it is still true — but it is measured
 against a baseline that turns out to be the wrong one, which is the next
 section.
 
-## The baseline, and where it wins
+## The baseline, and where it wins (for the benign case)
 
 Every condition above compares steering against the *conflicted* transcript,
 where several models sit at 0%. I never compared it against what a practitioner
@@ -310,6 +310,53 @@ prints the table and every miss, split into confabulation and degenerate text.
 Raw generations for both models are in `results/`, so the misses can be
 re-scored with a different judge.
 
+## When the fact was never there
+
+The control that decides what all of the above means: ask about something the
+user never said. Nothing is there to suppress, so any value the model states is
+invented. All ten models, 36 cases per cell, scored by a Gemini judge that must
+reproduce a hand-labelled set before it is allowed to run — it passed 20/20 —
+and which is deliberately **not** one of the ten measured models.
+
+Turning the system prompt **up**, with no suppression at all, is what converts a
+refusal into an invented value:
+
+| fact never stated, states a value | no edit | **γ+ only** | full edit |
+|---|---:|---:|---:|
+| Qwen2.5-0.5B | 47.2 % | **63.9 %** | 47.2 % |
+| Qwen2.5-1.5B | 16.7 % | **63.9 %** | 41.7 % |
+| Qwen2.5-3B | 2.8 % | **22.2 %** | 22.2 % |
+| Qwen2.5-7B | 16.7 % | **47.2 %** | 38.9 % |
+| the other six families | 2.8–66.7 % | all within ±8.3 pts | — |
+
+The "no edit" column is genuinely unedited: `failure_atlas.py:295` builds no
+policy at all when `gm == 0` without `--always-steer`.
+
+**Scope, at the size it earned.** Every Qwen2.5 size moves the same way and moves
+a long way. The six models from five other families sit inside ±8.3 points,
+which is one to three cases. So this is a Qwen2.5 result, not a universal one —
+and the earlier three-model version of this table was three Qwen2.5s, which is
+exactly why it read as general.
+
+**And most of what looks like abstention is not abstention.** Two very different
+answers were being counted as one thing:
+
+    DECLINE_SAID     "You have not told me the name of your dog."
+    DECLINE_LIMITS   "I'm an AI and don't have access to real-time information."
+
+The second is true whatever the transcript says; it fires on the *kind* of
+question. Pooled over the ten unedited cells (360 answers): **146** canned
+capability lines, **130** genuine "I was not told", 64 invented values, 20
+neither. It is concentrated — Phi 31/36, Qwen3-4B 28/36, Command-R 21/36 — so
+those models look pinned near 100 % "abstention" under a probe that only asks
+*did it state a value*, and the pinning is a property of the question set.
+Anyone measuring abstention or hallucination is likely mixing these two, and the
+mix is model-dependent, so it does not cancel.
+
+Rubric, per-model tables, and one discarded artefact (Phi appears to swing +69
+points; it is a label-boundary effect on a hybrid refusal template) are in
+[`results/failure_modes.md`](results/failure_modes.md) §6.
+
 ## What the head-selection threshold actually selects
 
 The method flags a head when the stale span outscores the privileged one by more
@@ -507,6 +554,25 @@ flowchart LR
     class hd,bs,hw,st,tm,sm,on dim;
     class on here;
 ```
+
+## Other things worth reading
+
+**[SecFid](https://arxiv.org/abs/2606.30783)** — *Security–Fidelity Tradeoffs:
+The Hidden Cost of Prompt Injection Defense*, ICML 2026. Same shape of problem,
+much bigger scope: defenses hold off injected instructions largely by
+*suppressing* untrusted text, and attack-success metrics can't see what that
+costs, because a model that ignores an injection and one that faithfully reads
+it as data score identically. Fidelity = 1 − Ignored Rate, reported per defense
+(ISE 20.3 %, ASIDE 24.7 %, SecAlign 26.1 %, DefensiveTokens 53.7 %). Good paper.
+Read it.
+
+**On steering in general.** [AxBench](https://arxiv.org/abs/2501.17148) and
+[Tan et al.](https://arxiv.org/abs/2407.12404) both find that no steering
+coefficient transfers between models and that per-input variance is large —
+which lines up with the ~1700× spread here at nominally the same setting.
+[The Rogue Scalpel](https://arxiv.org/abs/2509.22067) is the one to read before
+putting a steering hook anywhere near production: *random* directions raise
+harmful compliance from about zero to 1–13 %.
 
 ## Credit
 

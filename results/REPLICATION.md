@@ -50,6 +50,15 @@ recovers a mask size comparable across models. An earlier draft of this claim
 said the score was near-noise; that was an artefact of averaging a per-case
 marginal, and it is corrected in §6c.
 
+**A third, narrower one is about the boost half (§5b).** In the control where the
+fact was never in the conversation, γ⁺ alone — nothing suppressed — is what turns
+a refusal into an invented value, on all four Qwen2.5 sizes and by 16.7–47.2
+points. The six models from five other families move by less than 8.3, so this is
+a family result and is stated as one. The same section reports why the other six
+looked pinned: 146 of 360 unedited answers are a canned capability disclaimer
+rather than the model saying it was not told, so a value-probe counts two
+different behaviours as one.
+
 One observation is reported as a direction, not a finding, with the reasons it
 does not yet support more: what the failures look like (§4).
 
@@ -261,6 +270,86 @@ disowning hypothesis, which therefore remains a hypothesis.
 
 ---
 
+## 5b. The control where the fact was never there
+
+Every condition above attenuates a fact that IS present. The control that says
+what those numbers mean is the one where it never was: if the model declines
+then, and confabulates when the fact is merely quietened, attenuating evidence
+is not the same as removing it.
+
+`failure_atlas.py --fact-absent swap` puts a different fact's statement in the
+same message slot, so the transcript keeps its shape, length and message
+positions and only the answer is missing (`drop` removes the turn entirely and
+agrees). **All ten models**, γ⁺ = 4, 36 cases per cell.
+
+Scored by `examples/abstain_judge_gemini.py`, which labels every answer VALUE /
+DECLINE_SAID / DECLINE_LIMITS / OTHER and refuses to score anything until it
+reproduces the hand labels in `abstain_calibrate.py` — it passed 20/20. The gold
+value is never shown to the judge, because half these cases are the control
+where the fact was never in the conversation, and telling the judge what the
+answer "should" have been gets it grading correctness instead. The judge is
+`gemini-3.1-flash-lite`, deliberately outside the ten measured models; the local
+Qwen2.5-3B judge in `abstain_judge.py` (19/20 on the same gate) is itself one of
+the ten.
+
+**γ⁺ alone converts a refusal into an invented value.** The measure is *states a
+value*, which in this control is necessarily confabulated:
+
+| fact never stated, states a value | no edit | **γ⁺ only** | full edit |
+|---|---:|---:|---:|
+| Qwen2.5-0.5B | 47.2 % | **63.9 %** | 47.2 % |
+| Qwen2.5-1.5B | 16.7 % | **63.9 %** | 41.7 % |
+| Qwen2.5-3B | 2.8 % | **22.2 %** | 22.2 % |
+| Qwen2.5-7B | 16.7 % | **47.2 %** | 38.9 % |
+| Qwen3-4B | 5.6 % | 2.8 % | 0.0 % |
+| Phi-3.5-mini | 11.1 % | 8.3 % | 5.6 % |
+| Llama-3.1-8B | 2.8 % | 8.3 % | 5.6 % |
+| OLMo-2-7B | 66.7 % | 63.9 % | 77.8 % |
+| Command-R-7B | 2.8 % | 8.3 % | 2.8 % |
+| Aya-expanse-8B | 5.6 % | 13.9 % | 8.3 % |
+
+The no-edit column is genuinely unedited: `failure_atlas.py:295` builds no policy
+at all when `gm == 0` without `--always-steer`, so γ⁺ never applies there. The
+γ⁺ column is `run_boost.sh` (`--always-steer --select-as-if 0.95`).
+
+**Scope.** Every Qwen2.5 size moves the same way and by 16.7–47.2 points. The
+six models from five other families sit inside ±8.3 points, which is one to
+three cases. This is a Qwen2.5 result. An earlier three-model version of this
+table was three Qwen2.5s, which is why it read as general — that version is
+superseded.
+
+### Most of what a value-probe counts as abstention is not abstention
+
+Reading the generations forced a split the earlier yes/no probe could not make:
+
+    DECLINE_SAID     "You have not told me the name of your dog."
+    DECLINE_LIMITS   "I'm an AI and don't have access to real-time information."
+
+The second is true whatever the transcript says. It fires on the *kind* of
+question — flights, addresses and account numbers are things an assistant is
+trained to disclaim — not because the model consulted the conversation and found
+nothing. Pooled over the ten unedited cells (360 answers): **146** canned
+capability lines, **130** genuine "I was not told", 64 invented values, 20
+neither. Concentrated: Phi 31/36, Qwen3-4B 28/36, Command-R 21/36, Aya 19/36.
+Those four look pinned near 100 % "abstention" under a probe that only asks *did
+it give a value*, and the pinning is a property of the question set. Llama is the
+opposite, 32/36 grounded.
+
+Anything measuring abstention, hallucination or "does the model know what it does
+not know" is likely mixing these two, and the mix is model-dependent, so it does
+not cancel.
+
+**Not claimed.** Phi appears to move +69 points from `LIMITS` to `SAID` under γ⁺.
+It is an artefact: Phi's refusal is one template that cites its own limits *and*
+the conversation in the same sentence — "I don't have access to personal data
+unless it's shared with me during our conversation" — so the label turns on
+trailing words rather than behaviour. Hand-read and discarded. The `VALUE` column
+does not have this problem, which is why the finding rests on it.
+
+Open: the hand read is a stratified sample per model, not every cell.
+
+---
+
 ## 6. Replication
 
 Control Illusion, Llama-3.1-8B, n = 16 per conflict type, exact counters:
@@ -419,11 +508,28 @@ seven KV heads out of 256. The decisive version is the same experiment run at a
 percentile threshold, where §6c's numbers put the mask near 30 % and there is
 something for the ranking to get right. That has not been run.
 
+**The paper runs this control too, and the difference is the point.** Tab. 12
+reports a `Random (half)` arm — a randomly sampled half of all heads — at
+58.6 / 69.2 / 59.6 / 58.8 primary accuracy against DLA's 83.5 / 85.6 / 79.8 /
+79.2. On that comparison selection matters enormously. But a random *half* is
+not the same size as the DLA mask: §6b measures the DLA mask at 96.1 % of KV
+heads on Llama at ε = 0, because the union rule of App. A.2 — which the paper
+itself calls conservative — flags a KV head whenever any query head in its
+group is bad. So `Random (half)` edits roughly half as many heads as `DLA`
+does, and the arm varies *which* heads and *how many* at the same time. Holding
+the size fixed is what this section adds; when it is held fixed the difference
+goes away.
+
+That is a statement about what the ablation isolates on GQA models, not about
+whether the method works — the headline replicates in §6, and on the two MHA
+models in §6b (n_rep = 1) the mask sits near 50 %, where the paper's arm and
+this one nearly coincide.
+
 What is still open. The percentile-threshold version of this control, on more
-than one model. And the roles remain *our* mapping of Control
-Illusion onto an epoch structure — constraint1 privileged, constraint2 demoted
-with an acknowledgement — not the authors'; a gap against their Tab. 12 is
-informative about the mapping as much as about the method.
+than one model. And the roles remain *our* mapping of Control Illusion onto an
+epoch structure — constraint1 privileged, constraint2 demoted with an
+acknowledgement — not the authors'; a gap against their Tab. 12 is informative
+about the mapping as much as about the method.
 
 ## 7. Six measurement bugs, and what they had produced
 
@@ -453,11 +559,22 @@ condition whose answer was known and refusing to accept the number.
 
 ---
 
-## 7b. The baseline this was never compared against
+## 7b. The baseline for the benign application
+
+Scope first, because the comparison below is not one the paper omitted by
+oversight. V-Steer is posed as an instruction-hierarchy defence — Fig. 1 is a
+privileged system instruction against a *malicious* lower-priority user — and
+against a hostile user, deleting the offending message is not a move anyone
+has. The transcript is the attack surface; you have to hold the hierarchy while
+it is still there.
+
+The comparison matters for the *other* application, which is ours: a
+cooperative user whose earlier instruction has gone stale. There, deleting is
+available, and it is what a practitioner reaches for first.
 
 Every condition above is measured against the *conflicted* transcript, where
-several models sit at 0 %. None was measured against the alternative a
-practitioner reaches for first: **delete the stale message**. That condition
+several models sit at 0 %. None was measured against **deleting the stale
+message**. That condition
 existed in `results/` throughout under the name `ceiling`, treated as an upper
 bound rather than as a competitor. `examples/deletion_baseline.py`, no GPU.
 
