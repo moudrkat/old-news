@@ -1,0 +1,1444 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Turn the knob — what suppressing part of a conversation costs</title>
+<meta name="description" content="Drag a knob and watch a language model quietly lose a fact it was told. 7,560 real generations from ten open models, none of them recomputed.">
+<style>
+:root{
+  --ground:#0B1017; --panel:#121A24; --panel-2:#18222E; --edge:#243141;
+  --type:#DCE5EF; --dim:#93A2B4; --faint:#7C8DA1;
+  --ink:#7FB2E8;          /* the same blue the figures are drawn in, lifted */
+  --hot:#E0A33C;          /* the dial. warm, so it reads as a physical knob */
+  --gone:#E4737F;         /* the fact is not in the answer */
+  --held:#5FB98C;         /* the fact is still in the answer */
+  --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,monospace;
+  --sans:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--ground);color:var(--type);font-family:var(--sans);
+  line-height:1.55;-webkit-font-smoothing:antialiased;
+  padding-bottom:env(safe-area-inset-bottom);
+}
+.wrap{max-width:52rem;margin:0 auto;padding:0 1.1rem}
+.lab{
+  font-size:.66rem;letter-spacing:.15em;text-transform:uppercase;
+  font-weight:700;color:var(--faint)
+}
+
+/* ---------------------------------------------------------------- hero */
+header{padding:2.6rem 0 1.4rem}
+h1{
+  font-size:clamp(1.85rem,7.5vw,3rem);line-height:1.04;margin:.55rem 0 .7rem;
+  letter-spacing:-.025em;font-weight:700;text-wrap:balance
+}
+h1 em{font-style:normal;color:var(--hot)}
+.stand{color:var(--dim);font-size:1.02rem;margin:0 0 .8rem;max-width:34rem}
+.stand:last-child{margin-bottom:0}
+.stand strong{color:var(--type)}
+
+/* scale. The roster is there because ten names read as more work than the
+   numeral 10 does, and every one of them is a model that was actually run. */
+.scale{margin:1.4rem 0 .2rem}
+.cue{color:var(--hot);font-weight:600}
+.scnum{
+  display:flex;gap:.7rem;align-items:baseline;padding:.45rem 0;
+  border-top:1px solid var(--edge)
+}
+.scnum b{
+  font-size:1.5rem;color:var(--hot);font-weight:700;min-width:4.4rem;
+  font-variant-numeric:tabular-nums;line-height:1.1
+}
+.scnum span{font-size:.8rem;color:var(--dim);line-height:1.35}
+.scroster{
+  margin:.7rem 0 0;font-size:.72rem;color:var(--faint);line-height:1.7;
+  font-family:var(--mono)
+}
+
+/* ------------------------------------------------------------ the rig */
+.rig{
+  background:var(--panel);border:1px solid var(--edge);border-radius:14px;
+  overflow:hidden;margin:1.5rem 0 1rem
+}
+.strip{
+  padding:.85rem 1rem;border-bottom:1px solid var(--edge);background:var(--panel-2)
+}
+.strip .lab{display:block;margin-bottom:.45rem}
+/* The rule strings are long and this block is monospace, so on a narrow phone
+   it is the one thing in the page that can push the body sideways. Each turn is
+   its own block and is allowed to break anywhere; ragged wrapping is the right
+   trade against a horizontally scrolling page. */
+.line{
+  font-family:var(--mono);font-size:.78rem;line-height:1.6;color:var(--dim);
+  overflow-wrap:anywhere
+}
+.line > span{display:block;margin-bottom:.28rem}
+.line br{display:none}
+.line b{color:var(--type);font-weight:400}
+/* The two Tuesday lines are what the knob turns down, and they are turned down
+   together because the only thing they have in common is their age. Fading them
+   in lockstep with the slider says that without a sentence -- and the fact line
+   dimming at exactly the same rate as the stale rule IS the finding. */
+.demoted{transition:opacity .12s linear}
+@media(prefers-reduced-motion:reduce){.demoted{transition:none}}
+.band{
+  margin:.5rem 0 0;font-size:.7rem;color:var(--faint);line-height:1.4;
+  min-height:1.2em
+}
+.line .sys{color:var(--ink)}
+.line .stale{color:var(--dim)}
+.line .fact{color:var(--held)}
+
+/* controls */
+.ctl{padding:1rem;display:grid;gap:.85rem}
+@media(min-width:34rem){.ctl{grid-template-columns:1fr 1fr}}
+.field{display:flex;flex-direction:column;gap:.32rem;min-width:0}
+.field .lab{font-size:.62rem}
+select{
+  -webkit-appearance:none;appearance:none;width:100%;
+  background:var(--ground);color:var(--type);border:1px solid var(--edge);
+  border-radius:9px;padding:.72rem 2.1rem .72rem .8rem;font:inherit;
+  font-size:.93rem;min-height:44px;
+  background-image:linear-gradient(45deg,transparent 50%,var(--dim) 50%),
+                   linear-gradient(135deg,var(--dim) 50%,transparent 50%);
+  background-position:calc(100% - 1.1rem) 1.15rem,calc(100% - .75rem) 1.15rem;
+  background-size:6px 6px,6px 6px;background-repeat:no-repeat;
+}
+select:focus-visible{outline:2px solid var(--hot);outline-offset:2px}
+
+/* the knob */
+.knob{padding:.3rem 1rem 1.15rem}
+.knobtop{display:flex;justify-content:space-between;align-items:baseline;gap:1rem}
+.knobval{font-family:var(--mono);font-size:.82rem;color:var(--hot);font-weight:700}
+input[type=range]{
+  -webkit-appearance:none;appearance:none;width:100%;background:transparent;
+  margin:.75rem 0 .2rem;height:44px
+}
+input[type=range]::-webkit-slider-runnable-track{
+  height:6px;border-radius:3px;
+  background:linear-gradient(90deg,var(--edge),var(--hot))
+}
+input[type=range]::-moz-range-track{
+  height:6px;border-radius:3px;
+  background:linear-gradient(90deg,var(--edge),var(--hot))
+}
+input[type=range]::-webkit-slider-thumb{
+  -webkit-appearance:none;width:30px;height:30px;border-radius:50%;
+  background:var(--hot);border:4px solid var(--ground);margin-top:-12px;
+  box-shadow:0 0 0 1px var(--hot),0 3px 10px rgba(0,0,0,.5);cursor:pointer
+}
+input[type=range]::-moz-range-thumb{
+  width:22px;height:22px;border-radius:50%;background:var(--hot);
+  border:4px solid var(--ground);box-shadow:0 0 0 1px var(--hot);cursor:pointer
+}
+input[type=range]:focus-visible{outline:2px solid var(--hot);outline-offset:4px}
+.ticks{
+  display:flex;justify-content:space-between;font-family:var(--mono);
+  font-size:.62rem;color:var(--faint)
+}
+
+/* the answer */
+.out{padding:1.15rem 1rem 1.25rem;border-top:1px solid var(--edge)}
+.answer{
+  font-family:var(--mono);font-size:1.02rem;line-height:1.62;
+  white-space:pre-wrap;overflow-wrap:anywhere;margin:.5rem 0 0;min-height:5.2em
+}
+@media(min-width:34rem){.answer{font-size:1.1rem}}
+.answer mark{background:transparent;color:var(--held);font-weight:700}
+.answer.lost mark{color:var(--gone)}
+.chips{display:flex;flex-wrap:wrap;gap:.45rem;margin-top:1.05rem}
+.chip{
+  font-size:.73rem;padding:.36rem .68rem;border-radius:999px;
+  border:1px solid var(--edge);color:var(--dim);white-space:nowrap
+}
+.chip.on{border-color:var(--held);color:var(--held)}
+.chip.off{border-color:var(--gone);color:var(--gone)}
+.chip.verdict{border-color:var(--hot);color:var(--hot)}
+.verdictline{
+  margin-top:.85rem;font-size:.86rem;color:var(--dim);min-height:1.4em
+}
+.verdictline b{color:var(--hot);font-weight:600}
+
+/* inside the model — the frozen next-token readout */
+.inside{
+  margin:1.1rem 0 .2rem;padding:.85rem .9rem;border:1px solid var(--edge);
+  border-radius:10px;background:var(--ground)
+}
+.inside .lab{display:block;margin-bottom:.55rem}
+.pfx{
+  font-family:var(--mono);font-size:.8rem;color:var(--dim);
+  overflow-wrap:anywhere;margin-bottom:.7rem
+}
+.pfx i{color:var(--faint);font-style:normal}
+.pfx b{color:var(--hot);font-weight:400;animation:blink 1.1s step-end infinite}
+@keyframes blink{50%{opacity:.25}}
+@media(prefers-reduced-motion:reduce){.pfx b{animation:none}}
+.rk{
+  display:grid;grid-template-columns:minmax(0,auto) 1fr auto;gap:.5rem .6rem;
+  align-items:baseline;padding:.4rem 0;border-top:1px solid var(--edge)
+}
+@media(max-width:30rem){
+  .rk{grid-template-columns:1fr auto}
+  .rk .what{grid-column:1/3;margin-top:-.15rem}
+}
+.rk .cand{
+  font-family:var(--mono);font-size:.92rem;color:var(--dim);
+  /* pre-wrap, not pre: under `pre` the overflow-wrap below is a no-op and this
+     column's min-content is the whole string, which pushes the page sideways
+     on a phone. */
+  white-space:pre-wrap;overflow-wrap:anywhere;min-width:0
+}
+.rk .cand em{font-style:normal;font-weight:700;padding:.05rem .25rem;
+  border-radius:3px}
+.rk .cand.g em{color:var(--held);background:rgba(95,185,140,.14)}
+.rk .cand.b em{color:var(--gone);background:rgba(228,115,127,.14)}
+.rk .what{font-size:.78rem;color:var(--dim)}
+.rk .mv{
+  font-family:var(--mono);font-size:.86rem;color:var(--type);font-weight:700;
+  white-space:nowrap
+}
+.rk .p{
+  grid-column:2/4;font-family:var(--mono);font-size:.68rem;color:var(--faint);
+  margin-top:-.2rem
+}
+.insidenote{font-size:.76rem;color:var(--faint);margin:.55rem 0 0}
+.curve{margin:.7rem 0 .1rem}
+.curve svg{display:block;width:100%;height:auto}
+.curve .ax{stroke:var(--edge);stroke-width:1}
+.curve .gl{stroke:var(--held);stroke-width:1.8;fill:none}
+.curve .bl{stroke:var(--gone);stroke-width:1.4;fill:none;stroke-dasharray:3 2}
+.curve .dot{fill:var(--held)}
+.curve .dotb{fill:var(--gone)}
+.curve .now{stroke:var(--hot);stroke-width:1.2;stroke-dasharray:2 2}
+.curve .t{fill:var(--faint);font-size:8px;font-family:var(--mono)}
+.curve .k{fill:var(--dim);font-size:8.5px}
+.curve .wl{stroke:var(--gone);stroke-width:1.8;fill:none}
+.curve .split{stroke:var(--gone);stroke-width:1;stroke-dasharray:2 2;opacity:.7}
+.curve .seed{fill:none;stroke:var(--gone);stroke-width:1.2}
+.curvenote{margin:.5rem 0 .1rem;font-size:.75rem;color:var(--faint);
+  line-height:1.45}
+.curvekey{
+  display:flex;gap:1rem;flex-wrap:wrap;margin:.15rem 0 0;font-size:.72rem
+}
+.curvekey span{display:flex;align-items:center;gap:.3rem;color:var(--dim)}
+.curvekey span::before{
+  content:"";width:14px;height:2px;border-radius:1px;display:inline-block
+}
+.curvekey .kg::before{background:var(--held)}
+.curvekey .kb::before{background:var(--gone)}
+
+/* the dose surface. Three rows that turn out to be the same row. */
+.surf{margin:1.1rem 0 1.1rem;overflow-x:auto}
+.surf table{border-collapse:collapse;width:100%;min-width:20rem}
+.surf th,.surf td{
+  padding:.3rem .25rem;text-align:center;font-size:.72rem;
+  font-variant-numeric:tabular-nums
+}
+.surf th{color:var(--faint);font-weight:600}
+.surf th.rh{text-align:left;color:var(--dim);white-space:nowrap;padding-right:.6rem}
+.surf td{color:var(--type);border-radius:3px}
+.surf caption{
+  caption-side:bottom;text-align:left;font-size:.75rem;color:var(--faint);
+  padding-top:.6rem;line-height:1.5
+}
+
+/* the span picker: the method explained by pointing at it */
+.spanfig{margin:1.2rem 0 .4rem}
+.tokstrip{
+  display:flex;flex-wrap:wrap;gap:3px;padding:.8rem;border:1px solid var(--edge);
+  border-radius:10px;background:var(--ground);line-height:1
+}
+.tk{
+  font-family:var(--mono);font-size:.72rem;padding:.18rem .3rem;border-radius:3px;
+  background:var(--panel-2);color:var(--dim);transition:all .14s linear;
+  white-space:pre
+}
+@media(prefers-reduced-motion:reduce){.tk{transition:none}}
+.tk.role{
+  width:100%;background:none;color:var(--faint);font-size:.62rem;
+  letter-spacing:.1em;text-transform:uppercase;padding:.45rem 0 .1rem
+}
+.tk.up{background:rgba(127,178,232,.22);color:var(--ink);font-weight:700}
+.tk.down{background:rgba(228,115,127,.13);color:var(--gone);opacity:.5}
+.tk.fact{outline:1px solid var(--held);color:var(--held)}
+.tk.fact.down{outline:1px solid var(--gone)}
+.spanbtns{display:flex;flex-wrap:wrap;gap:.4rem;margin:.8rem 0 0}
+.spanbtn{
+  flex:1 1 10rem;min-height:44px;padding:.5rem .6rem;border-radius:9px;
+  border:1px solid var(--edge);background:transparent;color:var(--dim);
+  font:inherit;font-size:.78rem;cursor:pointer;text-align:left;line-height:1.3
+}
+.spanbtn b{display:block;color:var(--type);font-size:.85rem;margin-bottom:.1rem}
+.spanbtn[aria-pressed="true"]{border-color:var(--hot);color:var(--type)}
+.spanbtn[aria-pressed="true"] b{color:var(--hot)}
+.spanbtn:focus-visible{outline:2px solid var(--hot);outline-offset:2px}
+.spanout{margin:.8rem 0 0;font-size:.84rem;color:var(--dim);min-height:3.6em}
+.spanout b{color:var(--type)}
+.spanout .warn{color:var(--gone);font-weight:600}
+.spancount{
+  font-family:var(--mono);font-size:.72rem;color:var(--faint);margin:.45rem 0 0
+}
+
+/* one head, measured: attention against loudness */
+.headfig{margin:1.2rem 0 .3rem}
+.hbars{
+  display:flex;align-items:flex-end;gap:1px;height:110px;padding:.7rem .6rem 0;
+  border:1px solid var(--edge);border-radius:10px 10px 0 0;background:var(--ground);
+  border-bottom:0;overflow-x:auto
+}
+.hb{flex:1 0 3px;min-width:3px;display:flex;flex-direction:column;
+  justify-content:flex-end;height:100%;position:relative}
+.hb i{display:block;width:100%;border-radius:1px 1px 0 0;transition:height .14s linear}
+@media(prefers-reduced-motion:reduce){.hb i{transition:none}}
+.hb .a{background:var(--ink);opacity:.85}
+.hb .v{background:var(--dim);opacity:.32;margin-top:1px}
+.hb.r-fact .a{background:var(--held)}
+.hb.r-stale .a{background:var(--gone)}
+.hb.r-system .a{background:var(--hot)}
+.hb.dim .v{background:var(--gone);opacity:.55}
+.hlegend{
+  display:flex;flex-wrap:wrap;gap:.6rem 1rem;padding:.55rem .6rem;
+  border:1px solid var(--edge);border-top:0;border-radius:0 0 10px 10px;
+  background:var(--panel);font-size:.72rem;color:var(--dim)
+}
+.hlegend span{display:flex;align-items:center;gap:.3rem}
+.hlegend i{width:10px;height:10px;border-radius:2px;display:inline-block}
+.hshares{
+  display:grid;gap:.3rem;margin:.9rem 0 0;font-size:.8rem
+}
+.hrow{display:grid;grid-template-columns:7.5rem 1fr auto;gap:.5rem;
+  align-items:center}
+.hrow .nm{color:var(--dim)}
+.hrow .tr{height:9px;background:var(--panel-2);border-radius:5px;overflow:hidden}
+.hrow .fl{height:100%;border-radius:5px;transition:width .14s linear}
+.hrow .pc{font-family:var(--mono);font-size:.74rem;color:var(--type);
+  font-variant-numeric:tabular-nums}
+.headnote{font-size:.78rem;color:var(--faint);margin:.7rem 0 0;line-height:1.5}
+
+/* the money button */
+.hunt{
+  display:block;width:100%;margin:.25rem 0 0;min-height:48px;
+  background:var(--hot);color:#1A1206;border:0;border-radius:10px;
+  font:inherit;font-size:.95rem;font-weight:700;cursor:pointer;padding:.8rem
+}
+.hunt:hover{filter:brightness(1.08)}
+.hunt:focus-visible{outline:2px solid var(--type);outline-offset:3px}
+.hunt[disabled]{opacity:.45;cursor:default}
+.huntnote{font-size:.78rem;color:var(--faint);margin:.55rem 0 0;text-align:center}
+
+/* ------------------------------------------------------------- prose */
+section{padding:2.2rem 0;border-top:1px solid var(--edge);margin-top:2.2rem}
+h2{font-size:1.28rem;margin:0 0 .8rem;letter-spacing:-.01em;text-wrap:balance}
+p{margin:0 0 .95rem;max-width:38rem}
+.dimp{color:var(--dim);font-size:.94rem}
+strong{color:var(--type)}
+
+/* the map of methods */
+.map{display:grid;gap:.7rem;margin-top:1.1rem}
+@media(min-width:44rem){.map{grid-template-columns:1fr 1fr}}
+.card{
+  background:var(--panel);border:1px solid var(--edge);border-radius:11px;
+  padding:.95rem 1rem
+}
+.card.here{border-color:var(--hot)}
+.card h3{margin:0 0 .35rem;font-size:.97rem;color:var(--ink)}
+.card.here h3{color:var(--hot)}
+.card p{font-size:.87rem;color:var(--dim);margin:0 0 .5rem}
+.card .cite{font-family:var(--mono);font-size:.7rem;color:var(--faint);
+  overflow-wrap:anywhere}
+.tag{
+  display:inline-block;font-size:.6rem;letter-spacing:.12em;font-weight:700;
+  text-transform:uppercase;color:var(--hot);border:1px solid var(--hot);
+  border-radius:4px;padding:.08rem .3rem;margin-left:.4rem;vertical-align:2px
+}
+
+/* secondary action, used by the story beats that jump the rig somewhere */
+.ghost{
+  display:inline-block;margin:.3rem 0 0;min-height:46px;padding:.7rem 1.1rem;
+  background:transparent;color:var(--hot);border:1px solid var(--hot);
+  border-radius:10px;font:inherit;font-size:.9rem;font-weight:600;cursor:pointer
+}
+.ghost:hover{background:rgba(224,163,60,.1)}
+.ghost:focus-visible{outline:2px solid var(--type);outline-offset:3px}
+
+/* the map. Portrait on purpose: a wide stack diagram is unreadable on a phone,
+   and the viewBox is 420 units so at ~390 px it renders close to 1:1 and the
+   labels stay at their intended size instead of being scaled into the floor. */
+.mapfig{margin:1.4rem 0 .4rem}
+.mapfig svg{display:block;width:100%;max-width:26rem;height:auto;margin:0 auto}
+.mapfig .bx{fill:var(--panel);stroke:var(--edge);stroke-width:1}
+.mapfig .bx.hot{stroke:var(--hot);stroke-width:1.6}
+.mapfig .bt{fill:var(--type);font-size:11.5px;font-weight:600}
+.mapfig .dash{fill:none;stroke:var(--edge);stroke-dasharray:4 3;stroke-width:1}
+.mapfig .flow{stroke:var(--faint);stroke-width:1.2;fill:none}
+.mapfig .tap{stroke:var(--faint);stroke-width:1;fill:none}
+.mapfig .tap.hot{stroke:var(--hot);stroke-width:1.5}
+.mapfig .h{fill:var(--ink);font-size:11px;font-weight:700}
+.mapfig .h.hot{fill:var(--hot)}
+.mapfig .d{fill:var(--dim);font-size:10px}
+.mapfig .c{fill:var(--faint);font-size:8.5px;font-family:var(--mono)}
+.mapfig a text,.mapfig .c a{fill:var(--ink);text-decoration:underline}
+.cite a{color:var(--ink)}
+.mapfig .zone{fill:var(--faint);font-size:9px;font-style:italic}
+.figcap{
+  font-size:.8rem;color:var(--faint);margin:.2rem auto 0;max-width:26rem;
+  line-height:1.5
+}
+
+
+footer{padding:2rem 0 3.5rem;color:var(--faint);font-size:.86rem}
+footer a{color:var(--ink)}
+a{color:var(--ink)}
+a:focus-visible{outline:2px solid var(--hot);outline-offset:3px}
+@media(prefers-reduced-motion:no-preference){
+  .answer{transition:color .12s linear}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="lab">Nothing on this page runs a model &middot; every answer was generated once and kept</div>
+  <h1>Turn the knob. <em>Watch the fact go.</em></h1>
+  <p class="stand">I am stubborn about one thing: I want to reach
+  <em>inside</em> a model and steer it from there, instead of standing outside
+  it phrasing things nicely and hoping. I have wanted that since I read about
+  Spotlight, and I try it on whatever will hold still.</p>
+  <p class="stand">The excuse this time was a rule I had written into a
+  production system prompt in the least subtle form available — capitals, three
+  exclamation marks, the word IMPORTANT — which a user talked it out of
+  <strong>eighteen times out of eighteen</strong>.</p>
+  <p class="stand">So I tried a preprint that reaches into the key-value cache.
+  Then I played with it, which is where it got strange. Everything below is that,
+  and you can do it too.</p>
+  <p class="stand cue">It is the orange one.</p>
+</header>
+
+<div class="rig">
+  <div class="strip">
+    <span class="lab">The conversation, every time</span>
+    <div class="line">
+      <span class="sys">system, now &nbsp;&rarr;&nbsp; <b id="sysRule">…</b></span>
+      <span class="stale demoted" id="staleLine">user, Tuesday &rarr; <b id="staleRule">…</b></span>
+      <span class="fact demoted" id="factRow">user, Tuesday &rarr; <b id="factLine">…</b></span>
+      <span>user, now &nbsp;&nbsp;&rarr;&nbsp; <b id="askLine">…</b></span>
+    </div>
+    <p class="band" id="band"></p>
+  </div>
+
+  <div class="ctl">
+    <label class="field">
+      <span class="lab">What the user asks</span>
+      <select id="qSel"></select>
+    </label>
+    <label class="field">
+      <span class="lab">Model</span>
+      <select id="mSel"></select>
+    </label>
+    <label class="field">
+      <span class="lab">The rule being fought over</span>
+      <select id="fSel"></select>
+    </label>
+    <label class="field">
+      <span class="lab">System prompt turned up by</span>
+      <select id="gpSel"></select>
+    </label>
+  </div>
+
+  <div class="knob">
+    <div class="knobtop">
+      <span class="lab">How far the old turn is turned down</span>
+      <span class="knobval" id="gmVal">off</span>
+    </div>
+    <input type="range" id="gmRange" min="0" max="6" step="1" value="0"
+           aria-label="How far the old turn is turned down">
+    <div class="ticks"><span>off</span><span>max</span></div>
+  </div>
+
+  <div class="out">
+    <span class="lab">What the model answers</span>
+    <div class="answer" id="answer">loading…</div>
+    <div class="chips">
+      <span class="chip" id="chipVal">contains the value</span>
+      <span class="chip" id="chipRule">obeys the rule</span>
+      <span class="chip verdict" id="chipJudge" hidden></span>
+    </div>
+    <p class="verdictline" id="verdict"></p>
+
+    <div class="inside" id="inside" hidden>
+      <span class="lab">Inside, at the instant that word is chosen</span>
+      <div class="pfx" id="pfx"></div>
+      <div class="rk" id="rowG">
+        <span class="cand" id="candG"></span>
+        <span class="what">would finish it the way you said it</span>
+        <span class="mv" id="mvG"></span>
+        <span class="p" id="pG"></span>
+      </div>
+      <div class="rk" id="rowB">
+        <span class="cand" id="candB"></span>
+        <span class="what">is what the model actually reaches for</span>
+        <span class="mv" id="mvB"></span>
+        <span class="p" id="pB"></span>
+      </div>
+      <div class="curve" id="curve"></div>
+      <p class="insidenote" id="insidenote"></p>
+    </div>
+
+    <button class="hunt" id="hunt">Find me one that fools both checks</button>
+    <p class="huntnote" id="huntnote">Both ticks green, answer still wrong. There are plenty.</p>
+  </div>
+</div>
+
+<section>
+  <h2>Why I was in there at all</h2>
+  <p>Last year I read about Spotlight, an IBM paper that gets a model to follow
+  the instruction you meant by adjusting <em>where it looks</em> while it
+  generates. Not a better prompt. The attention itself. That is the paper that got me. You can reach into a
+  running model while it is working, rather than standing outside it choosing
+  your words carefully and hoping. I have wanted that in production ever since,
+  and I try it on whatever will hold still.</p>
+  <p>So when a preprint turned up doing exactly that, I stopped what I was
+  doing. It works in the narrow sense I can defend: on one model, on conflicts I
+  built myself, the current rule goes from obeyed <strong>one time in twenty to
+  two times in three</strong>. A big move, and still a violation in three, so
+  nobody is shipping that on its own.</p>
+  <p>Then I fell into it, and the rest of this page is what was down there.</p>
+  <div class="scale">
+    <div class="scnum"><b>10</b><span>open models, six families,<br>half a billion parameters up to eight</span></div>
+    <div class="scnum"><b>7,560</b><span>answers behind the knob below,<br>every one of them kept</span></div>
+    <div class="scnum"><b>33,032</b><span>generations across the whole<br>project, controls included</span></div>
+    <p class="scroster">Qwen2.5 0.5B &middot; 1.5B &middot; 3B &middot; 7B &nbsp;&mdash;&nbsp;
+    Qwen3-4B &middot; Llama-3.1-8B &middot; Phi-3.5-mini &middot; OLMo-2-7B &middot;
+    Aya-expanse-8B &middot; Command-R7B</p>
+  </div>
+</section>
+
+<section>
+  <h2>My dog is not called Bagel</h2>
+  <p>Let's say I have a dog called Bagr. The true word is never argued with — it
+  just sinks, and whatever was standing behind it in the queue steps forward and
+  takes the job. That is why you get Bagel and not gibberish. Bagel was next in
+  line.</p>
+  <p>Which is the mean part, because the replacement is the model's own best
+  guess at what else it could have been. It is built to be convincing. That is
+  what a best guess is. <code>4412-B</code> doesn't look like a bug, it looks
+  like an order number.</p>
+  <button class="ghost" id="dog">Show me Bagel</button>
+</section>
+
+<section>
+  <h2>So what is that knob</h2>
+  <p>As a model reads a conversation it keeps a working note of every message —
+  the key-value cache. The method behind this slider picks a <strong>stretch</strong>
+  of that note and turns down how loudly the rest of the model hears it. Nothing
+  is deleted. Nothing is rewritten. The transcript stays exactly as the user
+  typed it, which is the whole appeal.</p>
+  <p>The stretch is chosen by <strong>position</strong>, not by meaning:
+  everything older than the last time the system prompt changed. That is the
+  stale rule you wanted quiet. It is also the message where the user happened to
+  mention their order number.</p>
+  <p class="dimp">All I ever wanted was for one part of the prompt to outrank
+  another. That is a statement about parts — and the only thing in there that
+  corresponds to a part is a stretch of positions.</p>
+</section>
+
+<section>
+  <h2>What the method actually points at</h2>
+  <p>The edit is a multiplication on the cached values of a stretch of tokens.
+  One stretch gets multiplied <em>up</em>, another gets multiplied <em>down</em>,
+  everything else is left exactly as it was. So the only real decision is which
+  tokens go in which stretch — and that decision is made before the model runs.</p>
+  <p>Here is the conversation from the top of this page, one block per word.
+  Pick how you would choose the stretches.</p>
+
+  <div class="spanfig">
+    <div class="tokstrip" id="strip"></div>
+    <div class="spanbtns">
+      <button class="spanbtn" id="sp0" aria-pressed="false">
+        <b>Just the two rules</b>The paper's own setting: the constraint
+        sentence and nothing else, found by matching a string you already know.
+      </button>
+      <button class="spanbtn" id="sp1" aria-pressed="false">
+        <b>Whole messages</b>Their cheap variant. No extraction: take the system
+        message and the user message entire, by their role markers.
+      </button>
+      <button class="spanbtn" id="sp2" aria-pressed="true">
+        <b>Everything older</b>Mine. In production nobody labels the offending
+        sentence, so the stretch is every turn written before the system prompt
+        last changed.
+      </button>
+    </div>
+    <p class="spancount" id="spancount"></p>
+    <p class="spanout" id="spanout"></p>
+  </div>
+</section>
+
+<section>
+  <h2>What the edit does to a real head</h2>
+  <p>Every word in the conversation reaches the answer through two things: how
+  much <strong>attention</strong> it gets, and how loudly its <strong>value
+  vector</strong> speaks. The head's output is the second weighted by the first.
+  Suppression multiplies the value vectors of a stretch of words. It does not
+  touch the attention at all — that is the whole reason the method is done this
+  way rather than by moving attention around, which would need renormalising and
+  would drop the model off the fast attention path.</p>
+  <p>So here is one real head — Llama-3.1-8B, layer 21, head 11, measured at the
+  moment it is about to write the first word of the answer. One pair of bars per
+  word: the tall one is attention, the faint one underneath is how loudly that
+  word's value vector speaks. Role markers and newlines are left out — between
+  them they take most of the attention and none of the meaning.</p>
+
+  <div class="headfig">
+    <div class="hbars" id="hbars"></div>
+    <div class="hlegend">
+      <span><i style="background:var(--hot)"></i>system rule</span>
+      <span><i style="background:var(--gone)"></i>stale rule</span>
+      <span><i style="background:var(--held)"></i>the flight time</span>
+      <span><i style="background:var(--ink)"></i>everything else</span>
+      <span><i style="background:var(--dim);opacity:.4"></i>how loudly it speaks</span>
+    </div>
+    <div class="hshares" id="hshares"></div>
+    <p class="headnote" id="headnote"></p>
+  </div>
+
+  <p>Drag the knob at the top of the page and watch the lower bars in the
+  demoted stretch shrink while the upper bars stay exactly where they are. This
+  head spends <strong>25 %</strong> of its attention on the flight time and
+  <strong>2 %</strong> on the stale rule it was supposed to be quietening. It is
+  not a rule-following head. It is the head that remembers when the flight
+  lands, and the edit does not know the difference.</p>
+</section>
+
+
+
+<section>
+  <h2>Which knob is actually doing the work</h2>
+  <p>The method has two halves: turn the current system prompt <em>up</em>, and
+  turn the stale turn <em>down</em>. It is worth knowing which of them you are
+  paying for. Read both tables down the first column — that is the boost working
+  on its own, with nothing suppressed.</p>
+
+  <div class="surf"><table><caption>What you get: how often the current rule beats the stale one. Ten models, 360 cases per cell.</caption><thead><tr><th class="rh"></th><th>off</th><th>.50</th><th>.65</th><th>.75</th><th>.85</th><th>.90</th><th>.95</th></tr></thead><tbody><tr><th class="rh">system prompt left alone</th><td style="background:rgba(95,185,140,0.14)">13%</td><td style="background:rgba(95,185,140,0.34)">45%</td><td style="background:rgba(95,185,140,0.39)">54%</td><td style="background:rgba(95,185,140,0.42)">58%</td><td style="background:rgba(95,185,140,0.43)">60%</td><td style="background:rgba(95,185,140,0.43)">60%</td><td style="background:rgba(95,185,140,0.44)">61%</td></tr><tr><th class="rh">system prompt ×2.5</th><td style="background:rgba(95,185,140,0.14)">13%</td><td style="background:rgba(95,185,140,0.42)">58%</td><td style="background:rgba(95,185,140,0.46)">65%</td><td style="background:rgba(95,185,140,0.47)">66%</td><td style="background:rgba(95,185,140,0.48)">67%</td><td style="background:rgba(95,185,140,0.48)">68%</td><td style="background:rgba(95,185,140,0.49)">69%</td></tr><tr><th class="rh">system prompt ×4</th><td style="background:rgba(95,185,140,0.14)">13%</td><td style="background:rgba(95,185,140,0.45)">63%</td><td style="background:rgba(95,185,140,0.48)">68%</td><td style="background:rgba(95,185,140,0.48)">68%</td><td style="background:rgba(95,185,140,0.49)">69%</td><td style="background:rgba(95,185,140,0.49)">69%</td><td style="background:rgba(95,185,140,0.49)">69%</td></tr></tbody></table></div>
+
+  <p>Turning the system prompt up four times over, on its own, changes nothing
+  at all — thirteen per cent either way. It only starts earning its keep once
+  something is being suppressed, and then it adds real ground: eighteen points
+  at the gentlest setting.</p>
+
+  <div class="surf"><table><caption>What it costs: how often the true word stops being the model's first choice. Ten models, 350 readouts per cell.</caption><thead><tr><th class="rh"></th><th>off</th><th>.50</th><th>.65</th><th>.75</th><th>.85</th><th>.90</th><th>.95</th></tr></thead><tbody><tr><th class="rh">system prompt left alone</th><td style="background:rgba(228,115,127,0.06)">0%</td><td style="background:rgba(228,115,127,0.07)">2%</td><td style="background:rgba(228,115,127,0.13)">11%</td><td style="background:rgba(228,115,127,0.24)">29%</td><td style="background:rgba(228,115,127,0.41)">56%</td><td style="background:rgba(228,115,127,0.48)">68%</td><td style="background:rgba(228,115,127,0.54)">77%</td></tr><tr><th class="rh">system prompt ×2.5</th><td style="background:rgba(228,115,127,0.06)">0%</td><td style="background:rgba(228,115,127,0.08)">3%</td><td style="background:rgba(228,115,127,0.13)">12%</td><td style="background:rgba(228,115,127,0.24)">29%</td><td style="background:rgba(228,115,127,0.41)">56%</td><td style="background:rgba(228,115,127,0.48)">68%</td><td style="background:rgba(228,115,127,0.54)">77%</td></tr><tr><th class="rh">system prompt ×4</th><td style="background:rgba(228,115,127,0.07)">2%</td><td style="background:rgba(228,115,127,0.08)">4%</td><td style="background:rgba(228,115,127,0.13)">12%</td><td style="background:rgba(228,115,127,0.24)">29%</td><td style="background:rgba(228,115,127,0.41)">56%</td><td style="background:rgba(228,115,127,0.49)">69%</td><td style="background:rgba(228,115,127,0.54)">77%</td></tr></tbody></table></div>
+
+  <p>And the cost is bought entirely by the other knob. The three rows are the
+  same row: boosting does not move the facts.</p>
+  <p class="dimp">So the boost is free and, alone, useless. Every point of
+  adherence and every lost fact comes from the suppression — and the one thing
+  boosting does manage on its own is invent values in the control where the
+  fact was never there.</p>
+  <p>Now put the two tables on top of each other and read left to right. At the
+  gentlest setting the rule already wins <strong>63 %</strong> of the time and
+  four per cent of facts have gone. All the way up, the rule wins
+  <strong>69 %</strong> — six points more — and <strong>77 %</strong> of the
+  facts have gone.</p>
+  <p>Nine tenths of what this method has to offer arrives in the first notch,
+  for a twentieth of what it eventually costs. Everything past that buys six
+  points of obedience and pays seventy-three points of facts for them. Which
+  means the ladders, the invented order numbers and the dog all live past the
+  point where the method stopped improving.</p>
+  <p class="dimp">Four per cent is still one fact in twenty-five, 63 % still
+  means the rule loses a third of the time, and these are constructed conflicts
+  on small models. But "not at that price" is a sentence about the far end of
+  the dial, and the far end is not where you would run it.</p>
+</section>
+
+<section>
+  <h2>They break in character</h2>
+  <p>Same knob, same questions, same pressure. They do not come apart the same
+  way at all.</p>
+  <p><strong>Qwen2.5-7B</strong> was given a rule about capital letters and
+  handled the stress by emigrating.</p>
+  <button class="ghost" id="fr">Show me the French</button>
+  <p class="dimp" style="margin-top:.9rem">I have no theory for the French.</p>
+  <p><strong>Llama</strong> is the one who cannot let it go. It knows the
+  answer. It says the answer. Then it starts checking the answer against itself,
+  out loud, in front of you, indefinitely.</p>
+  <button class="ghost" id="loop">Show me Llama arguing with itself</button>
+  <p class="dimp" style="margin-top:.9rem">Fifteen answers out of 756, twice on
+  one other model, not once on the other eight. It's him.</p>
+  <p class="dimp">And if you want the thing itself rather than its
+  consequences: the panel under the answer shows the true word losing six orders
+  of magnitude while the runner-up — sometimes sitting at one in a hundred
+  billion — takes the turn instead. It is measured at every
+  setting of both controls. That panel is the reason I did any of this.</p>
+  <p><strong>Qwen3-4B</strong> never actually goes quiet — but stop it at the
+  exact point where the order number should arrive and ask what it wants to say
+  next, and the answer is <em>end of message</em>, the token that ends the turn.
+  Unedited, that token was its 36,931st choice. No button for that one: it is a
+  frozen readout rather than an answer, so it isn't in the grid above.</p>
+</section>
+
+<section>
+  <h2>The one thing I changed on purpose</h2>
+  <p>Everything above is a knob being turned and something being watched. The
+  experiment: if the damage comes from the <em>stretch</em> and not from the
+  knob, then moving the fact out of the stretch should undo it completely and
+  change nothing else.</p>
+  <p>So the message holding the fact was marked one step newer — same conversation,
+  same words, same place in the transcript, just no longer old enough to fall
+  inside the stretch. Recall at
+  the strongest setting goes from <strong>11 % to 100 %</strong> on
+  Llama-3.1-8B, 6 % to 100 % on Qwen3-4B, and 0 % to 94 % on Qwen2.5-1.5B.</p>
+  <p>Nothing is wrong with the model's memory. A stretch of the
+  conversation was switched off, and whatever was lying in it went off with it.</p>
+</section>
+
+<section>
+  <h2>What happened when I tried to use it</h2>
+  <p>Three things, in the order I hit them. None of them is a complaint about
+  the paper — they are what a method built for one shape of problem does when
+  you point it at another.</p>
+
+  <p><strong>The safeguard did not fire.</strong> The method does not edit every
+  attention head. It edits the ones where the demoted span is outweighing the
+  privileged one, which is meant to keep the intervention narrow. On
+  Llama-3.1-8B that criterion flags <strong>96 %</strong> of heads — so nothing
+  is being kept narrow at all. And it is not a threshold that needs nudging: at
+  the query-head level the score is positive <strong>50.4 %</strong> of the
+  time, which is a coin flip, and swapping the two spans over gives
+  <strong>95.8 %</strong> instead of 96.1 %, which a score carrying real signal
+  would not do. The 96 % is what you get when you flag a group if any head in it
+  is above chance — with four heads to a group that is 93.75 % before you have
+  measured anything.</p>
+
+  <p><strong>Turn the threshold up and the method stops existing.</strong> Set
+  it so that only the genuinely lopsided heads are edited and rerun the whole
+  grid: the stale rule still wins 32 times out of 36, and every fact survives, at
+  <em>every</em> setting of the knob. No damage and no benefit. So on a stretch
+  this size there is no threshold that buys both a working intervention and a
+  narrow one.</p>
+
+  <p><strong>And nobody has checked the obvious alternative.</strong> The
+  method locates the offending span by matching a string. If you know which
+  tokens they are, you could simply not send them. The paper compares against
+  doing nothing, against asking the model nicely, and against training — but
+  never against deleting the span it just found. There is a good answer for why
+  not, and it is not in there: deleting shifts every token after it, which
+  throws away the cached keys and values for the rest of the conversation, while
+  multiplying a value in place costs nothing. And the model can still see a
+  request it is declining, rather than being made blind to it.</p>
+
+  <p class="dimp">All three come from the same root. Their stretch is a
+  sentence, found by someone who already knew which sentence it was. Mine is
+  every turn older than the last system-prompt change, because that is the only
+  handle production gives you. Same edit, same code, same thresholds — a
+  different shape of thing to point it at.</p>
+</section>
+
+<section>
+  <h2>Everyone is reaching for this in a different place</h2>
+  <p class="dimp">Making a system prompt actually outrank a user is an open problem, and there
+  are five places in a model you can reach for it. Editing the cache is one of
+  them. Knowing which was which saved me a fortnight.</p>
+  <div class="mapfig">
+  <svg viewBox="0 0 420 452" role="img"
+       aria-label="A model drawn top to bottom — what you sent, tokens and
+       embeddings, the residual stream, and inside every layer the K/V cache
+       feeding attention — with each family of intervention shown at the point
+       it reaches into. Editing the K/V cache, the method on this page, is
+       marked.">
+    <defs>
+      <marker id="ar" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6"
+              markerHeight="6" orient="auto">
+        <path d="M0,0 L8,4 L0,8 z" fill="var(--faint)"/>
+      </marker>
+      <marker id="arh" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6"
+              markerHeight="6" orient="auto">
+        <path d="M0,0 L8,4 L0,8 z" fill="var(--hot)"/>
+      </marker>
+    </defs>
+
+    <rect class="dash" x="2" y="68" width="186" height="292" rx="7"/>
+    <text class="zone" x="184" y="62" text-anchor="end">the model</text>
+    <rect class="dash" x="10" y="212" width="170" height="120" rx="6"/>
+    <text class="zone" x="14" y="206">inside every layer</text>
+
+    <rect class="bx" x="6" y="10" width="178" height="30" rx="5"/>
+    <text class="bt" x="95" y="30" text-anchor="middle">what you think you sent</text>
+    <rect class="bx" x="6" y="80" width="178" height="30" rx="5"/>
+    <text class="bt" x="95" y="100" text-anchor="middle">tokens &amp; embeddings</text>
+    <rect class="bx" x="6" y="150" width="178" height="30" rx="5"/>
+    <text class="bt" x="95" y="170" text-anchor="middle">the residual stream</text>
+    <rect class="bx hot" x="18" y="224" width="154" height="30" rx="5"/>
+    <text class="bt" x="95" y="244" text-anchor="middle">the K/V cache</text>
+    <rect class="bx" x="18" y="288" width="154" height="30" rx="5"/>
+    <text class="bt" x="95" y="308" text-anchor="middle">attention</text>
+    <rect class="bx" x="6" y="400" width="178" height="30" rx="5"/>
+    <text class="bt" x="95" y="420" text-anchor="middle">the answer</text>
+
+    <path class="flow" marker-end="url(#ar)" d="M95,40 L95,76"/>
+    <path class="flow" marker-end="url(#ar)" d="M95,110 L95,146"/>
+    <path class="flow" marker-end="url(#ar)" d="M50,180 L50,208"/>
+    <path class="flow" marker-end="url(#ar)" d="M140,212 L140,184"/>
+    <path class="flow" marker-end="url(#ar)" d="M95,254 L95,284"/>
+    <path class="flow" marker-end="url(#ar)" d="M95,360 L95,396"/>
+
+    <path class="tap" marker-end="url(#ar)" d="M198,25 L188,25"/>
+    <text class="h" x="206" y="20">mark the input</text>
+    <text class="d" x="206" y="33">delimiters, datamarking</text>
+    <text class="c" x="206" y="45"><a href="https://arxiv.org/abs/2403.14720" target="_blank" rel="noopener">arXiv:2403.14720</a></text>
+
+    <path class="tap" marker-end="url(#ar)" d="M198,95 L188,95"/>
+    <text class="h" x="206" y="90">tag the role</text>
+    <text class="d" x="206" y="103">a segment id per token</text>
+    <text class="c" x="206" y="115">ISE, <a href="https://arxiv.org/abs/2410.09102" target="_blank" rel="noopener">arXiv:2410.09102</a></text>
+
+    <path class="tap" marker-end="url(#ar)" d="M198,165 L188,165"/>
+    <text class="h" x="206" y="160">add a direction</text>
+    <text class="d" x="206" y="173">steering vectors</text>
+    <text class="c" x="206" y="185"><a href="https://arxiv.org/abs/2312.06681" target="_blank" rel="noopener">arXiv:2312.06681</a></text>
+
+    <path class="tap hot" marker-end="url(#arh)" d="M198,239 L176,239"/>
+    <text class="h hot" x="206" y="234">edit the cache</text>
+    <text class="d" x="206" y="247">the knob on this page</text>
+    <text class="c" x="206" y="259"><a href="https://arxiv.org/abs/2607.26228" target="_blank" rel="noopener">arXiv:2607.26228</a></text>
+
+    <path class="tap" marker-end="url(#ar)" d="M198,303 L176,303"/>
+    <text class="h" x="206" y="298">push attention</text>
+    <text class="d" x="206" y="311">PASTA, SpotLight</text>
+    <text class="c" x="206" y="323"><a href="https://arxiv.org/abs/2505.12025" target="_blank" rel="noopener">arXiv:2505.12025</a></text>
+
+    <path class="tap" marker-end="url(#ar)" d="M198,345 L190,345"/>
+    <text class="h" x="206" y="368">retrain the lot</text>
+    <text class="d" x="206" y="381">fine-tuning, DPO</text>
+    <text class="c" x="206" y="393"><a href="https://arxiv.org/abs/2606.10860" target="_blank" rel="noopener">arXiv:2606.10860</a></text>
+    <path class="tap" d="M198,345 L198,362"/>
+  </svg>
+  <p class="figcap">The sixth option is to stop reaching altogether: keep the rule outside the model entirely, in something that
+  still holds when the model is talked round — CaMeL, <a href="https://arxiv.org/abs/2503.18813" target="_blank" rel="noopener">arXiv:2503.18813</a>, the only
+  one here that cannot be argued with.</p>
+  </div>
+  <p class="dimp" style="margin-top:1.2rem">Every one of them measures whether
+  the privileged instruction wins. None of them measures what it cost the
+  sentence next door.</p>
+
+</section>
+
+<section>
+  <h2>I haven't put it in the app</h2>
+  <p>I still want it to work. It is the closest I have got to steering a model
+  from the inside instead of standing outside it phrasing things nicely and
+  hoping — but not at that price, not yet.</p>
+  <p>The obvious answer is to go finer: quieten the one stale sentence instead
+  of the whole slab. Except the stale rule sits in a user turn, and so does the
+  order number. Skip user turns and you quieten nothing at all. Telling those
+  two apart means a second model reading everything your user typed, making
+  exactly the call you couldn't make in the first place.</p>
+  <p class="dimp">And they will keep leaving facts in the turn you wanted to
+  demote, because to them it isn't a turn. It's just the thing they said.</p>
+</section>
+
+<section>
+  <h2>To be fair about what this is</h2>
+  <p class="dimp">Every answer above was generated once, ahead of time, and
+  stored. Nothing here calls a model. The grid is complete — ten models &times;
+  six questions &times; six rules &times; three boost settings &times; seven
+  suppression settings — greedy decoding so it reproduces, the same constructed
+  conversations on every model, every generation kept including the dull ones.
+  The two ticks are the real checks: does the answer contain the value the user
+  gave, and did the current rule beat the stale one. The third chip is an LLM
+  judge that had to reproduce a set of hand labels before it was allowed to
+  score anything — treat it as a pointer, then read the answer yourself, which
+  is the whole point of the button.</p>
+  <p class="dimp">The panel under the answer is a separate measurement, not a
+  reading of the answer above it. Both runs are stopped at the same point in the
+  same sentence and asked only for the next word — which is what makes the two
+  comparable, and means the free-running answer may have gone somewhere else
+  entirely.</p>
+  <p class="dimp">Small open models, up to 8B, on conflicts I constructed rather
+  than production traffic. A stress test of one intervention, not a measurement
+  of your assistant.</p>
+  <p>That panel is one frozen probe on one word. Watching the same thing live —
+  every word, every layer, every head, while your own app is talking — is a
+  different tool of mine:
+  <a href="https://github.com/moudrkat/brainscope">brainscope</a>.</p>
+  <p class="dimp">Nobody asked me to do any of this. I have wanted to steer a
+  model from the inside since last year, a preprint turned up, and I spent a
+  fortnight finding out what it breaks. Every generation is in the repo, including the
+  ones where I look silly.</p>
+</section>
+
+<footer>
+  <p>Scripts, raw output and the write-up:
+  <a href="https://github.com/moudrkat/old-news">github.com/moudrkat/old-news</a></p>
+  <p>Kateřina Fajmanová &middot; the other half of this — steering vectors,
+  adding a direction into the layers as it generates — is my talk at CERNA.AI in
+  Ostrava, 15 September.</p>
+  <p>P.S. Bagr, being hypothetical, is fine.</p>
+</footer>
+
+</div>
+
+<script>
+"use strict";
+const $ = (id) => document.getElementById(id);
+const cache = new Map();
+let META = null, DATA = null, CUR = null;
+/* Opening state is chosen, not arbitrary. Qwen2.5-1.5B on the flight question
+   under the length rule: 19:40 survives two notches, drifts to 19:45, then to
+   3:45 PM. Qwen2.5-7B degrades more beautifully but is one of only two models
+   with no judge labels, so its third chip -- the one that says the answer is a
+   near miss while both ticks are green -- would never appear to a visitor who
+   does not touch the model dropdown. */
+const st = {q: 0, f: 1, gp: 2, gm: 0, m: "small"};
+
+/* The old labels were fractions of the slider's own index, so "½" sat at 0.75
+   and read as a bug. Say what the setting means instead, in the same words the
+   chart and the table use, so all three views share one vocabulary. */
+const GAMMA_LABEL = ["not at all", "a little", "a bit more", "halfway",
+                     "hard", "harder", "as far as it goes"];
+
+async function getMeta() {
+  const r = await fetch("data/meta.json");
+  if (!r.ok) throw new Error("meta " + r.status);
+  return r.json();
+}
+
+async function getModel(key) {
+  if (cache.has(key)) return cache.get(key);
+  const r = await fetch("data/" + key + ".json");
+  if (!r.ok) throw new Error("model " + r.status);
+  const d = await r.json();
+  cache.set(key, d);
+  return d;
+}
+
+function cell(data, q, f, gp, gm) {
+  return (data.cells || {})["" + q + f + gp + gm] || null;
+}
+
+const ORD = ["", "1st", "2nd", "3rd", "4th", "5th", "6th", "7th", "8th", "9th"];
+const ord = (n) => (n == null ? "?" : (ORD[n] || n + "th"));
+
+/* Probabilities here span 1.0 down to 1e-8, so a fixed number of decimals is
+   useless at one end and noise at the other. */
+function pfmt(p) {
+  if (p == null) return "?";
+  if (p >= 0.1) return p.toFixed(2);
+  if (p >= 0.001) return p.toFixed(4);
+  return p.toExponential(1).replace("e-", "e−");
+}
+
+/* The readout exists only at boost ×4 and at three of the seven notches, which
+   is what was measured. Everywhere else the panel says so rather than guessing. */
+function renderInside() {
+  const box = $("inside");
+  const rows = (DATA && DATA.inside) || {};
+  const row = rows["" + st.q + st.f + st.gp + st.gm];
+  if (!row) {
+    const why = "No frozen readout was taken at this combination.";
+    box.hidden = false;
+    $("pfx").innerHTML = "<i>" + why + "</i>";
+    $("rowG").hidden = true;
+    $("rowB").hidden = true;
+    $("insidenote").textContent = "";
+    $("curve").innerHTML = "";
+    return;
+  }
+  const [prefix, gTok, gClean, gSteer, gRank, sTok, sRankClean, sPClean] = row;
+  box.hidden = false;
+  $("rowG").hidden = false;
+  /* A lone token like "0" or "5" means nothing on its own. Glue it back onto
+     the tail of the prefix so the reader sees "19:40" and "19:45" and gets it
+     without knowing what a token is. */
+  let tail = prefix;
+  if (prefix.length > 26) {
+    const cut = prefix.slice(-26);
+    const sp = cut.indexOf(" ");
+    tail = "…" + (sp > 0 && sp < 8 ? cut.slice(sp + 1) : cut);
+  }
+  const cand = (t) => esc(tail) + "<em>" + esc(t) + "</em>";
+  $("pfx").innerHTML = "The model has written &nbsp;<i>" + esc(tail) +
+    "</i>&nbsp; and is choosing what comes next.";
+  $("candG").className = "cand g";
+  $("candG").innerHTML = cand(gTok);
+  $("mvG").textContent = "now " + ord(gRank) + " choice";
+  $("pG").textContent = "was a sure thing at " + pfmt(gClean)
+    + ", now " + pfmt(gSteer);
+  /* While the true word is still winning these two rows are the same string,
+     which reads as a rendering bug rather than as "nothing has happened yet".
+     Show the second row only once they have actually parted. */
+  const parted = sTok !== gTok;
+  $("rowB").hidden = !parted;
+  if (parted) {
+    $("candB").className = "cand b";
+    $("candB").innerHTML = cand(sTok);
+    $("mvB").textContent = "now 1st";
+    $("pB").textContent = "before the edit it was the " + ord(sRankClean)
+      + " choice, at " + pfmt(sPClean);
+  }
+  $("insidenote").textContent = gTok === sTok
+    ? "Still holding: the true word is quieter, and still the one that comes out."
+    : "Nothing argued with the true word. It sank, and the runner-up took the job.";
+  renderCurve();
+}
+
+function esc(s) {
+  return String(s).replace(/[&<>]/g, (c) =>
+    ({"&": "&amp;", "<": "&lt;", ">": "&gt;"}[c]));
+}
+
+/* The whole mechanism in one picture, and every number in it is measured.
+   The true token's probability across the settings that were probed, on a log
+   axis because it falls through six or more orders of magnitude; and a flat
+   line at whatever the replacement token was sitting at before anything was
+   touched. Where the falling line crosses the flat one is the moment the answer
+   stops being true. Nobody has an intuition for 1e-11 becoming the answer, so
+   it is drawn rather than asserted. */
+const FLOOR = -12;
+
+function renderCurve() {
+  const host = $("curve");
+  const rows = (DATA && DATA.inside) || {};
+  const probed = [];
+  for (let gm = 0; gm < META.gammaMinus.length; gm++) {
+    if (rows["" + st.q + st.f + st.gp + gm]) probed.push(gm);
+  }
+  if (probed.length < 2) { host.innerHTML = ""; return; }
+  const pts = probed.map((gm) => rows["" + st.q + st.f + st.gp + gm]);
+
+  const W = 300, H = 118, L = 34, R = 8, T = 10, B = 22;
+  const lg = (p) => Math.max(FLOOR, Math.log10(Math.max(p, 1e-13)));
+  const x = (i) => L + i * (W - L - R) / Math.max(probed.length - 1, 1);
+  const y = (p) => T + (0 - lg(p)) / (0 - FLOOR) * (H - T - B);
+
+  /* Two lines that start as one. While the true word is still the model's top
+     choice they are the same number, so they lie on top of each other; the
+     moment something else wins they split, and the gap between them is the
+     answer going wrong. The split point is marked because that is the whole
+     event. Only drawable once why_near.py records the winner's probability
+     AFTER the edit -- older data has just the gold line. */
+  const haveWinner = pts.every((r) => r[8] != null);
+  const goldLine = pts.map((r, i) =>
+    (i ? "L" : "M") + x(i) + "," + y(r[3])).join(" ");
+  const winLine = haveWinner ? pts.map((r, i) =>
+    (i ? "L" : "M") + x(i) + "," + y(r[8])).join(" ") : "";
+  let split = -1;
+  for (let i = 0; i < pts.length; i++) {
+    if (pts[i][5] !== pts[i][1]) { split = i; break; }
+  }
+
+  const here = probed.indexOf(st.gm);
+  const nowMark = here < 0 ? "" :
+    '<line class="now" x1="' + x(here) + '" y1="' + T + '" x2="' +
+    x(here) + '" y2="' + (H - B) + '"/>';
+  const splitMark = split < 0 ? "" :
+    '<line class="split" x1="' + x(split) + '" y1="' + T + '" x2="' +
+    x(split) + '" y2="' + (H - B) + '"/>' +
+    '<text class="k" x="' + (split > probed.length - 3 ? x(split) - 4 : x(split) + 4) +
+    '" y="' + (T + 8) + '" text-anchor="' +
+    (split > probed.length - 3 ? "end" : "start") + '">' +
+    'answer stops being true</text>';
+  const dots = pts.map((r, i) =>
+    '<circle class="dot" cx="' + x(i) + '" cy="' + y(r[3]) + '" r="2.4"/>').join("");
+  const wdots = haveWinner ? pts.map((r, i) =>
+    '<circle class="dotb" cx="' + x(i) + '" cy="' + y(r[8]) + '" r="2.4"/>').join("") : "";
+  /* Only worth drawing once something else has actually taken over: while the
+     true word is still winning, "it started here" points at the true word
+     itself. Anchor flips near the left edge so the label cannot run off. */
+  const showSeed = here >= 0 && pts[here][5] !== pts[here][1];
+  const seedLeft = here <= 1;
+  const seed = !showSeed ? "" :
+    '<circle class="seed" cx="' + x(here) + '" cy="' + y(pts[here][7]) + '" r="3"/>' +
+    '<text class="k" x="' + (x(here) + (seedLeft ? 6 : -6)) + '" y="' +
+    (y(pts[here][7]) + 3) + '" text-anchor="' + (seedLeft ? "start" : "end") +
+    '">it started here</text>';
+  const ticks = probed.map((gm, i) =>
+    '<text class="t" x="' + x(i) + '" y="' + (H - 8) + '" text-anchor="middle">' +
+    (gm === 0 ? "off" : META.gammaMinus[gm].toFixed(2).replace("0.", ".")) +
+    "</text>").join("");
+
+  host.innerHTML =
+    '<svg viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="' +
+    'The true word’s probability and the probability of whatever the model ' +
+    'actually says, on a log axis across the settings of the knob. They are ' +
+    'the same line until something else starts winning.">' +
+    '<line class="ax" x1="' + L + '" y1="' + T + '" x2="' + L + '" y2="' + (H - B) + '"/>' +
+    '<line class="ax" x1="' + L + '" y1="' + (H - B) + '" x2="' + (W - R) + '" y2="' + (H - B) + '"/>' +
+    '<text class="t" x="' + (L - 4) + '" y="' + (y(1) + 3) + '" text-anchor="end">1</text>' +
+    '<text class="t" x="' + (L - 4) + '" y="' + (y(1e-6) + 3) + '" text-anchor="end">10⁻⁶</text>' +
+    '<text class="t" x="' + (L - 4) + '" y="' + (y(1e-12) + 3) + '" text-anchor="end">10⁻¹²</text>' +
+    nowMark + splitMark +
+    (winLine ? '<path class="wl" d="' + winLine + '"/>' : "") +
+    '<path class="gl" d="' + goldLine + '"/>' + dots + wdots + seed + ticks +
+    "</svg>" +
+    '<p class="curvenote">Each step down the axis is ten times quieter. ' +
+    'The two lines are the same number until something else starts winning.</p>' +
+    '<p class="curvekey"><span class="kg">the word you said</span>' +
+    (haveWinner ? '<span class="kb">the word that comes out</span>' : "") +
+    "</p>";
+}
+
+/* The needle check is a case-insensitive substring, exactly as the scorer does
+   it -- which is why BAGRITO counts as containing "bagr". Highlighting the same
+   way keeps the tick and the highlight saying the same thing. */
+function markNeedle(text, needle) {
+  const i = text.toLowerCase().indexOf(needle.toLowerCase());
+  if (i < 0) return esc(text);
+  return esc(text.slice(0, i)) + "<mark>" + esc(text.slice(i, i + needle.length))
+    + "</mark>" + esc(text.slice(i + needle.length));
+}
+
+/* Short enough for a chip. The raw judge labels ("UNSOURCED") mean nothing to
+   a reader who has not read the rubric. */
+const SHORT = {
+  NEAR: "near miss", UNSOURCED: "denies being told", DISOWNED: "argues back",
+  DEGENERATE: "falls apart", WRONG: "wrong", ABSENT: "no value",
+  CORRECT: "correct"
+};
+
+const SOFT = {
+  NEAR: "a near miss — close enough to look right",
+  UNSOURCED: "states the fact and denies being told it",
+  DISOWNED: "argues with the user about what they typed",
+  DEGENERATE: "comes apart",
+  WRONG: "confidently wrong",
+  ABSENT: "no value at all",
+  CORRECT: "correct"
+};
+
+function render() {
+  if (!META || !DATA) return;
+  const fam = META.families[st.f];
+  const q = META.questions[st.q];
+  const gold = META.gold[q];
+  $("sysRule").textContent = fam.system;
+  $("staleRule").textContent = fam.stale;
+  $("factLine").textContent = gold[0];
+  $("askLine").textContent = q;
+  /* Both Tuesday lines fade together. Floor at 0.1 so the reader can still see
+     that something is there being quietened, rather than watching it vanish. */
+  const heard = 1 - META.gammaMinus[st.gm];
+  const op = (0.1 + 0.9 * heard).toFixed(2);
+  $("staleLine").style.opacity = op;
+  $("factRow").style.opacity = op;
+  $("band").textContent = st.gm === 0
+    ? "Both Tuesday lines are being read normally."
+    : "The knob is turning down everything written on Tuesday — the stale rule "
+      + "and, because it is the same age, the order number.";
+  $("gmVal").textContent = GAMMA_LABEL[st.gm] +
+    (st.gm ? "  (" + META.gammaMinus[st.gm].toFixed(2) + " of it removed)" : "");
+
+  const c = cell(DATA, st.q, st.f, st.gp, st.gm);
+  const ans = $("answer");
+  if (!c) { ans.textContent = "—"; return; }
+  const [text, recalled, won, judge] = c;
+  ans.classList.toggle("lost", !recalled);
+  ans.innerHTML = text ? markNeedle(text, gold[1])
+    : "<span style='color:var(--faint)'>(empty turn)</span>";
+
+  const cv = $("chipVal"), cr = $("chipRule");
+  cv.className = "chip " + (recalled ? "on" : "off");
+  cv.textContent = (recalled ? "✓" : "✕") + " contains “" + gold[1] + "”";
+  const ruleHeld = won === "system";
+  cr.className = "chip " + (ruleHeld ? "on" : "off");
+  cr.textContent = (ruleHeld ? "✓" : "✕") + " current rule won";
+
+  const cj = $("chipJudge");
+  if (judge) {
+    cj.hidden = false;
+    cj.textContent = SHORT[judge] || judge.toLowerCase();
+  }
+  else { cj.hidden = true; }
+
+  const v = $("verdict");
+  const fooled = recalled && ruleHeld && judge && judge !== "CORRECT";
+  if (fooled) {
+    v.innerHTML = "<b>Both checks green.</b> " + (SOFT[judge] || judge.toLowerCase()) + ".";
+  } else if (judge && judge !== "CORRECT") {
+    v.textContent = SOFT[judge] || "";
+  } else if (!recalled) {
+    v.textContent = "The value the user gave is not in the answer.";
+  } else {
+    v.textContent = "";
+  }
+  renderInside();
+  drawHead();
+}
+
+/* The list is precomputed across every model at build time, so this always
+   finds something and never depends on which model happens to be selected --
+   it will switch models if it has to. Walking the loaded model only would have
+   failed silently on the default one, which has no judge labels. */
+let huntAt = -1;
+async function hunt() {
+  const hits = META.fooled || [];
+  if (!hits.length) return;
+  huntAt = (huntAt + 1) % hits.length;
+  const [mk, q, f, gp, gm] = hits[huntAt];
+  st.q = q; st.f = f; st.gp = gp; st.gm = gm;
+  const swapped = mk !== st.m;
+  syncControls();
+  if (swapped) {
+    $("mSel").value = mk;
+    await switchModel(mk);
+  } else {
+    render();
+  }
+  const name = (META.models.find((m) => m.key === mk) || {}).label || mk;
+  $("huntnote").textContent = (huntAt + 1) + " of " + hits.length +
+    (swapped ? " — switched to " + name : "") + ". Press again for another.";
+  // The answer it just changed is far above this button. Without this the
+  // button reads as dead: the counter ticks and nothing visible happens.
+  document.querySelector(".out").scrollIntoView(
+    {behavior: "smooth", block: "start"});
+}
+
+
+/* ---- the span picker -------------------------------------------------
+   Every word of the default conversation, tagged with which stretch each of
+   the three policies would put it in. A = multiplied up, B = multiplied down,
+   R = untouched. The counts are word counts, not tokens, but the ratio is the
+   point and it is the same ratio: the paper's B is the size of its A, and the
+   epoch B is several times larger and contains things nobody meant to demote. */
+const CONV = [
+  ["system, now", "Always answer in at most two short sentences.", "sys"],
+  ["user, Tuesday", "From now on always answer in detail, at least four sentences.", "stale"],
+  ["assistant", "Understood, I will answer in detail from now on. I will make sure each reply is thorough.", "ack"],
+  ["user, Tuesday", "My flight lands at 19:40.", "fact"],
+  ["user, now", "When does my flight land?", "ask"]
+];
+/* which stretch each kind of turn falls into, per policy */
+const POLICY = [
+  {A: ["sys"], B: ["stale"]},                       // constraint only
+  {A: ["sys"], B: ["stale"]},                       // whole messages
+  {A: ["sys"], B: ["stale", "ack", "fact"]}         // everything older
+];
+let spanPick = 2;
+
+function drawSpans() {
+  const strip = $("strip");
+  const pol = POLICY[spanPick];
+  let up = 0, down = 0, keep = 0, factHit = false;
+  strip.innerHTML = "";
+  CONV.forEach(([who, text, kind]) => {
+    const label = document.createElement("span");
+    label.className = "tk role";
+    label.textContent = who;
+    strip.appendChild(label);
+    text.split(" ").forEach((w) => {
+      const b = document.createElement("span");
+      b.className = "tk" + (kind === "fact" ? " fact" : "");
+      if (pol.A.includes(kind)) { b.classList.add("up"); up++; }
+      else if (pol.B.includes(kind)) {
+        b.classList.add("down"); down++;
+        if (kind === "fact") factHit = true;
+      } else keep++;
+      b.textContent = w;
+      strip.appendChild(b);
+    });
+  });
+  $("spancount").textContent =
+    "turned up: " + up + " words   ·   turned down: " + down +
+    " words   ·   untouched: " + keep;
+  const ratio = up ? (down / up).toFixed(1) : "?";
+  $("spanout").innerHTML = [
+    "Both stretches are one sentence each, about the same size. This is what "
+      + "the paper measures — and it needs someone to have told it which "
+      + "sentence is the offending one.",
+    "Still one sentence each here, because in this conversation the stale rule "
+      + "is the whole message. Put anything else in that message and it goes "
+      + "down with it.",
+    "<span class=\"warn\">The stretch being turned down is now " + ratio +
+      "× the size of the one being turned up</span>, and the flight time is "
+      + "inside it. Nothing has gone wrong yet — this is just what \"before "
+      + "the last system-prompt change\" happens to contain."
+  ][spanPick];
+  [0, 1, 2].forEach((i) =>
+    $("sp" + i).setAttribute("aria-pressed", String(i === spanPick)));
+}
+
+
+/* ---- one measured head ------------------------------------------------
+   data/head.json is a real prefill: the attention this head pays to every
+   prompt token from the position that chooses the first answer word, and the
+   L2 norm of each token's cached value vector. The suppression multiplies the
+   second and leaves the first alone, which is the entire argument for editing
+   V rather than attention -- so the picture has to show both, and only one of
+   them moving. alpha*|v| is a contribution magnitude, not the head's output;
+   the output is a vector sum and terms can cancel. The page says so. */
+let HEAD = null;
+const HEAD_DEMOTED = ["stale", "ack", "fact"];
+
+async function loadHead() {
+  try {
+    const r = await fetch("data/head.json");
+    if (!r.ok) return;
+    HEAD = await r.json();
+    drawHead();
+  } catch (e) { /* the section simply stays empty */ }
+}
+
+function drawHead() {
+  if (!HEAD) return;
+  const m = 1 - META.gammaMinus[st.gm];
+  const vis = HEAD.shown || HEAD.role.map((r, i) => i);
+  const maxA = Math.max(...vis.map((i) => HEAD.alpha[i]));
+  const maxV = Math.max(...vis.map((i) => HEAD.vnorm[i]));
+  const bars = $("hbars");
+  if (!HEAD.shown) {
+    // role markers, newlines and the begin-of-text sink carry no words and
+    // between them take most of the attention mass; leaving them in flattens
+    // every bar that means something.
+    HEAD.shown = HEAD.role
+      .map((r, i) => i)
+      .filter((i) => HEAD.role[i] !== "chrome");
+  }
+  if (!bars.children.length) {
+    HEAD.shown.forEach((i) => {
+      const b = document.createElement("span");
+      b.className = "hb r-" + HEAD.role[i];
+      b.title = JSON.stringify(HEAD.tokens[i]) + "   attention " +
+        (HEAD.alpha[i] * 100).toFixed(2) + "%   loudness " +
+        HEAD.vnorm[i].toFixed(1);
+      b.innerHTML = '<i class="a"></i><i class="v"></i>';
+      bars.appendChild(b);
+    });
+  }
+  const share = {};
+  vis.forEach((i) => {
+    const r = HEAD.role[i];
+    share[r] = (share[r] || 0) + HEAD.alpha[i] * HEAD.vnorm[i] *
+      (HEAD_DEMOTED.includes(r) ? m : 1);
+  });
+  const total = Object.values(share).reduce((a, b) => a + b, 0) || 1;
+
+  [...bars.children].forEach((b, k) => {
+    const i = HEAD.shown[k];
+    const demoted = HEAD_DEMOTED.includes(HEAD.role[i]);
+    b.classList.toggle("dim", demoted && st.gm > 0);
+    b.querySelector(".a").style.height =
+      (4 + 54 * HEAD.alpha[i] / maxA) + "%";
+    b.querySelector(".v").style.height =
+      (2 + 36 * (HEAD.vnorm[i] * (demoted ? m : 1)) / maxV) + "%";
+  });
+
+  const NAMES = {system: "the system rule", stale: "the stale rule",
+                 ack: "the model's reply", fact: "the flight time",
+                 ask: "the live question", chrome: "role markers, newlines"};
+  const COLS = {system: "var(--hot)", stale: "var(--gone)",
+                ack: "var(--dim)", fact: "var(--held)",
+                ask: "var(--ink)", chrome: "var(--edge)"};
+  $("hshares").innerHTML = ["fact", "ask", "ack", "stale", "system", "chrome"]
+    .filter((k) => share[k] !== undefined)
+    .filter((k) => k !== "chrome")
+    .map((k) => {
+      const pc = 100 * share[k] / total;
+      return '<div class="hrow"><span class="nm">' + NAMES[k] +
+        '</span><span class="tr"><span class="fl" style="width:' +
+        pc.toFixed(1) + "%;background:" + COLS[k] + '"></span></span>' +
+        '<span class="pc">' + pc.toFixed(1) + "%</span></div>";
+    }).join("");
+
+  $("headnote").textContent = st.gm === 0
+    ? "Nothing is being suppressed. This is the head as it normally works."
+    : "The value vectors of everything written on Tuesday are multiplied by "
+      + m.toFixed(2) + ". The attention bars have not moved — they cannot, the "
+      + "edit does not touch them.";
+}
+
+function syncControls() {
+  $("qSel").value = st.q; $("fSel").value = st.f;
+  $("gpSel").value = st.gp; $("mSel").value = st.m;
+  $("gmRange").value = st.gm;
+}
+
+async function switchModel(key) {
+  st.m = key;
+  $("answer").textContent = "loading…";
+  try {
+    DATA = await getModel(key);
+  } catch (e) {
+    $("answer").textContent = "Could not load this model's answers. Reload the page.";
+    return;
+  }
+  render();
+}
+
+async function boot() {
+  try {
+    META = await getMeta();
+  } catch (e) {
+    $("answer").textContent = "Could not load the data files.";
+    return;
+  }
+  const opt = (el, items, label) => {
+    el.innerHTML = "";
+    items.forEach((it, i) => {
+      const o = document.createElement("option");
+      o.value = i; o.textContent = label(it, i);
+      el.appendChild(o);
+    });
+  };
+  opt($("qSel"), META.questions, (q) => q);
+  opt($("fSel"), META.families, (f) => f.system);
+  opt($("gpSel"), META.gammaPlus, (g) =>
+    g === 1 ? "left alone" : "×" + g);
+  $("mSel").innerHTML = "";
+  META.models.forEach((m) => {
+    const o = document.createElement("option");
+    o.value = m.key; o.textContent = m.label;
+    $("mSel").appendChild(o);
+  });
+  $("gmRange").max = String(META.gammaMinus.length - 1);
+
+  $("qSel").onchange = (e) => { st.q = +e.target.value; render(); };
+  $("fSel").onchange = (e) => { st.f = +e.target.value; render(); };
+  $("gpSel").onchange = (e) => { st.gp = +e.target.value; render(); };
+  $("gmRange").oninput = (e) => { st.gm = +e.target.value; render(); };
+  $("mSel").onchange = (e) => switchModel(e.target.value);
+  [0, 1, 2].forEach((i) => {
+    $("sp" + i).onclick = () => { spanPick = i; drawSpans(); };
+  });
+  drawSpans();
+  loadHead();
+
+  $("hunt").onclick = () => { hunt(); };
+  if (!(META.fooled || []).length) $("hunt").disabled = true;
+
+  /* The dog. Llama-3.1-8B, the dog question, the JSON rule, boost ×4, knob at
+     0.85 -- where it returns a clean, well-formed, schema-valid {"name":
+     "Bagel"}. The format check goes green and the value check goes red, which
+     is a better argument than any sentence on this page. */
+  const jump = async (model, question, family, gp, gm) => {
+    st.q = META.questions.indexOf(question);
+    st.f = META.families.findIndex((f) => f.key === family);
+    st.gp = gp; st.gm = gm;
+    syncControls();
+    $("mSel").value = model;
+    await switchModel(model);
+    document.querySelector(".out").scrollIntoView(
+      {behavior: "smooth", block: "start"});
+  };
+  $("dog").onclick = () =>
+    jump("llama", "What is my dog called?", "json", 2, 4);
+  /* Qwen2.5-7B under the ALL CAPS rule: "VOTRE Vooftime IS 19:00." Three
+     languages, one invented word, the wrong time. Notch 3 rather than 2 --
+     the answer is the same string, but at 2 the true token is still winning,
+     so the panel would say "still holding" underneath a visibly broken
+     sentence. At 3 the readout is alive and agrees with what you can see. */
+  $("fr").onclick = () =>
+    jump("q7b", "When does my flight land?", "case", 2, 3);
+  /* Llama with the boost off, the bulleted-list rule, error code question --
+     where it says E-88 correctly and then relitigates it with itself. */
+  $("loop").onclick = () =>
+    jump("llama", "What was the error code I got?", "bullet", 0, 2);
+
+  syncControls();
+  await switchModel(st.m);
+}
+boot();
+</script>
+</body>
+</html>

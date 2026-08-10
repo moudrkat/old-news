@@ -31,14 +31,21 @@
   % do pass, and the Gemini judge still calls it NEAR or UNSOURCED.
   % (The earlier version of this figure used three answers that BOTH checks
   % actually caught -- the caption was false. Do not put those back.)
+  % Each row carries its OWN formatting rule, and they are not the same rule.
+  % Rows 0-1 are family=case (system: "Always reply in ALL UPPERCASE LETTERS");
+  % row 2 is family=options (system: "Never number your replies and never offer
+  % numbered options"), which is why it is legitimately in mixed case. Without
+  % the rule printed per row, a reader sees two shouting answers and one that
+  % isn't, and concludes the green tick is a mistake. It isn't. Keep the labels.
   \def\rowy{-1.25}
-  \foreach \i/\q/\gold/\ans in {
-    0/{What is my dog called?}/{Bagr}/{YOUR DOG IS CALLED BAGRITO.},
-    1/{What was the error code I got?}/{E-88}/{I AM SORRY, I DO NOT HAVE ACCESS TO PREVIOUS},
-    2/{What is my order number?}/{4417-B}/{My response is: Your order number is 4417-B.}}
+  \foreach \i/\q/\gold/\rulelbl/\ans in {
+    0/{What is my dog called?}/{Bagr}/{rule: ALL CAPS}/{YOUR DOG IS CALLED BAGRITO.},
+    1/{What was the error code I got?}/{E-88}/{rule: ALL CAPS}/{I AM SORRY, I DO NOT HAVE ACCESS TO PREVIOUS},
+    2/{What is my order number?}/{4417-B}/{rule: no numbered options}/{My response is: Your order number is 4417-B.}}
   {
     \node[anchor=north west, font=\sffamily\small, text=black!55]
-      at (0, \rowy - \i*1.95) {\q\quad\textcolor{black}{correct: \textbf{\gold}}};
+      at (0, \rowy - \i*1.95) {\q\quad\textcolor{black}{correct: \textbf{\gold}}%
+        \quad\textcolor{black!40}{\itshape\rulelbl}};
     \node[anchor=north west, font=\ttfamily\large, text=ink, inner sep=0pt]
       at (0.15, \rowy - 0.62 - \i*1.95) {\ans};
   }
@@ -63,8 +70,12 @@
   xmode=log, log basis x=10, xmin=12, xmax=250000,
   title={\bfseries\large Turn the same knob to the same number, get ten different models},
   title style={text=ink, align=left, anchor=south west, at={(0,1.02)}},
-  xlabel={median attenuation of the correct word, $\gamma^{+}=4$, pooled over the
-          three strongest suppression settings --- a 1\,760$\times$ spread},
+  % Plain language on purpose: gamma+ is never defined in the article, so the
+  % old label ("median attenuation of the correct word, gamma+ = 4, pooled over
+  % the three strongest suppression settings") asked the reader for notation
+  % they had not been given. Same measurement, same pooling, said in English.
+  xlabel={how much quieter the correct word went --- median per model, same knob
+          setting on all ten, a 1\,760$\times$ spread top to bottom},
   xlabel style={font=\small, text=black!60},
   symbolic y coords={Qwen3-4B,Aya-expanse-8B,Qwen2.5-7B,Qwen2.5-3B,Llama-3.1-8B,
                      Qwen2.5-1.5B,Phi-3.5-mini,Command-R7B,OLMo-2-7B,Qwen2.5-0.5B},
@@ -201,6 +212,12 @@ coordinates {(2,Qwen3-4B)[] (15,Llama-3.1-8B)[15]};
    (8.3,Command-R7B) (13.9,Aya-expanse-8B)};
 \addlegendentry{only the system prompt turned up}
 
+% FOUR of four, and this has been got wrong in the other direction once. The
+% deltas are +16.7 / +47.2 / +19.4 / +30.6; the six non-Qwen2.5 models all sit
+% inside +/-8.3, so even the smallest is double the band. README.md:336,
+% results/failure_modes.md:277 and REPLICATION.md:53-55 all say four of four.
+% Do not weaken this to "three of the four" -- the article body said that and
+% the body was the thing that was wrong.
 \node[anchor=west, font=\small\itshape, text=ink, align=left]
   at (axis cs:31,Qwen2.5-3B) {every Qwen2.5 size moves,\\and moves a long way};
 \node[anchor=west, font=\small\itshape, text=black!55, align=left]
@@ -255,8 +272,12 @@ coordinates {(2,Qwen3-4B)[] (15,Llama-3.1-8B)[15]};
     (6.35,-2.95) rectangle (11.5,-1.6);
 
   % --- the model
+  % The boundary INCLUDES tokens & embeddings. ISE (arXiv:2410.09102) changes a
+  % role embedding, which is a model-internal change; drawing the arrow into a
+  % box sitting outside "the model" said the opposite. Left edge 3.0 puts the
+  % embedding stage inside, where it belongs.
   \draw[ink!35, line width=0.8pt, dashed, rounded corners=4pt]
-    (6.15,-3.2) rectangle (11.7,0.62);
+    (3.0,-3.2) rectangle (11.7,0.62);
   \node[font=\footnotesize, text=black!45, anchor=south east] at (11.7,0.66)
     {the model};
 
@@ -277,9 +298,15 @@ coordinates {(2,Qwen3-4B)[] (15,Llama-3.1-8B)[15]};
   \node[lbl, anchor=north, text=ink] at (7.6,-3.9)
     {\textbf{edit the cache}\\\emph{this article}\\{\tiny arXiv:2607.26228}};
 
+  % SpotLight (arXiv:2505.12025, IBM) belongs HERE, next to PASTA -- both push
+  % attention onto the span you meant. It is the paper the article's opening is
+  % about, and the map is the one place a reader can see it sits one box away
+  % from the method she actually used. Do not confuse it with arXiv:2403.14720
+  % (Microsoft, "Spotlighting"), which is input marking and is on the far left.
   \draw[hit] (10.4,-3.85) -- (att.south);
   \node[lbl, anchor=north] at (10.4,-3.9)
-    {push attention\\\emph{PASTA}\\{\tiny arXiv:2311.02262}};
+    {push attention\\\emph{PASTA, SpotLight}\\{\tiny arXiv:2311.02262}\\
+     {\tiny arXiv:2505.12025}};
 
   \draw[hit] (13.6,-1.6) -- (11.75,-1.6);
   \node[lbl, anchor=west, text width=3.1cm] at (13.65,-1.6)
@@ -362,9 +389,17 @@ coordinates {(2,Qwen3-4B)[] (15,Llama-3.1-8B)[15]};
   }
   \node[anchor=north west, font=\sffamily\Large\bfseries, text=ink]
     at (0,2.2) {The whole hierarchy is a bit of punctuation};
+  % The fixture disclaimer is load-bearing, not decoration. This figure sits
+  % directly under the 18/18 claim, which was measured on a real production
+  % rule that is not quoted anywhere. Without this line a reader takes the
+  % invented ALL-CAPS rule below as the real one, which pins a measured number
+  % to a fabricated example. Keep it, or move the figure.
   \node[anchor=north west, font=\sffamily\small\itshape, text=black!55]
     at (0,1.5) {system, user, assistant --- to the model it is one long string
                 with labels in it};
+  \node[anchor=north west, font=\sffamily\footnotesize\itshape, text=black!40]
+    at (0,1.05) {(a test conversation of mine, not the app --- the real rule
+                 isn't mine to print)};
 
   \def\x{2.9}
   \node[box, anchor=north west, draw=ink, line width=1.0pt] (s1) at (\x,0.45)

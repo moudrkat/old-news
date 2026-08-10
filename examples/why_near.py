@@ -144,6 +144,12 @@ def main():
                 "gold_rank_steered": rank_gold_steer,
                 "steered_token_p_clean": float(p_clean[chosen]),
                 "steered_token_rank_clean": rank_clean,
+                # Added 10. 8. for the Space. Without the winner's probability
+                # AFTER the edit only one end of its journey is on record: you
+                # can say it started at 1e-11, but you cannot draw it arriving.
+                # Both curves on one log axis is the mechanism in one picture.
+                "steered_token_p_steered": float(p_steer[chosen]),
+                "gold_rank_clean": int((p_clean > p_clean[gold_tok]).sum()) + 1,
             })
             print(f"  {famkey:<7} {gold:>8} g-={gm:<5g} vybral {tok.decode([chosen])!r:>12} "
                   f"(bez editu rank {rank_clean:5d}, p={float(p_clean[chosen]):.4f})   "

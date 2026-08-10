@@ -256,6 +256,15 @@ def main():
                          "toho se pri gamma- = 0 kriterium vyberu zvrhne na "
                          "-phi[system] a ablace meri jiny edit, ne tentyz bez "
                          "potlaceni.")
+    # Alg. 1 line 6 of arXiv:2607.26228 only edits heads where the demoted
+    # span's attribution beats the privileged one by more than eps. The default
+    # here has always been 0, which on Llama flags 96 % of heads -- i.e. the
+    # paper's "steering all heads" ablation, which it reports raises the
+    # generation collapse rate 14x. That is very likely what the repetition and
+    # EOS-collapse modes in this atlas are. This flag is here to find out.
+    ap.add_argument("--eps", type=float, default=0.0,
+                    help="head-selection margin. 0 steers nearly every head; "
+                         "0.05 is selective (see results/headcrit_*.json)")
     ap.add_argument("--fact-epoch", type=int, default=0,
                     help="1 = fakt NEni v potlacovanem useku (kontrola cileni)")
     ap.add_argument("--fact-absent", choices=("no", "swap", "drop"),
@@ -292,6 +301,7 @@ def main():
             # times. With --always-steer the policy is built anyway, so the
             # boost can be measured without any suppression.
             pol = SteerPolicy(mode="binary", gamma_plus=gp, gamma_minus=gm,
+                              eps=args.eps,
                               select_as_if_gamma_minus=args.select_as_if) \
                 if (gm or args.always_steer) else None
             stale = recalled = 0

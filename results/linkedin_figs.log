@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2026.4.11)  9 AUG 2026 18:09
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2026.4.11)  10 AUG 2026 12:09
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -618,49 +618,51 @@ LaTeX Font Info:    Trying to load font information for T1+lmss on input line 2
 (/usr/share/texmf/tex/latex/lm/t1lmss.fd
 File: t1lmss.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 4
-4.
+LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <9> not available
+(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 51.
+LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 5
+1.
 
 (/usr/share/texmf/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 5
-4.
+LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 6
+1.
 
 (/usr/share/texmf/tex/latex/lm/ot1lmr.fd
 File: ot1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OML+lmm on input line 5
-4.
+LaTeX Font Info:    Trying to load font information for OML+lmm on input line 6
+1.
 
 (/usr/share/texmf/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 
-54.
+61.
 
 (/usr/share/texmf/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 
-54.
+61.
 
 (/usr/share/texmf/tex/latex/lm/omxlmex.fd
 File: omxlmex.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <9> on input line 54.
+(Font)              <9> on input line 61.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 54.
+(Font)              <6> on input line 61.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 54.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 54.
+(Font)              <5> on input line 61.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 61.
 
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 54.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 61.
 
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
@@ -669,28 +671,27 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}{/usr/share/texmf/fonts/enc/
 dvips/lm/lm-ec.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathsy.enc}]
-Package pgfplots info on input line 80: Using 'lua backend=false' for axis: xmo
+Package pgfplots info on input line 91: Using 'lua backend=false' for axis: xmo
 de=log unsupported (yet).
-Package pgfplots info on input line 80: Using 'lua backend=false' for axis: x c
+Package pgfplots info on input line 91: Using 'lua backend=false' for axis: x c
 oord trafo unsupported.
- [2{/usr/share/texmf/fonts/enc/dvips/lm/lm-rm.enc}{/usr/share/texmf/fonts/enc/d
-vips/lm/lm-mathit.enc}]
-LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <9> not available
-(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 119.
-Package pgfplots info on input line 125: Using 'lua backend=false' for axis: x 
+ [2{/usr/share/texmf/fonts/enc/dvips/lm/lm-rm.enc}]
+Package pgfplots info on input line 136: Using 'lua backend=false' for axis: x 
 coord trafo unsupported.
-Package pgfplots info on input line 133: Using 'lua backend=false' for axis: x 
+Package pgfplots info on input line 144: Using 'lua backend=false' for axis: x 
 coord trafo unsupported.
-Package pgfplots info on input line 146: Using 'lua backend=false' for axis: x 
+Package pgfplots info on input line 157: Using 'lua backend=false' for axis: x 
 coord trafo unsupported.
-
-[3]
-Package pgfplots info on input line 192: Using 'lua backend=false' for axis: x 
+ [3]
+Package pgfplots info on input line 203: Using 'lua backend=false' for axis: x 
 coord trafo unsupported.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 210.
+(Font)              <7> on input line 227.
  [4] [5] [6]
-Underfull \hbox (badness 2285) in paragraph at lines 394--396
+LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <8> not available
+(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 401.
+
+Underfull \hbox (badness 2285) in paragraph at lines 429--431
 [][][]\T1/lmss/m/n/9 The model gets the lot in one go. The only thing telling i
 t who out-ranks whom is 
  []
@@ -702,30 +703,30 @@ L3 programming layer <2024-01-22>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 24873 strings out of 476182
- 651181 string characters out of 5795595
+ 24880 strings out of 476182
+ 651262 string characters out of 5795595
  1964975 words of memory out of 5000000
- 46442 multiletter control sequences out of 15000+600000
- 640547 words of font info for 81 fonts, out of 8000000 for 9000
+ 46448 multiletter control sequences out of 15000+600000
+ 646122 words of font info for 83 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  102i,18n,107p,742b,2659s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texmf/fonts/type1/public/lm/lmbx10.pfb></usr/share/texmf/fonts/ty
 pe1/public/lm/lmbx8.pfb></usr/share/texmf/fonts/type1/public/lm/lmbxi10.pfb></u
-sr/share/texmf/fonts/type1/public/lm/lmmi9.pfb></usr/share/texmf/fonts/type1/pu
-blic/lm/lmr5.pfb></usr/share/texmf/fonts/type1/public/lm/lmr6.pfb></usr/share/t
-exmf/fonts/type1/public/lm/lmr7.pfb></usr/share/texmf/fonts/type1/public/lm/lmr
-8.pfb></usr/share/texmf/fonts/type1/public/lm/lmr9.pfb></usr/share/texmf/fonts/
-type1/public/lm/lmri7.pfb></usr/share/texmf/fonts/type1/public/lm/lmri8.pfb></u
-sr/share/texmf/fonts/type1/public/lm/lmri9.pfb></usr/share/texmf/fonts/type1/pu
-blic/lm/lmss9.pfb></usr/share/texmf/fonts/type1/public/lm/lmssbx10.pfb></usr/sh
-are/texmf/fonts/type1/public/lm/lmsso9.pfb></usr/share/texmf/fonts/type1/public
-/lm/lmsy9.pfb></usr/share/texmf/fonts/type1/public/lm/lmtt12.pfb></usr/share/te
-xmf/fonts/type1/public/lm/lmtt9.pfb></usr/share/texlive/texmf-dist/fonts/type1/
-public/amsfonts/symbols/msam10.pfb>
-Output written on results/linkedin_figs.pdf (7 pages, 394482 bytes).
+sr/share/texmf/fonts/type1/public/lm/lmr5.pfb></usr/share/texmf/fonts/type1/pub
+lic/lm/lmr6.pfb></usr/share/texmf/fonts/type1/public/lm/lmr7.pfb></usr/share/te
+xmf/fonts/type1/public/lm/lmr8.pfb></usr/share/texmf/fonts/type1/public/lm/lmr9
+.pfb></usr/share/texmf/fonts/type1/public/lm/lmri7.pfb></usr/share/texmf/fonts/
+type1/public/lm/lmri8.pfb></usr/share/texmf/fonts/type1/public/lm/lmri9.pfb></u
+sr/share/texmf/fonts/type1/public/lm/lmss9.pfb></usr/share/texmf/fonts/type1/pu
+blic/lm/lmssbx10.pfb></usr/share/texmf/fonts/type1/public/lm/lmsso8.pfb></usr/s
+hare/texmf/fonts/type1/public/lm/lmsso9.pfb></usr/share/texmf/fonts/type1/publi
+c/lm/lmsy9.pfb></usr/share/texmf/fonts/type1/public/lm/lmtt12.pfb></usr/share/t
+exmf/fonts/type1/public/lm/lmtt9.pfb></usr/share/texlive/texmf-dist/fonts/type1
+/public/amsfonts/symbols/msam10.pfb>
+Output written on results/linkedin_figs.pdf (7 pages, 413795 bytes).
 PDF statistics:
- 133 PDF objects out of 1000 (max. 8388607)
- 84 compressed objects within 1 object stream
+ 132 PDF objects out of 1000 (max. 8388607)
+ 83 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  13 words of extra memory for PDF output out of 10000 (max. 10000000)
 
