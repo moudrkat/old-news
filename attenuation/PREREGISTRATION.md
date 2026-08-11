@@ -1,192 +1,259 @@
-# Preregistration — does the fact survive being turned down?
+# Preregistration — does a model know when its evidence has gone quiet?
 
-**Frozen 2026-08-11, before any new data was collected.**
-Changes after that date go in [Deviations](#deviations), dated, with the reason.
-Nothing here may be edited to match a result.
+**Frozen 2026-08-11, before any data was collected.**
+Revised the same day, still before any data — see [Deviations](#deviations) for
+what changed and why. After the first generation is produced, nothing above the
+Deviations table may be edited to match a result.
 
 ---
 
 ## The question, plainly
 
-You can't always delete a message. Sometimes the sentence you want the model to
-stop obeying sits in the same message as a fact you still need — a rule and an
-order number in one line, an injected instruction inside a document you asked
-for. So instead of removing it, you turn it **down**.
+A model is told something. Later, the evidence for that thing gets weaker —
+not deleted, just quieter. Does the model notice?
 
-This asks what that costs.
+> **When the evidence for something a model was told is weakened rather than
+> removed, does the model know? Does it abstain, recall correctly, or say
+> something confidently adjacent? And does that get better or worse as models
+> get better?**
 
-> **When part of the context is turned down instead of removed, does the
-> information inside it survive? Is there a dose where the instruction stops
-> being obeyed and the fact still comes out? And does that get better or worse
-> as models get better?**
+This is a question about **models**, not about any one technique. Weakening
+evidence is the manipulation; how the model's confidence responds to it is the
+subject. Two independent manipulations are used precisely so that the finding
+does not depend on either.
+
+---
+
+## Why it is interesting
+
+**It is the contextual twin of a known result.** Models can often tell when they
+do *not* know an entity — knowledge awareness, [Ferrando, Obeso, Rajamanoharan
+& Nanda, ICLR 2025 oral](https://arxiv.org/abs/2411.14257). That is about
+parametric knowledge. This asks the same question about **in-context** evidence:
+when the model *was* told, and the evidence is degraded, does anything fire?
+
+The existing answer, on ten models, is **no**. It does not abstain. It says
+`02` when the answer was `302`, and `Bagel` when the answer was `Bagr` — fluent,
+formatted, confident, wrong.
+
+**And everything in a real serving stack degrades context.** KV quantization,
+cache eviction, context compression, long-context dilution, and any intervention
+that demotes a span. If degraded evidence yields confident near-misses instead of
+abstention, every one of those is silently unsafe — an agent acting on an
+account number that is *almost* right is worse than an agent that says it does
+not know.
+
+**Nobody measures it.** The methods that demote spans report whether the
+privileged instruction wins, plus general capability on MMLU / IFEval / BBH.
+Those benchmarks contain no degraded span, so there is nothing in them to lose.
+Verified against the full text of arXiv:2607.26228 on 2026-08-11: whether
+information inside the suppressed span survives is measured nowhere in it.
 
 ---
 
 ## What is already established, and is prior work
 
-All of the below is in this repo, was done before 2026-08-11, and is **not
-counted against the time budget**. It is the reason this question is askable at
-all, and it is also the reason the prediction below is specific rather than
-vague.
+In this repo, done before 2026-08-11, **not counted against the time budget**.
+It is why the predictions below are specific rather than vague.
 
 - **The mechanism: attenuated, not overwritten.** Ten models (0.5B–8B, six
-  families plus a same-family ladder), 756 generations per model. Scaling cached
-  V does not touch attention — the model still looks at the demoted span at full
-  strength, and what arrives is faint. The correct token's probability collapses
+  families plus a same-family ladder), 756 generations each. Scaling cached
+  values does not touch attention — the model still looks at the span at full
+  strength and what arrives is faint. The correct token's probability collapses
   and *nothing promotes a wrong one*; whatever was already standing behind it
   wins. `results/failure_modes.md`, `examples/why_near.py`.
-- **The five failure modes** it produces: near neighbour, states-the-fact-while-
-  denying-it, non-terminating recall, format broken and filled with
-  confabulation, ends the turn. All fluent, all invisible to the metrics
-  normally used.
-- **The magnitudes**, which are what generate hypothesis **S** below:
+- **Five failure modes**: near neighbour, states-the-fact-while-denying-it,
+  non-terminating recall, format broken and filled with confabulation, ends the
+  turn. All fluent. All invisible to the metrics normally used.
+- **The magnitudes**, which generate hypothesis **S**:
 
   | | attenuation of gold token | rank the substitute came from, unsteered |
   |---|---:|---:|
   | Qwen2.5-0.5B | 19.9× | 2 |
-  | OLMo-2-7B | 22.0× | 4 |
-  | Command-R7B | 30.5× | 5 |
-  | Phi-3.5-mini | 37.4× | 4 |
-  | Qwen2.5-1.5B | 44.0× | 4 |
   | Llama-3.1-8B | 81.9× | 6 |
   | Qwen2.5-3B | 481.9× | 13 |
   | Qwen2.5-7B | 840.2× | 19 |
   | Aya-expanse-8B | 1,525.9× | 26 |
   | Qwen3-4B | **35,001.8×** | **43** |
 
-- **What the source paper measures, and what it does not.**
-  V-Steer ([Zeng, Lee, Zhao & Hockenmaier, COLM 2026](https://arxiv.org/abs/2607.26228))
-  reports primary-constraint accuracy, **general-capability retention** (Tab. 6:
-  MMLU / IFEval / BBH), an **aligned-constraint no-op check** (Tab. 7), and
-  **generation collapse** as most-frequent-5-gram repetition (Tab. 3, 12).
-  MMLU, IFEval and BBH contain no demoted span, so there is nothing in them for
-  the suppression to damage; Tab. 7 tests agreement, not survival; 5-gram
-  collapse cannot see a fluent near neighbour. **Whether information inside the
-  suppressed span is still recoverable is not measured anywhere in the paper.**
-  Checked against the full text, 2026-08-11.
+---
+
+## The two dials
+
+Both reduce how much a span contributes at the position where the answer is
+emitted. They differ in **where the lost mass goes**, and that is the point.
+
+- **Dial V — quiet values.** Rescale cached value vectors at the span's
+  positions. Attention is untouched: the model looks at full strength, receives
+  little, and the lost contribution is *not given to anyone else*.
+- **Dial A — less looking.** Rescale the attention the span receives. The
+  softmax renormalises, so the lost mass is **redistributed to other positions**
+  in the context.
+
+Dial V is the established one. Dial A is new here, is architecture-agnostic
+(any attention layer will do), and is what makes the finding independent of any
+particular method's future.
 
 ---
 
 ## Hypotheses
 
-Numeric falsifiers are fixed here, before data.
+Numeric falsifiers fixed here, before data.
 
-### M — the mechanism replicates on a current model
+### M — the mechanism replicates
 
-Attenuation rather than overwriting is universal so far across ten models.
-Nothing establishes that it holds on a model two generations newer.
+Attenuation-rather-than-overwriting holds across ten models up to 8B. Nothing
+establishes it at larger scale in a current family.
 
-- **Predicts:** on the new model, under the edit, the gold token's probability
-  falls by ≥ 10× while its **rank stays in single digits**, and no specific
-  competitor is promoted (the substitute's steered rank is not systematically
-  raised relative to unsteered).
+- **Predicts:** under dial V, the gold token's probability falls ≥ 10× while its
+  **rank stays in single digits**, and no specific competitor is systematically
+  promoted.
 - **Falsified if:** the steered distribution promotes a particular wrong token —
-  i.e. the substitute climbs rather than the gold falling.
-- **Why it comes first:** every other hypothesis assumes this. If it fails,
-  that is the result and the rest of the design is void.
+  the substitute climbs rather than the gold falling.
+- **Runs first.** Everything else assumes it. If it fails, that is the result.
+
+### D — the dissociation *(the central one)*
+
+Does *how* the evidence is weakened change what the model does about it?
+
+- **Predicts, if the phenomenon is about lost evidence per se:** dials V and A
+  produce the same failure signature — near-neighbour confabulation at matched
+  contribution loss, with retention curves within **10 points** of each other.
+- **Predicts, if the phenomenon is about where the mass goes:** dial A promotes
+  material from *elsewhere in the context* rather than a near neighbour of the
+  target, with near-neighbour share differing by **≥ 20 points** between dials.
+- **Both outcomes are informative and neither is the "hoped-for" one.** The first
+  says model confidence does not track evidence strength by any route — a broad
+  claim. The second says near-neighbour confabulation is specifically the
+  signature of *evidence removed without replacement* — a sharper one.
+- **Falsified as stated if** the two dials cannot be matched on contribution
+  loss at all, in which case the comparison is reported as unresolvable rather
+  than resolved.
 
 ### W — the window
 
-- **Predicts a window exists** if there is a cell in the γ grid where hierarchy
-  compliance rises **≥ 20 points** over no-edit *and* payload retention is
-  **within 5 points** of its no-edit level.
-- **Falsified if:** no such cell exists anywhere in the grid.
-- **Standing prior:** in earlier work on this lab's Gemma configuration, the
+- **Predicts a window exists** if some cell has compliance **≥ 20 points** above
+  no-manipulation *and* retention **within 5 points** of its no-manipulation
+  level.
+- **Falsified if** no such cell exists anywhere in the grid.
+- **Standing prior:** in earlier work on this lab's Gemma configuration the
   behaviour window and the fluency window did not overlap, and the two
-  thresholds turned out to be a single **step** rather than two curves. The
-  expectation here is therefore **no window**. A window would be a positive
-  result for the method and should be reported as such, loudly.
+  thresholds proved to be a single **step** rather than two curves. Expectation
+  here is therefore **no window**. A window is a positive result and should be
+  reported loudly.
 
-### S — scale makes it worse, not better
+### S — scale makes it worse
 
 The table above trends the wrong way: newer and stronger models bury the fact
-harder and reach further down the distribution for a replacement. Qwen3-4B, the
-newest model in the set, is three orders of magnitude worse than the oldest.
+harder and reach further down for a replacement.
 
-- **Predicts:** the new modern model shows a median attenuation factor
-  **≥ 1,000×** and a median substitute rank **≥ 20**.
-- **Falsified if:** attenuation ≤ 100× or substitute rank ≤ 6 — i.e. it behaves
-  like Llama-3.1-8B or better.
-- **The confound, stated plainly:** the ten existing points confound family,
-  parameter count and recency, six of them are one family, and the trend was
-  noticed rather than tested. That is precisely why it is preregistered here.
-  The new runs add a **within-family modern ladder** so that recency and size
-  can be separated from training recipe.
-- **"Model quality" is fixed in advance** as published MMLU score from each
-  model's own release material, recorded before any run. Not judged after the
-  fact, not by impression.
+- **Predicts:** median attenuation factor **≥ 1,000×** and median substitute rank
+  **≥ 20** on the larger models of the ladder.
+- **Falsified if** attenuation ≤ 100× or substitute rank ≤ 6 — i.e. behaving like
+  Llama-3.1-8B or better.
+- **The confound, stated plainly:** the ten existing points mix family, size and
+  recency; six are one family; and the trend was *noticed*, not tested. The new
+  runs are a **within-family** ladder specifically to separate size from recipe.
+- **"Model quality" is fixed in advance** as published MMLU from each model's own
+  release material, recorded before any run.
 
-### N — the substitution is related to the target
+### N — the substitute is related to the target
 
-Established at ~40× over a null on the existing set; this is replication, not
-discovery.
+Established at ~40× over a null on the existing set. Replication, not discovery.
 
 - **Predicts:** scoring wrong answers against a gold value from a *different*
-  question yields a near-neighbour rate ≥ 10× lower than against their own.
-- **Falsified if:** the two rates are within 3×.
+  question gives a near-neighbour rate ≥ 10× lower than against their own.
+- **Falsified if** the two rates are within 3×.
 
 ---
 
 ## Definitions, fixed now
 
-- **Attenuation factor** — p(gold token) unsteered ÷ p(gold token) steered, read
-  at the teacher-forced position where the answer value is emitted, identical
+- **Attenuation factor** — p(gold) unsteered ÷ p(gold) manipulated, read at the
+  teacher-forced position where the answer value is emitted, byte-identical
   position in both conditions (`examples/why_near.py`).
-- **Substitute rank** — the rank of the actually-emitted token in the
-  **unsteered** distribution.
+- **Substitute rank** — rank of the actually-emitted token in the **unmanipulated**
+  distribution.
+- **Contribution loss** — the quantity dials V and A are matched on: the drop in
+  the span's summed contribution to the read position. Matching is done
+  empirically per model, and the matching procedure is fixed before any
+  comparison is made.
 - **Compliance** — the existing hierarchy metric in this repo, unchanged.
-- **Retention** — EXACT / NEAR / ABSENT by the rule in
-  [Scoring rule](#scoring-rule-written-before-any-generation-is-read), scored by
-  hand, every answer in every reported cell, never a sample.
-- **γ grid** — γ+ ∈ {2.5, 4, 6} × γ− ∈ {0, 0.65, 0.75, 0.9, 0.95}. The source
-  paper's defaults (γ+ = 2.5, γ− = 0.75) are always included. γ− = 0 is the
-  **γ+-only** arm, because earlier work found γ+ alone — the half usually
-  described as harmless — is what converts a refusal into an invented value.
-- **Separable vs entangled** — separable: the demoted instruction is its own
-  message and can be excised leaving the fact intact. Entangled: instruction and
-  fact share a message. Both are run. Deletion is only informative against both.
+- **Retention** — EXACT / NEAR / ABSENT by the [scoring rule](#scoring-rule-written-before-any-generation-is-read),
+  by hand, every answer in every reported cell, never a sample.
+- **Grid** — dial V: γ+ ∈ {2.5, 4, 6} × γ− ∈ {0, 0.65, 0.75, 0.9, 0.95}, where
+  γ− = 0 is the **boost-only** arm (earlier work found the boost, the half
+  usually called harmless, is what turns a refusal into an invented value).
+  Dial A: multipliers chosen to span the same contribution-loss range.
+- **Separable vs entangled** — separable: the degraded span is its own message
+  and can be excised leaving the fact intact. Entangled: instruction and fact
+  share a message. Both run; deletion is only informative against both.
 
 ---
 
 ## Design
 
-**Models.** The existing ten-model ladder (0.5B–8B) is prior data and is **not
-re-run**. New runs add the modern end:
+### Models
 
-- **Qwen 3.5 4B dense** — current, his-default-class, fits locally.
-- **Qwen 3.5 27B dense** — the size that gives the scale claim reach. Rented
-  GPU; setup and queue time are not project time.
+The existing ten-model ladder (0.5B–8B) is **prior data and is not re-run**.
+New runs form a **within-family Qwen3 ladder**, chosen because it is the largest
+current family whose architecture can host both dials at every layer:
 
-**Architecture gate, run before anything else.** The edit requires one
-addressable V per layer and no sliding-window layers. Gemma (sliding window),
-MLA models and hybrid Gated-DeltaNet models cannot host it. Each candidate is
-checked and the result recorded in a short architecture table rather than
-silently dropped — a method that cannot run on current architectures is itself
-worth stating.
+| | status |
+|---|---|
+| Qwen3-1.7B | new, optional |
+| Qwen3-4B | **existing data** (35,001.8×) |
+| Qwen3-8B | new |
+| Qwen3-14B | new — the size that gives S its reach |
+| Qwen3-32B | gated stretch |
 
-**Fixture.** The existing six facts and seven constraint families, unchanged, so
-the new numbers sit on the same axis as the old ones.
+### The architecture gate — already run, and it is a result
 
-**Arms.** no edit · γ+ only · full edit · delete the message · rewrite the
-message · prompt-only reminder.
+Both dials need per-position addressable state in the attention layers. Checked
+against published configs on 2026-08-11:
 
-**N ≥ 36 per cell.** Greedy, one seed. Any cell below that is labelled a pilot.
+| family | verdict |
+|---|---|
+| Qwen3 (`model_type: qwen3`) | **passes** — plain GQA, full attention, no sliding window |
+| Qwen3.5 / Qwen3.6 (`model_type: qwen3_5`) | **3 of every 4 layers are `linear_attention`** (`full_attention_interval: 4`): 4B has 8 full-attention layers of 32; 27B has 16 of 64 |
+| Gemma 3 / 4 | interleaved sliding window |
+| deepseek v4 flash | MLA, compressed shared latent KV |
+
+**This belongs in the write-up as a finding, not a footnote.** Value-cache
+interventions assume per-position value vectors at every layer, and current open
+models are being built the other way. Dial A survives this — attention scaling
+works on whatever attention layers exist — which is a further reason the finding
+must be stated about models rather than about a method.
+
+**Gated modern-architecture arm:** dial A on Qwen3.5-27B's 16 full-attention
+layers, run only if everything below is complete. Coverage is reported honestly.
+
+### Arms
+
+no manipulation · dial V (grid) · dial A (matched grid) · delete the message ·
+rewrite the message · prompt-only reminder.
+
+**N ≥ 36 per cell.** Greedy, one seed. Anything below is labelled a pilot.
+
+### Fixture
+
+The existing six facts and seven constraint families, unchanged, so new numbers
+sit on the same axis as the old ones.
 
 ---
 
 ## Controls
 
-- **Fact-absent (swap).** The same transcript shape with the fact never present,
-  so that attenuating evidence can be distinguished from removing it. If the
-  model abstains when the fact was never there and confabulates when it is
-  merely faint, those are different things.
+- **Fact-absent (swap).** Same transcript shape, fact never present — so that
+  attenuating evidence can be distinguished from removing it. If the model
+  abstains when the fact was never there and confabulates when it is merely
+  faint, those are different things.
 - **Different-question gold null**, for N.
-- **γ+-only arm**, because the suspicious half is not the one under suspicion.
-- **Frequency matching.** Common versus rare target strings, paired, because a
-  common target survives further into the edit on most models.
-- **Precision control.** If the 27B runs quantized, one cell is repeated at two
-  precisions. A conclusion that moves with quantization is scoped to precision
-  or dropped.
+- **Boost-only arm**, because the suspicious half is not the one under suspicion.
+- **Frequency matching**, common vs rare targets paired — a common target
+  survives further into the manipulation on most models.
+- **Precision control.** If any model runs quantized, one cell is repeated at two
+  precisions. A conclusion that moves with quantization is scoped or dropped.
 
 ---
 
@@ -194,15 +261,15 @@ message · prompt-only reminder.
 
 Reported whether or not convenient.
 
-1. Reproduce the mechanism on **one prior model** before touching the new ones —
-   the instrument must still give the old answer.
+1. Reproduce the mechanism on **one prior model** first — the instrument must
+   still give the old answer.
 2. Verify the teacher-forced read position is byte-identical across conditions.
-3. Confirm the edit fires at all on the new model (non-empty head mask on a case
-   where the demoted span trivially dominates).
+3. Confirm each manipulation fires at all on each new model before interpreting
+   any silence from it.
 4. Read ≥ 20 randomly drawn generations per model by hand before any number goes
-   into prose. Randomly drawn, not chosen, not the first twenty.
+   into prose. Randomly drawn — not chosen, not the first twenty.
 5. Recompute at least one headline number with a fresh independent script.
-6. Any automatic scorer used must first reproduce hand labels on the existing
+6. Any automatic scorer must first reproduce hand labels on the existing
    calibration set, and is refused otherwise.
 
 ---
@@ -211,11 +278,11 @@ Reported whether or not convenient.
 
 This rule failed twice on its own terms in earlier work — once because the line
 moved between conditions, once because a block was read instead of a sample
-(`results/dose_curve/SCORING_RULE.md`). It is written first and applied
-identically to every arm.
+(`results/dose_curve/SCORING_RULE.md`). Written first, applied identically to
+every arm and both dials.
 
-- **EXACT** — the payload value appears, correct, in a form a downstream
-  consumer could use.
+- **EXACT** — the payload value appears, correct, in a form a downstream consumer
+  could use.
 - **NEAR** — a value appears in the payload's slot, is wrong, and is
   systematically related to the target: truncation, dropped or transposed
   character, same-shape neighbour, unit or format shift. Judged on the string,
@@ -225,61 +292,62 @@ identically to every arm.
 
 Rules of application:
 
-- A value that the answer simultaneously denies having been told is **ABSENT**,
-  not EXACT. It has lost its standing as a source, which is exactly what a
-  downstream consumer loses.
-- Format damage is a separate axis and is not scored as a retention failure.
-- Two kinds of decline are recorded separately: *it says it was not told*
-  versus *a canned capability line*. The second fires on the kind of question,
-  not on the transcript, and mixing them is model-dependent so it does not
-  cancel.
+- A value the answer simultaneously denies having been told is **ABSENT**, not
+  EXACT. It has lost its standing as a source, which is exactly what a downstream
+  consumer loses.
+- Format damage is a separate axis, not a retention failure.
+- Two kinds of decline are recorded separately: *says it was not told* versus a
+  *canned capability line*. The second fires on the kind of question, not on the
+  transcript, and the mix is model-dependent so it does not cancel.
 - Verdicts and reasons to `results/attenuation_handscored.json`.
 
 ---
 
 ## Stop rules
 
-- **M fails.** The mechanism does not replicate on a current model. That is the
-  finding — report it and stop, do not go looking for a different mechanism to
-  rescue the story.
-- **The instrument does not fire** on the new model (empty head mask). Report as
-  an architecture/compatibility result; do not tune until something happens.
-- **Quantization moves the answer.** Scope every claim to precision, or drop the
-  claim.
-- **Time.** If the architecture gate and the mechanism replication are not done
-  by end of day two, drop the 27B and run the whole design on the 4B alone.
+- **M fails** — the mechanism does not replicate. That is the finding. Report it
+  and stop; do not hunt for a different mechanism to rescue the story.
+- **A manipulation does not fire** on a model — report as a compatibility result;
+  do not tune until something happens.
+- **The dials cannot be matched** on contribution loss — report D as
+  unresolvable, do not substitute an unmatched comparison.
+- **Quantization moves the answer** — scope every claim to precision, or drop it.
+- **Time** — if the gate, M, and one full dial-V grid are not done by end of day
+  two of the clock, drop dial A's grid to a single matched dose and drop the
+  optional models.
 
 ---
 
 ## What will not be claimed
 
-- Anything about production behaviour. All cases here are constructed.
+- Anything about production behaviour. All cases are constructed.
 - Anything about models not run, including closed models.
-- That this generalises to KV eviction, context compression, attention masking
-  or RAG re-ranking. Those are the **motivation** for caring, and are named as
-  such; nothing here measures them.
-- That V-Steer is a bad method. This measures one axis its authors did not, on
-  constructed cases, with an independent reimplementation.
+- That this transfers to KV eviction, cache compression, quantization or
+  RAG re-ranking. Those are the **motivation** for caring and are named as such;
+  nothing here measures them.
+- That any published method is bad. This measures an axis its authors did not,
+  on constructed cases, with an independent reimplementation.
 
 ---
 
 ## Stretch goals, gated
 
-Run only if M, W, S and N are complete and scored. Listed so they cannot be
+Only if M, D, W, S and N are complete and scored. Listed so they cannot be
 reached for as a rescue.
 
-- **S1 — language.** Whether retention damage differs in Czech, where the
-  representations are weaker.
-- **S2 — a selective edit.** Demote only the positions carrying the imperative,
-  leaving the fact's positions untouched. The obvious repair if W is falsified.
+- **S1 — modern architecture.** Dial A on Qwen3.5-27B's full-attention layers.
+- **S2 — language.** Whether the damage differs in Czech, where representations
+  are weaker.
+- **S3 — a selective manipulation.** Degrade only the positions carrying the
+  instruction, leaving the fact's positions untouched.
 
 ---
 
 ## Hours
 
 Prior work — the ten-model ladder, the mechanism, the mode rules, the fixture
-set, `brainscope`, `vsteer.py` — was done before 2026-08-11 and is not counted.
-Only work on this question after the freeze is.
+set, `brainscope`, `vsteer.py` — predates 2026-08-11 and is not counted. Only
+work on this question after the freeze is.
 
 | date | hours | what |
 |---|---|---|
@@ -293,4 +361,5 @@ Empty is a claim. It stays empty only while it is true.
 
 | date | what changed | why |
 |---|---|---|
-| | | |
+| 2026-08-11 | Framing moved from method-first ("what does this edit cost?") to model-first ("does the model know when its evidence goes quiet?"). Second manipulation (dial A, attention) added; hypothesis **D** added as the central one. | The finding is about how model confidence responds to degraded evidence. Tying it to one technique made it hostage to that technique's future. Two dials make it a property of the model. Before any data. |
+| 2026-08-11 | Models changed from "Qwen 3.5 4B / 27B dense" to a within-family **Qwen3** ladder (1.7B / 4B existing / 8B / 14B, 32B gated). | Architecture gate, run before any data: every Qwen 3.5 and 3.6 model is `model_type: qwen3_5` with `full_attention_interval: 4` — three `linear_attention` layers per full-attention layer, so 75% of the network has no per-position value cache. "Dense" in the model card means dense-vs-MoE, not dense attention. Recorded as a result in [Design](#the-architecture-gate--already-run-and-it-is-a-result), not hidden. |
