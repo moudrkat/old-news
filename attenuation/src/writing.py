@@ -169,6 +169,62 @@ measuring tools</b>, five of which had already produced a finding</li>
 systems that would rather stay opaque</li>
 </ul>
 Say what each one <i>shows</i>, not just that it exists."""),
+    ("q9", "What, if any, prior experience do you have with mechanistic "
+     "interpretability?", 6, """
+<b>Factual, no modesty and no inflation.</b> Points available:
+<ul>
+<li>an independent reimplementation of a published steering method (V-Steer,
+COLM 2026) run across ten models, 756 generations each</li>
+<li>an independent reimplementation of J-Lens from the Anthropic paper, with an
+identity self-test</li>
+<li>a pre-registered programme on steering vectors — dose-response, cross-model
+transfer, channel attribution by causal freeze arms, with falsified invariants
+on the record</li>
+<li>linear probes, logit lens, direct logit attribution, activation patching in
+practice rather than in tutorials</li>
+<li>and how long: say when you started. He explicitly says most of his recent
+scholars had minimal interpretability experience and did fine</li>
+</ul>"""),
+
+    ("q10", "Why are you interested in Neel's stream specifically?", 6, """
+<b>Be honest here — a costume shows.</b> What is actually true:
+<ul>
+<li>his pivot to <i>pragmatic interpretability</i> is the nearest thing in the
+field to how you already work: does the technique actually do anything,
+measured against baselines, on models that matter</li>
+<li>he is unusually explicit about method minimalism — try prompting, probing,
+reading the output before anything fancy. That is how this project was run and
+why the probe got dropped</li>
+<li>what you would get from it and cannot get alone: someone from outside
+telling you <i>which</i> of your questions is worth a month. Not the coding —
+the taste</li>
+<li>and the cohort. Your own repo's front page asks for collaborators</li>
+</ul>
+Do not write that you want to work on AGI safety if that is not why you are
+here. He reads hundreds of those."""),
+
+    ("q11", "What is the likelihood you will join the training program "
+     "(Sept 28 - Oct 30) if accepted?", 3, """
+<ul>
+<li>the first three weeks are part-time, whatever hours you choose</li>
+<li>the last two weeks are a <b>full-time</b> paired sprint</li>
+<li>he says this is fine by him and that people have taken leave for it —
+answer with what is actually true for you and your job, not with what sounds
+keen</li>
+</ul>"""),
+
+    ("q12", "(Optional) Anything else important about your project not covered "
+     "above?", 5, """
+<ul>
+<li>optional — leave it empty if there is nothing</li>
+<li>the one thing that might belong: that the phenomenon was first seen under a
+published method on ten models before any of this, so it is not an artefact of
+the manipulation used here</li>
+<li>or the architecture note: every Qwen 3.5 and 3.6 model is three quarters
+linear attention, so a value-cache intervention cannot run on them at all. It is
+checkable in thirty seconds and he recommends those models in his own doc</li>
+</ul>"""),
+
 ]
 
 # ── the write-up, in R1D1's order ───────────────────────────────────────────
@@ -583,7 +639,14 @@ filters on them.</label></li>
 last.</label></li>
 <li><input type="checkbox" id="c5"><label for="c5"><b>Export</b>, paste into a
 Google Doc, drop the three figures in, and <b>set the link so anyone can
-open it</b> — applications without a readable doc are rejected.</label></li>
+open it</b> — applications without a readable doc are rejected. The form makes
+you tick a box confirming exactly this, and another confirming the first 1–3
+pages are the executive summary.</label></li>
+<li><input type="checkbox" id="c8"><label for="c8"><b>The practical fields:</b>
+full name · email · <b>resume (a file upload)</b> · LinkedIn · whether you can
+join the research phase <b>full-time, Jan 19 – Apr 10, in Berkeley</b>.
+There is also an optional <i>link to any other relevant outputs</i> — that is
+where the repository goes.</label></li>
 <li><input type="checkbox" id="c6"><label for="c6"><b>Read it out loud once.</b>
 Anything that sounds like it was generated, rewrite in your own words.</label></li>
 <li><input type="checkbox" id="c7"><label for="c7"><b>Submit</b> —
