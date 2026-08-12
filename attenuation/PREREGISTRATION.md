@@ -113,6 +113,35 @@ like a hallucination. It looks like a typo.
 
 ---
 
+## What was actually pre-specified, and what wasn't
+
+This matters more than the hypothesis list, so it is stated plainly.
+
+**Fixed before any data, and never adjusted to fit a result:** the four
+conditions · the gate (what counts as a usable item, and both ways an item can
+fail) · the scoring rule · **the `swap` control** · the layer-0 null for the
+probe · K = 100 · the rule that a model failing its own control is excluded
+rather than averaged in.
+
+That is the part the result rests on.
+
+**Written down before the data, but only became the headline once it worked:**
+H4. It was in the file, it was tested, and after the prefix bug was fixed it
+came out supported. That is not the same as having predicted it, and it is not
+written up as if it were.
+
+**Post-hoc, read off the pilot:** H5.
+
+**Unresolved and left that way:** H1, H2, H3.
+
+**Provenance of the hypothesis list itself.** The candidate hypotheses were
+drafted by a coding agent; the question they were narrowed to — *what does the
+model say instead of the right answer, and why that one* — was chosen by the
+author, after the first draft. Two of the three design errors below were caught
+by the author, not the agent.
+
+---
+
 ## Hypotheses, as frozen
 
 **H1 — the queue** Spearman ρ over the top K = 100 of the unmanipulated
