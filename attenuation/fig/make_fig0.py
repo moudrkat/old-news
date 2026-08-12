@@ -17,6 +17,7 @@ import argparse
 import html
 import json
 import random
+import re
 import sys
 from pathlib import Path
 
@@ -41,7 +42,7 @@ def clean(s: str, n: int = 150) -> str:
 
 def main() -> int:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--n", type=int, default=8)
+    ap.add_argument("--n", type=int, default=12)
     ap.add_argument("--seed", type=int, default=4242)
     a = ap.parse_args()
 
@@ -61,7 +62,10 @@ def main() -> int:
     for r in pick:
         v = r["key"].split(":", 1)[1]
         told = TOLD[r["type"]].format(v=f"<b>{html.escape(v)}</b>")
-        said = html.escape(clean(r["value_faint"]))
+        # the model's own markdown emphasis is rendered rather than shown as
+        # asterisks: it is what the model wrote, and it lands on the value
+        said = re.sub(r"\*\*(.+?)\*\*", r"<b>\1</b>",
+                      html.escape(clean(r["value_faint"])))
         tag = r["faint"]
         cls = {"yes": "yes", "no": "no"}.get(tag, "other")
         trs.append(
@@ -102,12 +106,13 @@ td {{ padding:9px 12px 9px 0; border-bottom:1px solid var(--rule);
 figcaption {{ margin-top:12px; color:var(--ink2); font-size:12.5px; }}
 code {{ font-size:12px; color:var(--muted); }}
 </style>
+<script>{{const t=new URLSearchParams(location.search).get("theme");if(t)document.documentElement.dataset.theme=t;}}</script>
 <figure>
-<h2>The same sentence, turned down until the answer is wrong</h2>
+<h2>One sentence in the conversation is made hard to read. Nothing is deleted.</h2>
 <p class="sub">{a.n} answers drawn at random from {len(rows)} — not chosen.
 <code>random.Random({a.seed}).sample</code>, both models, refusals included.</p>
 <table>
-<tr><th>what the user said</th><th>what the model answered</th>
+<tr><th>what the user actually said</th><th>what the model answered instead</th>
 <th>“did I<br>tell you?”</th></tr>
 {chr(10).join(trs)}
 </table>

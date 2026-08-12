@@ -124,6 +124,7 @@ svg {{ display:block; width:100%; height:auto; }}
 .leg {{ font-size:12px; fill:var(--text-secondary); }}
 figcaption {{ margin-top:10px; color:var(--text-secondary); font-size:13px; max-width:{W}px; }}
 </style>
+<script>{{const t=new URLSearchParams(location.search).get("theme");if(t)document.documentElement.dataset.theme=t;}}</script>
 <figure>
 <svg viewBox="0 0 {W} {H}" role="img"
      aria-label="Rate of answering yes to 'did I tell you', by condition and model">

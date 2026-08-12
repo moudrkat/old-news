@@ -1,0 +1,1897 @@
+{
+ "judge": "gemini-3.1-flash-lite",
+ "validated": false,
+ "n": 189,
+ "rows": [
+  {
+   "id": "Qwen3-4B-Instruct-2507|dog:Bagr",
+   "model": "Qwen3-4B-Instruct-2507",
+   "type": "dog",
+   "true": "Bagr",
+   "b": 2.0,
+   "answer": "Your dog is called Bag! \ud83d\udc36 That's a fun and unique name\u2014great choice! Is there anything special",
+   "value": "kept",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|dog:Fizzle",
+   "model": "Qwen3-4B-Instruct-2507",
+   "type": "dog",
+   "true": "Fizzle",
+   "b": 4.0,
+   "answer": "Your dog is called **My Dog**! \ud83d\udc36 That's a pretty cool name\u2014unique and full of personality",
+   "value": "other",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|dog:Kudla",
+   "model": "Qwen3-4B-Instruct-2507",
+   "type": "dog",
+   "true": "Kudla",
+   "b": 4.0,
+   "answer": "Your dog is called Max. \ud83d\ude0a (Wait\u2014actually, you said your dog is called *you*\u2014that",
+   "value": "other",
+   "hedge": true
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|dog:Wobbet",
+   "model": "Qwen3-4B-Instruct-2507",
+   "type": "dog",
+   "true": "Wobbet",
+   "b": 3.0,
+   "answer": "Your dog is called Wobbly! \ud83d\ude0a (Wait\u2014did you mean to say \"Wobbly\" or",
+   "value": "kept",
+   "hedge": true
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|dog:Trixel",
+   "model": "Qwen3-4B-Instruct-2507",
+   "type": "dog",
+   "true": "Trixel",
+   "b": 3.0,
+   "answer": "Your dog is called Trix! \ud83d\ude0a (Or is it? You said \"Trix\" \u2014 maybe a playful",
+   "value": "kept",
+   "hedge": true
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|dog:Marnok",
+   "model": "Qwen3-4B-Instruct-2507",
+   "type": "dog",
+   "true": "Marnok",
+   "b": 3.0,
+   "answer": "Your dog is called Marn. \ud83d\ude0a (Though I notice you said \"Marn\" \u2014 is that a typo",
+   "value": "kept",
+   "hedge": true
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|dog:Bristle",
+   "model": "Qwen3-4B-Instruct-2507",
+   "type": "dog",
+   "true": "Bristle",
+   "b": 4.0,
+   "answer": "Your dog is called Max. \ud83d\ude0a (Wait\u2014actually, you said your dog is called *you*\u2014\"",
+   "value": "other",
+   "hedge": true
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|dog:Yorrick",
+   "model": "Qwen3-4B-Instruct-2507",
+   "type": "dog",
+   "true": "Yorrick",
+   "b": 3.0,
+   "answer": "Your dog is called Yorick. \ud83d\ude0a (Though I'm not sure if that's a coincidence\u2014Yor",
+   "value": "kept",
+   "hedge": true
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|dog:Plunk",
+   "model": "Qwen3-4B-Instruct-2507",
+   "type": "dog",
+   "true": "Plunk",
+   "b": 4.0,
+   "answer": "Your dog is called **My Dog**! \ud83d\udc36 That's a pretty cool name\u2014unique and a little playful",
+   "value": "other",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|dog:Skarn",
+   "model": "Qwen3-4B-Instruct-2507",
+   "type": "dog",
+   "true": "Skarn",
+   "b": 3.0,
+   "answer": "Your dog is called Max. \ud83d\ude0a (Wait\u2014actually, you said your dog is called *you*\u2014that",
+   "value": "other",
+   "hedge": true
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|order:4417",
+   "model": "Qwen3-4B-Instruct-2507",
+   "type": "order",
+   "true": "4417",
+   "b": 3.0,
+   "answer": "Your order number is 417.",
+   "value": "kept",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|order:8290",
+   "model": "Qwen3-4B-Instruct-2507",
+   "type": "order",
+   "true": "8290",
+   "b": 4.0,
+   "answer": "I don't have access to your order information or any personal details. If you need help with your order, I recommend",
+   "value": "none",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|order:1053",
+   "model": "Qwen3-4B-Instruct-2507",
+   "type": "order",
+   "true": "1053",
+   "b": 3.0,
+   "answer": "Your order number is 105.",
+   "value": "kept",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|order:7734",
+   "model": "Qwen3-4B-Instruct-2507",
+   "type": "order",
+   "true": "7734",
+   "b": 3.0,
+   "answer": "Your order number is 734.",
+   "value": "kept",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|order:6621",
+   "model": "Qwen3-4B-Instruct-2507",
+   "type": "order",
+   "true": "6621",
+   "b": 4.0,
+   "answer": "I don't have access to your order information or any personal details. If you need help with your order, I recommend",
+   "value": "none",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|order:3908",
+   "model": "Qwen3-4B-Instruct-2507",
+   "type": "order",
+   "true": "3908",
+   "b": 4.0,
+   "answer": "I don't have access to your order information or any personal details. If you need help with your order, I recommend",
+   "value": "none",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|order:5142",
+   "model": "Qwen3-4B-Instruct-2507",
+   "type": "order",
+   "true": "5142",
+   "b": 4.0,
+   "answer": "I don't have access to your order information or any personal details. If you need help with your order, I recommend",
+   "value": "none",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|order:2867",
+   "model": "Qwen3-4B-Instruct-2507",
+   "type": "order",
+   "true": "2867",
+   "b": 3.0,
+   "answer": "Your order number is 286.",
+   "value": "kept",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|order:9375",
+   "model": "Qwen3-4B-Instruct-2507",
+   "type": "order",
+   "true": "9375",
+   "b": 4.0,
+   "answer": "I don't have access to your order information or any personal details. If you need help with your order, I recommend",
+   "value": "none",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|order:1486",
+   "model": "Qwen3-4B-Instruct-2507",
+   "type": "order",
+   "true": "1486",
+   "b": 3.0,
+   "answer": "Your order number is 148.",
+   "value": "kept",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|city:Brno",
+   "model": "Qwen3-4B-Instruct-2507",
+   "type": "city",
+   "true": "Brno",
+   "b": 3.0,
+   "answer": "I'm sorry, but I don't have access to your personal information, including your location. So I can't determine",
+   "value": "none",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|city:Utrecht",
+   "model": "Qwen3-4B-Instruct-2507",
+   "type": "city",
+   "true": "Utrecht",
+   "b": 3.0,
+   "answer": "I'm sorry, but I don't have access to your location or personal information. I can't determine which city you",
+   "value": "none",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|city:Bergen",
+   "model": "Qwen3-4B-Instruct-2507",
+   "type": "city",
+   "true": "Bergen",
+   "b": 2.0,
+   "answer": "I'm sorry, but I don't have access to your personal information, including your location. So I can't determine",
+   "value": "none",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|city:Kaunas",
+   "model": "Qwen3-4B-Instruct-2507",
+   "type": "city",
+   "true": "Kaunas",
+   "b": 3.0,
+   "answer": "I'm sorry, but I don't have access to your personal information, including your location. So I can't determine",
+   "value": "none",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|city:Porto",
+   "model": "Qwen3-4B-Instruct-2507",
+   "type": "city",
+   "true": "Porto",
+   "b": 2.0,
+   "answer": "I'm sorry, but I don't have access to your personal information, including your location. So I can't determine",
+   "value": "none",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|city:Graz",
+   "model": "Qwen3-4B-Instruct-2507",
+   "type": "city",
+   "true": "Graz",
+   "b": 3.0,
+   "answer": "I'm sorry, but I don't have access to your personal information, including where you live. You can let me",
+   "value": "none",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|city:Tampere",
+   "model": "Qwen3-4B-Instruct-2507",
+   "type": "city",
+   "true": "Tampere",
+   "b": 3.0,
+   "answer": "I'm sorry, but I don't have access to your personal information, including your location. So I can't determine",
+   "value": "none",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|city:Rijeka",
+   "model": "Qwen3-4B-Instruct-2507",
+   "type": "city",
+   "true": "Rijeka",
+   "b": 3.0,
+   "answer": "I'm sorry, but I don't have access to your personal information, including your location. So I can't determine",
+   "value": "none",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|city:Aarhus",
+   "model": "Qwen3-4B-Instruct-2507",
+   "type": "city",
+   "true": "Aarhus",
+   "b": 3.0,
+   "answer": "I'm sorry, but I don't have access to your personal information, including your location. So I can't determine",
+   "value": "none",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|city:Leon",
+   "model": "Qwen3-4B-Instruct-2507",
+   "type": "city",
+   "true": "Leon",
+   "b": 3.0,
+   "answer": "I'm sorry, but I don't have access to your personal information, including where you live. You can let me",
+   "value": "none",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|error:E-88",
+   "model": "Qwen3-4B-Instruct-2507",
+   "type": "error",
+   "true": "E-88",
+   "b": 3.0,
+   "answer": "You mentioned you received error code **E-8**, but you said \"the error code I got was E-8",
+   "value": "kept",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|error:X-12",
+   "model": "Qwen3-4B-Instruct-2507",
+   "type": "error",
+   "true": "X-12",
+   "b": 3.0,
+   "answer": "You mentioned that you got error code **12**, so that's the one you received. If you'd like",
+   "value": "kept",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|error:F-401",
+   "model": "Qwen3-4B-Instruct-2507",
+   "type": "error",
+   "true": "F-401",
+   "b": 4.0,
+   "answer": "You mentioned you received an error code \"by the way, the error code I got was was BYE.\" But that",
+   "value": "other",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|error:Q-73",
+   "model": "Qwen3-4B-Instruct-2507",
+   "type": "error",
+   "true": "Q-73",
+   "b": 3.0,
+   "answer": "You mentioned that you got error code **73**, so that's the one you received. If you'd like,",
+   "value": "kept",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|error:B-206",
+   "model": "Qwen3-4B-Instruct-2507",
+   "type": "error",
+   "true": "B-206",
+   "b": 4.0,
+   "answer": "You mentioned \"the error code I got was was by the way, the error code I got was was by the way",
+   "value": "none",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|error:R-95",
+   "model": "Qwen3-4B-Instruct-2507",
+   "type": "error",
+   "true": "R-95",
+   "b": 3.0,
+   "answer": "You mentioned that you got error code **\"I\"**, but that doesn't seem to be a standard or recognized error",
+   "value": "other",
+   "hedge": true
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|error:T-340",
+   "model": "Qwen3-4B-Instruct-2507",
+   "type": "error",
+   "true": "T-340",
+   "b": 3.0,
+   "answer": "You mentioned that you received error code **340**, but you're asking which error code it was \u2014 so let",
+   "value": "kept",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|error:K-17",
+   "model": "Qwen3-4B-Instruct-2507",
+   "type": "error",
+   "true": "K-17",
+   "b": 3.0,
+   "answer": "You mentioned that you got error code **17**, so that's the one you received. If you'd like,",
+   "value": "kept",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|error:M-628",
+   "model": "Qwen3-4B-Instruct-2507",
+   "type": "error",
+   "true": "M-628",
+   "b": 2.0,
+   "answer": "You mentioned that you received error code **M-62**, so that's the error code you got. If",
+   "value": "kept",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|error:Z-54",
+   "model": "Qwen3-4B-Instruct-2507",
+   "type": "error",
+   "true": "Z-54",
+   "b": 3.0,
+   "answer": "You mentioned that you got error code **\"I\"**, but that doesn't seem to make sense in this context.",
+   "value": "other",
+   "hedge": true
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|time:19:40",
+   "model": "Qwen3-4B-Instruct-2507",
+   "type": "time",
+   "true": "19:40",
+   "b": 5.0,
+   "answer": "Your train leaves at 12:00 PM (noon), as mentioned in your message. Let me know if",
+   "value": "other",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|time:06:15",
+   "model": "Qwen3-4B-Instruct-2507",
+   "type": "time",
+   "true": "06:15",
+   "b": 3.0,
+   "answer": "Your train leaves at 6:15 PM.",
+   "value": "kept",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|time:13:52",
+   "model": "Qwen3-4B-Instruct-2507",
+   "type": "time",
+   "true": "13:52",
+   "b": 4.0,
+   "answer": "Your train leaves at 1:00 PM. \ud83d\ude0a",
+   "value": "other",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|time:21:08",
+   "model": "Qwen3-4B-Instruct-2507",
+   "type": "time",
+   "true": "21:08",
+   "b": 4.0,
+   "answer": "Your train leaves at 2:00 PM.",
+   "value": "other",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|time:11:27",
+   "model": "Qwen3-4B-Instruct-2507",
+   "type": "time",
+   "true": "11:27",
+   "b": 4.0,
+   "answer": "Your train leaves at 1:00 PM. \ud83d\ude0a",
+   "value": "other",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|time:04:36",
+   "model": "Qwen3-4B-Instruct-2507",
+   "type": "time",
+   "true": "04:36",
+   "b": 3.0,
+   "answer": "Your train leaves at 4:36 PM.",
+   "value": "kept",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|time:17:49",
+   "model": "Qwen3-4B-Instruct-2507",
+   "type": "time",
+   "true": "17:49",
+   "b": 5.0,
+   "answer": "Your train leaves at 12:00 PM (noon), as mentioned in your message. Let me know if",
+   "value": "other",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|time:08:03",
+   "model": "Qwen3-4B-Instruct-2507",
+   "type": "time",
+   "true": "08:03",
+   "b": 3.0,
+   "answer": "Your train leaves at 8:03 AM.",
+   "value": "kept",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|time:22:41",
+   "model": "Qwen3-4B-Instruct-2507",
+   "type": "time",
+   "true": "22:41",
+   "b": 4.0,
+   "answer": "Your train leaves at 21:00 (9:00 PM).",
+   "value": "other",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|time:15:14",
+   "model": "Qwen3-4B-Instruct-2507",
+   "type": "time",
+   "true": "15:14",
+   "b": 4.0,
+   "answer": "Your train leaves at 1:00 PM. \ud83d\ude0a",
+   "value": "other",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|account:302",
+   "model": "Qwen3-4B-Instruct-2507",
+   "type": "account",
+   "true": "302",
+   "b": 4.0,
+   "answer": "I'm sorry, but I can't access or know your personal information, including your account number. If you need help",
+   "value": "none",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|account:718",
+   "model": "Qwen3-4B-Instruct-2507",
+   "type": "account",
+   "true": "718",
+   "b": 3.0,
+   "answer": "Your account number ends in **7**. \ud83d\ude0a",
+   "value": "kept",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|account:455",
+   "model": "Qwen3-4B-Instruct-2507",
+   "type": "account",
+   "true": "455",
+   "b": 3.0,
+   "answer": "Your account number ends in **45**. \ud83d\ude0a",
+   "value": "kept",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|account:961",
+   "model": "Qwen3-4B-Instruct-2507",
+   "type": "account",
+   "true": "961",
+   "b": 4.0,
+   "answer": "I'm sorry, but I can't access or know your personal information, including your account number. If you need help",
+   "value": "none",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|account:233",
+   "model": "Qwen3-4B-Instruct-2507",
+   "type": "account",
+   "true": "233",
+   "b": 3.0,
+   "answer": "Your account number ends in **23**. \ud83d\ude0a",
+   "value": "kept",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|account:807",
+   "model": "Qwen3-4B-Instruct-2507",
+   "type": "account",
+   "true": "807",
+   "b": 4.0,
+   "answer": "I'm sorry, but I can't access or know your personal information, including your account number. If you need help",
+   "value": "none",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|account:574",
+   "model": "Qwen3-4B-Instruct-2507",
+   "type": "account",
+   "true": "574",
+   "b": 4.0,
+   "answer": "I'm sorry, but I can't access or know your personal information, including your account number. If you need help",
+   "value": "none",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|account:129",
+   "model": "Qwen3-4B-Instruct-2507",
+   "type": "account",
+   "true": "129",
+   "b": 3.0,
+   "answer": "Your account number ends in **12**.",
+   "value": "kept",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|account:686",
+   "model": "Qwen3-4B-Instruct-2507",
+   "type": "account",
+   "true": "686",
+   "b": 3.0,
+   "answer": "Your account number ends in **6**. \ud83d\ude0a",
+   "value": "kept",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|account:340",
+   "model": "Qwen3-4B-Instruct-2507",
+   "type": "account",
+   "true": "340",
+   "b": 4.0,
+   "answer": "I'm sorry, but I can't access or know your personal information, including your account number. If you need help",
+   "value": "none",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|allergy:walnuts",
+   "model": "Qwen3-4B-Instruct-2507",
+   "type": "allergy",
+   "true": "walnuts",
+   "b": 3.0,
+   "answer": "I'm sorry, but I don't have access to your personal health information, including your specific allergies. If you're",
+   "value": "none",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|allergy:penicillin",
+   "model": "Qwen3-4B-Instruct-2507",
+   "type": "allergy",
+   "true": "penicillin",
+   "b": 3.0,
+   "answer": "I'm sorry, but I can't determine what you're allergic to. You might want to consult with a healthcare professional",
+   "value": "none",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|allergy:shellfish",
+   "model": "Qwen3-4B-Instruct-2507",
+   "type": "allergy",
+   "true": "shellfish",
+   "b": 3.0,
+   "answer": "I'm sorry, but I don't have access to your personal medical information, including your specific allergies. If you're",
+   "value": "none",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|allergy:latex",
+   "model": "Qwen3-4B-Instruct-2507",
+   "type": "allergy",
+   "true": "latex",
+   "b": 2.0,
+   "answer": "I'm sorry, but I can't determine what you're allergic to\u2014only you can know that. Since you mentioned",
+   "value": "none",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|allergy:mustard",
+   "model": "Qwen3-4B-Instruct-2507",
+   "type": "allergy",
+   "true": "mustard",
+   "b": 3.0,
+   "answer": "I'm sorry, but I don't have access to your personal health information, including allergies. If you're unsure what",
+   "value": "none",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|allergy:sesame",
+   "model": "Qwen3-4B-Instruct-2507",
+   "type": "allergy",
+   "true": "sesame",
+   "b": 3.0,
+   "answer": "I'm sorry, but I don't have access to your personal health information, including allergies. If you're unsure what",
+   "value": "none",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|allergy:sulfites",
+   "model": "Qwen3-4B-Instruct-2507",
+   "type": "allergy",
+   "true": "sulfites",
+   "b": 3.0,
+   "answer": "I'm sorry, but I don't have access to your personal health information, including your specific allergies. If you're",
+   "value": "none",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|allergy:kiwi",
+   "model": "Qwen3-4B-Instruct-2507",
+   "type": "allergy",
+   "true": "kiwi",
+   "b": 3.0,
+   "answer": "I'm sorry, but I don't have access to your personal health information, including allergies. If you're unsure what",
+   "value": "none",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|allergy:wasp stings",
+   "model": "Qwen3-4B-Instruct-2507",
+   "type": "allergy",
+   "true": "wasp stings",
+   "b": 3.0,
+   "answer": "I'm sorry, but I don't have access to your personal health information, including allergies. If you're unsure what",
+   "value": "none",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|allergy:aspirin",
+   "model": "Qwen3-4B-Instruct-2507",
+   "type": "allergy",
+   "true": "aspirin",
+   "b": 3.0,
+   "answer": "I'm sorry, but I don't have access to your personal medical information, including your specific allergies. If you're",
+   "value": "none",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|room:614",
+   "model": "Qwen3-4B-Instruct-2507",
+   "type": "room",
+   "true": "614",
+   "b": 3.0,
+   "answer": "You're in room 61. \ud83d\ude0a",
+   "value": "kept",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|room:227",
+   "model": "Qwen3-4B-Instruct-2507",
+   "type": "room",
+   "true": "227",
+   "b": 3.0,
+   "answer": "You're in room 207. \ud83d\ude0a",
+   "value": "kept",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|room:1108",
+   "model": "Qwen3-4B-Instruct-2507",
+   "type": "room",
+   "true": "1108",
+   "b": 3.0,
+   "answer": "You're in room 108. \ud83d\ude0a",
+   "value": "kept",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|room:355",
+   "model": "Qwen3-4B-Instruct-2507",
+   "type": "room",
+   "true": "355",
+   "b": 3.0,
+   "answer": "You're in room 350. \ud83d\ude0a",
+   "value": "kept",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|room:902",
+   "model": "Qwen3-4B-Instruct-2507",
+   "type": "room",
+   "true": "902",
+   "b": 4.0,
+   "answer": "I'm sorry, but I can't determine which hotel room you're in. The information you provided only says \"my",
+   "value": "none",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|room:471",
+   "model": "Qwen3-4B-Instruct-2507",
+   "type": "room",
+   "true": "471",
+   "b": 4.0,
+   "answer": "I'm sorry, but I can't determine which hotel room you're in. The information you provided only says \"my",
+   "value": "none",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|room:1236",
+   "model": "Qwen3-4B-Instruct-2507",
+   "type": "room",
+   "true": "1236",
+   "b": 3.0,
+   "answer": "You're in room 123. \ud83d\ude0a",
+   "value": "kept",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|room:588",
+   "model": "Qwen3-4B-Instruct-2507",
+   "type": "room",
+   "true": "588",
+   "b": 3.0,
+   "answer": "I'm sorry, but I don't have access to your current location or booking details. The only information you provided is",
+   "value": "none",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|room:743",
+   "model": "Qwen3-4B-Instruct-2507",
+   "type": "room",
+   "true": "743",
+   "b": 4.0,
+   "answer": "I'm sorry, but I can't determine which hotel room you're in. The information you provided \u2014 \"my hotel",
+   "value": "none",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|room:196",
+   "model": "Qwen3-4B-Instruct-2507",
+   "type": "room",
+   "true": "196",
+   "b": 4.0,
+   "answer": "I'm sorry, but I can't determine which hotel room you're in. The information you provided \u2014 \"my hotel",
+   "value": "none",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|flight:QR318",
+   "model": "Qwen3-4B-Instruct-2507",
+   "type": "flight",
+   "true": "QR318",
+   "b": 3.0,
+   "answer": "I'm sorry, but I don't have access to your flight details or personal information. If you'd like to confirm",
+   "value": "none",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|flight:LH772",
+   "model": "Qwen3-4B-Instruct-2507",
+   "type": "flight",
+   "true": "LH772",
+   "b": 3.0,
+   "answer": "I'm sorry, but I don't have access to your flight details or personal information. If you'd like to check",
+   "value": "none",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|flight:BA945",
+   "model": "Qwen3-4B-Instruct-2507",
+   "type": "flight",
+   "true": "BA945",
+   "b": 3.0,
+   "answer": "I'm sorry, but I don't have access to your flight details or personal information. If you'd like to confirm",
+   "value": "none",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|flight:AY206",
+   "model": "Qwen3-4B-Instruct-2507",
+   "type": "flight",
+   "true": "AY206",
+   "b": 3.0,
+   "answer": "I'm sorry, but I don't have access to your flight details or personal information. If you'd like to confirm",
+   "value": "none",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|flight:OK483",
+   "model": "Qwen3-4B-Instruct-2507",
+   "type": "flight",
+   "true": "OK483",
+   "b": 3.0,
+   "answer": "I'm sorry, but I don't have access to your flight details or personal information. If you'd like to check",
+   "value": "none",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|flight:SK651",
+   "model": "Qwen3-4B-Instruct-2507",
+   "type": "flight",
+   "true": "SK651",
+   "b": 3.0,
+   "answer": "I'm sorry, but I don't have access to your flight details or personal information. If you'd like to check",
+   "value": "none",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|flight:TP129",
+   "model": "Qwen3-4B-Instruct-2507",
+   "type": "flight",
+   "true": "TP129",
+   "b": 3.0,
+   "answer": "I'm sorry, but I don't have access to your flight details or personal information. If you'd like to check",
+   "value": "none",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|flight:AZ874",
+   "model": "Qwen3-4B-Instruct-2507",
+   "type": "flight",
+   "true": "AZ874",
+   "b": 3.0,
+   "answer": "I'm sorry, but I don't have access to your flight details or personal information. If you'd like to check",
+   "value": "none",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|flight:EW537",
+   "model": "Qwen3-4B-Instruct-2507",
+   "type": "flight",
+   "true": "EW537",
+   "b": 3.0,
+   "answer": "I'm sorry, but I don't have access to your flight details or personal information. If you'd like to confirm",
+   "value": "none",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|flight:IB260",
+   "model": "Qwen3-4B-Instruct-2507",
+   "type": "flight",
+   "true": "IB260",
+   "b": 3.0,
+   "answer": "I'm sorry, but I don't have access to your flight details or personal information. If you'd like to check",
+   "value": "none",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|cat:Miso",
+   "model": "Qwen3-4B-Instruct-2507",
+   "type": "cat",
+   "true": "Miso",
+   "b": 4.0,
+   "answer": "Your cat is called... *My Cat*? \ud83d\ude38 That's a delightfully simple and sweet name! It's",
+   "value": "other",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|cat:Grendel",
+   "model": "Qwen3-4B-Instruct-2507",
+   "type": "cat",
+   "true": "Grendel",
+   "b": 4.0,
+   "answer": "Your cat is called **Mia**. \ud83d\ude3a (Wait\u2014actually, you said your cat is called *you",
+   "value": "other",
+   "hedge": true
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|cat:Pilch",
+   "model": "Qwen3-4B-Instruct-2507",
+   "type": "cat",
+   "true": "Pilch",
+   "b": 3.0,
+   "answer": "Your cat is called **Pil**! \ud83d\ude3a (Wait\u2014did you mean *Pil* or *P",
+   "value": "kept",
+   "hedge": true
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|cat:Nectarine",
+   "model": "Qwen3-4B-Instruct-2507",
+   "type": "cat",
+   "true": "Nectarine",
+   "b": 3.0,
+   "answer": "Your cat is called Nectar! \ud83d\ude3a\u2728 (Or maybe just \"Nectar\" \u2014 that's a lovely name",
+   "value": "kept",
+   "hedge": true
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|cat:Bobbin",
+   "model": "Qwen3-4B-Instruct-2507",
+   "type": "cat",
+   "true": "Bobbin",
+   "b": 3.0,
+   "answer": "Your cat is called Bob. \ud83d\ude3a\u2728 (Or is it? You said \"my cat is called Bob\" \u2014",
+   "value": "kept",
+   "hedge": true
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|cat:Vosk",
+   "model": "Qwen3-4B-Instruct-2507",
+   "type": "cat",
+   "true": "Vosk",
+   "b": 4.0,
+   "answer": "Your cat is called **My**. \ud83d\ude38 That's a pretty cool name\u2014unique and a little mysterious! (",
+   "value": "other",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|cat:Tamarind",
+   "model": "Qwen3-4B-Instruct-2507",
+   "type": "cat",
+   "true": "Tamarind",
+   "b": 4.0,
+   "answer": "Your cat is called **Mia**. \ud83d\ude3a (Wait\u2014actually, you said your cat is called *you",
+   "value": "other",
+   "hedge": true
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|cat:Klepto",
+   "model": "Qwen3-4B-Instruct-2507",
+   "type": "cat",
+   "true": "Klepto",
+   "b": 4.0,
+   "answer": "Your cat is called... *My Cat*. \ud83d\ude38\u2728 (Well, that\u2019s a clever name\u2014very personal",
+   "value": "other",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|cat:Sorrel",
+   "model": "Qwen3-4B-Instruct-2507",
+   "type": "cat",
+   "true": "Sorrel",
+   "b": 4.0,
+   "answer": "Your cat is called... *My Cat*? \ud83d\ude38 That's a fun name \u2014 a little poetic, and a",
+   "value": "other",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|cat:Nubbin",
+   "model": "Qwen3-4B-Instruct-2507",
+   "type": "cat",
+   "true": "Nubbin",
+   "b": 3.0,
+   "answer": "Your cat is called Nub. \ud83d\ude3a\ud83d\udc3e (Just a fun little twist \u2014 \"Nub\" sounds like \"",
+   "value": "kept",
+   "hedge": true
+  },
+  {
+   "id": "Qwen3.5-4B|dog:Bagr",
+   "model": "Qwen3.5-4B",
+   "type": "dog",
+   "true": "Bagr",
+   "b": 6.0,
+   "answer": "Your dog is called **Bag**.",
+   "value": "kept",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3.5-4B|dog:Fizzle",
+   "model": "Qwen3.5-4B",
+   "type": "dog",
+   "true": "Fizzle",
+   "b": 8.0,
+   "answer": "Your dog is called **Fido**. *(Note: I made a playful joke there! Your dog's actual name",
+   "value": "other",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3.5-4B|dog:Kudla",
+   "model": "Qwen3.5-4B",
+   "type": "dog",
+   "true": "Kudla",
+   "b": 6.0,
+   "answer": "Your dog is called **Kud**.",
+   "value": "kept",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3.5-4B|dog:Wobbet",
+   "model": "Qwen3.5-4B",
+   "type": "dog",
+   "true": "Wobbet",
+   "b": 5.0,
+   "answer": "Your dog is called **Wobbly**.",
+   "value": "kept",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3.5-4B|dog:Trixel",
+   "model": "Qwen3.5-4B",
+   "type": "dog",
+   "true": "Trixel",
+   "b": 5.0,
+   "answer": "Your dog is called **Trixie**.",
+   "value": "kept",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3.5-4B|dog:Marnok",
+   "model": "Qwen3.5-4B",
+   "type": "dog",
+   "true": "Marnok",
+   "b": 8.0,
+   "answer": "Your dog is called **Barnaby**.",
+   "value": "other",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3.5-4B|dog:Bristle",
+   "model": "Qwen3.5-4B",
+   "type": "dog",
+   "true": "Bristle",
+   "b": 6.0,
+   "answer": "Your dog is called **Brist**.",
+   "value": "kept",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3.5-4B|dog:Yorrick",
+   "model": "Qwen3.5-4B",
+   "type": "dog",
+   "true": "Yorrick",
+   "b": 3.0,
+   "answer": "Your dog is called **Yorick**.",
+   "value": "kept",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3.5-4B|dog:Plunk",
+   "model": "Qwen3.5-4B",
+   "type": "dog",
+   "true": "Plunk",
+   "b": 6.0,
+   "answer": "Your dog is called **Pup**.",
+   "value": "other",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3.5-4B|dog:Skarn",
+   "model": "Qwen3.5-4B",
+   "type": "dog",
+   "true": "Skarn",
+   "b": 8.0,
+   "answer": "Your dog is called **Dog**. (Just to clarify: in my previous response, I said \"Noted\"",
+   "value": "other",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3.5-4B|order:4417",
+   "model": "Qwen3.5-4B",
+   "type": "order",
+   "true": "4417",
+   "b": 6.0,
+   "answer": "Your order number is **1000000000000000000",
+   "value": "other",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3.5-4B|order:8290",
+   "model": "Qwen3.5-4B",
+   "type": "order",
+   "true": "8290",
+   "b": 8.0,
+   "answer": "Your order number is **1000000000000000000",
+   "value": "other",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3.5-4B|order:1053",
+   "model": "Qwen3.5-4B",
+   "type": "order",
+   "true": "1053",
+   "b": 8.0,
+   "answer": "Your order number is **105**.",
+   "value": "kept",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3.5-4B|order:7734",
+   "model": "Qwen3.5-4B",
+   "type": "order",
+   "true": "7734",
+   "b": 8.0,
+   "answer": "Your order number is **12345**.",
+   "value": "other",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3.5-4B|order:6621",
+   "model": "Qwen3.5-4B",
+   "type": "order",
+   "true": "6621",
+   "b": 8.0,
+   "answer": "Your order number is **12345**.",
+   "value": "other",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3.5-4B|order:3908",
+   "model": "Qwen3.5-4B",
+   "type": "order",
+   "true": "3908",
+   "b": 8.0,
+   "answer": "Your order number is **1234567890**.",
+   "value": "other",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3.5-4B|order:5142",
+   "model": "Qwen3.5-4B",
+   "type": "order",
+   "true": "5142",
+   "b": 8.0,
+   "answer": "Your order number is **1234567890**.",
+   "value": "other",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3.5-4B|order:2867",
+   "model": "Qwen3.5-4B",
+   "type": "order",
+   "true": "2867",
+   "b": 8.0,
+   "answer": "Your order number is **12345**.",
+   "value": "other",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3.5-4B|order:9375",
+   "model": "Qwen3.5-4B",
+   "type": "order",
+   "true": "9375",
+   "b": 6.0,
+   "answer": "Your order number is **5043**.",
+   "value": "other",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3.5-4B|order:1486",
+   "model": "Qwen3.5-4B",
+   "type": "order",
+   "true": "1486",
+   "b": 5.0,
+   "answer": "Your order number is **148**.",
+   "value": "kept",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3.5-4B|city:Utrecht",
+   "model": "Qwen3.5-4B",
+   "type": "city",
+   "true": "Utrecht",
+   "b": 8.0,
+   "answer": "You live in **Amsterdam**, the capital city of the Netherlands. It is known for its canals, historic",
+   "value": "other",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3.5-4B|city:Graz",
+   "model": "Qwen3.5-4B",
+   "type": "city",
+   "true": "Graz",
+   "b": 14.0,
+   "answer": "You live in **Linz**, Austria. It is the capital of the state of Upper Austria and the second-largest",
+   "value": "other",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3.5-4B|city:Rijeka",
+   "model": "Qwen3.5-4B",
+   "type": "city",
+   "true": "Rijeka",
+   "b": 8.0,
+   "answer": "You live in **Ljubljana**, the capital and largest city of Slovenia. It is known for its beautiful",
+   "value": "other",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3.5-4B|city:Leon",
+   "model": "Qwen3.5-4B",
+   "type": "city",
+   "true": "Leon",
+   "b": 4.0,
+   "answer": "You live in **Le\u00f3n**, a city in the state of Guanajuato, Mexico. It is known for its",
+   "value": "kept",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3.5-4B|error:E-88",
+   "model": "Qwen3.5-4B",
+   "type": "error",
+   "true": "E-88",
+   "b": 6.0,
+   "answer": "You got error code **E8** (or **E800** depending on the system). In the",
+   "value": "kept",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3.5-4B|error:X-12",
+   "model": "Qwen3.5-4B",
+   "type": "error",
+   "true": "X-12",
+   "b": 6.0,
+   "answer": "You got error code **100**.",
+   "value": "other",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3.5-4B|error:F-401",
+   "model": "Qwen3.5-4B",
+   "type": "error",
+   "true": "F-401",
+   "b": 6.0,
+   "answer": "You got error code **404**. This typically means \"Not Found,\" indicating that the server cannot find the",
+   "value": "other",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3.5-4B|error:Q-73",
+   "model": "Qwen3.5-4B",
+   "type": "error",
+   "true": "Q-73",
+   "b": 4.0,
+   "answer": "You received error code **Q-7**.",
+   "value": "kept",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3.5-4B|error:B-206",
+   "model": "Qwen3.5-4B",
+   "type": "error",
+   "true": "B-206",
+   "b": 6.0,
+   "answer": "You received error code **404**. This typically means \"Not Found,\" indicating that the server cannot find the",
+   "value": "other",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3.5-4B|error:R-95",
+   "model": "Qwen3.5-4B",
+   "type": "error",
+   "true": "R-95",
+   "b": 6.0,
+   "answer": "You got error code **R-9**. *(Note: In the context of the \"Error Code\" meme,",
+   "value": "kept",
+   "hedge": true
+  },
+  {
+   "id": "Qwen3.5-4B|error:T-340",
+   "model": "Qwen3.5-4B",
+   "type": "error",
+   "true": "T-340",
+   "b": 6.0,
+   "answer": "You received error code **404**. This typically means \"Not Found,\" indicating that the server cannot find the",
+   "value": "other",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3.5-4B|error:K-17",
+   "model": "Qwen3.5-4B",
+   "type": "error",
+   "true": "K-17",
+   "b": 6.0,
+   "answer": "You got error code **404**. This typically means \"Not Found,\" indicating that the server cannot find the",
+   "value": "other",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3.5-4B|error:M-628",
+   "model": "Qwen3.5-4B",
+   "type": "error",
+   "true": "M-628",
+   "b": 6.0,
+   "answer": "You got error code **62** (often referred to as \"62\" in contexts like Windows Event Viewer or",
+   "value": "kept",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3.5-4B|error:Z-54",
+   "model": "Qwen3.5-4B",
+   "type": "error",
+   "true": "Z-54",
+   "b": 4.0,
+   "answer": "You got error code **Z-5**. *(Note: In your previous message, you wrote \"Z-5",
+   "value": "kept",
+   "hedge": true
+  },
+  {
+   "id": "Qwen3.5-4B|time:19:40",
+   "model": "Qwen3.5-4B",
+   "type": "time",
+   "true": "19:40",
+   "b": 6.0,
+   "answer": "Your train leaves at **19:45** (7:45 PM). *Note: I previously",
+   "value": "kept",
+   "hedge": true
+  },
+  {
+   "id": "Qwen3.5-4B|time:06:15",
+   "model": "Qwen3.5-4B",
+   "type": "time",
+   "true": "06:15",
+   "b": 4.0,
+   "answer": "Your train leaves at **6:15**.",
+   "value": "kept",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3.5-4B|time:13:52",
+   "model": "Qwen3.5-4B",
+   "type": "time",
+   "true": "13:52",
+   "b": 6.0,
+   "answer": "Your train leaves at **14:55** (2:55 PM). *Note: I am",
+   "value": "other",
+   "hedge": true
+  },
+  {
+   "id": "Qwen3.5-4B|time:21:08",
+   "model": "Qwen3.5-4B",
+   "type": "time",
+   "true": "21:08",
+   "b": 6.0,
+   "answer": "Your train leaves at **21:00** (9:00 PM).",
+   "value": "kept",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3.5-4B|time:11:27",
+   "model": "Qwen3.5-4B",
+   "type": "time",
+   "true": "11:27",
+   "b": 8.0,
+   "answer": "Your train leaves at **3:00 PM** (or 15:00).",
+   "value": "other",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3.5-4B|time:04:36",
+   "model": "Qwen3.5-4B",
+   "type": "time",
+   "true": "04:36",
+   "b": 4.0,
+   "answer": "Your train leaves at **4:36**.",
+   "value": "kept",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3.5-4B|time:17:49",
+   "model": "Qwen3.5-4B",
+   "type": "time",
+   "true": "17:49",
+   "b": 5.0,
+   "answer": "Your train leaves at **17:45** (5:45 PM).",
+   "value": "kept",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3.5-4B|time:08:03",
+   "model": "Qwen3.5-4B",
+   "type": "time",
+   "true": "08:03",
+   "b": 4.0,
+   "answer": "Your train leaves at **8:03**.",
+   "value": "kept",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3.5-4B|time:22:41",
+   "model": "Qwen3.5-4B",
+   "type": "time",
+   "true": "22:41",
+   "b": 5.0,
+   "answer": "Your train leaves at **22:45** (10:45 PM). *Note: I",
+   "value": "kept",
+   "hedge": true
+  },
+  {
+   "id": "Qwen3.5-4B|time:15:14",
+   "model": "Qwen3.5-4B",
+   "type": "time",
+   "true": "15:14",
+   "b": 6.0,
+   "answer": "Your train leaves at **15:15** (3:15 PM).",
+   "value": "kept",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3.5-4B|account:302",
+   "model": "Qwen3.5-4B",
+   "type": "account",
+   "true": "302",
+   "b": 6.0,
+   "answer": "Your account number ends in **2**.",
+   "value": "kept",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3.5-4B|account:718",
+   "model": "Qwen3.5-4B",
+   "type": "account",
+   "true": "718",
+   "b": 8.0,
+   "answer": "Your account number ends in **3**.",
+   "value": "other",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3.5-4B|account:455",
+   "model": "Qwen3.5-4B",
+   "type": "account",
+   "true": "455",
+   "b": 6.0,
+   "answer": "Your account number ends in **5**.",
+   "value": "kept",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3.5-4B|account:961",
+   "model": "Qwen3.5-4B",
+   "type": "account",
+   "true": "961",
+   "b": 6.0,
+   "answer": "Your account number ends in **1**.",
+   "value": "kept",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3.5-4B|account:233",
+   "model": "Qwen3.5-4B",
+   "type": "account",
+   "true": "233",
+   "b": 5.0,
+   "answer": "Your account number ends in **23**.",
+   "value": "kept",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3.5-4B|account:807",
+   "model": "Qwen3.5-4B",
+   "type": "account",
+   "true": "807",
+   "b": 6.0,
+   "answer": "Your account number ends in **7**.",
+   "value": "kept",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3.5-4B|account:574",
+   "model": "Qwen3.5-4B",
+   "type": "account",
+   "true": "574",
+   "b": 6.0,
+   "answer": "Your account number ends in **57**.",
+   "value": "kept",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3.5-4B|account:129",
+   "model": "Qwen3.5-4B",
+   "type": "account",
+   "true": "129",
+   "b": 8.0,
+   "answer": "Your account number ends in **3**.",
+   "value": "other",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3.5-4B|account:686",
+   "model": "Qwen3.5-4B",
+   "type": "account",
+   "true": "686",
+   "b": 6.0,
+   "answer": "Your account number ends in **68**.",
+   "value": "kept",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3.5-4B|account:340",
+   "model": "Qwen3.5-4B",
+   "type": "account",
+   "true": "340",
+   "b": 5.0,
+   "answer": "Your account number ends in **34**.",
+   "value": "kept",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3.5-4B|allergy:walnuts",
+   "model": "Qwen3.5-4B",
+   "type": "allergy",
+   "true": "walnuts",
+   "b": 8.0,
+   "answer": "You are allergic to **peanuts**. Peanuts are botanically legumes (often called groundnuts),",
+   "value": "other",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3.5-4B|allergy:mustard",
+   "model": "Qwen3.5-4B",
+   "type": "allergy",
+   "true": "mustard",
+   "b": 10.0,
+   "answer": "You are allergic to **peanuts** (and often other legumes like soy, depending on your specific medical history).",
+   "value": "other",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3.5-4B|allergy:sesame",
+   "model": "Qwen3.5-4B",
+   "type": "allergy",
+   "true": "sesame",
+   "b": 6.0,
+   "answer": "You are allergic to **peanuts** (and often tree nuts, as they are botanically distinct but frequently cross",
+   "value": "other",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3.5-4B|allergy:kiwi",
+   "model": "Qwen3.5-4B",
+   "type": "allergy",
+   "true": "kiwi",
+   "b": 8.0,
+   "answer": "You are allergic to **peanuts** (or tree nuts, depending on how you classify them, but peanuts are bot",
+   "value": "other",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3.5-4B|allergy:wasp stings",
+   "model": "Qwen3.5-4B",
+   "type": "allergy",
+   "true": "wasp stings",
+   "b": 5.0,
+   "answer": "You are allergic to **stinging insects**, specifically: * **Honeybees** * **",
+   "value": "kept",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3.5-4B|allergy:aspirin",
+   "model": "Qwen3.5-4B",
+   "type": "allergy",
+   "true": "aspirin",
+   "b": 8.0,
+   "answer": "You are allergic to **penicillin** (a type of antibiotic). This is a common and important detail to",
+   "value": "other",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3.5-4B|room:614",
+   "model": "Qwen3.5-4B",
+   "type": "room",
+   "true": "614",
+   "b": 6.0,
+   "answer": "You are in **room 604**. Since hotel room numbers are typically written with the floor number first,",
+   "value": "kept",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3.5-4B|room:227",
+   "model": "Qwen3.5-4B",
+   "type": "room",
+   "true": "227",
+   "b": 8.0,
+   "answer": "You are in **room 207**. I apologize for the confusion earlier! I misread \"20",
+   "value": "kept",
+   "hedge": true
+  },
+  {
+   "id": "Qwen3.5-4B|room:1108",
+   "model": "Qwen3.5-4B",
+   "type": "room",
+   "true": "1108",
+   "b": 4.0,
+   "answer": "You are in **room 110**. Since hotel room numbers are typically written with the floor number first,",
+   "value": "kept",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3.5-4B|room:355",
+   "model": "Qwen3.5-4B",
+   "type": "room",
+   "true": "355",
+   "b": 6.0,
+   "answer": "You are in **room 305**. Since hotel room numbers are typically sequential, room 305",
+   "value": "kept",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3.5-4B|room:902",
+   "model": "Qwen3.5-4B",
+   "type": "room",
+   "true": "902",
+   "b": 8.0,
+   "answer": "You are in **room 302**. Here is the breakdown: * The number **3**",
+   "value": "kept",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3.5-4B|room:471",
+   "model": "Qwen3.5-4B",
+   "type": "room",
+   "true": "471",
+   "b": 10.0,
+   "answer": "You are in **room 403**. I apologize for the confusion earlier! I misread \"40",
+   "value": "kept",
+   "hedge": true
+  },
+  {
+   "id": "Qwen3.5-4B|room:1236",
+   "model": "Qwen3.5-4B",
+   "type": "room",
+   "true": "1236",
+   "b": 5.0,
+   "answer": "You are in **room 123**. I noticed you mentioned \"123\" in your first message",
+   "value": "kept",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3.5-4B|room:588",
+   "model": "Qwen3.5-4B",
+   "type": "room",
+   "true": "588",
+   "b": 5.0,
+   "answer": "You are in **room 58**. Since hotel room numbers are typically three digits, the \"58\"",
+   "value": "kept",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3.5-4B|room:743",
+   "model": "Qwen3.5-4B",
+   "type": "room",
+   "true": "743",
+   "b": 6.0,
+   "answer": "You are in **room 73** (or room 703, depending on how the number is read",
+   "value": "kept",
+   "hedge": true
+  },
+  {
+   "id": "Qwen3.5-4B|flight:QR318",
+   "model": "Qwen3.5-4B",
+   "type": "flight",
+   "true": "QR318",
+   "b": 6.0,
+   "answer": "Your flight number is **QR31** (or possibly **QR31** depending on the airline's internal coding",
+   "value": "kept",
+   "hedge": true
+  },
+  {
+   "id": "Qwen3.5-4B|flight:LH772",
+   "model": "Qwen3.5-4B",
+   "type": "flight",
+   "true": "LH772",
+   "b": 6.0,
+   "answer": "Your flight number is **LH400**.",
+   "value": "other",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3.5-4B|flight:BA945",
+   "model": "Qwen3.5-4B",
+   "type": "flight",
+   "true": "BA945",
+   "b": 6.0,
+   "answer": "Your flight number is **BA118** (or **BA119** depending on the direction).",
+   "value": "other",
+   "hedge": true
+  },
+  {
+   "id": "Qwen3.5-4B|flight:AY206",
+   "model": "Qwen3.5-4B",
+   "type": "flight",
+   "true": "AY206",
+   "b": 8.0,
+   "answer": "Your flight number is **AY500**.",
+   "value": "other",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3.5-4B|flight:OK483",
+   "model": "Qwen3.5-4B",
+   "type": "flight",
+   "true": "OK483",
+   "b": 5.0,
+   "answer": "Your flight number is **405**.",
+   "value": "other",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3.5-4B|flight:SK651",
+   "model": "Qwen3.5-4B",
+   "type": "flight",
+   "true": "SK651",
+   "b": 6.0,
+   "answer": "Your flight number is **SK555**.",
+   "value": "other",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3.5-4B|flight:TP129",
+   "model": "Qwen3.5-4B",
+   "type": "flight",
+   "true": "TP129",
+   "b": 6.0,
+   "answer": "Your flight number is **123**.",
+   "value": "other",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3.5-4B|flight:AZ874",
+   "model": "Qwen3.5-4B",
+   "type": "flight",
+   "true": "AZ874",
+   "b": 5.0,
+   "answer": "Your flight number is **AZ87** (or **AZ87** depending on the airline's specific numbering format",
+   "value": "kept",
+   "hedge": true
+  },
+  {
+   "id": "Qwen3.5-4B|flight:EW537",
+   "model": "Qwen3.5-4B",
+   "type": "flight",
+   "true": "EW537",
+   "b": 5.0,
+   "answer": "Your flight number is **EW53** (or **EW53** depending on the airline's specific formatting,",
+   "value": "kept",
+   "hedge": true
+  },
+  {
+   "id": "Qwen3.5-4B|flight:IB260",
+   "model": "Qwen3.5-4B",
+   "type": "flight",
+   "true": "IB260",
+   "b": 6.0,
+   "answer": "Your flight number is **IB350**.",
+   "value": "other",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3.5-4B|cat:Miso",
+   "model": "Qwen3.5-4B",
+   "type": "cat",
+   "true": "Miso",
+   "b": 10.0,
+   "answer": "Your cat is called **Miyu**.",
+   "value": "kept",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3.5-4B|cat:Grendel",
+   "model": "Qwen3.5-4B",
+   "type": "cat",
+   "true": "Grendel",
+   "b": 6.0,
+   "answer": "Your cat is called **By the way**. Wait, that doesn't sound like a cat's name! Let me",
+   "value": "none",
+   "hedge": true
+  },
+  {
+   "id": "Qwen3.5-4B|cat:Pilch",
+   "model": "Qwen3.5-4B",
+   "type": "cat",
+   "true": "Pilch",
+   "b": 8.0,
+   "answer": "Your cat is called **Pip**.",
+   "value": "kept",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3.5-4B|cat:Nectarine",
+   "model": "Qwen3.5-4B",
+   "type": "cat",
+   "true": "Nectarine",
+   "b": 8.0,
+   "answer": "Your cat is called **Nutmeg**.",
+   "value": "other",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3.5-4B|cat:Bobbin",
+   "model": "Qwen3.5-4B",
+   "type": "cat",
+   "true": "Bobbin",
+   "b": 6.0,
+   "answer": "Your cat is called **Bob**.",
+   "value": "kept",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3.5-4B|cat:Vosk",
+   "model": "Qwen3.5-4B",
+   "type": "cat",
+   "true": "Vosk",
+   "b": 6.0,
+   "answer": "Your cat is called **Vos**.",
+   "value": "kept",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3.5-4B|cat:Tamarind",
+   "model": "Qwen3.5-4B",
+   "type": "cat",
+   "true": "Tamarind",
+   "b": 8.0,
+   "answer": "Your cat is called **By the way**. Wait, that doesn't sound like a cat's name! Let me",
+   "value": "none",
+   "hedge": true
+  },
+  {
+   "id": "Qwen3.5-4B|cat:Klepto",
+   "model": "Qwen3.5-4B",
+   "type": "cat",
+   "true": "Klepto",
+   "b": 6.0,
+   "answer": "Your cat is called **Cat**. (Just kidding! You mentioned earlier that your cat is called **Cat**...",
+   "value": "other",
+   "hedge": false
+  },
+  {
+   "id": "Qwen3.5-4B|cat:Sorrel",
+   "model": "Qwen3.5-4B",
+   "type": "cat",
+   "true": "Sorrel",
+   "b": 8.0,
+   "answer": "Your cat is called **Cat**. (Just to clarify: you mentioned earlier that your cat is named **Cat**,",
+   "value": "other",
+   "hedge": true
+  },
+  {
+   "id": "Qwen3.5-4B|cat:Nubbin",
+   "model": "Qwen3.5-4B",
+   "type": "cat",
+   "true": "Nubbin",
+   "b": 8.0,
+   "answer": "Your cat is called **Noby**.",
+   "value": "kept",
+   "hedge": false
+  }
+ ]
+}
