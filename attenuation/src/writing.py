@@ -285,6 +285,20 @@ was too noisy to certify anything.
 Why the newer model never declines. Something between Qwen3-4B and Qwen3.5-4B
 removed the option of saying "I can't read this"."""),
 
+    ("ready", "h1", "Appendix · Hours", """11 Aug: about 2 hours. 12 Aug: about 6. Eight of the twelve, plus the two
+allowed for the write-up.
+
+The first eight are a reconstruction from the day against the git timestamps of
+the repository — the work was not timed with a clock as it happened, and that is
+said here rather than dressed up. The write-up itself was timed.
+
+Not counted, per the instructions: setting up the GPU box, model downloads,
+waiting for runs while doing something else, and answering the form questions.
+
+Not counted because it predates the question: the fixture set, the ten-model
+V-Steer ladder, the attenuation mechanism, and the instrument the runs go
+through."""),
+
     ("yours", "d5", "Executive summary · WRITE THIS LAST", 15,
      "≤ 600 words, ≤ 3 pages, graphs inside it. It summarises what is already "
      "written, so it cannot be written first. <b>The counter turns red past "
@@ -365,6 +379,13 @@ section {{ border-top:1px solid var(--rule); padding:16px 0 6px; }}
 section.w {{ border-left:3px solid var(--mine); padding-left:13px; }}
 section.r {{ border-left:3px solid var(--ready); padding-left:13px; }}
 section.f {{ border-left:3px solid var(--accent); padding-left:13px; }}
+section.c ul {{ list-style:none; margin:6px 0 0; padding:0; }}
+section.c li {{ display:flex; gap:9px; align-items:flex-start;
+  margin-bottom:9px; font-size:13.5px; color:var(--ink2); }}
+section.c input {{ margin-top:4px; flex:none; width:15px; height:15px;
+  accent-color:var(--ready); }}
+section.c input:checked + label {{ opacity:.45; text-decoration:line-through; }}
+section.c a {{ color:var(--accent); }}
 section.f img {{ width:100%; border:1px solid var(--rule); border-radius:8px;
   display:block; background:#fff; }}
 .cap {{ font-size:12.5px; color:var(--muted); margin:8px 0 0; }}
@@ -403,6 +424,30 @@ sections are drafted from the data and are yours to cut or rewrite.
 <span class="tag y">yours</span> sections start empty and should stay in your own
 voice — he reads those first and says LLM-sounding answers are a significant
 negative. Export gives you the whole thing as one markdown file.</p>
+
+<h2>Before you send it</h2>
+<section class="c"><ul id="todo">
+<li><input type="checkbox" id="c1"><label for="c1"><b>Check the yes/no reading.</b>
+<code>python src/verify.py</code> then open <code>results/verify.html</code>.
+89 items are flagged for a look, the rest is a scan. Ten minutes, and then the
+write-up can say <i>checked by hand</i> instead of <i>parsed</i>.</label></li>
+<li><input type="checkbox" id="c2"><label for="c2"><b>Start a timer</b> for the
+write-up, and screenshot it at the end.</label></li>
+<li><input type="checkbox" id="c3"><label for="c3"><b>Write the seven form
+answers</b> — they are at the bottom of this page. He reads these first and
+filters on them.</label></li>
+<li><input type="checkbox" id="c4"><label for="c4"><b>Write the four
+<span class="tag y">yours</span> sections</b> of the write-up. Executive summary
+last.</label></li>
+<li><input type="checkbox" id="c5"><label for="c5"><b>Export</b>, paste into a
+Google Doc, drop the three figures in, and <b>set the link so anyone can
+open it</b> — applications without a readable doc are rejected.</label></li>
+<li><input type="checkbox" id="c6"><label for="c6"><b>Read it out loud once.</b>
+Anything that sounds like it was generated, rewrite in your own words.</label></li>
+<li><input type="checkbox" id="c7"><label for="c7"><b>Submit</b> —
+<a href="https://airtable.com/appnMboxg76F1QIDc/pagqu7wWWrUCZkNVI/form"
+target="_blank">the form</a>. Due <b>4 Sept, 23:59 PT</b>.</label></li>
+</ul></section>
 
 <h2>The write-up — in the order R1D1 used</h2>
 {"".join(body)}
@@ -449,6 +494,15 @@ KEYS.forEach(k => {{
   }});
 }});
 totals();
+const CK = "attenuation-todo";
+let done = new Set(JSON.parse(localStorage.getItem(CK) || "[]"));
+document.querySelectorAll("#todo input").forEach(cb => {{
+  cb.checked = done.has(cb.id);
+  cb.addEventListener("change", () => {{
+    cb.checked ? done.add(cb.id) : done.delete(cb.id);
+    localStorage.setItem(CK, JSON.stringify([...done]));
+  }});
+}});
 function exp() {{
   const md = KEYS.map(k => "## " + TITLES[k] + "\\n\\n" + (D[k] || "").trim() + "\\n")
                  .join("\\n");
