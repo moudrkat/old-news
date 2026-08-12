@@ -1,33 +1,28 @@
 # attenuation
 
-**When the evidence for something a model was told goes quiet, does the model
-know?**
+**What's behind a fact?**
 
-Not deleted — just quieter. The model still has the fact in its context, and the
-signal carrying it has been weakened. Does it abstain, recall correctly, or say
-something confidently adjacent?
+A model is told something. Turn that sentence down — don't delete it, just make
+it harder to see — and ask about it. It doesn't say it doesn't know. It says
+something *next to* the answer: `302` becomes `02`, `Bagr` becomes `Bagel`.
 
-The parent repo established the answer on ten models, for one way of weakening
-evidence: it does **not** notice. The correct token's probability collapses while
-its rank stays in single digits, nothing promotes a wrong one, and whatever was
-standing behind it comes out — fluent, formatted, confident. `302` becomes `02`.
-`Bagr` becomes `Bagel`.
+So what does it say instead, and where does that come from?
 
-This directory asks whether that is a fact about **models** rather than about one
-technique, and how it scales.
+Turning a fact down is a way of **seeing what the model has stacked behind it**.
+The knob is an instrument, not the subject.
 
-- Two independent ways of weakening the same evidence — quiet values, and less
-  looking — so the finding does not depend on either.
-- Is there a setting where the instruction stops being obeyed and the fact still
-  survives?
-- Does it get better or worse as models get better? The existing numbers trend
-  the wrong way: the newest model in the set buries the fact three orders of
-  magnitude deeper than the oldest.
+The parent repo established that the fact is *attenuated, not overwritten* —
+its probability collapses, nothing promotes a wrong one, and whatever was
+standing behind it wins. This directory asks who that is.
 
-**Nothing has been run yet.** The only thing here is the frozen plan:
+- Does the queue simply advance, or does the ranking reshuffle?
+- How far down does the replacement come from — and why is it rank 2 on one
+  model and rank 43 on another?
+- Is what the knob produces the same thing the model says when it was never
+  told at all?
 
-- [`PREREGISTRATION.md`](PREREGISTRATION.md) — the question, five hypotheses with
-  numeric falsifiers, definitions fixed in advance, controls, the scoring rule
-  written before any generation is read, and the stop rules.
+**Nothing has been run yet.** The plan is frozen in
+[`PREREGISTRATION.md`](PREREGISTRATION.md) — one question, one knob, three
+models, four baselines, numeric falsifiers, and the confound that would kill it.
 
-Frozen 2026-08-11. Changes go in the Deviations table at the bottom, dated.
+Frozen 2026-08-12.
