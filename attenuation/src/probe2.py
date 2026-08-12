@@ -38,7 +38,7 @@ from knob import biased_mask, find_span
 from value import decode
 
 LADDER = [1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 8.0, 10.0, 14.0]
-NTOK = 8
+NTOK = 24
 SEED = 4242
 
 

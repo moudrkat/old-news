@@ -31,6 +31,23 @@ def first_sentence(s: str) -> str:
     return re.sub(r"\s+", " ", s)
 
 
+REFUSAL = re.compile(
+    r"\b(sorry|apolog|don'?t have|do not have|no access|don'?t know|do not know|"
+    r"didn'?t tell|did not tell|can'?t (help|assist|tell|see|determine)|cannot|"
+    r"not (available|mentioned|provided|sure)|as an ai|no information)\b", re.I)
+
+
+def is_refusal(sentence: str) -> bool:
+    """A refusal has no value, so it has no distance from the truth.
+
+    Checked before extraction, because the first version of this file ran the
+    extractor over refusals and pulled fragments like `m sorry, I don` out of
+    them, then computed an edit distance against `4417`. Half the table was
+    that.
+    """
+    return bool(REFUSAL.search(sentence))
+
+
 def propose_value(sentence: str, true: str) -> str:
     """Best guess at the value the model gave, for a first pass only.
 
@@ -82,11 +99,13 @@ def main() -> int:
                 if field not in rec:
                     continue
                 sent = first_sentence(rec[field])
-                got = propose_value(sent, rec["value"])
+                refused = is_refusal(sent)
+                got = "" if refused else propose_value(sent, rec["value"])
                 rows.append({
                     "model": model, "item": key, "true": rec["value"],
                     "cond": label, "faint_b": rec.get("faint_b"),
-                    "said": got, "dist": norm_dist(got, rec["value"]) if got else None,
+                    "refused": refused, "said": got,
+                    "dist": norm_dist(got, rec["value"]) if got else None,
                     "sentence": sent,
                 })
 
@@ -102,8 +121,12 @@ def main() -> int:
             g = {r["cond"]: r for r in rs if r["item"] == item}
             f_, a_ = g.get("faint"), g.get("absent")
             def cell(r):
-                if not r or not r["said"]:
-                    return ("*(refused / no value)*", "—")
+                if not r:
+                    return ("—", "—")
+                if r["refused"]:
+                    return ("*refused*", "—")
+                if not r["said"]:
+                    return ("*(no value found — read by hand)*", "—")
                 return (f"`{r['said']}`", f"{r['dist']:.2f}")
             fs, fd = cell(f_)
             as_, ad = cell(a_)

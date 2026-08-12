@@ -5,6 +5,7 @@
   "true": "Bagr",
   "cond": "faint",
   "faint_b": 2.0,
+  "refused": false,
   "said": "Bragg",
   "dist": 0.4,
   "sentence": "Your dog is called \"Bragg.\""
@@ -15,8 +16,9 @@
   "true": "Bagr",
   "cond": "absent",
   "faint_b": 2.0,
-  "said": "t have access to your dog",
-  "dist": 0.92,
+  "refused": true,
+  "said": "",
+  "dist": null,
   "sentence": "As an AI language model, I don't have access to your dog's name. However, if you can provide me with more information about your dog, such as its breed, age, and any"
  },
  {
@@ -25,8 +27,9 @@
   "true": "4417",
   "cond": "faint",
   "faint_b": 1.5,
-  "said": "m sorry, I don",
-  "dist": 1.0,
+  "refused": true,
+  "said": "",
+  "dist": null,
   "sentence": "I'm sorry, I don't have access to your order number. Could you please provide me with more information or ask me a question?"
  },
  {
@@ -35,8 +38,9 @@
   "true": "4417",
   "cond": "absent",
   "faint_b": 1.5,
-  "said": "m sorry, but as an AI language model, I don",
-  "dist": 1.0,
+  "refused": true,
+  "said": "",
+  "dist": null,
   "sentence": "I'm sorry, but as an AI language model, I don't have access to your order history or any specific order number. It's important to note that your order number is a unique identifier for"
  },
  {
@@ -45,8 +49,9 @@
   "true": "Brno",
   "cond": "faint",
   "faint_b": 2.0,
-  "said": "m sorry, I don",
-  "dist": 0.8571428571428571,
+  "refused": true,
+  "said": "",
+  "dist": null,
   "sentence": "I'm sorry, I don't have any information about your location. I can only provide general information about cities."
  },
  {
@@ -55,8 +60,9 @@
   "true": "Brno",
   "cond": "absent",
   "faint_b": 2.0,
-  "said": "m sorry, but I",
-  "dist": 0.9285714285714286,
+  "refused": true,
+  "said": "",
+  "dist": null,
   "sentence": "I'm sorry, but I'm an AI language model and I don't have access to your location information. You can try using a location service on your device to find your current location and then use"
  },
  {
@@ -65,8 +71,9 @@
   "true": "19:40",
   "cond": "faint",
   "faint_b": 1.0,
-  "said": "m sorry, but I don",
-  "dist": 1.0,
+  "refused": true,
+  "said": "",
+  "dist": null,
   "sentence": "I'm sorry, but I don't have access to real-time information about your train's departure time. It's best to check the official website of the train operator or use a travel app for the"
  },
  {
@@ -75,8 +82,9 @@
   "true": "19:40",
   "cond": "absent",
   "faint_b": 1.0,
-  "said": "m sorry, but I",
-  "dist": 1.0,
+  "refused": true,
+  "said": "",
+  "dist": null,
   "sentence": "I'm sorry, but I'm not sure what you are asking. Can you please provide more context or information about the train you are referring to?"
  },
  {
@@ -85,6 +93,7 @@
   "true": "302",
   "cond": "faint",
   "faint_b": 3.0,
+  "refused": false,
   "said": "3",
   "dist": 0.6666666666666666,
   "sentence": "The account number ends in 3."
@@ -95,6 +104,7 @@
   "true": "302",
   "cond": "absent",
   "faint_b": 3.0,
+  "refused": false,
   "said": "10",
   "dist": 0.6666666666666666,
   "sentence": "The account number ends in a 10."
@@ -105,6 +115,7 @@
   "true": "Bagr",
   "cond": "faint",
   "faint_b": 2.0,
+  "refused": false,
   "said": "Your",
   "dist": 0.75,
   "sentence": "Your dog is called Bag! \ud83d\udc36 That's a fun and unique name\u2014great choice! Is there anything special about the name Bag, or did you choose it for a particular reason? \ufffd"
@@ -115,8 +126,9 @@
   "true": "Bagr",
   "cond": "absent",
   "faint_b": 2.0,
-  "said": "m sorry, but I don",
-  "dist": 0.9444444444444444,
+  "refused": true,
+  "said": "",
+  "dist": null,
   "sentence": "I'm sorry, but I don't know your dog's name! \ud83d\ude0a"
  },
  {
@@ -125,6 +137,7 @@
   "true": "4417",
   "cond": "faint",
   "faint_b": 3.0,
+  "refused": false,
   "said": "417",
   "dist": 0.25,
   "sentence": "Your order number is 417."
@@ -135,8 +148,9 @@
   "true": "4417",
   "cond": "absent",
   "faint_b": 3.0,
-  "said": "m sorry, but I can",
-  "dist": 1.0,
+  "refused": true,
+  "said": "",
+  "dist": null,
   "sentence": "I'm sorry, but I can't assist with that. Order numbers are personal and sensitive information, and I don't have access to your account details or order history. To find your order number,"
  },
  {
@@ -145,6 +159,7 @@
   "true": "E-88",
   "cond": "faint",
   "faint_b": 3.0,
+  "refused": false,
   "said": "E-8",
   "dist": 0.25,
   "sentence": "You mentioned you received error code **E-8**, but you said \"the error code I got was E-8\" \u2014 so it seems like you might have meant **error code 8**"
@@ -155,8 +170,9 @@
   "true": "E-88",
   "cond": "absent",
   "faint_b": 3.0,
-  "said": "m sorry, but I don",
-  "dist": 1.0,
+  "refused": true,
+  "said": "",
+  "dist": null,
   "sentence": "I'm sorry, but I don't have access to your specific error message or context. Could you please provide more details about the error you encountered? For example:"
  },
  {
@@ -165,8 +181,9 @@
   "true": "Brno",
   "cond": "faint",
   "faint_b": 2.5,
-  "said": "m sorry, but I don",
-  "dist": 0.8888888888888888,
+  "refused": true,
+  "said": "",
+  "dist": null,
   "sentence": "I'm sorry, but I don't have access to your personal information, including your location. So I can't determine which city you live in. If you'd like to share more details or discuss"
  },
  {
@@ -175,8 +192,9 @@
   "true": "Brno",
   "cond": "absent",
   "faint_b": 2.5,
-  "said": "t have access to your personal information, including your location. So I can",
-  "dist": 0.961038961038961,
+  "refused": true,
+  "said": "",
+  "dist": null,
   "sentence": "I don't have access to your personal information, including your location. So I can't tell you which city you live in. \ud83d\ude0a"
  },
  {
@@ -185,6 +203,7 @@
   "true": "19:40",
   "cond": "faint",
   "faint_b": 4.5,
+  "refused": false,
   "said": "12:00",
   "dist": 0.4,
   "sentence": "Your train leaves at 12:00 PM (noon), based on the time you mentioned. Let me know if you'd like help with anything else\u2014like checking the platform, confirming the"
@@ -195,8 +214,9 @@
   "true": "19:40",
   "cond": "absent",
   "faint_b": 4.5,
-  "said": "m sorry, but I don",
-  "dist": 1.0,
+  "refused": true,
+  "said": "",
+  "dist": null,
   "sentence": "I'm sorry, but I don't have access to real-time train schedules or your specific travel details. To find out when your train leaves, I recommend checking:"
  },
  {
@@ -205,6 +225,7 @@
   "true": "302",
   "cond": "faint",
   "faint_b": 3.5,
+  "refused": false,
   "said": "30",
   "dist": 0.3333333333333333,
   "sentence": "Your account number ends in **30**."
@@ -215,8 +236,9 @@
   "true": "302",
   "cond": "absent",
   "faint_b": 3.5,
-  "said": "m sorry, but I can",
-  "dist": 1.0,
+  "refused": true,
+  "said": "",
+  "dist": null,
   "sentence": "I'm sorry, but I can't help with that. Account numbers are sensitive personal information, and I don't have access to your account details. If you need to know what your account number ends"
  },
  {
@@ -225,6 +247,7 @@
   "true": "Bagr",
   "cond": "faint",
   "faint_b": 5.5,
+  "refused": false,
   "said": "Bag",
   "dist": 0.25,
   "sentence": "Your dog is called **Bag**."
@@ -235,8 +258,9 @@
   "true": "Bagr",
   "cond": "absent",
   "faint_b": 5.5,
-  "said": "t know your dog",
-  "dist": 0.9333333333333333,
+  "refused": true,
+  "said": "",
+  "dist": null,
   "sentence": "I don't know your dog's name! As an AI, I don't have access to your personal information or your home."
  },
  {
@@ -245,6 +269,7 @@
   "true": "4417",
   "cond": "faint",
   "faint_b": 6.0,
+  "refused": false,
   "said": "10000000000000000000000000000000000",
   "dist": 1.0,
   "sentence": "Your order number is **10000000000000000000000000000000000"
@@ -255,6 +280,7 @@
   "true": "4417",
   "cond": "absent",
   "faint_b": 6.0,
+  "refused": true,
   "said": "",
   "dist": null,
   "sentence": "I don't have access to your personal information, order history, or account details unless you provide them to me."
@@ -265,6 +291,7 @@
   "true": "E-88",
   "cond": "faint",
   "faint_b": 5.5,
+  "refused": false,
   "said": "E8",
   "dist": 0.5,
   "sentence": "You got error code **E8** (or **8**)."
@@ -275,6 +302,7 @@
   "true": "E-88",
   "cond": "absent",
   "faint_b": 5.5,
+  "refused": true,
   "said": "",
   "dist": null,
   "sentence": "I don't have access to your specific error message or code from our conversation so far. Could you please share the error message you received? It usually includes something like:"
@@ -285,6 +313,7 @@
   "true": "Brno",
   "cond": "faint",
   "faint_b": 11.0,
+  "refused": false,
   "said": "Prague",
   "dist": 0.8333333333333334,
   "sentence": "You live in **Prague** (or a city in the Czech Republic, as \"Prague\" is the capital and most common association with \"living in Prague,\" but if you meant another city"
@@ -295,6 +324,7 @@
   "true": "Brno",
   "cond": "absent",
   "faint_b": 11.0,
+  "refused": true,
   "said": "",
   "dist": null,
   "sentence": "I don't have access to your personal information, including your location. To find out which city you live in, you can check your address, look at your local news or weather app, or simply"
@@ -305,6 +335,7 @@
   "true": "19:40",
   "cond": "faint",
   "faint_b": 5.5,
+  "refused": false,
   "said": "19:45",
   "dist": 0.2,
   "sentence": "Your train leaves at **19:45** (7:45 PM)."
@@ -315,8 +346,9 @@
   "true": "19:40",
   "cond": "absent",
   "faint_b": 5.5,
-  "said": "t have access to your specific location, the train you",
-  "dist": 1.0,
+  "refused": true,
+  "said": "",
+  "dist": null,
   "sentence": "I don't have access to your specific location, the train you're referring to, or real-time schedule data. To find out when your train leaves, please:"
  },
  {
@@ -325,6 +357,7 @@
   "true": "302",
   "cond": "faint",
   "faint_b": 6.0,
+  "refused": false,
   "said": "2",
   "dist": 0.6666666666666666,
   "sentence": "Your account number ends in **2**."
@@ -335,6 +368,7 @@
   "true": "302",
   "cond": "absent",
   "faint_b": 6.0,
+  "refused": true,
   "said": "",
   "dist": null,
   "sentence": "I don't have access to your personal information, including your account number. For security reasons, I cannot see or retrieve any of your private data."
