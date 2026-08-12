@@ -1,0 +1,45 @@
+model      Qwen/Qwen3.5-4B
+coverage   8/32 layers see the attention mask
+span       2 tokens at [22, 23] = ' Bagr'
+gold token 19106 = ' Bag'
+
+    b      p(gold)  rank(gold)  winner
+    0    9.637e-01           1 ' Bag'
+    2    9.588e-01           1 ' Bag'
+    5    5.859e-01           1 ' Bag'
+   10    3.910e-02           5 ' By'   <- from rank 52 at b=0
+   20    3.702e-02           5 ' By'   <- from rank 52 at b=0
+   40    3.702e-02           5 ' By'   <- from rank 52 at b=0
+
+knob is alive.
+
+model      Qwen/Qwen3-4B-Instruct-2507
+coverage   36/36 layers see the attention mask
+span       2 tokens at [22, 23] = ' Bagr'
+gold token 19708 = ' Bag'
+
+    b      p(gold)  rank(gold)  winner
+    0    1.000e+00           1 ' Bag'
+    2    1.000e+00           1 ' Bag'
+    5    6.108e-15        4583 '...'   <- from rank 429 at b=0
+   10    8.956e-15        3344 '...'   <- from rank 429 at b=0
+   20    8.405e-15        3536 '...'   <- from rank 429 at b=0
+   40    8.405e-15        3536 '...'   <- from rank 429 at b=0
+
+knob is alive.
+
+model      Qwen/Qwen2.5-0.5B-Instruct
+coverage   24/24 layers see the attention mask
+span       2 tokens at [22, 23] = ' Bagr'
+gold token 19708 = ' Bag'
+
+    b      p(gold)  rank(gold)  winner
+    0    9.695e-01           1 ' Bag'
+    2    1.739e-01           2 ' "'   <- from rank 2 at b=0
+    5    2.250e-05         400 ' "'   <- from rank 2 at b=0
+   10    1.412e-05         473 ' "'   <- from rank 2 at b=0
+   20    1.926e-05         453 ' "'   <- from rank 2 at b=0
+   40    1.926e-05         453 ' "'   <- from rank 2 at b=0
+
+knob is alive.
+
