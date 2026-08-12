@@ -37,15 +37,17 @@ REFUSAL = re.compile(
     r"not (available|mentioned|provided|sure)|as an ai|no information)\b", re.I)
 
 
-def is_refusal(sentence: str) -> bool:
+def is_refusal(sentence: str, head: int = 60) -> bool:
     """A refusal has no value, so it has no distance from the truth.
 
-    Checked before extraction, because the first version of this file ran the
-    extractor over refusals and pulled fragments like `m sorry, I don` out of
-    them, then computed an edit distance against `4417`. Half the table was
-    that.
+    Only the opening of the answer is searched. A real refusal starts with one
+    ("I'm sorry, but I don't have access to..."); an answer that gives a value
+    and then hedges does not ("Your dog is called Yorick. Though I'm not sure
+    if that's a coincidence..."). Searching the whole string called that second
+    kind a refusal, which is the third time an automatic classifier here has
+    been wrong in the same direction.
     """
-    return bool(REFUSAL.search(sentence))
+    return bool(REFUSAL.search(sentence[:head]))
 
 
 def propose_value(sentence: str, true: str) -> str:

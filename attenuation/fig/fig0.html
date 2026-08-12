@@ -1,0 +1,51 @@
+<!doctype html><meta charset="utf-8">
+<title>Randomly drawn examples</title>
+<style>
+:root { --surface:#fcfcfb; --ink:#0b0b0b; --ink2:#52514e; --muted:#6f6e6a;
+         --rule:#e6e5e1; --yes:#eb6834; --no:#1baf7a; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --surface:#1a1a19; --ink:#fff; --ink2:#c3c2b7; --muted:#96958c;
+  --rule:#2e2e2c; --yes:#d95926; --no:#199e70; } }
+body { margin:0; background:var(--surface); color:var(--ink);
+  font:14px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; }
+figure { margin:22px; max-width:860px; }
+h2 { font-size:15px; margin:0 0 3px; }
+.sub { color:var(--muted); font-size:12.5px; margin:0 0 14px; }
+table { border-collapse:collapse; width:100%; }
+th { text-align:left; font-size:11px; text-transform:uppercase;
+  letter-spacing:.05em; color:var(--muted); font-weight:600;
+  padding:0 12px 6px 0; border-bottom:1px solid var(--rule); }
+td { padding:9px 12px 9px 0; border-bottom:1px solid var(--rule);
+  vertical-align:top; font-size:13px; }
+.told { color:var(--ink2); width:31%; }
+.said { color:var(--ink); }
+.ans { width:64px; text-align:right; padding-right:0; }
+.pill { display:inline-block; padding:1px 8px; border-radius:9px;
+  font-size:11.5px; font-weight:600; color:#fff; }
+.pill.yes { background:var(--yes); } .pill.no { background:var(--no); }
+.pill.other { background:var(--muted); }
+figcaption { margin-top:12px; color:var(--ink2); font-size:12.5px; }
+code { font-size:12px; color:var(--muted); }
+</style>
+<figure>
+<h2>The same sentence, turned down until the answer is wrong</h2>
+<p class="sub">8 answers drawn at random from 189 — not chosen.
+<code>random.Random(4242).sample</code>, both models, refusals included.</p>
+<table>
+<tr><th>what the user said</th><th>what the model answered</th>
+<th>“did I<br>tell you?”</th></tr>
+<tr><td class="told">By the way, my dog is called <b>Bristle</b>.</td><td class="said">Your dog is called **Brist**.</td><td class="ans"><span class="pill yes">yes</span></td></tr>
+<tr><td class="told">By the way, the error code I got was <b>Q-73</b>.</td><td class="said">You mentioned that you got error code **73**, so that&#x27;s the one you received. If you&#x27;d like,</td><td class="ans"><span class="pill yes">yes</span></td></tr>
+<tr><td class="told">By the way, my dog is called <b>Yorrick</b>.</td><td class="said">Your dog is called Yorick. 😊 (Though I&#x27;m not sure if that&#x27;s a coincidence—Yor</td><td class="ans"><span class="pill yes">yes</span></td></tr>
+<tr><td class="told">By the way, I am allergic to <b>kiwi</b>.</td><td class="said">You are allergic to **peanuts** (or tree nuts, depending on how you classify them, but peanuts are bot</td><td class="ans"><span class="pill yes">yes</span></td></tr>
+<tr><td class="told">By the way, my cat is called <b>Nubbin</b>.</td><td class="said">Your cat is called Nub. 😺🐾 (Just a fun little twist — &quot;Nub&quot; sounds like &quot;</td><td class="ans"><span class="pill yes">yes</span></td></tr>
+<tr><td class="told">By the way, my cat is called <b>Klepto</b>.</td><td class="said">Your cat is called... *My Cat*. 😸✨ (Well, that’s a clever name—very personal</td><td class="ans"><span class="pill yes">yes</span></td></tr>
+<tr><td class="told">By the way, my flight is <b>BA945</b>.</td><td class="said">I&#x27;m sorry, but I don&#x27;t have access to your flight details or personal information. If you&#x27;d like to confirm</td><td class="ans"><span class="pill yes">yes</span></td></tr>
+<tr><td class="told">By the way, my hotel room is <b>614</b>.</td><td class="said">You&#x27;re in room 61. 😊</td><td class="ans"><span class="pill yes">yes</span></td></tr>
+</table>
+<figcaption>
+The sentence carrying the fact is still in the conversation — it has only been
+made harder to read. 8 of these 8 answer &#8220;yes, you told me&#8221;:
+6 while giving a wrong value, 2 while declining to give one at all.
+</figcaption>
+</figure>
