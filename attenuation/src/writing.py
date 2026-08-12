@@ -203,9 +203,20 @@ measured against baselines, on models that matter</li>
 <li>he is unusually explicit about method minimalism — try prompting, probing,
 reading the output before anything fancy. That is how this project was run and
 why the probe got dropped</li>
-<li>what you would get from it and cannot get alone: someone from outside
-telling you <i>which</i> of your questions is worth a month. Not the coding —
-the taste</li>
+<li><b>the strongest version of "what I cannot get alone": someone to break my
+false hopes.</b> Do not say it bare — as a sentence on its own it reads as
+learned humility, and he has seen that genre. Ground it in the times it
+actually cost you something: you held "Gemma cannot be steered" for weeks in
+July because a binary judge was hiding the effect, and the four-rung ladder
+showed it all along. Today alone, a baseline retired a finding of yours, a
+forced prefix inverted a result, and six items turned out never to have been
+damaged.<br>
+The sentence is not <i>be hard on me</i>. It is: <b>the expensive way to be
+wrong in my work is that I am the only one checking, and I have watched myself
+hold a wrong conclusion for weeks.</b> That points at what you need from him
+rather than at how you feel</li>
+<li>and the plainer half of the same thing: someone from outside telling you
+<i>which</i> of your questions is worth a month. Not the coding — the taste</li>
 <li>and the cohort. Your own repo's front page asks for collaborators</li>
 </ul>
 Do not write that you want to work on AGI safety if that is not why you are
