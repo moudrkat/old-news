@@ -140,7 +140,7 @@ not generate it.
 
 ## Controls and gates
 
-- **`swap`** — the one that matters. Passed, 89/89.
+- **`swap`** — the one that matters. Passed, 189/189 across both models.
 - **Gate**: an item counts only if the unmanipulated model answers correctly and
   some `b` removes the value. Both failure kinds counted and reported.
 - **Excluded model**: Qwen2.5-0.5B answers "yes, you told me" for 3 of 5 items
