@@ -1,0 +1,370 @@
+{
+ "model": "Qwen/Qwen3-4B-Instruct-2507",
+ "coverage": [
+  36,
+  36
+ ],
+ "K": 100,
+ "items": {
+  "dog": {
+   "gold": " Bagr",
+   "rows": [
+    {
+     "b": 0.0,
+     "says": " Bagr! \ud83d\udc36",
+     "div": null
+    },
+    {
+     "b": 0.5,
+     "says": " Bagr! \ud83d\udc36",
+     "div": null
+    },
+    {
+     "b": 1.0,
+     "says": " Bagr. \ud83d\udc36",
+     "div": null
+    },
+    {
+     "b": 1.5,
+     "says": " Bagr. \ud83d\udc36",
+     "div": null
+    },
+    {
+     "b": 2.0,
+     "says": " Bag! \ud83d\udc36 That",
+     "div": 1,
+     "p_gold_at_div": 2.5895939906317444e-11,
+     "rank_gold_at_div": 90,
+     "winner": "!",
+     "winner_rank_at_0": 145,
+     "rho": 0.21947795152664185
+    },
+    {
+     "b": 2.5,
+     "says": " Bag. \ud83d\ude0a (Just",
+     "div": 1,
+     "p_gold_at_div": 0.026498455554246902,
+     "rank_gold_at_div": 3,
+     "winner": ".",
+     "winner_rank_at_0": 147,
+     "rho": 0.5791299343109131
+    },
+    {
+     "b": 3.0,
+     "says": " Bag. \ud83d\ude0a (Just",
+     "div": 1,
+     "p_gold_at_div": 1.9899634935427457e-05,
+     "rank_gold_at_div": 14,
+     "winner": ".",
+     "winner_rank_at_0": 147,
+     "rho": 0.4050165116786957
+    },
+    {
+     "b": 3.5,
+     "says": " **My Dog** \u2014 that",
+     "div": 0,
+     "p_gold_at_div": 0.03949734941124916,
+     "rank_gold_at_div": 4,
+     "winner": " **",
+     "winner_rank_at_0": 3,
+     "rho": 0.3602760136127472
+    },
+    {
+     "b": 4.0,
+     "says": "... *My Dog*?",
+     "div": 0,
+     "p_gold_at_div": 1.6317212470084996e-08,
+     "rank_gold_at_div": 66,
+     "winner": "...",
+     "winner_rank_at_0": 429,
+     "rho": 0.16001200675964355
+    },
+    {
+     "b": 4.5,
+     "says": "... *nothing*? \ufffd",
+     "div": 0,
+     "p_gold_at_div": 2.8280614070182175e-13,
+     "rank_gold_at_div": 1916,
+     "winner": "...",
+     "winner_rank_at_0": 429,
+     "rho": 0.09395739436149597
+    },
+    {
+     "b": 5.0,
+     "says": "... well, you said \"",
+     "div": 0,
+     "p_gold_at_div": 6.107583158703389e-15,
+     "rank_gold_at_div": 4583,
+     "winner": "...",
+     "winner_rank_at_0": 429,
+     "rho": 0.08810081332921982
+    },
+    {
+     "b": 5.5,
+     "says": "... well, you said \"",
+     "div": 0,
+     "p_gold_at_div": 4.9373029570190605e-15,
+     "rank_gold_at_div": 4936,
+     "winner": "...",
+     "winner_rank_at_0": 429,
+     "rho": 0.09400539845228195
+    },
+    {
+     "b": 6.0,
+     "says": "... well, you didn't",
+     "div": 0,
+     "p_gold_at_div": 4.23202478513603e-15,
+     "rank_gold_at_div": 4248,
+     "winner": "...",
+     "winner_rank_at_0": 429,
+     "rho": 0.09249325096607208
+    },
+    {
+     "b": 6.5,
+     "says": "... well, you didn't",
+     "div": 0,
+     "p_gold_at_div": 4.947677416557031e-15,
+     "rank_gold_at_div": 3998,
+     "winner": "...",
+     "winner_rank_at_0": 429,
+     "rho": 0.09705370664596558
+    },
+    {
+     "b": 7.0,
+     "says": "... well, you didn't",
+     "div": 0,
+     "p_gold_at_div": 9.24334021053675e-15,
+     "rank_gold_at_div": 3243,
+     "winner": "...",
+     "winner_rank_at_0": 429,
+     "rho": 0.09659765660762787
+    },
+    {
+     "b": 7.5,
+     "says": "... well, you didn't",
+     "div": 0,
+     "p_gold_at_div": 6.3475039704637484e-15,
+     "rank_gold_at_div": 3895,
+     "winner": "...",
+     "winner_rank_at_0": 429,
+     "rho": 0.09478548169136047
+    },
+    {
+     "b": 8.0,
+     "says": "... well, you didn't",
+     "div": 0,
+     "p_gold_at_div": 5.014248700497062e-15,
+     "rank_gold_at_div": 3964,
+     "winner": "...",
+     "winner_rank_at_0": 429,
+     "rho": 0.09026102721691132
+    },
+    {
+     "b": 10.0,
+     "says": "... well, you didn't",
+     "div": 0,
+     "p_gold_at_div": 8.955512485829108e-15,
+     "rank_gold_at_div": 3344,
+     "winner": "...",
+     "winner_rank_at_0": 429,
+     "rho": 0.09431742876768112
+    },
+    {
+     "b": 15.0,
+     "says": "... well, you didn't",
+     "div": 0,
+     "p_gold_at_div": 8.146749334164705e-15,
+     "rank_gold_at_div": 3444,
+     "winner": "...",
+     "winner_rank_at_0": 429,
+     "rho": 0.0929252952337265
+    },
+    {
+     "b": 20.0,
+     "says": "... well, you didn't",
+     "div": 0,
+     "p_gold_at_div": 8.405228214282932e-15,
+     "rank_gold_at_div": 3536,
+     "winner": "...",
+     "winner_rank_at_0": 429,
+     "rho": 0.0941254124045372
+    }
+   ]
+  },
+  "order": {
+   "gold": " 4417",
+   "rows": [
+    {
+     "b": 0.0,
+     "says": " 4417.",
+     "div": null
+    },
+    {
+     "b": 0.5,
+     "says": " 4417.",
+     "div": null
+    },
+    {
+     "b": 1.0,
+     "says": " 4417.",
+     "div": null
+    },
+    {
+     "b": 1.5,
+     "says": " 4417.",
+     "div": null
+    },
+    {
+     "b": 2.0,
+     "says": " 4417.",
+     "div": null
+    },
+    {
+     "b": 2.5,
+     "says": " 4417.",
+     "div": null
+    },
+    {
+     "b": 3.0,
+     "says": " 417.<|im_end|>",
+     "div": 2,
+     "p_gold_at_div": 0.06007811054587364,
+     "rank_gold_at_div": 2,
+     "winner": "1",
+     "winner_rank_at_0": 6,
+     "rho": 0.20556855201721191
+    },
+    {
+     "b": 3.5,
+     "says": " 417.<|im_end|>",
+     "div": 2,
+     "p_gold_at_div": 6.125834715930978e-06,
+     "rank_gold_at_div": 8,
+     "winner": "1",
+     "winner_rank_at_0": 6,
+     "rho": 0.113279327750206
+    },
+    {
+     "b": 4.0,
+     "says": " \"42\" \u2014 just",
+     "div": 0,
+     "p_gold_at_div": 0.0028656283393502235,
+     "rank_gold_at_div": 6,
+     "winner": " \"",
+     "winner_rank_at_0": 10,
+     "rho": 0.3651965260505676
+    },
+    {
+     "b": 4.5,
+     "says": " missing from your message. Could",
+     "div": 0,
+     "p_gold_at_div": 3.880991172877657e-08,
+     "rank_gold_at_div": 41,
+     "winner": " missing",
+     "winner_rank_at_0": 824,
+     "rho": 0.2995379567146301
+    },
+    {
+     "b": 5.0,
+     "says": " missing from your message. Could",
+     "div": 0,
+     "p_gold_at_div": 5.754953402714591e-09,
+     "rank_gold_at_div": 54,
+     "winner": " missing",
+     "winner_rank_at_0": 824,
+     "rho": 0.28705671429634094
+    },
+    {
+     "b": 5.5,
+     "says": " missing from your message. Could",
+     "div": 0,
+     "p_gold_at_div": 4.933050412603279e-09,
+     "rank_gold_at_div": 51,
+     "winner": " missing",
+     "winner_rank_at_0": 824,
+     "rho": 0.2910650968551636
+    },
+    {
+     "b": 6.0,
+     "says": " missing from your message. Could",
+     "div": 0,
+     "p_gold_at_div": 2.393304887604586e-09,
+     "rank_gold_at_div": 65,
+     "winner": " missing",
+     "winner_rank_at_0": 824,
+     "rho": 0.29338133335113525
+    },
+    {
+     "b": 6.5,
+     "says": " missing from your message. Could",
+     "div": 0,
+     "p_gold_at_div": 5.0665041051445314e-09,
+     "rank_gold_at_div": 51,
+     "winner": " missing",
+     "winner_rank_at_0": 824,
+     "rho": 0.2984578311443329
+    },
+    {
+     "b": 7.0,
+     "says": " missing from your message. Could",
+     "div": 0,
+     "p_gold_at_div": 4.759404426124547e-09,
+     "rank_gold_at_div": 53,
+     "winner": " missing",
+     "winner_rank_at_0": 824,
+     "rho": 0.3007020652294159
+    },
+    {
+     "b": 7.5,
+     "says": " missing from your message. Could",
+     "div": 0,
+     "p_gold_at_div": 3.84137610609514e-09,
+     "rank_gold_at_div": 60,
+     "winner": " missing",
+     "winner_rank_at_0": 824,
+     "rho": 0.2929612994194031
+    },
+    {
+     "b": 8.0,
+     "says": " missing from your message. Could",
+     "div": 0,
+     "p_gold_at_div": 3.8414906811112814e-09,
+     "rank_gold_at_div": 58,
+     "winner": " missing",
+     "winner_rank_at_0": 824,
+     "rho": 0.29449746012687683
+    },
+    {
+     "b": 10.0,
+     "says": " missing from your message. Could",
+     "div": 0,
+     "p_gold_at_div": 4.63372673564777e-09,
+     "rank_gold_at_div": 53,
+     "winner": " missing",
+     "winner_rank_at_0": 824,
+     "rho": 0.2969937026500702
+    },
+    {
+     "b": 15.0,
+     "says": " missing from your message. Could",
+     "div": 0,
+     "p_gold_at_div": 3.706625228971916e-09,
+     "rank_gold_at_div": 57,
+     "winner": " missing",
+     "winner_rank_at_0": 824,
+     "rho": 0.2971857190132141
+    },
+    {
+     "b": 20.0,
+     "says": " missing from your message. Could",
+     "div": 0,
+     "p_gold_at_div": 3.841585716202189e-09,
+     "rank_gold_at_div": 60,
+     "winner": " missing",
+     "winner_rank_at_0": 824,
+     "rho": 0.29778578877449036
+    }
+   ]
+  }
+ }
+}

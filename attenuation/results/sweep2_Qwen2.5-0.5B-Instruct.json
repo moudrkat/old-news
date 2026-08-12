@@ -1,0 +1,560 @@
+{
+ "model": "Qwen/Qwen2.5-0.5B-Instruct",
+ "coverage": [
+  24,
+  24
+ ],
+ "K": 100,
+ "items": {
+  "dog": {
+   "gold": " Bagr",
+   "rows": [
+    {
+     "b": 0.0,
+     "says": " Bagr.<|im_end|>\n<|endoftext|>",
+     "div": null
+    },
+    {
+     "b": 0.5,
+     "says": " Bagr.<|im_end|>\n<|endoftext|>",
+     "div": null
+    },
+    {
+     "b": 1.0,
+     "says": " Bagr.<|im_end|>\n<|endoftext|>",
+     "div": null
+    },
+    {
+     "b": 1.5,
+     "says": " Bagr.<|im_end|>\n<|endoftext|>",
+     "div": null
+    },
+    {
+     "b": 2.0,
+     "says": " \"Bragg.\"<|im_end|>",
+     "div": 0,
+     "p_gold_at_div": 0.1739244908094406,
+     "rank_gold_at_div": 2,
+     "winner": " \"",
+     "winner_rank_at_0": 2,
+     "rho": 0.5576237440109253
+    },
+    {
+     "b": 2.5,
+     "says": " \"Barky\".<|im_end|>",
+     "div": 0,
+     "p_gold_at_div": 0.006470798514783382,
+     "rank_gold_at_div": 5,
+     "winner": " \"",
+     "winner_rank_at_0": 2,
+     "rho": 0.4075607657432556
+    },
+    {
+     "b": 3.0,
+     "says": " \"Buddy\".<|im_end|>\n",
+     "div": 0,
+     "p_gold_at_div": 0.00036015681689605117,
+     "rank_gold_at_div": 49,
+     "winner": " \"",
+     "winner_rank_at_0": 2,
+     "rho": 0.30568256974220276
+    },
+    {
+     "b": 3.5,
+     "says": " \"Buddy\".<|im_end|>\n",
+     "div": 0,
+     "p_gold_at_div": 7.586832361994311e-05,
+     "rank_gold_at_div": 146,
+     "winner": " \"",
+     "winner_rank_at_0": 2,
+     "rho": 0.2655625641345978
+    },
+    {
+     "b": 4.0,
+     "says": " \"Buddy\".<|im_end|>\n",
+     "div": 0,
+     "p_gold_at_div": 3.5063145332969725e-05,
+     "rank_gold_at_div": 265,
+     "winner": " \"",
+     "winner_rank_at_0": 2,
+     "rho": 0.24578458070755005
+    },
+    {
+     "b": 4.5,
+     "says": " \"Buddy\".<|im_end|>\n",
+     "div": 0,
+     "p_gold_at_div": 1.8424550944473594e-05,
+     "rank_gold_at_div": 364,
+     "winner": " \"",
+     "winner_rank_at_0": 2,
+     "rho": 0.23590758442878723
+    },
+    {
+     "b": 5.0,
+     "says": " \"Buddy\".<|im_end|>\n",
+     "div": 0,
+     "p_gold_at_div": 2.2504002117784694e-05,
+     "rank_gold_at_div": 400,
+     "winner": " \"",
+     "winner_rank_at_0": 2,
+     "rho": 0.23530752956867218
+    },
+    {
+     "b": 5.5,
+     "says": " \"Buddy\".<|im_end|>\n",
+     "div": 0,
+     "p_gold_at_div": 1.897856782306917e-05,
+     "rank_gold_at_div": 416,
+     "winner": " \"",
+     "winner_rank_at_0": 2,
+     "rho": 0.23681968450546265
+    },
+    {
+     "b": 6.0,
+     "says": " \"Buddy\".<|im_end|>\n",
+     "div": 0,
+     "p_gold_at_div": 2.0420820874278434e-05,
+     "rank_gold_at_div": 443,
+     "winner": " \"",
+     "winner_rank_at_0": 2,
+     "rho": 0.22937893867492676
+    },
+    {
+     "b": 6.5,
+     "says": " \"Buddy\".<|im_end|>\n",
+     "div": 0,
+     "p_gold_at_div": 1.6480051272083074e-05,
+     "rank_gold_at_div": 456,
+     "winner": " \"",
+     "winner_rank_at_0": 2,
+     "rho": 0.2330152988433838
+    },
+    {
+     "b": 7.0,
+     "says": " \"Buddy\".<|im_end|>\n",
+     "div": 0,
+     "p_gold_at_div": 1.8689788703341037e-05,
+     "rank_gold_at_div": 480,
+     "winner": " \"",
+     "winner_rank_at_0": 2,
+     "rho": 0.22900690138339996
+    },
+    {
+     "b": 7.5,
+     "says": " \"Buddy\".<|im_end|>\n",
+     "div": 0,
+     "p_gold_at_div": 1.6164143744390458e-05,
+     "rank_gold_at_div": 465,
+     "winner": " \"",
+     "winner_rank_at_0": 2,
+     "rho": 0.23123912513256073
+    },
+    {
+     "b": 8.0,
+     "says": " \"Buddy\".<|im_end|>\n",
+     "div": 0,
+     "p_gold_at_div": 1.5902922314126045e-05,
+     "rank_gold_at_div": 485,
+     "winner": " \"",
+     "winner_rank_at_0": 2,
+     "rho": 0.23071107268333435
+    },
+    {
+     "b": 10.0,
+     "says": " \"Buddy\".<|im_end|>\n",
+     "div": 0,
+     "p_gold_at_div": 1.4117938917479478e-05,
+     "rank_gold_at_div": 473,
+     "winner": " \"",
+     "winner_rank_at_0": 2,
+     "rho": 0.23014701902866364
+    },
+    {
+     "b": 15.0,
+     "says": " \"Buddy\".<|im_end|>\n",
+     "div": 0,
+     "p_gold_at_div": 1.8513535906095058e-05,
+     "rank_gold_at_div": 492,
+     "winner": " \"",
+     "winner_rank_at_0": 2,
+     "rho": 0.22894689440727234
+    },
+    {
+     "b": 20.0,
+     "says": " \"Buddy\".<|im_end|>\n",
+     "div": 0,
+     "p_gold_at_div": 1.9255388906458393e-05,
+     "rank_gold_at_div": 453,
+     "winner": " \"",
+     "winner_rank_at_0": 2,
+     "rho": 0.22773477435112
+    }
+   ]
+  },
+  "order": {
+   "gold": " 4417",
+   "rows": [
+    {
+     "b": 0.0,
+     "says": " 4417.",
+     "div": null
+    },
+    {
+     "b": 0.5,
+     "says": " 4417.",
+     "div": null
+    },
+    {
+     "b": 1.0,
+     "says": " 4417.",
+     "div": null
+    },
+    {
+     "b": 1.5,
+     "says": " 4417.",
+     "div": null
+    },
+    {
+     "b": 2.0,
+     "says": " 4417.",
+     "div": null
+    },
+    {
+     "b": 2.5,
+     "says": " 417.<|im_end|>",
+     "div": 2,
+     "p_gold_at_div": 0.03865024074912071,
+     "rank_gold_at_div": 5,
+     "winner": "1",
+     "winner_rank_at_0": 2,
+     "rho": 0.6605220437049866
+    },
+    {
+     "b": 3.0,
+     "says": " 417.<|im_end|>",
+     "div": 2,
+     "p_gold_at_div": 0.031983207911252975,
+     "rank_gold_at_div": 6,
+     "winner": "1",
+     "winner_rank_at_0": 2,
+     "rho": 0.6222982406616211
+    },
+    {
+     "b": 3.5,
+     "says": " 42345",
+     "div": 2,
+     "p_gold_at_div": 0.031422801315784454,
+     "rank_gold_at_div": 8,
+     "winner": "2",
+     "winner_rank_at_0": 5,
+     "rho": 0.6100690364837646
+    },
+    {
+     "b": 4.0,
+     "says": " 42345",
+     "div": 2,
+     "p_gold_at_div": 0.052965011447668076,
+     "rank_gold_at_div": 6,
+     "winner": "2",
+     "winner_rank_at_0": 5,
+     "rho": 0.5846864581108093
+    },
+    {
+     "b": 4.5,
+     "says": " 12345",
+     "div": 1,
+     "p_gold_at_div": 0.21451137959957123,
+     "rank_gold_at_div": 2,
+     "winner": "1",
+     "winner_rank_at_0": 3,
+     "rho": 0.578397810459137
+    },
+    {
+     "b": 5.0,
+     "says": " 12345",
+     "div": 1,
+     "p_gold_at_div": 0.12569023668766022,
+     "rank_gold_at_div": 3,
+     "winner": "1",
+     "winner_rank_at_0": 3,
+     "rho": 0.5521272420883179
+    },
+    {
+     "b": 5.5,
+     "says": " 12345",
+     "div": 1,
+     "p_gold_at_div": 0.0898897647857666,
+     "rank_gold_at_div": 3,
+     "winner": "1",
+     "winner_rank_at_0": 3,
+     "rho": 0.5303090214729309
+    },
+    {
+     "b": 6.0,
+     "says": " 12345",
+     "div": 1,
+     "p_gold_at_div": 0.07158457487821579,
+     "rank_gold_at_div": 3,
+     "winner": "1",
+     "winner_rank_at_0": 3,
+     "rho": 0.5228322744369507
+    },
+    {
+     "b": 6.5,
+     "says": " 12345",
+     "div": 1,
+     "p_gold_at_div": 0.06450697034597397,
+     "rank_gold_at_div": 3,
+     "winner": "1",
+     "winner_rank_at_0": 3,
+     "rho": 0.5185478329658508
+    },
+    {
+     "b": 7.0,
+     "says": " 12345",
+     "div": 1,
+     "p_gold_at_div": 0.05586691200733185,
+     "rank_gold_at_div": 3,
+     "winner": "1",
+     "winner_rank_at_0": 3,
+     "rho": 0.5217161774635315
+    },
+    {
+     "b": 7.5,
+     "says": " 12345",
+     "div": 1,
+     "p_gold_at_div": 0.057369913905858994,
+     "rank_gold_at_div": 3,
+     "winner": "1",
+     "winner_rank_at_0": 3,
+     "rho": 0.5228322744369507
+    },
+    {
+     "b": 8.0,
+     "says": " 12345",
+     "div": 1,
+     "p_gold_at_div": 0.055665429681539536,
+     "rank_gold_at_div": 3,
+     "winner": "1",
+     "winner_rank_at_0": 3,
+     "rho": 0.5271286964416504
+    },
+    {
+     "b": 10.0,
+     "says": " 12345",
+     "div": 1,
+     "p_gold_at_div": 0.05535852536559105,
+     "rank_gold_at_div": 3,
+     "winner": "1",
+     "winner_rank_at_0": 3,
+     "rho": 0.5179597735404968
+    },
+    {
+     "b": 15.0,
+     "says": " 12345",
+     "div": 1,
+     "p_gold_at_div": 0.057039376348257065,
+     "rank_gold_at_div": 3,
+     "winner": "1",
+     "winner_rank_at_0": 3,
+     "rho": 0.522544264793396
+    },
+    {
+     "b": 20.0,
+     "says": " 12345",
+     "div": 1,
+     "p_gold_at_div": 0.055101800709962845,
+     "rank_gold_at_div": 3,
+     "winner": "1",
+     "winner_rank_at_0": 3,
+     "rho": 0.5249685049057007
+    }
+   ]
+  },
+  "error": {
+   "gold": " E-88",
+   "rows": [
+    {
+     "b": 0.0,
+     "says": " E-88.<|im_end|>",
+     "div": null
+    },
+    {
+     "b": 0.5,
+     "says": " E-88.<|im_end|>",
+     "div": null
+    },
+    {
+     "b": 1.0,
+     "says": " E-88.<|im_end|>",
+     "div": null
+    },
+    {
+     "b": 1.5,
+     "says": " E-88.<|im_end|>",
+     "div": null
+    },
+    {
+     "b": 2.0,
+     "says": " likely \"E-88",
+     "div": 0,
+     "p_gold_at_div": 0.318933367729187,
+     "rank_gold_at_div": 2,
+     "winner": " likely",
+     "winner_rank_at_0": 2,
+     "rho": 0.8216381669044495
+    },
+    {
+     "b": 2.5,
+     "says": " likely \"E100",
+     "div": 0,
+     "p_gold_at_div": 0.17351248860359192,
+     "rank_gold_at_div": 2,
+     "winner": " likely",
+     "winner_rank_at_0": 2,
+     "rho": 0.7614401578903198
+    },
+    {
+     "b": 3.0,
+     "says": " likely \"1000",
+     "div": 0,
+     "p_gold_at_div": 0.07688232511281967,
+     "rank_gold_at_div": 4,
+     "winner": " likely",
+     "winner_rank_at_0": 2,
+     "rho": 0.7293009161949158
+    },
+    {
+     "b": 3.5,
+     "says": " likely an error code related to",
+     "div": 0,
+     "p_gold_at_div": 0.02648431621491909,
+     "rank_gold_at_div": 4,
+     "winner": " likely",
+     "winner_rank_at_0": 2,
+     "rho": 0.6475487351417542
+    },
+    {
+     "b": 4.0,
+     "says": " likely an error code related to",
+     "div": 0,
+     "p_gold_at_div": 0.00957387313246727,
+     "rank_gold_at_div": 7,
+     "winner": " likely",
+     "winner_rank_at_0": 2,
+     "rho": 0.5957515835762024
+    },
+    {
+     "b": 4.5,
+     "says": " likely an error code related to",
+     "div": 0,
+     "p_gold_at_div": 0.0027932499069720507,
+     "rank_gold_at_div": 16,
+     "winner": " likely",
+     "winner_rank_at_0": 2,
+     "rho": 0.5431503057479858
+    },
+    {
+     "b": 5.0,
+     "says": " likely an error code related to",
+     "div": 0,
+     "p_gold_at_div": 0.0014007377903908491,
+     "rank_gold_at_div": 23,
+     "winner": " likely",
+     "winner_rank_at_0": 2,
+     "rho": 0.49358534812927246
+    },
+    {
+     "b": 5.5,
+     "says": " likely an error code related to",
+     "div": 0,
+     "p_gold_at_div": 0.0006015814724378288,
+     "rank_gold_at_div": 35,
+     "winner": " likely",
+     "winner_rank_at_0": 2,
+     "rho": 0.4439243972301483
+    },
+    {
+     "b": 6.0,
+     "says": " likely an error code related to",
+     "div": 0,
+     "p_gold_at_div": 0.00040949598769657314,
+     "rank_gold_at_div": 50,
+     "winner": " likely",
+     "winner_rank_at_0": 2,
+     "rho": 0.4349234998226166
+    },
+    {
+     "b": 6.5,
+     "says": " likely an error code related to",
+     "div": 0,
+     "p_gold_at_div": 0.00033538672141730785,
+     "rank_gold_at_div": 57,
+     "winner": " likely",
+     "winner_rank_at_0": 2,
+     "rho": 0.42930692434310913
+    },
+    {
+     "b": 7.0,
+     "says": " likely an error code related to",
+     "div": 0,
+     "p_gold_at_div": 0.00028779677813872695,
+     "rank_gold_at_div": 66,
+     "winner": " likely",
+     "winner_rank_at_0": 2,
+     "rho": 0.41818180680274963
+    },
+    {
+     "b": 7.5,
+     "says": " likely an error code related to",
+     "div": 0,
+     "p_gold_at_div": 0.00026983063435181975,
+     "rank_gold_at_div": 68,
+     "winner": " likely",
+     "winner_rank_at_0": 2,
+     "rho": 0.4199099838733673
+    },
+    {
+     "b": 8.0,
+     "says": " likely an error code related to",
+     "div": 0,
+     "p_gold_at_div": 0.0002592529635876417,
+     "rank_gold_at_div": 69,
+     "winner": " likely",
+     "winner_rank_at_0": 2,
+     "rho": 0.41347736120224
+    },
+    {
+     "b": 10.0,
+     "says": " likely an error code related to",
+     "div": 0,
+     "p_gold_at_div": 0.0002578420389909297,
+     "rank_gold_at_div": 70,
+     "winner": " likely",
+     "winner_rank_at_0": 2,
+     "rho": 0.415349543094635
+    },
+    {
+     "b": 15.0,
+     "says": " likely an error code related to",
+     "div": 0,
+     "p_gold_at_div": 0.0002667554945219308,
+     "rank_gold_at_div": 64,
+     "winner": " likely",
+     "winner_rank_at_0": 2,
+     "rho": 0.41501349210739136
+    },
+    {
+     "b": 20.0,
+     "says": " likely an error code related to",
+     "div": 0,
+     "p_gold_at_div": 0.0003039410221390426,
+     "rank_gold_at_div": 63,
+     "winner": " likely",
+     "winner_rank_at_0": 2,
+     "rho": 0.4171857237815857
+    }
+   ]
+  }
+ }
+}
