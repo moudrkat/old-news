@@ -67,22 +67,27 @@ def cell(answer: str, value: str) -> tuple[str, str]:
     return ("—", "gone") if is_refusal(answer) else ("other", "other")
 
 
+NITEMS, NDOSE, SNIP = 6, 7, 46
+
+
 def main(stem: str) -> int:
     f = ROOT / "results" / f"ladder_{stem}.json"
     if not f.exists():
         print(f"need {f}")
         return 1
     d = json.load(open(f))
-    bs = d["ladder"]
+    bs = d["ladder"][:NDOSE]
 
     head = "".join(f"<th>{b:g}</th>" for b in bs)
     body = []
-    for r in d["rows"]:
+    for r in d["rows"][:NITEMS]:
         tds = []
-        for ans in r["cells"]:
+        for ans in r["cells"][:NDOSE]:
             lab, cls = cell(ans, r["value"])
-            tds.append(f'<td class="{cls}" title="{html.escape(ans[:150])}">'
-                       f'{html.escape(lab)}</td>')
+            txt = ans if len(ans) <= SNIP else ans[:SNIP - 1] + "…"
+            tds.append(f'<td class="{cls}" title="{html.escape(ans[:200])}">'
+                       f'<b>{html.escape(lab)}</b>'
+                       f'<span>{html.escape(txt)}</span></td>')
         body.append(f'<tr><th class="row">{html.escape(r["value"])}</th>'
                     + "".join(tds) + "</tr>")
 
@@ -96,20 +101,25 @@ def main(stem: str) -> int:
   --rule:#2e2e2c; --full:#199e70; --piece:#c98500; --other:#d95926; }} }}
 body {{ margin:0; background:var(--surface); color:var(--ink);
   font:14px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; }}
-figure {{ margin:22px; max-width:760px; }}
+figure {{ margin:22px; max-width:1180px; }}
 h2 {{ font-size:15px; margin:0 0 3px; }}
 .sub {{ color:var(--muted); font-size:12.5px; margin:0 0 14px; }}
 table {{ border-collapse:separate; border-spacing:2px; }}
 th {{ font-size:11px; color:var(--muted); font-weight:600; padding:0 0 4px; }}
 th.row {{ text-align:right; padding:0 9px 0 0; font-size:12.5px;
   color:var(--ink2); font-family:ui-monospace,monospace; }}
-td {{ font:600 11.5px ui-monospace,monospace; text-align:center;
-  padding:7px 6px; border-radius:4px; color:#fff; min-width:44px; }}
+td {{ padding:6px 7px; border-radius:5px; color:#fff; width:160px;
+  vertical-align:top; }}
+td b {{ display:block; font:700 11.5px ui-monospace,monospace;
+  margin-bottom:3px; }}
+td span {{ display:block; font-size:10.5px; line-height:1.35; opacity:.92;
+  word-break:break-word; }}
 td.full {{ background:var(--full); }}
 td.piece {{ background:var(--piece); }}
 td.other {{ background:var(--other); }}
 td.gone {{ background:transparent; color:var(--muted);
   box-shadow:inset 0 0 0 1px var(--rule); }}
+td.gone span {{ opacity:.8; }}
 .leg {{ margin-top:12px; font-size:12px; color:var(--ink2); }}
 .leg i {{ display:inline-block; width:10px; height:10px; border-radius:3px;
   margin:0 4px 0 12px; vertical-align:baseline; }}
@@ -121,8 +131,9 @@ if(t)document.documentElement.dataset.theme=t;}}</script>
 <figure>
 <h2>The value does not flip. It comes apart — and at a different dose each time.</h2>
 <p class="sub">{d["model"].split("/")[-1]} · columns are <b>b</b>, the strength of
-the bias on that sentence's attention · each cell is the longest run of
-characters the answer still shares with the true value</p>
+the bias on that sentence's attention · in each cell, what the
+model actually answered, and above it the longest run of characters that answer
+still shares with the true value</p>
 <table>
 <tr><th class="row">told</th>{head}</tr>
 {chr(10).join(body)}

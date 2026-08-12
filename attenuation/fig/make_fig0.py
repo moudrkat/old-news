@@ -34,10 +34,10 @@ TOLD = {
 }
 
 
-def clean(s: str, n: int = 150) -> str:
+def clean(s: str, n: int = 0) -> str:
     s = s.split("<|im_end|>")[0].split("<|endoftext|>")[0].strip()
     s = " ".join(s.split())
-    return s[: n - 1] + "…" if len(s) > n else s
+    return s
 
 
 def main() -> int:

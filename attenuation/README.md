@@ -201,3 +201,25 @@ dilution, prompt compression. **None of those is measured here.**
 
 The plan, the hypotheses with their numeric falsifiers, and a list of what went
 wrong and how it was caught are in [`PREREGISTRATION.md`](PREREGISTRATION.md).
+
+## What I would do next
+
+**Does this happen under a manipulation nobody chose?** The knob here is
+deliberate and dosed. In deployment the same state — a sentence still present
+but read badly — arrives from KV cache compression and eviction, KV
+quantisation, a context long enough to dilute attention, or a summarisation step
+that rewrites the original. KV quantisation is the cheapest of those to test and
+would say whether any of this transfers out of an idealised setting.
+
+**Is there an internal signal for it?** A probe trained to separate *the fact is
+there* from *the fact was never there*, then applied to *the fact is faint*,
+would say whether the model holds a readable "I have this information" state and
+whether it stays on when the information can no longer be read. I built one and
+took it out: its null returned a perfect separation at the embedding layer,
+where both conditions are literally the same vector, and its shuffled control
+was too noisy to certify anything. The code and that verdict are in the repo.
+
+**Why does the newer model never decline?** Qwen3-4B declines in 46 of 100
+damaged cases; Qwen3.5-4B in none of 89. Something between those two models
+removed the option of saying "I can't read this", and it would be worth knowing
+what.
