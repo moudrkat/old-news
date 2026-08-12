@@ -26,15 +26,17 @@ fact"* from *"there is a sentence here"*.
 
 | condition | Qwen3.5-4B | Qwen3-4B |
 |---|---|---|
-| `present` | 85 / 89 (96%) | 99 / 100 (99%) |
-| **`faint`** | **78 / 89 (88%)** | **73 / 100 (73%)** |
-| **`swap`** | **0 / 89 (0%)** | **0 / 100 (0%)** |
-| `drop` | 0 / 89 | 0 / 100 |
+| `present` | 96% | 99% |
+| **`faint`** | **75 / 86 (87%)** | **70 / 97 (72%)** |
+| **`swap`** | **0 / 86 (0%)** | **0 / 97 (0%)** |
+| `drop` | 0 | 0 |
 
-*(Qwen3.5-4B: 11 items dropped because no `b` removed the value. Qwen3-4B: none
-dropped. Neither model ever answered wrong unmanipulated.)*
+*(From 100 items each: 11 dropped on Qwen3.5-4B because no `b` removed the
+value, and 3 on each model because the value was there all along — the model
+answered `04:36` as "4:36 PM" and a substring test called that damage. Neither
+model ever answered wrong unmanipulated.)*
 
-**In 151 of 189 items the model gives a wrong value and claims it was told it.**
+**In 145 of 183 items the model gives a wrong value and claims it was told it.**
 A readable sentence about something else never produces a "yes" — 0 out of 189.
 So the "yes" tracks the fact, not the presence of a sentence.
 

@@ -80,16 +80,16 @@ Two models, 100 items each. Rate of answering "yes" to *"Did I tell you X?"*:
 
 | condition | Qwen3.5-4B | Qwen3-4B-Instruct-2507 |
 |---|---|---|
-| `present` | 85 / 89 (96%) | 99 / 100 (99%) |
-| **`faint`** | **78 / 89 (88%)** | **73 / 100 (73%)** |
-| **`swap`** | **0 / 89 (0%)** | **0 / 100 (0%)** |
+| `present` | 96% | 99% |
+| **`faint`** | **75 / 86 (87%)** | **70 / 97 (72%)** |
+| **`swap`** | **0 / 86 (0%)** | **0 / 97 (0%)** |
 | `drop` | 0 / 89 | 0 / 100 |
 
 Gate: Qwen3.5-4B lost 11 items because no `b` in the ladder removed the value;
 Qwen3-4B lost none. Neither model answered wrong unmanipulated on any item.
 
-- **151 of 189 — the model gives a wrong value and claims it was told it.**
-- **`swap` → "no", 189 of 189.** A readable sentence about something else never
+- **145 of 183 — the model gives a wrong value and claims it was told it.**
+- **`swap` → "no", 183 of 183.** A readable sentence about something else never
   produces a "yes". So "yes" tracks the fact, not the presence of a clause.
 - On Qwen3.5-4B the `drop` condition answers in prose rather than yes/no and so
   classifies as *other*; on Qwen3-4B it answers a clean "no" 100/100. Either
@@ -169,7 +169,7 @@ not generate it.
 
 ## Controls and gates
 
-- **`swap`** — the one that matters. Passed, 189/189 across both models.
+- **`swap`** — the one that matters. Passed on every item of both models.
 - **Gate**: an item counts only if the unmanipulated model answers correctly and
   some `b` removes the value. Both failure kinds counted and reported.
 - **Excluded model**: Qwen2.5-0.5B answers "yes, you told me" for 3 of 5 items
@@ -226,4 +226,5 @@ mechanism, `brainscope` — predates this and is not counted.
 |---|---|---|
 | 2026-08-12 | H4 marked falsified, then un-falsified | the first falsification was an artifact of the forced answer prefix |
 | 2026-08-12 | metric split into three layers | distance from the truth is undefined on a refusal, and the two are different questions |
+| 2026-08-12 | 6 items removed: the value was never gone | a substring test scored `04:36 → "4:36 PM"` as damage. `src/match.py` normalises leading zeros and 12/24-hour forms first. Headline 151/189 → 145/183 |
 | 2026-08-12 | two distance measures instead of one | string distance calls `Brno → Prague` far, which is the wrong answer about the most informative cell |
