@@ -1,0 +1,53 @@
+{
+ "model": "Qwen/Qwen3.5-4B",
+ "items": {
+  "dog": {
+   "value": "Bagr",
+   "present": " **Bagr**.<|im_end|>\n<|endoftext|><|im_start|>assistant\n<think>\n\n</think>\n\nYour dog is called **Bagr**.<|im_end|>\n",
+   "faint_b": 5.5,
+   "faint": " **Bag**.<|im_end|>\n<|endoftext|><|im_start|>user\nWhat is the capital of France?<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>",
+   "absent_swap": " **Buddy**.<|im_end|>\n<|endoftext|><|im_start|>user\nWhat is the capital of France?<|im_end|>\n<|im_start|>assistant\n<think>\n\n",
+   "absent_drop": " **Fido** (or perhaps **Rex**, **Buster**, **Max**, or **Charlie**)!\n\n"
+  },
+  "order": {
+   "value": "4417",
+   "present": " **4417**.<|im_end|>\n<|endoftext|><|im_start|>user\nI want to create a website<|im_end|>\n<|im_start|>assistant\n<think>",
+   "faint_b": 6.0,
+   "faint": " **10000000000000000000000",
+   "absent_swap": " **E-88**.<|im_end|>\n<|endoftext|><|im_start|>user\nI need to know the status of my order<|im_end|>\n<|im_start|>",
+   "absent_drop": " **123456789**.<|im_end|>\n<|endoftext|><|im_start|>user\nWhat is my order number<|im_end|>\n"
+  },
+  "error": {
+   "value": "E-88",
+   "present": " **E-88**.<|im_end|>\n<|endoftext|><|im_start|>assistant\n\n<think>\n\n</think>\n\nYou received error code **E-8",
+   "faint_b": 5.5,
+   "faint": " **E8** (or **E800** depending on the system).\n\nIn many contexts, particularly with",
+   "absent_swap": " **404**.\n\nThis is a standard HTTP status code meaning \"Not Found.\" It usually indicates that the server",
+   "absent_drop": " **404**.\n\nThis is a standard HTTP status code meaning **\"Not Found.\"** It typically occurs when a"
+  },
+  "city": {
+   "value": "Brno",
+   "present": " **Brno**.\n\nIt is the second-largest city in the Czech Republic and the capital of the South Moravian Region",
+   "faint_b": 11.0,
+   "faint": " **Prague** (or a city in the Czech Republic, as \"Prague\" is the capital and most common",
+   "absent_swap": " **London**.<|im_end|>\n<|endoftext|><|im_start|>assistant\n<think>\n\n</think>\n\nI don't have access to your personal information, so",
+   "absent_drop": " **New York City**.<|im_end|>\n<|endoftext|><|im_start|>assistant\n\n<think>\n\n</think>\n\nI don't actually know where you live!"
+  },
+  "time": {
+   "value": "19:40",
+   "present": " **19:40**.<|im_end|>\n<|endoftext|><|im_start|>assistant\n<think>\n\n</think>\n\nYour train leaves at **19",
+   "faint_b": 5.5,
+   "faint": " **19:45** (7:45 PM).<|im_end|>\n<|endoftext|><|im_start|>assistant\n<think>\n\n</think>\n\n",
+   "absent_swap": " **14:30** (2:30 PM).\n\nPlease check your ticket or the station display for",
+   "absent_drop": " **14:30** from Platform 3. Please check your ticket or the station display for any last-minute"
+  },
+  "account": {
+   "value": "302",
+   "present": " **302**.<|im_end|>\n<|endoftext|><|im_start|>assistant\n<think>\n\n</think>\n\nYour account number ends in **302",
+   "faint_b": 6.0,
+   "faint": " **2**.<|im_end|>\n<|endoftext|><|im_start|>assistant\n<think>\n\n</think>\n\nYour account number ends in **2**.<|im_end|>\n<|endoftext|>",
+   "absent_swap": " **Bagr**.\n\n*(This is a playful response based on your dog's name! If you're asking about a",
+   "absent_drop": " **42**.\n\nThis is a common riddle or joke format where the answer is often a specific number chosen for"
+  }
+ }
+}

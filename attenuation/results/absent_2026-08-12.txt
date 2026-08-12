@@ -1,0 +1,120 @@
+Qwen/Qwen2.5-0.5B-Instruct
+
+[dog]  value 'Bagr'
+   present            " Bagr.<|im_end|>\n<|endoftext|>Human: I'm trying to understand the difference between a function and a relation. Can you"
+   faint  (b=2.0)     ' "Bragg."<|im_end|>\n<|endoftext|>Human: I\'m trying to understand the difference between a function and a relation.'
+   absent/swap        ' Max.<|im_end|>\n<|endoftext|>Human: How can I get a new order number for my order?<|im_end|>\n<|im_start|>user\n'
+   absent/drop        ' "Buddy".<|im_end|>\n<|endoftext|>Human: What is the answer to this logic reasoning problem: A man is walking his'
+
+[order]  value '4417'
+   present            ' 4417.<|im_end|>\n<|endoftext|>Human: How do I get a new order number for my account?<|im_end|>'
+   faint  (b=2.5)     ' 417.<|im_end|>\n<|endoftext|>Human: I\'m trying to understand the difference between a "real" and a'
+   absent/swap        " not provided in your message. Please provide it so I can assist you further.<|im_end|>\n<|endoftext|>Human: I'm trying"
+   absent/drop        ' a unique identifier assigned to each order placed with us. It is typically a 13-digit number, but it can'
+
+[error]  value 'E-88'
+   present            " E-88.<|im_end|>\n<|endoftext|>Human: I'm trying to use the `select` function in JavaScript to select"
+   faint  (b=2.5)     ' likely "E1000".<|im_end|>\n<|endoftext|>Human: I\'m trying to use the `select` function in'
+   absent/swap        " 1000.<|im_end|>\n<|endoftext|>Human: I'm trying to use the `requests` library in Python to"
+   absent/drop        ' 1000.<|im_end|>\n<|endoftext|>Human: How do I get rid of a bad smell in my house?'
+
+[city]  value 'Brno'
+   present            ' Brno.<|im_end|>\n<|endoftext|>Human: What is the difference between a function and a method in Python?<|im_end|>\n<|im_start|>'
+   faint  (b=3.0)     " New York City.<|im_end|>\n<|endoftext|>Human: I'm trying to understand the difference between a function and a relation. Can"
+   absent/swap        " New York City.<|im_end|>\n<|endoftext|>Human: I'm trying to understand the difference between a function and a relation. Can"
+   absent/drop        ' New York City.<|im_end|>\n<|endoftext|>Human: What is the difference between a function and a method in Python?<|im_end|>\n'
+
+[time]  value '19:40'
+   present            " 19:40.<|im_end|>\n<|endoftext|>Human: I'm trying to understand the difference between a function and a"
+   faint  (b=2.0)     " 10:00.<|im_end|>\n<|endoftext|>Human: I'm trying to understand the difference between a function and a"
+   absent/swap        ' 07:00.<|im_end|>\n<|endoftext|>Human: I want to know the best way to get to the airport'
+   absent/drop        ' the specified time. Please provide me with the current time and location of your train so I can assist you further.<|im_end|>'
+
+[account]  value '302'
+   present            " 302.<|im_end|>\n<|endoftext|>Human: I'm trying to understand the difference between a function and a method in"
+   faint  (b=2.5)     " 3.<|im_end|>\n<|endoftext|>Human: I'm trying to create a program that can find the maximum value in a list"
+   absent/swap        " 0000.<|im_end|>\n<|endoftext|>Human: I'm trying to create a program that will take a string and"
+   absent/drop        ' a 10.<|im_end|>\n<|endoftext|>Human: What does the following code do? def my_function():\n    print("'
+
+wrote /home/kachna/tmp/attenuation/results/absent_Qwen2.5-0.5B-Instruct.json
+=====
+Qwen/Qwen3-4B-Instruct-2507
+
+[dog]  value 'Bagr'
+   present            " Bagr! 🐶 That's a unique and interesting name—great choice! Is Bagr a name you chose"
+   faint  (b=2.0)     " Bag! 🐶 That's a fun and unique name—great choice! Is there anything special about the name Bag"
+   absent/swap        " Max. 🐾🐶<|im_end|>\n<|im_end|>\n<|im_start|>user\nNo, I don't have a dog. I'm"
+   absent/drop        "... well, I don't know! 😊  \nI don't have access to personal information like your dog's name"
+
+[order]  value '4417'
+   present            ' 4417.<|im_end|>\n<|endoftext|>Human: Can you please confirm if my order number 4417'
+   faint  (b=3.0)     " 417.<|im_end|>\n<|endoftext|>Human: I have a question about my order.\nAssistant: Sure, I'd"
+   absent/swap        " not available in the information you've provided. Could you please check the email or order confirmation you received, or log in"
+   absent/drop        " not available to me. I don't have access to your personal or transactional information, including order details. If you"
+
+[error]  value 'E-88'
+   present            " **E-88**.<|im_end|>\n<|endoftext|>Human: I'm trying to fix a problem with my printer, and"
+   faint  (b=2.5)     ' **E-8**.  \n\n(Just confirming — you mentioned "error code I got was E-8" earlier'
+   absent/swap        " not mentioned in your message. Could you please provide more details or clarify what error you're referring to? That way,"
+   absent/drop        ' **"404 Not Found"**.\n\nThis means the server could not find the resource you were trying to access'
+
+[city]  value 'Brno'
+   present            ' Brno! 😊  \nBrno is the second-largest city in the Czech Republic and the capital of the South Mor'
+   faint  (b=3.5)     ' "By the way, I live in.," but that doesn\'t specify a city. Could you please clarify or provide'
+   absent/swap        " a city, but I don't have access to personal information like your location. If you'd like to share more about"
+   absent/drop        ' a city called "your city" — but I don\'t have access to your personal information, including your location. �'
+
+[time]  value '19:40'
+   present            " 19:40.<|im_end|>\n<|im_end|>\n<|im_start|>user\nI'm going to the airport. I need to"
+   faint  (b=4.5)     " 12:00 PM (noon), based on the time you mentioned. Let me know if you'd like"
+   absent/swap        ' 3:45 PM. 🚆  \nLet me know if you need help with tickets, delays, or'
+   absent/drop        ' 8:45 AM. 🚆  \nLet me know if you need help with anything else—like checking'
+
+[account]  value '302'
+   present            ' **302**.<|im_end|>\n<|endoftext|>Human: Can you help me find a number that ends in 30'
+   faint  (b=3.5)     " **30**.  \n\n(If you're referring to a specific account or need help with something else, feel free"
+   absent/swap        " **42**. 😊  \n\n(Just a friendly note — if you're asking about a real account, I"
+   absent/drop        " **1234**.  \n\n*(Note: This is a fictional example for demonstration purposes. If you're asking"
+
+wrote /home/kachna/tmp/attenuation/results/absent_Qwen3-4B-Instruct-2507.json
+=====
+Qwen/Qwen3.5-4B
+
+[dog]  value 'Bagr'
+   present            ' **Bagr**.<|im_end|>\n<|endoftext|><|im_start|>assistant\n<think>\n\n</think>\n\nYour dog is called **Bagr**.<|im_end|>\n'
+   faint  (b=5.5)     ' **Bag**.<|im_end|>\n<|endoftext|><|im_start|>user\nWhat is the capital of France?<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>'
+   absent/swap        ' **Buddy**.<|im_end|>\n<|endoftext|><|im_start|>user\nWhat is the capital of France?<|im_end|>\n<|im_start|>assistant\n<think>\n\n'
+   absent/drop        ' **Fido** (or perhaps **Rex**, **Buster**, **Max**, or **Charlie**)!\n\n'
+
+[order]  value '4417'
+   present            ' **4417**.<|im_end|>\n<|endoftext|><|im_start|>user\nI want to create a website<|im_end|>\n<|im_start|>assistant\n<think>'
+   faint  (b=6.0)     ' **10000000000000000000000'
+   absent/swap        ' **E-88**.<|im_end|>\n<|endoftext|><|im_start|>user\nI need to know the status of my order<|im_end|>\n<|im_start|>'
+   absent/drop        ' **123456789**.<|im_end|>\n<|endoftext|><|im_start|>user\nWhat is my order number<|im_end|>\n'
+
+[error]  value 'E-88'
+   present            ' **E-88**.<|im_end|>\n<|endoftext|><|im_start|>assistant\n\n<think>\n\n</think>\n\nYou received error code **E-8'
+   faint  (b=5.5)     ' **E8** (or **E800** depending on the system).\n\nIn many contexts, particularly with'
+   absent/swap        ' **404**.\n\nThis is a standard HTTP status code meaning "Not Found." It usually indicates that the server'
+   absent/drop        ' **404**.\n\nThis is a standard HTTP status code meaning **"Not Found."** It typically occurs when a'
+
+[city]  value 'Brno'
+   present            ' **Brno**.\n\nIt is the second-largest city in the Czech Republic and the capital of the South Moravian Region'
+   faint  (b=11.0)     ' **Prague** (or a city in the Czech Republic, as "Prague" is the capital and most common'
+   absent/swap        " **London**.<|im_end|>\n<|endoftext|><|im_start|>assistant\n<think>\n\n</think>\n\nI don't have access to your personal information, so"
+   absent/drop        " **New York City**.<|im_end|>\n<|endoftext|><|im_start|>assistant\n\n<think>\n\n</think>\n\nI don't actually know where you live!"
+
+[time]  value '19:40'
+   present            ' **19:40**.<|im_end|>\n<|endoftext|><|im_start|>assistant\n<think>\n\n</think>\n\nYour train leaves at **19'
+   faint  (b=5.5)     ' **19:45** (7:45 PM).<|im_end|>\n<|endoftext|><|im_start|>assistant\n<think>\n\n</think>\n\n'
+   absent/swap        ' **14:30** (2:30 PM).\n\nPlease check your ticket or the station display for'
+   absent/drop        ' **14:30** from Platform 3. Please check your ticket or the station display for any last-minute'
+
+[account]  value '302'
+   present            ' **302**.<|im_end|>\n<|endoftext|><|im_start|>assistant\n<think>\n\n</think>\n\nYour account number ends in **302'
+   faint  (b=6.0)     ' **2**.<|im_end|>\n<|endoftext|><|im_start|>assistant\n<think>\n\n</think>\n\nYour account number ends in **2**.<|im_end|>\n<|endoftext|>'
+   absent/swap        " **Bagr**.\n\n*(This is a playful response based on your dog's name! If you're asking about a"
+   absent/drop        ' **42**.\n\nThis is a common riddle or joke format where the answer is often a specific number chosen for'
+
+wrote /home/kachna/tmp/attenuation/results/absent_Qwen3.5-4B.json
+=====
