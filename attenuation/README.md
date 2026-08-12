@@ -51,6 +51,35 @@ like a hallucination. It looks like a typo.
 
 ---
 
+## Where the question came from
+
+Not from this knob. From a published method, and from reading its output.
+
+The parent repo reimplements **V-Steer** ([Zeng, Lee, Zhao & Hockenmaier, COLM
+2026](https://arxiv.org/abs/2607.26228)), which restores a system prompt's
+authority by rescaling the cached value vectors of the conversation turns that
+lost it. Ten models, 756 generations each. The failures were not loud:
+
+> **Q: What does my account number end in?** (told: `302`)
+> your account number ends in `02`.
+
+> **Q: What is my dog called?** (told: `Bagr`)
+> YOUR Dog is called `BAGel`.
+
+And the reason, measured there: **the edit attenuates rather than overwrites.**
+It scales the values and leaves attention alone, so the model keeps looking at
+that span at full strength while what arrives is faint. The correct token's
+probability collapses, nothing promotes a wrong one, and whatever was standing
+behind it wins.
+
+That is what made the question worth asking — not *the model got it wrong*, but
+*what does it say instead, and why that one*.
+
+**So this repo is not the first sighting.** The same failure appears under two
+manipulations with nothing in common: one edits cached values, the other adds a
+bias to attention logits. The knob here is the simpler of the two and runs on
+any architecture, which is why the measurements are done with it.
+
 ## Why this is the interesting version of the question
 
 Models have internal representations of whether they recognise an entity, and
