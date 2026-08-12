@@ -1,5 +1,40 @@
 # attenuation
 
+## In plain English
+
+**The question.** I tell a model something. Then I make that one sentence hard
+for it to read — I do not delete it, it stays in the conversation. Does the
+model notice that it can no longer read it?
+
+**The method.** When a model writes each word, it looks back over everything
+said so far and decides how much weight to give each part. I subtract a number
+from the weight it gives to that one sentence. Turn the number up and the
+sentence gets quieter. At the settings I use it still has between a twentieth
+and a four-hundredth of its normal weight — it is not gone, it is faint.
+
+**The metric.** I ask the model *"Did I tell you this? Answer only yes or no."*
+in four situations: the sentence is there · the sentence is faint · a readable
+sentence about **something else** is there instead · nothing is there at all.
+That third one is the control everything rests on. It separates *"I have this
+fact"* from *"there is a sentence here"*.
+
+**The answer.** It does not notice. When the sentence is faint, the model gives
+a **wrong** value and says it was told it — **145 times out of 183**. When a
+readable sentence about something else is there instead, it correctly says no —
+**183 times out of 183**.
+
+And the wrong value is not random. It sits next to the truth. Told `19:40`, it
+answers **19:45**. Told `Brno`, it answers **Prague**. That does not look like a
+hallucination. It looks like a typo, and nothing downstream catches a typo.
+
+![Twelve answers drawn at random: the user says one thing, the model answers
+another, and still says it was told](fig/fig0.png)
+
+*Twelve of the 183 answers, drawn with a fixed seed — not picked. Refusals
+included.*
+
+---
+
 ## The question
 
 > **A model is told something. Make that sentence hard to read — don't delete
