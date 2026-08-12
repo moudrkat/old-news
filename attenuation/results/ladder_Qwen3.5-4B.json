@@ -1,0 +1,176 @@
+{
+ "model": "Qwen/Qwen3.5-4B",
+ "ladder": [
+  0.0,
+  1.0,
+  2.0,
+  3.0,
+  4.0,
+  5.0,
+  6.0,
+  8.0,
+  10.0
+ ],
+ "rows": [
+  {
+   "key": "dog:Bagr",
+   "type": "dog",
+   "value": "Bagr",
+   "cells": [
+    "Your dog is called **Bagr**.",
+    "Your dog is called **Bagr**.",
+    "Your dog is called **Bagr**.",
+    "Your dog is called **Bagr**.",
+    "Your dog is called **Bagr**.",
+    "Your dog is called **Bagr**.",
+    "Your dog is called **Bag**.",
+    "Your dog is called **By the way**, which is a bit of a misnomer!",
+    "Your dog is called **By the way**, which is a bit of a misnomer!"
+   ]
+  },
+  {
+   "key": "order:4417",
+   "type": "order",
+   "value": "4417",
+   "cells": [
+    "Your order number is **4417**.",
+    "Your order number is **4417**.",
+    "Your order number is **4417**.",
+    "Your order number is **4417**.",
+    "Your order number is **4417**.",
+    "Your order number is **4417**.",
+    "Your order number is **100000000000000",
+    "Your order number is **12345**.",
+    "Your order number is **12345**."
+   ]
+  },
+  {
+   "key": "error:E-88",
+   "type": "error",
+   "value": "E-88",
+   "cells": [
+    "You received error code **E-88**. Depending on the system or software you are using",
+    "You got error code **E-88**. Depending on the system or software you are using",
+    "You got error code **E-88**. Depending on the system or software you are using",
+    "You got error code **E-88**. Depending on the context (such as a specific",
+    "You got error code **E-88**. Depending on the context (such as a specific",
+    "You got error code **E-88** (or **88**, depending on the system",
+    "You got error code **E8** (or **E800** depending on the system",
+    "You got error code **E001**.",
+    "You got error code **E001**."
+   ]
+  },
+  {
+   "key": "city:Brno",
+   "type": "city",
+   "value": "Brno",
+   "cells": [
+    "You live in **Brno**. It is the second-largest city in the Czech Republic and the",
+    "You live in **Brno**. It is the second-largest city in the Czech Republic and the",
+    "You live in **Brno**. It is the second-largest city in the Czech Republic and the",
+    "You live in **Brno**, which is the second-largest city in the Czech Republic. It is",
+    "You live in **Brno** (often spelled \"Brno\" in English, though it is",
+    "You live in **Brno** (often spelled \"Brno\" in English, though it is",
+    "You live in **Brno** (often spelled \"Brno\" in English, though it is",
+    "You live in **Brno** (often spelled \"Brno\" in English, though it is",
+    "You live in **Brno** (often spelled \"Brno\" in English, though it is"
+   ]
+  },
+  {
+   "key": "time:19:40",
+   "type": "time",
+   "value": "19:40",
+   "cells": [
+    "Your train leaves at **19:40**.",
+    "Your train leaves at **19:40**.",
+    "Your train leaves at **19:40**.",
+    "Your train leaves at **19:40** (7:40 PM).",
+    "Your train leaves at **19:40** (7:40 PM).",
+    "Your train leaves at **19:40** (7:40 PM).",
+    "Your train leaves at **19:45** (7:45 PM). *",
+    "Your train leaves at **17:00** (5:00 PM).",
+    "Your train leaves at **17:00** (5:00 PM)."
+   ]
+  },
+  {
+   "key": "account:302",
+   "type": "account",
+   "value": "302",
+   "cells": [
+    "Your account number ends in **302**.",
+    "Your account number ends in **302**.",
+    "Your account number ends in **302**.",
+    "Your account number ends in **302**.",
+    "Your account number ends in **302**.",
+    "Your account number ends in **302**.",
+    "Your account number ends in **2**.",
+    "Your account number ends in **3**.",
+    "Your account number ends in **3**."
+   ]
+  },
+  {
+   "key": "allergy:walnuts",
+   "type": "allergy",
+   "value": "walnuts",
+   "cells": [
+    "Based on your previous message, you are allergic to **walnuts**. If you have any other",
+    "You are allergic to **walnuts**. Since you mentioned this in your previous message, I will",
+    "You are allergic to **walnuts**. Since you mentioned this in your previous message, I will",
+    "You are allergic to **walnuts**. Since you mentioned this in your previous message, I will",
+    "You are allergic to **walnuts**. Since you mentioned being allergic to walnuts earlier, that",
+    "You are allergic to **walnuts**. Since walnuts are a type of tree nut, they",
+    "You are allergic to **nuts** (specifically mentioned: **walnuts**). Since you",
+    "You are allergic to **peanuts**. Peanuts are botanically legumes (often",
+    "You are allergic to **peanuts**. Peanuts are botanically legumes (often"
+   ]
+  },
+  {
+   "key": "room:614",
+   "type": "room",
+   "value": "614",
+   "cells": [
+    "You are in **room 614**.",
+    "You are in **room 614**.",
+    "You are in **room 614**.",
+    "You are in **room 614**.",
+    "You are in **room 614**. Since room numbers are typically written with the floor",
+    "You are in **room 614**. Since room numbers are typically written with the floor",
+    "You are in **room 604**. Since hotel room numbers are typically written with the",
+    "You are in **room 6**. Since hotel room numbers are typically written as a single digit",
+    "You are in **room 6** (or room 60, depending on how the hotel"
+   ]
+  },
+  {
+   "key": "flight:QR318",
+   "type": "flight",
+   "value": "QR318",
+   "cells": [
+    "Your flight number is **QR318**.",
+    "Your flight number is **QR318**.",
+    "Your flight number is **QR318**.",
+    "Your flight number is **QR318**.",
+    "Your flight number is **QR318**.",
+    "Your flight number is **QR318** (or possibly **QF318**,",
+    "Your flight number is **QR31** (or possibly **QR31** depending on the",
+    "Your flight number is **QF123** (assuming \"QF\" is the airline",
+    "Your flight number is **QF123** (assuming \"QF\" is the airline"
+   ]
+  },
+  {
+   "key": "cat:Miso",
+   "type": "cat",
+   "value": "Miso",
+   "cells": [
+    "Your cat is called **Miso**.",
+    "Your cat is called **Miso**.",
+    "Your cat is called **Miso**.",
+    "Your cat is called **Miso**.",
+    "Your cat is called **Miso**.",
+    "Your cat is called **Miso**.",
+    "Your cat is called **Miso**.",
+    "Your cat is called **Miso**.",
+    "Your cat is called **Miyu**."
+   ]
+  }
+ ]
+}

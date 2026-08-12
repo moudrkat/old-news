@@ -1,0 +1,64 @@
+<!doctype html><meta charset="utf-8">
+<title>Figure 2 — the value coming apart</title>
+<style>
+:root { --surface:#fcfcfb; --ink:#0b0b0b; --ink2:#52514e; --muted:#6f6e6a;
+  --rule:#e6e5e1; --full:#1baf7a; --piece:#eda100; --other:#eb6834; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme=light]) {
+  --surface:#1a1a19; --ink:#fff; --ink2:#c3c2b7; --muted:#96958c;
+  --rule:#2e2e2c; --full:#199e70; --piece:#c98500; --other:#d95926; } }
+body { margin:0; background:var(--surface); color:var(--ink);
+  font:14px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; }
+figure { margin:22px; max-width:760px; }
+h2 { font-size:15px; margin:0 0 3px; }
+.sub { color:var(--muted); font-size:12.5px; margin:0 0 14px; }
+table { border-collapse:separate; border-spacing:2px; }
+th { font-size:11px; color:var(--muted); font-weight:600; padding:0 0 4px; }
+th.row { text-align:right; padding:0 9px 0 0; font-size:12.5px;
+  color:var(--ink2); font-family:ui-monospace,monospace; }
+td { font:600 11.5px ui-monospace,monospace; text-align:center;
+  padding:7px 6px; border-radius:4px; color:#fff; min-width:44px; }
+td.full { background:var(--full); }
+td.piece { background:var(--piece); }
+td.other { background:var(--other); }
+td.gone { background:transparent; color:var(--muted);
+  box-shadow:inset 0 0 0 1px var(--rule); }
+.leg { margin-top:12px; font-size:12px; color:var(--ink2); }
+.leg i { display:inline-block; width:10px; height:10px; border-radius:3px;
+  margin:0 4px 0 12px; vertical-align:baseline; }
+.leg i:first-child { margin-left:0; }
+figcaption { margin-top:10px; color:var(--ink2); font-size:12.5px; }
+</style>
+<script>{const t=new URLSearchParams(location.search).get("theme");
+if(t)document.documentElement.dataset.theme=t;}</script>
+<figure>
+<h2>The value does not flip. It comes apart — and at a different dose each time.</h2>
+<p class="sub">Qwen3.5-4B · columns are <b>b</b>, the strength of
+the bias on that sentence's attention · each cell is the longest run of
+characters the answer still shares with the true value</p>
+<table>
+<tr><th class="row">told</th><th>0</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>8</th><th>10</th></tr>
+<tr><th class="row">Bagr</th><td class="full" title="Your dog is called **Bagr**.">Bagr</td><td class="full" title="Your dog is called **Bagr**.">Bagr</td><td class="full" title="Your dog is called **Bagr**.">Bagr</td><td class="full" title="Your dog is called **Bagr**.">Bagr</td><td class="full" title="Your dog is called **Bagr**.">Bagr</td><td class="full" title="Your dog is called **Bagr**.">Bagr</td><td class="piece" title="Your dog is called **Bag**.">Bag</td><td class="other" title="Your dog is called **By the way**, which is a bit of a misnomer!">other</td><td class="other" title="Your dog is called **By the way**, which is a bit of a misnomer!">other</td></tr>
+<tr><th class="row">4417</th><td class="full" title="Your order number is **4417**.">4417</td><td class="full" title="Your order number is **4417**.">4417</td><td class="full" title="Your order number is **4417**.">4417</td><td class="full" title="Your order number is **4417**.">4417</td><td class="full" title="Your order number is **4417**.">4417</td><td class="full" title="Your order number is **4417**.">4417</td><td class="other" title="Your order number is **100000000000000">other</td><td class="other" title="Your order number is **12345**.">other</td><td class="other" title="Your order number is **12345**.">other</td></tr>
+<tr><th class="row">E-88</th><td class="full" title="You received error code **E-88**. Depending on the system or software you are using">E-88</td><td class="full" title="You got error code **E-88**. Depending on the system or software you are using">E-88</td><td class="full" title="You got error code **E-88**. Depending on the system or software you are using">E-88</td><td class="full" title="You got error code **E-88**. Depending on the context (such as a specific">E-88</td><td class="full" title="You got error code **E-88**. Depending on the context (such as a specific">E-88</td><td class="full" title="You got error code **E-88** (or **88**, depending on the system">E-88</td><td class="other" title="You got error code **E8** (or **E800** depending on the system">other</td><td class="other" title="You got error code **E001**.">other</td><td class="other" title="You got error code **E001**.">other</td></tr>
+<tr><th class="row">Brno</th><td class="full" title="You live in **Brno**. It is the second-largest city in the Czech Republic and the">Brno</td><td class="full" title="You live in **Brno**. It is the second-largest city in the Czech Republic and the">Brno</td><td class="full" title="You live in **Brno**. It is the second-largest city in the Czech Republic and the">Brno</td><td class="full" title="You live in **Brno**, which is the second-largest city in the Czech Republic. It is">Brno</td><td class="full" title="You live in **Brno** (often spelled &quot;Brno&quot; in English, though it is">Brno</td><td class="full" title="You live in **Brno** (often spelled &quot;Brno&quot; in English, though it is">Brno</td><td class="full" title="You live in **Brno** (often spelled &quot;Brno&quot; in English, though it is">Brno</td><td class="full" title="You live in **Brno** (often spelled &quot;Brno&quot; in English, though it is">Brno</td><td class="full" title="You live in **Brno** (often spelled &quot;Brno&quot; in English, though it is">Brno</td></tr>
+<tr><th class="row">19:40</th><td class="full" title="Your train leaves at **19:40**.">19:40</td><td class="full" title="Your train leaves at **19:40**.">19:40</td><td class="full" title="Your train leaves at **19:40**.">19:40</td><td class="full" title="Your train leaves at **19:40** (7:40 PM).">19:40</td><td class="full" title="Your train leaves at **19:40** (7:40 PM).">19:40</td><td class="full" title="Your train leaves at **19:40** (7:40 PM).">19:40</td><td class="piece" title="Your train leaves at **19:45** (7:45 PM). *">19:4</td><td class="other" title="Your train leaves at **17:00** (5:00 PM).">other</td><td class="other" title="Your train leaves at **17:00** (5:00 PM).">other</td></tr>
+<tr><th class="row">302</th><td class="full" title="Your account number ends in **302**.">302</td><td class="full" title="Your account number ends in **302**.">302</td><td class="full" title="Your account number ends in **302**.">302</td><td class="full" title="Your account number ends in **302**.">302</td><td class="full" title="Your account number ends in **302**.">302</td><td class="full" title="Your account number ends in **302**.">302</td><td class="other" title="Your account number ends in **2**.">other</td><td class="other" title="Your account number ends in **3**.">other</td><td class="other" title="Your account number ends in **3**.">other</td></tr>
+<tr><th class="row">walnuts</th><td class="full" title="Based on your previous message, you are allergic to **walnuts**. If you have any other">walnuts</td><td class="full" title="You are allergic to **walnuts**. Since you mentioned this in your previous message, I will">walnuts</td><td class="full" title="You are allergic to **walnuts**. Since you mentioned this in your previous message, I will">walnuts</td><td class="full" title="You are allergic to **walnuts**. Since you mentioned this in your previous message, I will">walnuts</td><td class="full" title="You are allergic to **walnuts**. Since you mentioned being allergic to walnuts earlier, that">walnuts</td><td class="full" title="You are allergic to **walnuts**. Since walnuts are a type of tree nut, they">walnuts</td><td class="full" title="You are allergic to **nuts** (specifically mentioned: **walnuts**). Since you">walnuts</td><td class="piece" title="You are allergic to **peanuts**. Peanuts are botanically legumes (often">nuts</td><td class="piece" title="You are allergic to **peanuts**. Peanuts are botanically legumes (often">nuts</td></tr>
+<tr><th class="row">614</th><td class="full" title="You are in **room 614**.">614</td><td class="full" title="You are in **room 614**.">614</td><td class="full" title="You are in **room 614**.">614</td><td class="full" title="You are in **room 614**.">614</td><td class="full" title="You are in **room 614**. Since room numbers are typically written with the floor">614</td><td class="full" title="You are in **room 614**. Since room numbers are typically written with the floor">614</td><td class="other" title="You are in **room 604**. Since hotel room numbers are typically written with the">other</td><td class="other" title="You are in **room 6**. Since hotel room numbers are typically written as a single digit">other</td><td class="other" title="You are in **room 6** (or room 60, depending on how the hotel">other</td></tr>
+<tr><th class="row">QR318</th><td class="full" title="Your flight number is **QR318**.">QR318</td><td class="full" title="Your flight number is **QR318**.">QR318</td><td class="full" title="Your flight number is **QR318**.">QR318</td><td class="full" title="Your flight number is **QR318**.">QR318</td><td class="full" title="Your flight number is **QR318**.">QR318</td><td class="full" title="Your flight number is **QR318** (or possibly **QF318**,">QR318</td><td class="piece" title="Your flight number is **QR31** (or possibly **QR31** depending on the">QR31</td><td class="other" title="Your flight number is **QF123** (assuming &quot;QF&quot; is the airline">other</td><td class="other" title="Your flight number is **QF123** (assuming &quot;QF&quot; is the airline">other</td></tr>
+<tr><th class="row">Miso</th><td class="full" title="Your cat is called **Miso**.">Miso</td><td class="full" title="Your cat is called **Miso**.">Miso</td><td class="full" title="Your cat is called **Miso**.">Miso</td><td class="full" title="Your cat is called **Miso**.">Miso</td><td class="full" title="Your cat is called **Miso**.">Miso</td><td class="full" title="Your cat is called **Miso**.">Miso</td><td class="full" title="Your cat is called **Miso**.">Miso</td><td class="full" title="Your cat is called **Miso**.">Miso</td><td class="piece" title="Your cat is called **Miyu**.">Mi</td></tr>
+</table>
+<p class="leg">
+<i style="background:var(--full)"></i>the whole value
+<i style="background:var(--piece)"></i>part of it
+<i style="background:var(--other)"></i>a different value
+<i style="box-shadow:inset 0 0 0 1px var(--rule)"></i>declines to answer
+</p>
+<figcaption>
+Nothing is deleted at any column — the sentence is in the conversation
+throughout, only harder to read. Note that no two rows give way at the same
+column: <code>Brno</code> survives to the end on one model and goes at b = 3 on
+the other. The last category is the one soft judgement here, a keyword match on
+the opening of the answer; the rest is exact string matching.
+</figcaption>
+</figure>

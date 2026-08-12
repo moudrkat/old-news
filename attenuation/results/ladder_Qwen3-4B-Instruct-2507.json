@@ -1,0 +1,176 @@
+{
+ "model": "Qwen/Qwen3-4B-Instruct-2507",
+ "ladder": [
+  0.0,
+  1.0,
+  2.0,
+  3.0,
+  4.0,
+  5.0,
+  6.0,
+  8.0,
+  10.0
+ ],
+ "rows": [
+  {
+   "key": "dog:Bagr",
+   "type": "dog",
+   "value": "Bagr",
+   "cells": [
+    "Your dog is called Bagr! \ud83d\udc36 That's a unique and interesting name\u2014great choice",
+    "Your dog is called Bagr. \ud83d\udc36 That's a unique and interesting name\u2014great choice",
+    "Your dog is called Bag! \ud83d\udc36 That's a fun and unique name\u2014great choice!",
+    "Your dog is called Bag. \ud83d\ude0a (Just a fun little note \u2014 \"Bag\" sounds like",
+    "Your dog is called... *My Dog*? \ud83d\ude04 That's a fun name \u2014 a little",
+    "Hmm, I don't see your dog's name in your message \u2014 you said \"my dog is",
+    "I'm sorry, but I don't have access to personal information like your dog's name. You",
+    "I'm sorry, but I don't have access to personal information like your dog's name. You",
+    "I'm sorry, but I don't have access to personal information like your dog's name. You"
+   ]
+  },
+  {
+   "key": "order:4417",
+   "type": "order",
+   "value": "4417",
+   "cells": [
+    "Your order number is 4417.",
+    "Your order number is 4417.",
+    "Your order number is 4417.",
+    "Your order number is 417.",
+    "I don't have access to your order information or any personal details. If you need help with your",
+    "It seems like you mentioned \"my order number is .\" but didn't provide the actual number. Could",
+    "It seems like you mentioned \"my order number is .\" but didn't complete it. Could you please",
+    "It seems like you mentioned \"my order number is .\" but didn't complete it. Could you please",
+    "It seems like you mentioned \"my order number is .\" but didn't complete it. Could you please"
+   ]
+  },
+  {
+   "key": "error:E-88",
+   "type": "error",
+   "value": "E-88",
+   "cells": [
+    "You mentioned that the error code you got was **E-88**. So, the error",
+    "You mentioned that the error code you got was **E-88**. So, the error",
+    "You mentioned that you got error code **E-88**. That's the code you're",
+    "You mentioned you received error code **E-8**, but you said \"the error code I got",
+    "You mentioned you received an error code \"by the way, the error code I got was was.\"",
+    "You mentioned that the error code you got was \"was,\" but that doesn't seem to be a",
+    "You mentioned that the error code you got was \"by the way, the error code I got was",
+    "You mentioned that the error code you got was \"by the way, the error code I got was",
+    "It seems like your message got cut off \u2014 you mentioned \"the error code I got was was\""
+   ]
+  },
+  {
+   "key": "city:Brno",
+   "type": "city",
+   "value": "Brno",
+   "cells": [
+    "You live in Brno! \ud83d\ude0a Brno is the second-largest city in the Czech Republic",
+    "You live in Brno! \ud83c\udf06 That's the capital city of the Czech Republic's South",
+    "You live in Brno! \ud83c\udde8\ud83c\uddff It's the second-largest city in the Czech",
+    "I'm sorry, but I don't have access to your personal information, including your location. So",
+    "I'm sorry, but I don't have access to your personal information, including your location. So",
+    "I'm sorry, but I don't have access to your personal information, including your location. You",
+    "I'm sorry, but I don't have access to your personal information, including your location. You",
+    "I'm sorry, but I don't have access to your personal information, including your location. So",
+    "I'm sorry, but I don't have access to your personal information, including your location. So"
+   ]
+  },
+  {
+   "key": "time:19:40",
+   "type": "time",
+   "value": "19:40",
+   "cells": [
+    "Your train leaves at 19:40.",
+    "Your train leaves at 19:40.",
+    "Your train leaves at 19:40.",
+    "Your train leaves at 19:40 (7:40 PM).",
+    "Your train leaves at 19:40.",
+    "Your train leaves at 12:00 PM (noon), as mentioned in your message.",
+    "Your train leaves at...? Could you please clarify the time or provide more details? I'm here",
+    "Your train leaves at...? Could you please confirm the time or provide more details? I'm here",
+    "Your train leaves at...? Could you please confirm the time or provide more details? I'm here"
+   ]
+  },
+  {
+   "key": "account:302",
+   "type": "account",
+   "value": "302",
+   "cells": [
+    "Your account number ends in **302**.",
+    "Your account number ends in 302.",
+    "Your account number ends in **302**.",
+    "Your account number ends in **302**. \ud83d\ude0a",
+    "I'm sorry, but I can't access or know your personal information, including your account number.",
+    "I'm sorry, but I can't see or access your account information. Account numbers, especially the",
+    "I'm sorry, but I can't see or access your account information. Account numbers, especially those",
+    "I'm sorry, but I can't see or access your account information, including the ending digits of",
+    "I'm sorry, but I can't see or access your account information. Account numbers, especially the"
+   ]
+  },
+  {
+   "key": "allergy:walnuts",
+   "type": "allergy",
+   "value": "walnuts",
+   "cells": [
+    "You're allergic to walnuts. That means your immune system reacts to proteins found in walnuts,",
+    "You're allergic to walnuts. That means your immune system reacts to proteins found in walnuts,",
+    "You mentioned you're allergic to walnuts, so you're likely allergic to **walnuts**\u2014",
+    "I'm sorry, but I don't have access to your personal health information, including your specific allergies",
+    "I'm sorry, but I don't have access to your personal health information, including allergies. If",
+    "I'm sorry, but I don't have access to your personal health information, including allergies. If",
+    "I'm sorry, but I don't have access to your personal health information, including allergies. If",
+    "I'm sorry, but I don't have access to your personal health information, including allergies. If",
+    "I'm sorry, but I don't have access to your personal health information, including allergies. If"
+   ]
+  },
+  {
+   "key": "room:614",
+   "type": "room",
+   "value": "614",
+   "cells": [
+    "You're in room 614. \ud83d\ude0a",
+    "You're in room 614. \ud83d\ude0a",
+    "You're in room 614. \ud83d\ude0a",
+    "You're in room 61. \ud83d\ude0a",
+    "I'm sorry, but I can't determine which hotel room you're in. The information you provided",
+    "I'm sorry, but I can't determine which hotel room you're in. I don't have",
+    "I'm sorry, but I can't tell you which hotel room you're in. I don't",
+    "I'm sorry, but I can't tell you which hotel room you're in. I don't",
+    "I'm sorry, but I can't tell you which hotel room you're in. I don't"
+   ]
+  },
+  {
+   "key": "flight:QR318",
+   "type": "flight",
+   "value": "QR318",
+   "cells": [
+    "Your flight number is QR318.",
+    "Your flight number is QR318.",
+    "Your flight number is QR318. (Note: \"QR\" is the airline code for",
+    "I'm sorry, but I don't have access to your flight details or personal information. If you",
+    "I'm sorry, but I don't have access to your flight details or personal information. If you",
+    "I'm sorry, but I don't have access to your personal travel information, including your flight number",
+    "I'm sorry, but I don't have access to your personal travel information, including your flight number",
+    "I'm sorry, but I don't have access to your personal travel information, including your flight number",
+    "I'm sorry, but I don't have access to your personal travel information, including your flight number"
+   ]
+  },
+  {
+   "key": "cat:Miso",
+   "type": "cat",
+   "value": "Miso",
+   "cells": [
+    "Your cat is called Miso! \ud83d\udc31\u2728 That's a lovely name\u2014unique and a",
+    "Your cat is called Miso! \ud83d\udc31\u2728 That's a lovely name\u2014unique and a",
+    "Your cat is called Miso! \ud83d\ude3a\u2728 (Just a fun little note \u2014 \"Miso",
+    "Your cat is called Miso! \ud83d\ude3a\u2728 (Though I assume you meant \"Miso\"",
+    "Your cat is called... *My Cat*? \ud83d\ude38 That's a delightfully simple and sweet",
+    "Your cat is called... *nothing*? \ud83d\ude04 You said \"my cat is called.\"",
+    "Hmm, I'm sorry, but I don't have access to personal information like your cat's name",
+    "Hmm, I'm sorry, but I don't have access to personal information like your cat's name",
+    "Hmm, I'm sorry, but I don't have access to personal information like your cat's name"
+   ]
+  }
+ ]
+}
