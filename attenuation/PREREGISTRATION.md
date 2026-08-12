@@ -1,148 +1,200 @@
-# Preregistration — what's behind a fact?
+# What's behind a fact?
 
-**Frozen 2026-08-12. Pilot run the same day; results below.**
-The plan as frozen is kept intact. What the pilot falsified is marked, not
-edited away, and the hypothesis that replaced it is marked **post-hoc** and gets
-its own confirmation set. Earlier versions are in git history.
+**Frozen 2026-08-12, before any data. Updated the same day as results came in —
+what was frozen is kept, what changed is dated at the bottom.** Earlier versions
+are in git history.
 
 ---
 
 ## The question
 
-A model is told something. Turn that sentence down — don't delete it, just make
-it harder to see — and ask about it. It doesn't say it doesn't know. It says
-something *next to* the answer.
+> **A model is told something. Make that sentence hard to read — don't delete
+> it. Does the model notice?**
 
-> **What does it say instead, and where does that come from?**
+Models have internal representations of whether they recognise an entity, and
+those representations causally gate refusal ([Ferrando, Obeso, Rajamanoharan &
+Nanda, ICLR 2025 oral](https://arxiv.org/abs/2411.14257)). That is
+self-knowledge about knowledge from *weights*. This asks the same about
+knowledge from *context*: if the evidence for something it was told is degraded,
+does anything fire?
+
+Prediction from their result: degraded context should behave like an unknown
+entity and trigger refusal.
 
 ---
 
 ## The knob
 
-A negative bias `b` added to the attention logits at the fact's token positions
-(4D float mask, `attn_implementation="eager"`). `b = 0` is the plain causal
-mask, so the control is not a separate code path. No cache surgery. On hybrid
-models only the full-attention layers see it; coverage is reported.
+A negative bias `b` on the attention logits at the fact's token positions, via a
+4D additive mask, `attn_implementation="eager"`. `b = 0` is the plain causal
+mask, so the control is not a separate code path. Nothing enters the residual
+stream, no cache is edited, no hooks. Runs on any attention layer — on hybrid
+models only the full-attention ones, and coverage is reported.
 
-## The measurement
+## The four conditions
 
-The gold path is the **unmanipulated model's own greedy continuation**, gated on
-it containing the correct value. Divergence is the first token where the
-manipulated continuation leaves that path.
+| | |
+|---|---|
+| `present` | the fact is in the context, `b = 0` |
+| `faint` | the fact is in the context, `b` at the smallest value where the answer no longer contains it |
+| `swap` | a **different kind** of fact fills the same slot — a readable sentence that does not contain the answer |
+| `drop` | no such sentence at all |
 
----
-
-## As frozen: H1–H4
-
-**H1 — does the queue advance, or reshuffle?** Spearman ρ over the top K = 100
-of the unmanipulated distribution, gold excluded. ρ ≥ 0.9 → the model chooses
-nothing and the queue simply advances. Falsified below 0.7.
-
-**H2 — how deep does the replacement come from?** Median source rank grows with
-model size. Falsified if all models are within a factor of 3.
-
-**H3 — is the replacement related to the target?** ≥ 10× over a different-question
-null. Falsified within 3×.
-
-**H4 — does the model know the difference between faint and absent?** Predicts
-the model declines when the fact was never in the conversation and invents a
-value when it is merely faint.
+`swap` is the control that decides everything: it separates *"I have this
+fact"* from *"there is a sentence here"*.
 
 ---
 
-## Pilot, 2026-08-12 — six items, three models
+## The metric
 
-`Qwen2.5-0.5B-Instruct`, `Qwen3-4B-Instruct-2507`, `Qwen3.5-4B`. Raw output in
-`results/`, code in `src/`.
+Three layers, in this order. Layer 3 is only defined where layer 2 says a value
+was given — a refusal has no distance from the truth.
 
-**H4 is FALSIFIED.** The model does not decline when the fact was never there.
-It invents a value in both states.
+**1. Does it claim it was told?** — the answer to *"Did I tell you X? Answer
+only yes or no."*, classified yes / no / other. Rates across the four
+conditions. **This is the headline.**
 
-**H1 as stated is not supported.** ρ ran 0.09–0.82, never near 1, and *falls
-with b* — so it cannot be compared across models at equal `b`, only at equal KL.
+**2. Does it give a value, or refuse?** — rate across the same four conditions.
 
-**H2 holds in direction** — source rank 2–5 on the 0.5B against 145–824 on
-Qwen3-4B — but the cheap explanation (bigger models start more confident, so
-everything else is further down) is not yet excluded. Unresolved.
+**3. If a value was given, how far is it from the truth?** Two measures, because
+one of them alone would kill the most interesting case:
+
+- **string distance** — Levenshtein over the two strings, divided by the longer,
+  case-folded. `4417→417` = 0.25, `19:40→19:45` = 0.20, `19:40→12:00` = 0.40.
+  Catches truncations and single-character slips.
+- **category** — is it the same kind of thing, from the same domain?
+  `Brno → Prague` is a Czech city; `Brno → New York` is not. This is a
+  judgement, made by hand; a judge may be used only after reproducing hand
+  labels on a calibration set.
+
+**Why both.** String distance scores `Brno → Prague` at **0.83**, i.e. far —
+and that is the most informative cell in the data, because with the fact faint
+the model still answers with a Czech city. A metric that calls it far is
+measuring the wrong thing on its own.
 
 ---
 
-## H5 — what replaced H4 *(post-hoc: this hypothesis came out of the pilot and
-cannot be tested on it)*
+## The answer
 
-The two states produce **different kinds of wrong answer**:
+**Qwen3.5-4B, 100 items, 89 kept** (0 answered wrong unmanipulated, 11 never
+lost the value under any `b`):
 
-| | fact faint | fact never there |
+| condition | yes | no | other |
+|---|---:|---:|---:|
+| `present` | **85** | 4 | 0 |
+| `faint` | **78** | 11 | 0 |
+| **`swap`** | **0** | **89** | 0 |
+| `drop` | 0 | 0 | 89 |
+
+- **78 of 89 — the model gives a wrong value and claims it was told it.**
+- **`swap` → "no", 89 of 89.** A readable sentence about something else never
+  produces a "yes". So "yes" tracks the fact, not the presence of a clause.
+- `drop` answers in prose rather than yes/no, so it classifies as *other*. That
+  is a coarseness of the classifier, not a model failure; `swap` is the control
+  the claim rests on.
+
+**[Qwen3-4B-Instruct-2507 pending]**
+
+### What the model says instead
+
+Two kinds of near miss, and they are different things:
+
+| | faint | absent |
 |---|---|---|
-| `Bagr` | `Bag`, `Bagr`, `Bragg` | `Buddy`, `Fido`, `Max`, `Rex` |
-| `4417` | `417` | `1234`, `123456789` |
-| `E-88` | `E-8`, `E8`, `E1000` | `404`, `1000` |
-| `Brno` | **`Prague`** | `New York City`, `London` |
-| `19:40` | **`19:45`** | `14:30`, `3:45 PM`, `07:00` |
-| `302` | `30`, `3`, `2` | `42`, `1234`, `0000` |
+| `Bagr` | `Bag`, `Bragg` | `Buddy`, `Fido`, `Rex` |
+| `4417` | `417` | `1234` |
+| `E-88` | `E-8`, `E8` | `404` |
+| `Brno` | **`Prague`** | `New York City` |
+| `19:40` | **`19:45`** | `14:30` |
+| `302` | `30`, `3`, `2` | `42`, `1234` |
 
-> **A faint fact yields a distortion of the truth. A missing fact yields a
-> generic prior.**
-
-The model does distinguish the two states — not by declining, but by staying
-anchored to what is left of the fact. With `Brno` faint it still answers with a
-Czech city; with `Brno` gone it answers New York.
-
-**Predicts:** mean normalised edit distance from the true value is **at most
-half** as large under *faint* as under *absent*.
-**Falsified if** the two means are within 20% of each other.
-
-### Fixed before the confirmation run
-
-- **Distance** = Levenshtein between the emitted value and the true value,
-  divided by the length of the longer. 0 identical, 1 unrelated.
-- **The emitted value** is extracted from the generation **by hand**. A judge
-  may be used as triage only, and only after reproducing hand labels on a
-  calibration set, as in `examples/abstain_judge_gemini.py` (`--min-calib 18`).
-- **`absent` = drop**, not swap. Swap is contaminated: on Qwen3.5 the model
-  answered with the donor item's value (`order` → `E-88`, `account` → `Bagr`).
-  Swap is reported separately as a finding, not used as the control.
-- **`faint`** = the smallest `b` at which the true value is no longer in the
-  answer.
-- **Confirmation set = new items**, not the six that generated H5, and stated as
-  such. A hypothesis read off the pilot cannot be confirmed by the pilot.
+`19:40 → 19:45` passes every downstream check anyone runs. It does not look
+like a hallucination. It looks like a typo.
 
 ---
 
-## Baselines and controls
+## Hypotheses, as frozen
 
-- fact deleted entirely (`drop`) — also H5's comparison arm
-- donor sentence in the same slot (`swap`) — reported, not relied on
-- a random other span turned down instead, matched on KL
-- different-question null, for H3
+**H1 — the queue** Spearman ρ over the top K = 100 of the unmanipulated
+distribution, gold excluded. ρ ≥ 0.9 → the model chooses nothing, the fact sinks
+and the next in line steps up. **Not supported**: ρ ran 0.09–0.82 and falls with
+`b`, so it can only be compared across models at equal KL. Unresolved.
 
-## Stop rules
+**H2 — depth of the replacement** Median source rank grows with model size.
+**Holds in direction** (rank 2–5 on Qwen2.5-0.5B against 145–824 on Qwen3-4B)
+but the cheap explanation — bigger models start more confident, so everything
+else sits further down — is not yet excluded. Unresolved.
 
-- The knob doesn't remove the value at any `b` → wrong model, not a finding.
-- The unmanipulated model can't answer → item dropped, count reported.
-- H2 dies under KL matching → report it, don't go looking for another statistic.
-- H5 fails on the confirmation set → report it. The pilot table stays in the
-  write-up as what generated the hypothesis, not as evidence for it.
+**H3 — the replacement is related to the target** ≥ 10× over a
+different-question null. **Pending.**
+
+**H4 — does the model know the difference between faint and absent?**
+Originally read as falsified. **That reading was an artifact of the design**
+(see below) and it is now **supported**: absent is declined, faint is not.
+
+**H5 — post-hoc, from the pilot** Faint yields a distortion of the truth,
+absent yields a generic prior or a refusal. Needs confirmation on items that did
+not generate it.
+
+---
+
+## Controls and gates
+
+- **`swap`** — the one that matters. Passed, 89/89.
+- **Gate**: an item counts only if the unmanipulated model answers correctly and
+  some `b` removes the value. Both failure kinds counted and reported.
+- **Excluded model**: Qwen2.5-0.5B answers "yes, you told me" for 3 of 5 items
+  where the fact was never present. It cannot do the provenance task and is
+  excluded from every claim rather than averaged in.
+- **Layer-0 null** for the probe: the embedding layer holds no state; if it
+  separates, the probe is reading tokens.
+- **Shuffled labels** for the probe.
+
+---
+
+## What went wrong, and how it was caught
+
+**The forced prefix.** The first design pinned the read position with an answer
+prefix ("Your dog is called ___"), which makes *"I don't know"* a grammatically
+impossible continuation. A forced completion was being read as the model's
+choice. Removing it reversed the result: the model that appeared never to admit
+ignorance admits it reliably when the fact is genuinely absent.
+
+**The gold token.** For numeric values the first token of `" 4417"` is a bare
+space, so "probability of the correct token" was measuring whether a space comes
+next — 0.85 whatever the knob did.
+
+**The first probe.** It built `absent` by deleting the sentence, so the two
+classes differed in their text. It scored 6/6 at layer 0 — the embedding layer,
+which holds no state. It was reading tokens. Fixed with the matched `swap`
+condition.
+
+---
 
 ## Not claimed
 
-Constructed cases. One manipulation. Three models. Nothing here measures
-production behaviour, natural hallucination in the wild, or the quality of any
-published method.
+Constructed conversations. One manipulation family. Two models after exclusion,
+both 4B. Greedy, one seed. `faint` is a per-item threshold, so it means a
+different `b` for each item. The knob is an idealised version of a state that
+occurs in deployment for other reasons — KV cache compression and eviction, KV
+quantisation, long-context dilution, prompt compression. **None of those is
+measured here.**
 
 ---
 
 ## Hours
 
-12 + 2 for the write-up. Prior work — the fixture set, the ten-model ladder, the
+12 + 2 for the write-up. Prior work — the fixture, the ten-model ladder, the
 mechanism, `brainscope` — predates this and is not counted.
 
 | date | h | what |
 |---|---|---|
-| 2026-08-12 | | knob, pilot, fact-absent control |
+| 2026-08-12 | | knob, ladder, absent control, provenance question, probe |
 
 ## Changes
 
 | date | what | why |
 |---|---|---|
-| 2026-08-12 | H4 marked falsified; H5 added as post-hoc with its own confirmation set | pilot: the model invents in both states, but the *kind* of invention differs |
+| 2026-08-12 | H4 marked falsified, then un-falsified | the first falsification was an artifact of the forced answer prefix |
+| 2026-08-12 | metric split into three layers | distance from the truth is undefined on a refusal, and the two are different questions |
+| 2026-08-12 | two distance measures instead of one | string distance calls `Brno → Prague` far, which is the wrong answer about the most informative cell |

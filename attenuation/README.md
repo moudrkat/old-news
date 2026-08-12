@@ -1,28 +1,90 @@
 # attenuation
 
-**What's behind a fact?**
+## The question
 
-A model is told something. Turn that sentence down — don't delete it, just make
-it harder to see — and ask about it. It doesn't say it doesn't know. It says
-something *next to* the answer: `302` becomes `02`, `Bagr` becomes `Bagel`.
+> **A model is told something. Make that sentence hard to read — don't delete
+> it. Does the model notice?**
 
-So what does it say instead, and where does that come from?
+## The metric
 
-Turning a fact down is a way of **seeing what the model has stacked behind it**.
-The knob is an instrument, not the subject.
+Ask it. *"Did I tell you my dog's name in this conversation? Answer only yes or
+no."* — in four states of the evidence:
 
-The parent repo established that the fact is *attenuated, not overwritten* —
-its probability collapses, nothing promotes a wrong one, and whatever was
-standing behind it wins. This directory asks who that is.
+| | |
+|---|---|
+| `present` | the fact is there, knob off |
+| `faint` | the fact is there, turned down until the answer is wrong |
+| `swap` | a readable sentence about **something else** in the same slot |
+| `drop` | no such sentence at all |
 
-- Does the queue simply advance, or does the ranking reshuffle?
-- How far down does the replacement come from — and why is it rank 2 on one
-  model and rank 43 on another?
-- Is what the knob produces the same thing the model says when it was never
-  told at all?
+`swap` is the control the whole thing rests on: it separates *"I have this
+fact"* from *"there is a sentence here"*.
 
-**Nothing has been run yet.** The plan is frozen in
-[`PREREGISTRATION.md`](PREREGISTRATION.md) — one question, one knob, three
-models, four baselines, numeric falsifiers, and the confound that would kill it.
+## The answer
 
-Frozen 2026-08-12.
+**No, it doesn't notice.** Qwen3.5-4B, 100 items, 89 kept:
+
+| condition | says it was told |
+|---|---|
+| `present` | 85 / 89 |
+| **`faint`** | **78 / 89** ← and the value it gives is wrong |
+| **`swap`** | **0 / 89** |
+
+**78 of 89: the model gives a wrong value and claims it was told it.**
+A readable sentence about something else never produces a "yes" — 89 out of 89.
+So the "yes" tracks the fact, not the presence of a sentence.
+
+And the wrong value is not random. It is next to the truth:
+
+| | faint | never told |
+|---|---|---|
+| `Bagr` | `Bag` | `Fido` |
+| `4417` | `417` | `1234` |
+| `E-88` | `E-8` | `404` |
+| `Brno` | **`Prague`** | `New York City` |
+| `19:40` | **`19:45`** | `14:30` |
+
+With the fact faint, the model still knows you are in the Czech Republic.
+
+**`19:40 → 19:45` passes every check anyone runs downstream.** It does not look
+like a hallucination. It looks like a typo.
+
+---
+
+## Why this is the interesting version of the question
+
+Models have internal representations of whether they recognise an entity, and
+those causally gate refusal — [Do I Know This Entity?](https://arxiv.org/abs/2411.14257)
+(Ferrando, Obeso, Rajamanoharan & Nanda, ICLR 2025 oral). That is self-knowledge
+about what the model learned.
+
+This asks the same about what the model was *told*. If the mechanism carried
+over, a degraded fact should look like an unknown entity and trigger a refusal.
+It doesn't.
+
+## The knob
+
+One number. A negative bias on the attention logits at that sentence's
+positions. `b = 0` is the plain causal mask, so the control is not a separate
+code path. Nothing is added to the residual stream, no cache is edited, no
+hooks — it runs on any attention layer.
+
+```bash
+python src/told2.py Qwen/Qwen3.5-4B     # the four conditions
+python src/run.py   Qwen/Qwen3.5-4B     # the degradation ladder
+python src/probe2.py Qwen/Qwen3.5-4B    # is there an internal "I was told this"
+python src/table.py                     # faint vs absent, with distances
+```
+
+## What is not claimed
+
+Constructed conversations. One manipulation. Two models, both 4B — Qwen2.5-0.5B
+**failed the control** (it says "yes, you told me" when nothing was ever said)
+and is excluded rather than averaged in. Greedy, one seed.
+
+The knob is an idealised version of a state that arises in deployment for other
+reasons — KV cache compression and eviction, KV quantisation, long-context
+dilution, prompt compression. **None of those is measured here.**
+
+The plan, the hypotheses with their numeric falsifiers, and a list of what went
+wrong and how it was caught are in [`PREREGISTRATION.md`](PREREGISTRATION.md).

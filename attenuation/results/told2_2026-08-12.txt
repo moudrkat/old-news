@@ -1,0 +1,13 @@
+Qwen/Qwen3.5-4B   100 items
+
+kept 89   dropped: 0 wrong unmanipulated, 11 never lost the value
+
+condition     yes     no  other   expected
+present        85      4      0   yes
+faint          78     11      0   ?
+swap            0     89      0   no  <- THE CONTROL
+drop            0      0     89   no
+
+wrong value AND claims it was told: 78/89
+wrote /home/kachna/tmp/attenuation/results/told2_Qwen3.5-4B.json
+=====

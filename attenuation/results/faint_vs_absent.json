@@ -1,0 +1,342 @@
+[
+ {
+  "model": "Qwen2.5-0.5B-Instruct",
+  "item": "dog",
+  "true": "Bagr",
+  "cond": "faint",
+  "faint_b": 2.0,
+  "said": "Bragg",
+  "dist": 0.4,
+  "sentence": "Your dog is called \"Bragg.\""
+ },
+ {
+  "model": "Qwen2.5-0.5B-Instruct",
+  "item": "dog",
+  "true": "Bagr",
+  "cond": "absent",
+  "faint_b": 2.0,
+  "said": "t have access to your dog",
+  "dist": 0.92,
+  "sentence": "As an AI language model, I don't have access to your dog's name. However, if you can provide me with more information about your dog, such as its breed, age, and any"
+ },
+ {
+  "model": "Qwen2.5-0.5B-Instruct",
+  "item": "order",
+  "true": "4417",
+  "cond": "faint",
+  "faint_b": 1.5,
+  "said": "m sorry, I don",
+  "dist": 1.0,
+  "sentence": "I'm sorry, I don't have access to your order number. Could you please provide me with more information or ask me a question?"
+ },
+ {
+  "model": "Qwen2.5-0.5B-Instruct",
+  "item": "order",
+  "true": "4417",
+  "cond": "absent",
+  "faint_b": 1.5,
+  "said": "m sorry, but as an AI language model, I don",
+  "dist": 1.0,
+  "sentence": "I'm sorry, but as an AI language model, I don't have access to your order history or any specific order number. It's important to note that your order number is a unique identifier for"
+ },
+ {
+  "model": "Qwen2.5-0.5B-Instruct",
+  "item": "city",
+  "true": "Brno",
+  "cond": "faint",
+  "faint_b": 2.0,
+  "said": "m sorry, I don",
+  "dist": 0.8571428571428571,
+  "sentence": "I'm sorry, I don't have any information about your location. I can only provide general information about cities."
+ },
+ {
+  "model": "Qwen2.5-0.5B-Instruct",
+  "item": "city",
+  "true": "Brno",
+  "cond": "absent",
+  "faint_b": 2.0,
+  "said": "m sorry, but I",
+  "dist": 0.9285714285714286,
+  "sentence": "I'm sorry, but I'm an AI language model and I don't have access to your location information. You can try using a location service on your device to find your current location and then use"
+ },
+ {
+  "model": "Qwen2.5-0.5B-Instruct",
+  "item": "time",
+  "true": "19:40",
+  "cond": "faint",
+  "faint_b": 1.0,
+  "said": "m sorry, but I don",
+  "dist": 1.0,
+  "sentence": "I'm sorry, but I don't have access to real-time information about your train's departure time. It's best to check the official website of the train operator or use a travel app for the"
+ },
+ {
+  "model": "Qwen2.5-0.5B-Instruct",
+  "item": "time",
+  "true": "19:40",
+  "cond": "absent",
+  "faint_b": 1.0,
+  "said": "m sorry, but I",
+  "dist": 1.0,
+  "sentence": "I'm sorry, but I'm not sure what you are asking. Can you please provide more context or information about the train you are referring to?"
+ },
+ {
+  "model": "Qwen2.5-0.5B-Instruct",
+  "item": "account",
+  "true": "302",
+  "cond": "faint",
+  "faint_b": 3.0,
+  "said": "3",
+  "dist": 0.6666666666666666,
+  "sentence": "The account number ends in 3."
+ },
+ {
+  "model": "Qwen2.5-0.5B-Instruct",
+  "item": "account",
+  "true": "302",
+  "cond": "absent",
+  "faint_b": 3.0,
+  "said": "10",
+  "dist": 0.6666666666666666,
+  "sentence": "The account number ends in a 10."
+ },
+ {
+  "model": "Qwen3-4B-Instruct-2507",
+  "item": "dog",
+  "true": "Bagr",
+  "cond": "faint",
+  "faint_b": 2.0,
+  "said": "Your",
+  "dist": 0.75,
+  "sentence": "Your dog is called Bag! \ud83d\udc36 That's a fun and unique name\u2014great choice! Is there anything special about the name Bag, or did you choose it for a particular reason? \ufffd"
+ },
+ {
+  "model": "Qwen3-4B-Instruct-2507",
+  "item": "dog",
+  "true": "Bagr",
+  "cond": "absent",
+  "faint_b": 2.0,
+  "said": "m sorry, but I don",
+  "dist": 0.9444444444444444,
+  "sentence": "I'm sorry, but I don't know your dog's name! \ud83d\ude0a"
+ },
+ {
+  "model": "Qwen3-4B-Instruct-2507",
+  "item": "order",
+  "true": "4417",
+  "cond": "faint",
+  "faint_b": 3.0,
+  "said": "417",
+  "dist": 0.25,
+  "sentence": "Your order number is 417."
+ },
+ {
+  "model": "Qwen3-4B-Instruct-2507",
+  "item": "order",
+  "true": "4417",
+  "cond": "absent",
+  "faint_b": 3.0,
+  "said": "m sorry, but I can",
+  "dist": 1.0,
+  "sentence": "I'm sorry, but I can't assist with that. Order numbers are personal and sensitive information, and I don't have access to your account details or order history. To find your order number,"
+ },
+ {
+  "model": "Qwen3-4B-Instruct-2507",
+  "item": "error",
+  "true": "E-88",
+  "cond": "faint",
+  "faint_b": 3.0,
+  "said": "E-8",
+  "dist": 0.25,
+  "sentence": "You mentioned you received error code **E-8**, but you said \"the error code I got was E-8\" \u2014 so it seems like you might have meant **error code 8**"
+ },
+ {
+  "model": "Qwen3-4B-Instruct-2507",
+  "item": "error",
+  "true": "E-88",
+  "cond": "absent",
+  "faint_b": 3.0,
+  "said": "m sorry, but I don",
+  "dist": 1.0,
+  "sentence": "I'm sorry, but I don't have access to your specific error message or context. Could you please provide more details about the error you encountered? For example:"
+ },
+ {
+  "model": "Qwen3-4B-Instruct-2507",
+  "item": "city",
+  "true": "Brno",
+  "cond": "faint",
+  "faint_b": 2.5,
+  "said": "m sorry, but I don",
+  "dist": 0.8888888888888888,
+  "sentence": "I'm sorry, but I don't have access to your personal information, including your location. So I can't determine which city you live in. If you'd like to share more details or discuss"
+ },
+ {
+  "model": "Qwen3-4B-Instruct-2507",
+  "item": "city",
+  "true": "Brno",
+  "cond": "absent",
+  "faint_b": 2.5,
+  "said": "t have access to your personal information, including your location. So I can",
+  "dist": 0.961038961038961,
+  "sentence": "I don't have access to your personal information, including your location. So I can't tell you which city you live in. \ud83d\ude0a"
+ },
+ {
+  "model": "Qwen3-4B-Instruct-2507",
+  "item": "time",
+  "true": "19:40",
+  "cond": "faint",
+  "faint_b": 4.5,
+  "said": "12:00",
+  "dist": 0.4,
+  "sentence": "Your train leaves at 12:00 PM (noon), based on the time you mentioned. Let me know if you'd like help with anything else\u2014like checking the platform, confirming the"
+ },
+ {
+  "model": "Qwen3-4B-Instruct-2507",
+  "item": "time",
+  "true": "19:40",
+  "cond": "absent",
+  "faint_b": 4.5,
+  "said": "m sorry, but I don",
+  "dist": 1.0,
+  "sentence": "I'm sorry, but I don't have access to real-time train schedules or your specific travel details. To find out when your train leaves, I recommend checking:"
+ },
+ {
+  "model": "Qwen3-4B-Instruct-2507",
+  "item": "account",
+  "true": "302",
+  "cond": "faint",
+  "faint_b": 3.5,
+  "said": "30",
+  "dist": 0.3333333333333333,
+  "sentence": "Your account number ends in **30**."
+ },
+ {
+  "model": "Qwen3-4B-Instruct-2507",
+  "item": "account",
+  "true": "302",
+  "cond": "absent",
+  "faint_b": 3.5,
+  "said": "m sorry, but I can",
+  "dist": 1.0,
+  "sentence": "I'm sorry, but I can't help with that. Account numbers are sensitive personal information, and I don't have access to your account details. If you need to know what your account number ends"
+ },
+ {
+  "model": "Qwen3.5-4B",
+  "item": "dog",
+  "true": "Bagr",
+  "cond": "faint",
+  "faint_b": 5.5,
+  "said": "Bag",
+  "dist": 0.25,
+  "sentence": "Your dog is called **Bag**."
+ },
+ {
+  "model": "Qwen3.5-4B",
+  "item": "dog",
+  "true": "Bagr",
+  "cond": "absent",
+  "faint_b": 5.5,
+  "said": "t know your dog",
+  "dist": 0.9333333333333333,
+  "sentence": "I don't know your dog's name! As an AI, I don't have access to your personal information or your home."
+ },
+ {
+  "model": "Qwen3.5-4B",
+  "item": "order",
+  "true": "4417",
+  "cond": "faint",
+  "faint_b": 6.0,
+  "said": "10000000000000000000000000000000000",
+  "dist": 1.0,
+  "sentence": "Your order number is **10000000000000000000000000000000000"
+ },
+ {
+  "model": "Qwen3.5-4B",
+  "item": "order",
+  "true": "4417",
+  "cond": "absent",
+  "faint_b": 6.0,
+  "said": "",
+  "dist": null,
+  "sentence": "I don't have access to your personal information, order history, or account details unless you provide them to me."
+ },
+ {
+  "model": "Qwen3.5-4B",
+  "item": "error",
+  "true": "E-88",
+  "cond": "faint",
+  "faint_b": 5.5,
+  "said": "E8",
+  "dist": 0.5,
+  "sentence": "You got error code **E8** (or **8**)."
+ },
+ {
+  "model": "Qwen3.5-4B",
+  "item": "error",
+  "true": "E-88",
+  "cond": "absent",
+  "faint_b": 5.5,
+  "said": "",
+  "dist": null,
+  "sentence": "I don't have access to your specific error message or code from our conversation so far. Could you please share the error message you received? It usually includes something like:"
+ },
+ {
+  "model": "Qwen3.5-4B",
+  "item": "city",
+  "true": "Brno",
+  "cond": "faint",
+  "faint_b": 11.0,
+  "said": "Prague",
+  "dist": 0.8333333333333334,
+  "sentence": "You live in **Prague** (or a city in the Czech Republic, as \"Prague\" is the capital and most common association with \"living in Prague,\" but if you meant another city"
+ },
+ {
+  "model": "Qwen3.5-4B",
+  "item": "city",
+  "true": "Brno",
+  "cond": "absent",
+  "faint_b": 11.0,
+  "said": "",
+  "dist": null,
+  "sentence": "I don't have access to your personal information, including your location. To find out which city you live in, you can check your address, look at your local news or weather app, or simply"
+ },
+ {
+  "model": "Qwen3.5-4B",
+  "item": "time",
+  "true": "19:40",
+  "cond": "faint",
+  "faint_b": 5.5,
+  "said": "19:45",
+  "dist": 0.2,
+  "sentence": "Your train leaves at **19:45** (7:45 PM)."
+ },
+ {
+  "model": "Qwen3.5-4B",
+  "item": "time",
+  "true": "19:40",
+  "cond": "absent",
+  "faint_b": 5.5,
+  "said": "t have access to your specific location, the train you",
+  "dist": 1.0,
+  "sentence": "I don't have access to your specific location, the train you're referring to, or real-time schedule data. To find out when your train leaves, please:"
+ },
+ {
+  "model": "Qwen3.5-4B",
+  "item": "account",
+  "true": "302",
+  "cond": "faint",
+  "faint_b": 6.0,
+  "said": "2",
+  "dist": 0.6666666666666666,
+  "sentence": "Your account number ends in **2**."
+ },
+ {
+  "model": "Qwen3.5-4B",
+  "item": "account",
+  "true": "302",
+  "cond": "absent",
+  "faint_b": 6.0,
+  "said": "",
+  "dist": null,
+  "sentence": "I don't have access to your personal information, including your account number. For security reasons, I cannot see or retrieve any of your private data."
+ }
+]
