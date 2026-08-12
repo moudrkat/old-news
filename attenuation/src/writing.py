@@ -187,7 +187,15 @@ scholars had minimal interpretability experience and did fine</li>
 </ul>"""),
 
     ("q10", "Why are you interested in Neel's stream specifically?", 6, """
-<b>Be honest here — a costume shows.</b> What is actually true:
+<b>Be honest here — a costume shows.</b><br><br>
+<b>Open with how it actually happened,</b> two sentences and no more: you told a
+friend in a bar, after two negronis, that you wanted to go back to research; a
+quarter of a year later he sent you a screenshot of the LinkedIn post. It reads
+as a person rather than a statement of motivation — and it quietly says the
+thing that matters, which is that <i>you decided you wanted back into research
+before you knew this programme existed.</i> He reads hundreds of motivation
+statements; he reads very few of those.<br><br>
+<b>Then answer the question that was asked</b> — why <i>his</i> stream:
 <ul>
 <li>his pivot to <i>pragmatic interpretability</i> is the nearest thing in the
 field to how you already work: does the technique actually do anything,
