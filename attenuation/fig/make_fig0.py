@@ -42,7 +42,7 @@ def clean(s: str, n: int = 0) -> str:
 
 def main() -> int:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--n", type=int, default=12)
+    ap.add_argument("--n", type=int, default=20)
     ap.add_argument("--seed", type=int, default=4242)
     a = ap.parse_args()
 
@@ -117,9 +117,14 @@ code {{ font-size:12px; color:var(--muted); }}
 {chr(10).join(trs)}
 </table>
 <figcaption>
-The sentence carrying the fact is still in the conversation — it has only been
-made harder to read. {n_yes} of these {len(pick)} answer &#8220;yes, you told me&#8221;:
-{n_val} while giving a wrong value, {n_ref} while declining to give one at all.
+<b>How to read this.</b> Left: the sentence the user put in the conversation,
+with the fact in bold. Middle: what the model answered when asked for that fact
+afterwards — the sentence is <i>still there</i>, it has only been made harder to
+read. Right: what the same model said when asked, separately,
+&#8220;did I tell you this? answer only yes or no&#8221;.<br><br>
+{n_yes} of these {len(pick)} answer <b>yes</b>: {n_val} while giving a wrong
+value, {n_ref} while declining to give one at all. Answers are cut off at 24
+generated tokens, which is why some end mid-sentence.
 </figcaption>
 </figure>
 """

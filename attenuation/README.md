@@ -27,11 +27,14 @@ And the wrong value is not random. It sits next to the truth. Told `19:40`, it
 answers **19:45**. Told `Brno`, it answers **Prague**. That does not look like a
 hallucination. It looks like a typo, and nothing downstream catches a typo.
 
-![Twelve answers drawn at random: the user says one thing, the model answers
-another, and still says it was told](fig/fig0.png)
+![Twenty answers drawn at random](fig/fig0.png)
 
-*Twelve of the 183 answers, drawn with a fixed seed — not picked. Refusals
-included.*
+**What you are looking at.** Twenty of the 183 answers, drawn with a fixed seed
+— not picked, refusals included. *Left:* the sentence the user put in the
+conversation, fact in bold. *Middle:* what the model answered when asked for
+that fact — the sentence is still there, only harder to read. *Right:* what it
+said when asked separately whether it had been told. Answers stop at 24
+generated tokens, which is why some end mid-sentence.
 
 ---
 
@@ -59,12 +62,15 @@ fact"* from *"there is a sentence here"*.
 
 **No, it doesn't notice.** Two models, 100 items each, says-it-was-told rate:
 
-| condition | Qwen3.5-4B | Qwen3-4B |
-|---|---|---|
-| `present` | 96% | 99% |
-| **`faint`** | **75 / 86 (87%)** | **70 / 97 (72%)** |
-| **`swap`** | **0 / 86 (0%)** | **0 / 97 (0%)** |
-| `drop` | 0 | 0 |
+**Rows are the four situations; the numbers are how often the model answered
+"yes" to *did I tell you this*.**
+
+| condition | what the conversation held | Qwen3.5-4B | Qwen3-4B |
+|---|---|---|---|
+| `present` | the sentence, readable | 96% | 99% |
+| **`faint`** | **the same sentence, turned down** | **75 / 86 (87%)** | **70 / 97 (72%)** |
+| **`swap`** | **a readable sentence about something else** | **0 / 86 (0%)** | **0 / 97 (0%)** |
+| `drop` | nothing there at all | 0 | 0 |
 
 *(From 100 items each: 11 dropped on Qwen3.5-4B because no `b` removed the
 value, and 3 on each model because the value was there all along — the model
@@ -77,7 +83,10 @@ So the "yes" tracks the fact, not the presence of a sentence.
 
 And the wrong value is not random. It is next to the truth:
 
-| | faint | never told |
+**Left column: what the user said. Middle: the answer when that sentence was
+turned down. Right: the answer when it was never in the conversation at all.**
+
+| the user said | turned down, it answers | never told, it answers |
 |---|---|---|
 | `Bagr` | `Bag` | `Fido` |
 | `4417` | `417` | `1234` |
@@ -99,12 +108,17 @@ for every item. See `fig/fig2_*.png`.
 **Is any of this just the model?** Every behaviour was re-measured with the knob
 off. Only the b = 0 column settles it:
 
-| | Qwen3-4B  b=0 → faint | Qwen3.5-4B  b=0 → faint |
+**Each cell is: how many answers show that behaviour with the knob off → with
+it on. Qwen3-4B out of 100 items, Qwen3.5-4B out of 89.** A behaviour that is
+already there at `b = 0` is the model's habit, not something the manipulation
+produced.
+
+| behaviour | Qwen3-4B  off → on | Qwen3.5-4B  off → on |
 |---|---|---|
 | justifies its answer | 0 → 1 | **3 → 17** |
-| hesitates | **0 → 11** | **0 → 5** |
-| quotes the user back | 14 → 19 *(a habit, not a finding)* | 0 → 4 |
-| declines to answer | **0 → 46** | **0 → 0** |
+| hesitates, questions its own answer | **0 → 11** | **0 → 5** |
+| quotes the user back | 14 → 19 *(already a habit — not a finding)* | 0 → 4 |
+| declines to answer at all | **0 → 46** | **0 → 0** |
 
 Hesitation is produced by the manipulation — a clean zero on both models at
 b = 0. Justification is produced too, and is specific to Qwen3.5-4B: it does not
@@ -166,9 +180,12 @@ One number. Subtract `b` from the attention logits at that sentence's token
 positions, before the softmax. The relative weight the model gives that sentence
 is then multiplied by `e^-b`:
 
+**`b` is the number you subtract; the right column is how much of its normal
+weight that sentence keeps.**
+
 | `b` | weight left on the sentence |
 |---|---|
-| 0 | 100% — the plain causal mask |
+| 0 | 100% — the plain causal mask, an unmodified model |
 | 3 | 5% |
 | 6 | 0.25% |
 
