@@ -1,0 +1,45 @@
+[transformers] The fast path is not available because one of the required library is not installed. Falling back to torch implementation. To install follow https://github.com/fla-org/flash-linear-attention#installation and https://github.com/Dao-AILab/causal-conv1d
+Loading weights:   0%|          | 0/426 [00:00<?, ?it/s]Loading weights:   5%|▌         | 22/426 [00:00<00:01, 216.95it/s]Loading weights:  22%|██▏       | 93/426 [00:00<00:00, 498.15it/s]Loading weights:  37%|███▋      | 158/426 [00:00<00:00, 566.66it/s]Loading weights:  53%|█████▎    | 226/426 [00:00<00:00, 610.45it/s]Loading weights:  69%|██████▉   | 293/426 [00:00<00:00, 628.49it/s]Loading weights:  85%|████████▌ | 364/426 [00:00<00:00, 652.43it/s]Loading weights: 100%|██████████| 426/426 [00:00<00:00, 616.61it/s]
+Qwen/Qwen3.5-4B   89 items
+
+n=89  (skipped 0 where the control span would overlap)
+
+  mask ON the value   -> value survives 3/89 (3%)
+  mask OFF the value  -> value survives 89/89 (100%)
+
+same dose, same number of tokens, same sentence — only the position differs
+
+  dog:Bagr       b=6.0   off: Your dog is called **Bagr**.
+  dog:Fizzle     b=8.0   off: Your dog is called **Fizzle**.
+  dog:Kudla      b=6.0   off: Your dog is called **Kudla**.
+  dog:Wobbet     b=5.0   off: Your dog is called **Wobbet**.
+  dog:Trixel     b=5.0   off: Your dog is called **Trixel**.
+  dog:Marnok     b=8.0   off: Your dog is called **Marnok**.
+  dog:Bristle    b=6.0   off: Your dog is called **Bristle**.
+  dog:Yorrick    b=3.0   off: Your dog is called **Yorrick**.
+
+wrote /home/kachna/tmp/attenuation/results/locality_Qwen3.5-4B.json
+=====
+Ignoring corrupted tree cache file /home/kachna/projects/science/instruct-steer/hf-cache/hub/models--Qwen--Qwen3-4B-Instruct-2507/trees/cdbee75f17c01a7cc42f958dc650907174af0554.json: [Errno 13] Permission denied: '/home/kachna/projects/science/instruct-steer/hf-cache/hub/models--Qwen--Qwen3-4B-Instruct-2507/trees/cdbee75f17c01a7cc42f958dc650907174af0554.json'
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights:   7%|▋         | 28/398 [00:00<00:01, 277.96it/s]Loading weights:  23%|██▎       | 93/398 [00:00<00:00, 494.70it/s]Loading weights:  40%|███▉      | 159/398 [00:00<00:00, 561.22it/s]Loading weights:  57%|█████▋    | 225/398 [00:00<00:00, 591.94it/s]Loading weights:  73%|███████▎  | 291/398 [00:00<00:00, 611.36it/s]Loading weights:  90%|████████▉ | 357/398 [00:00<00:00, 621.03it/s]Loading weights: 100%|██████████| 398/398 [00:00<00:00, 595.62it/s]
+Qwen/Qwen3-4B-Instruct-2507   100 items
+
+n=100  (skipped 0 where the control span would overlap)
+
+  mask ON the value   -> value survives 3/100 (3%)
+  mask OFF the value  -> value survives 53/100 (53%)
+
+same dose, same number of tokens, same sentence — only the position differs
+
+  dog:Bagr       b=2.0   off: Your dog is called Bagr! 🐶 That's a unique and interesting name—
+  dog:Fizzle     b=4.0   off: Your dog is called Fizzle! 🐶✨ That's a fun and unique name—perfe
+  dog:Kudla      b=4.0   off: I'm sorry, but I don't have access to personal information like 
+  dog:Wobbet     b=3.0   off: Hmm, I notice you mentioned your name is Wobbet, but you're aski
+  dog:Trixel     b=3.0   off: I'm sorry, but I don't have information about your dog's name. Y
+  dog:Marnok     b=3.0   off: I'm sorry, but I don't have access to personal information like 
+  dog:Bristle    b=4.0   off: Based on your message, "By the way, my dog is called Bristle," i
+  dog:Yorrick    b=3.0   off: Hmm, I'm sorry, but I don't seem to have any information about a
+
+wrote /home/kachna/tmp/attenuation/results/locality_Qwen3-4B-Instruct-2507.json
+=====
+DONE

@@ -1,0 +1,909 @@
+{
+ "model": "Qwen/Qwen3-4B-Instruct-2507",
+ "n": 100,
+ "skipped": 0,
+ "survives_on": 3,
+ "survives_off": 53,
+ "rows": [
+  {
+   "key": "dog:Bagr",
+   "b": 2.0,
+   "n_tok": 2,
+   "on_value": "Your dog is called Bag! \ud83d\udc36 That's a fun and unique name\u2014great choice! Is there anything special",
+   "off_value": "Your dog is called Bagr! \ud83d\udc36 That's a unique and interesting name\u2014great choice! Is Bagr",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "dog:Fizzle",
+   "b": 4.0,
+   "n_tok": 2,
+   "on_value": "Your dog is called **My Dog**! \ud83d\udc36 That's a pretty cool name\u2014unique and full of personality",
+   "off_value": "Your dog is called Fizzle! \ud83d\udc36\u2728 That's a fun and unique name\u2014perfect for a lively pup",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "dog:Kudla",
+   "b": 4.0,
+   "n_tok": 3,
+   "on_value": "Your dog is called Max. \ud83d\ude0a (Wait\u2014actually, you said your dog is called *you*\u2014that",
+   "off_value": "I'm sorry, but I don't have access to personal information like your dog's name. If you'd like to",
+   "survives_on": false,
+   "survives_off": false
+  },
+  {
+   "key": "dog:Wobbet",
+   "b": 3.0,
+   "n_tok": 3,
+   "on_value": "Your dog is called Wobbly! \ud83d\ude0a (Wait\u2014did you mean to say \"Wobbly\" or",
+   "off_value": "Hmm, I notice you mentioned your name is Wobbet, but you're asking about your dog's name. That",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "dog:Trixel",
+   "b": 3.0,
+   "n_tok": 3,
+   "on_value": "Your dog is called Trix! \ud83d\ude0a (Or is it? You said \"Trix\" \u2014 maybe a playful",
+   "off_value": "I'm sorry, but I don't have information about your dog's name. You mentioned that your name is Trix",
+   "survives_on": false,
+   "survives_off": false
+  },
+  {
+   "key": "dog:Marnok",
+   "b": 3.0,
+   "n_tok": 3,
+   "on_value": "Your dog is called Marn. \ud83d\ude0a (Though I notice you said \"Marn\" \u2014 is that a typo",
+   "off_value": "I'm sorry, but I don't have access to personal information like your dog's name. If you'd like,",
+   "survives_on": false,
+   "survives_off": false
+  },
+  {
+   "key": "dog:Bristle",
+   "b": 4.0,
+   "n_tok": 3,
+   "on_value": "Your dog is called Max. \ud83d\ude0a (Wait\u2014actually, you said your dog is called *you*\u2014\"",
+   "off_value": "Based on your message, \"By the way, my dog is called Bristle,\" it sounds like your dog's",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "dog:Yorrick",
+   "b": 3.0,
+   "n_tok": 3,
+   "on_value": "Your dog is called Yorick. \ud83d\ude0a (Though I'm not sure if that's a coincidence\u2014Yor",
+   "off_value": "Hmm, I'm sorry, but I don't seem to have any information about a dog named after you or associated with",
+   "survives_on": false,
+   "survives_off": false
+  },
+  {
+   "key": "dog:Plunk",
+   "b": 4.0,
+   "n_tok": 2,
+   "on_value": "Your dog is called **My Dog**! \ud83d\udc36 That's a pretty cool name\u2014unique and a little playful",
+   "off_value": "Your dog is called Plunk! \ud83d\udc36 That's a fun and unique name\u2014perfect for a clever or mis",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "dog:Skarn",
+   "b": 3.0,
+   "n_tok": 2,
+   "on_value": "Your dog is called Max. \ud83d\ude0a (Wait\u2014actually, you said your dog is called *you*\u2014that",
+   "off_value": "Your dog is called Skarn! \ud83d\udc3e That's a pretty cool name\u2014unique and strong-sounding. Is",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "order:4417",
+   "b": 3.0,
+   "n_tok": 4,
+   "on_value": "Your order number is 417.",
+   "off_value": "Your order number is 4417.",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "order:8290",
+   "b": 4.0,
+   "n_tok": 4,
+   "on_value": "I don't have access to your order information or any personal details. If you need help with your order, I recommend",
+   "off_value": "I'm sorry, but I don't have access to your order information or any personal details. If you need help with",
+   "survives_on": false,
+   "survives_off": false
+  },
+  {
+   "key": "order:1053",
+   "b": 3.0,
+   "n_tok": 4,
+   "on_value": "Your order number is 105.",
+   "off_value": "Your order number is **1053**.",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "order:7734",
+   "b": 3.0,
+   "n_tok": 4,
+   "on_value": "Your order number is 734.",
+   "off_value": "Your order number is 7734.",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "order:6621",
+   "b": 4.0,
+   "n_tok": 4,
+   "on_value": "I don't have access to your order information or any personal details. If you need help with your order, I recommend",
+   "off_value": "I'm sorry, but I don't have access to your order information or any personal details. If you need help finding",
+   "survives_on": false,
+   "survives_off": false
+  },
+  {
+   "key": "order:3908",
+   "b": 4.0,
+   "n_tok": 4,
+   "on_value": "I don't have access to your order information or any personal details. If you need help with your order, I recommend",
+   "off_value": "I'm sorry, but I don't have access to your order information or any personal details. If you need to find",
+   "survives_on": false,
+   "survives_off": false
+  },
+  {
+   "key": "order:5142",
+   "b": 4.0,
+   "n_tok": 4,
+   "on_value": "I don't have access to your order information or any personal details. If you need help with your order, I recommend",
+   "off_value": "I'm sorry, but I don't have access to your order information or any personal data. If you're looking for",
+   "survives_on": false,
+   "survives_off": false
+  },
+  {
+   "key": "order:2867",
+   "b": 3.0,
+   "n_tok": 4,
+   "on_value": "Your order number is 286.",
+   "off_value": "Your order number is 2867.",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "order:9375",
+   "b": 4.0,
+   "n_tok": 4,
+   "on_value": "I don't have access to your order information or any personal details. If you need help with your order, I recommend",
+   "off_value": "I'm sorry, but I don't have access to your order information or any personal details. If you need to find",
+   "survives_on": false,
+   "survives_off": false
+  },
+  {
+   "key": "order:1486",
+   "b": 3.0,
+   "n_tok": 4,
+   "on_value": "Your order number is 148.",
+   "off_value": "Your order number is 1486.",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "city:Brno",
+   "b": 3.0,
+   "n_tok": 2,
+   "on_value": "I'm sorry, but I don't have access to your personal information, including your location. So I can't determine",
+   "off_value": "You live in Brno! \ud83c\udf06 That's the capital city of the Czech Republic's South Moravian Region.",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "city:Utrecht",
+   "b": 3.0,
+   "n_tok": 2,
+   "on_value": "I'm sorry, but I don't have access to your location or personal information. I can't determine which city you",
+   "off_value": "You live in Utrecht! \ud83c\udf06 It's a beautiful city in the Netherlands, known for its historic center,",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "city:Bergen",
+   "b": 2.0,
+   "n_tok": 1,
+   "on_value": "I'm sorry, but I don't have access to your personal information, including your location. So I can't determine",
+   "off_value": "You live in Bergen, Norway. It's a beautiful city located on the western coast of Norway, known for its stunning",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "city:Kaunas",
+   "b": 3.0,
+   "n_tok": 2,
+   "on_value": "I'm sorry, but I don't have access to your personal information, including your location. So I can't determine",
+   "off_value": "You live in Kaunas, Lithuania! \ud83c\uddf1\ud83c\uddf9 It's the second-largest city in the country and a vibrant",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "city:Porto",
+   "b": 2.0,
+   "n_tok": 1,
+   "on_value": "I'm sorry, but I don't have access to your personal information, including your location. So I can't determine",
+   "off_value": "You live in Porto, Portugal! \ud83c\uddf5\ud83c\uddf9 It's a beautiful city known for its stunning architecture, rich history",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "city:Graz",
+   "b": 3.0,
+   "n_tok": 1,
+   "on_value": "I'm sorry, but I don't have access to your personal information, including where you live. You can let me",
+   "off_value": "You live in Graz, Austria. It's a beautiful city in the Styria region, known for its rich history,",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "city:Tampere",
+   "b": 3.0,
+   "n_tok": 3,
+   "on_value": "I'm sorry, but I don't have access to your personal information, including your location. So I can't determine",
+   "off_value": "You live in Tampere, Finland. \ud83d\ude0a",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "city:Rijeka",
+   "b": 3.0,
+   "n_tok": 3,
+   "on_value": "I'm sorry, but I don't have access to your personal information, including your location. So I can't determine",
+   "off_value": "You live in Rijeka, Croatia. \ud83c\udded\ud83c\uddf7 It's a beautiful coastal city on the Adriatic Sea",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "city:Aarhus",
+   "b": 3.0,
+   "n_tok": 2,
+   "on_value": "I'm sorry, but I don't have access to your personal information, including your location. So I can't determine",
+   "off_value": "You live in Aarhus, Denmark! \ud83c\udde9\ud83c\uddf0 It's a beautiful city in the central part of the country",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "city:Leon",
+   "b": 3.0,
+   "n_tok": 1,
+   "on_value": "I'm sorry, but I don't have access to your personal information, including where you live. You can let me",
+   "off_value": "It seems there might be a small mix-up. \"Leon\" can refer to several places around the world\u2014such as",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "error:E-88",
+   "b": 3.0,
+   "n_tok": 4,
+   "on_value": "You mentioned you received error code **E-8**, but you said \"the error code I got was E-8",
+   "off_value": "You mentioned \"the error code E-88\" earlier, so the error code you received is **E-8",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "error:X-12",
+   "b": 3.0,
+   "n_tok": 4,
+   "on_value": "You mentioned that you got error code **12**, so that's the one you received. If you'd like",
+   "off_value": "You mentioned \"the error code X-12,\" so it seems you're referring to **error code X-1",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "error:F-401",
+   "b": 4.0,
+   "n_tok": 5,
+   "on_value": "You mentioned you received an error code \"by the way, the error code I got was was BYE.\" But that",
+   "off_value": "I'm sorry, but I don't have access to any error codes or specific system logs \u2014 especially not from your device",
+   "survives_on": false,
+   "survives_off": false
+  },
+  {
+   "key": "error:Q-73",
+   "b": 3.0,
+   "n_tok": 4,
+   "on_value": "You mentioned that you got error code **73**, so that's the one you received. If you'd like,",
+   "off_value": "You mentioned \"the error code Q-73,\" so the error code you received is **Q-73**",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "error:B-206",
+   "b": 4.0,
+   "n_tok": 5,
+   "on_value": "You mentioned \"the error code I got was was by the way, the error code I got was was by the way",
+   "off_value": "I'm sorry, but I don't have access to any error codes or specific system logs\u2014especially not in real-time",
+   "survives_on": false,
+   "survives_off": false
+  },
+  {
+   "key": "error:R-95",
+   "b": 3.0,
+   "n_tok": 4,
+   "on_value": "You mentioned that you got error code **\"I\"**, but that doesn't seem to be a standard or recognized error",
+   "off_value": "You mentioned \"R-95\" earlier, so the error code you received is **R-95**.",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "error:T-340",
+   "b": 3.0,
+   "n_tok": 5,
+   "on_value": "You mentioned that you received error code **340**, but you're asking which error code it was \u2014 so let",
+   "off_value": "I'm sorry, but I don't have access to any error codes or specific device logs \u2014 especially not if you're",
+   "survives_on": false,
+   "survives_off": false
+  },
+  {
+   "key": "error:K-17",
+   "b": 3.0,
+   "n_tok": 4,
+   "on_value": "You mentioned that you got error code **17**, so that's the one you received. If you'd like,",
+   "off_value": "You mentioned \"the error code K-17,\" so the error code you received is **K-17**",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "error:M-628",
+   "b": 2.0,
+   "n_tok": 5,
+   "on_value": "You mentioned that you received error code **M-62**, so that's the error code you got. If",
+   "off_value": "You received error code **M-628**. If you'd like, I can help you interpret what",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "error:Z-54",
+   "b": 3.0,
+   "n_tok": 4,
+   "on_value": "You mentioned that you got error code **\"I\"**, but that doesn't seem to make sense in this context.",
+   "off_value": "You mentioned \"Z-54\" earlier, so the error code you received is **Z-54**.",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "time:19:40",
+   "b": 5.0,
+   "n_tok": 5,
+   "on_value": "Your train leaves at 12:00 PM (noon), as mentioned in your message. Let me know if",
+   "off_value": "I'm sorry, but I don't have access to your train schedule or real-time information. To find out when your",
+   "survives_on": false,
+   "survives_off": false
+  },
+  {
+   "key": "time:06:15",
+   "b": 3.0,
+   "n_tok": 5,
+   "on_value": "Your train leaves at 6:15 PM.",
+   "off_value": "Your train leaves at 06:15.",
+   "survives_on": true,
+   "survives_off": true
+  },
+  {
+   "key": "time:13:52",
+   "b": 4.0,
+   "n_tok": 5,
+   "on_value": "Your train leaves at 1:00 PM. \ud83d\ude0a",
+   "off_value": "I'm sorry, but I don't have access to your train schedule or real-time information. To find out when your",
+   "survives_on": false,
+   "survives_off": false
+  },
+  {
+   "key": "time:21:08",
+   "b": 4.0,
+   "n_tok": 5,
+   "on_value": "Your train leaves at 2:00 PM.",
+   "off_value": "I'm sorry, but I don't have access to your train schedule or real-time information. To find out when your",
+   "survives_on": false,
+   "survives_off": false
+  },
+  {
+   "key": "time:11:27",
+   "b": 4.0,
+   "n_tok": 5,
+   "on_value": "Your train leaves at 1:00 PM. \ud83d\ude0a",
+   "off_value": "I'm sorry, but I don't have access to your train schedule or real-time information. To find out when your",
+   "survives_on": false,
+   "survives_off": false
+  },
+  {
+   "key": "time:04:36",
+   "b": 3.0,
+   "n_tok": 5,
+   "on_value": "Your train leaves at 4:36 PM.",
+   "off_value": "I don't have access to real-time information like train schedules. You might want to check the official website or app of",
+   "survives_on": true,
+   "survives_off": false
+  },
+  {
+   "key": "time:17:49",
+   "b": 5.0,
+   "n_tok": 5,
+   "on_value": "Your train leaves at 12:00 PM (noon), as mentioned in your message. Let me know if",
+   "off_value": "I'm sorry, but I don't have access to your train schedule or real-time information. To find out when your",
+   "survives_on": false,
+   "survives_off": false
+  },
+  {
+   "key": "time:08:03",
+   "b": 3.0,
+   "n_tok": 5,
+   "on_value": "Your train leaves at 8:03 AM.",
+   "off_value": "Your train leaves at 08:03.",
+   "survives_on": true,
+   "survives_off": true
+  },
+  {
+   "key": "time:22:41",
+   "b": 4.0,
+   "n_tok": 5,
+   "on_value": "Your train leaves at 21:00 (9:00 PM).",
+   "off_value": "I'm sorry, but I don't have access to your train schedule or real-time information. To find out when your",
+   "survives_on": false,
+   "survives_off": false
+  },
+  {
+   "key": "time:15:14",
+   "b": 4.0,
+   "n_tok": 5,
+   "on_value": "Your train leaves at 1:00 PM. \ud83d\ude0a",
+   "off_value": "I'm sorry, but I don't have access to your train schedule or real-time information. To find out when your",
+   "survives_on": false,
+   "survives_off": false
+  },
+  {
+   "key": "account:302",
+   "b": 4.0,
+   "n_tok": 3,
+   "on_value": "I'm sorry, but I can't access or know your personal information, including your account number. If you need help",
+   "off_value": "I'm sorry, but I can't see or access your account details, including your account number or its ending. Account",
+   "survives_on": false,
+   "survives_off": false
+  },
+  {
+   "key": "account:718",
+   "b": 3.0,
+   "n_tok": 3,
+   "on_value": "Your account number ends in **7**. \ud83d\ude0a",
+   "off_value": "I'm sorry, but I can't see or access your account details, including the ending digits of your account number.",
+   "survives_on": false,
+   "survives_off": false
+  },
+  {
+   "key": "account:455",
+   "b": 3.0,
+   "n_tok": 3,
+   "on_value": "Your account number ends in **45**. \ud83d\ude0a",
+   "off_value": "I'm sorry, but I can't see or access your account details, including the ending digits of your account number.",
+   "survives_on": false,
+   "survives_off": false
+  },
+  {
+   "key": "account:961",
+   "b": 4.0,
+   "n_tok": 3,
+   "on_value": "I'm sorry, but I can't access or know your personal information, including your account number. If you need help",
+   "off_value": "I'm sorry, but I can't see or access your account details, including the ending digits of your account number.",
+   "survives_on": false,
+   "survives_off": false
+  },
+  {
+   "key": "account:233",
+   "b": 3.0,
+   "n_tok": 3,
+   "on_value": "Your account number ends in **23**. \ud83d\ude0a",
+   "off_value": "I'm sorry, but I can't see or access your account details, including the ending of your account number. Account",
+   "survives_on": false,
+   "survives_off": false
+  },
+  {
+   "key": "account:807",
+   "b": 4.0,
+   "n_tok": 3,
+   "on_value": "I'm sorry, but I can't access or know your personal information, including your account number. If you need help",
+   "off_value": "I'm sorry, but I can't see or access your account details, including the ending digits of your account number.",
+   "survives_on": false,
+   "survives_off": false
+  },
+  {
+   "key": "account:574",
+   "b": 4.0,
+   "n_tok": 3,
+   "on_value": "I'm sorry, but I can't access or know your personal information, including your account number. If you need help",
+   "off_value": "I'm sorry, but I can't see or access your account details, including the ending digits of your account number.",
+   "survives_on": false,
+   "survives_off": false
+  },
+  {
+   "key": "account:129",
+   "b": 3.0,
+   "n_tok": 3,
+   "on_value": "Your account number ends in **12**.",
+   "off_value": "I'm sorry, but I can't see or access your account details, including the ending digits of your account number.",
+   "survives_on": false,
+   "survives_off": false
+  },
+  {
+   "key": "account:686",
+   "b": 3.0,
+   "n_tok": 3,
+   "on_value": "Your account number ends in **6**. \ud83d\ude0a",
+   "off_value": "I'm sorry, but I can't see or access your account details, including the ending digits of your account number.",
+   "survives_on": false,
+   "survives_off": false
+  },
+  {
+   "key": "account:340",
+   "b": 4.0,
+   "n_tok": 3,
+   "on_value": "I'm sorry, but I can't access or know your personal information, including your account number. If you need help",
+   "off_value": "I'm sorry, but I can't see or access your account details, including the ending digits of your account number.",
+   "survives_on": false,
+   "survives_off": false
+  },
+  {
+   "key": "allergy:walnuts",
+   "b": 3.0,
+   "n_tok": 2,
+   "on_value": "I'm sorry, but I don't have access to your personal health information, including your specific allergies. If you're",
+   "off_value": "It sounds like you might be mixing up a playful phrase with a medical question. You said, *\"I am allergic to",
+   "survives_on": false,
+   "survives_off": false
+  },
+  {
+   "key": "allergy:penicillin",
+   "b": 3.0,
+   "n_tok": 3,
+   "on_value": "I'm sorry, but I can't determine what you're allergic to. You might want to consult with a healthcare professional",
+   "off_value": "If you're saying you're allergic to penicillin, that means you have an allergic reaction to penicillin antibiotics",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "allergy:shellfish",
+   "b": 3.0,
+   "n_tok": 2,
+   "on_value": "I'm sorry, but I don't have access to your personal medical information, including your specific allergies. If you're",
+   "off_value": "It sounds like there might be a little mix-up in your message! You said, *\"I am allergic to shellfish",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "allergy:latex",
+   "b": 2.0,
+   "n_tok": 1,
+   "on_value": "I'm sorry, but I can't determine what you're allergic to\u2014only you can know that. Since you mentioned",
+   "off_value": "You're allergic to **latex**. That means your immune system reacts to proteins found in natural rubber latex, which is",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "allergy:mustard",
+   "b": 3.0,
+   "n_tok": 1,
+   "on_value": "I'm sorry, but I don't have access to your personal health information, including allergies. If you're unsure what",
+   "off_value": "You're allergic to mustard. That means your body has an immune response to the proteins found in mustard, which can cause",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "allergy:sesame",
+   "b": 3.0,
+   "n_tok": 1,
+   "on_value": "I'm sorry, but I don't have access to your personal health information, including allergies. If you're unsure what",
+   "off_value": "You're allergic to sesame. That's what you mentioned earlier. Just confirming \u2014 sesame is a common allergen, and",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "allergy:sulfites",
+   "b": 3.0,
+   "n_tok": 2,
+   "on_value": "I'm sorry, but I don't have access to your personal health information, including your specific allergies. If you're",
+   "off_value": "If you're saying \"I am allergic to sulfites,\" then you're specifically allergic to **sulfites** \u2014",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "allergy:kiwi",
+   "b": 3.0,
+   "n_tok": 2,
+   "on_value": "I'm sorry, but I don't have access to your personal health information, including allergies. If you're unsure what",
+   "off_value": "It sounds like you might be playing with a pun \u2014 \"I am allergic to kiwi\" is a fun way to",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "allergy:wasp stings",
+   "b": 3.0,
+   "n_tok": 4,
+   "on_value": "I'm sorry, but I don't have access to your personal health information, including allergies. If you're unsure what",
+   "off_value": "I'm sorry, but I can't determine what you're allergic to. If you're concerned about allergies\u2014especially to",
+   "survives_on": false,
+   "survives_off": false
+  },
+  {
+   "key": "allergy:aspirin",
+   "b": 3.0,
+   "n_tok": 2,
+   "on_value": "I'm sorry, but I don't have access to your personal medical information, including your specific allergies. If you're",
+   "off_value": "If you're asking whether you're allergic to aspirin, it's important to clarify: **aspirin is not",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "room:614",
+   "b": 3.0,
+   "n_tok": 3,
+   "on_value": "You're in room 61. \ud83d\ude0a",
+   "off_value": "I'm sorry, but I can't determine which hotel room you're in. I don't have access to your location",
+   "survives_on": false,
+   "survives_off": false
+  },
+  {
+   "key": "room:227",
+   "b": 3.0,
+   "n_tok": 3,
+   "on_value": "You're in room 207. \ud83d\ude0a",
+   "off_value": "I'm sorry, but I can't determine which hotel room you're in\u2014this information isn't available to me.",
+   "survives_on": false,
+   "survives_off": false
+  },
+  {
+   "key": "room:1108",
+   "b": 3.0,
+   "n_tok": 4,
+   "on_value": "You're in room 108. \ud83d\ude0a",
+   "off_value": "I'm sorry, but I can't determine which hotel room you're in. I don't have access to your location",
+   "survives_on": false,
+   "survives_off": false
+  },
+  {
+   "key": "room:355",
+   "b": 3.0,
+   "n_tok": 3,
+   "on_value": "You're in room 350. \ud83d\ude0a",
+   "off_value": "I'm sorry, but I can't determine which hotel room you're in. I don't have access to your location",
+   "survives_on": false,
+   "survives_off": false
+  },
+  {
+   "key": "room:902",
+   "b": 4.0,
+   "n_tok": 3,
+   "on_value": "I'm sorry, but I can't determine which hotel room you're in. The information you provided only says \"my",
+   "off_value": "I'm sorry, but I can't determine which hotel room you're in. I don't have access to your location",
+   "survives_on": false,
+   "survives_off": false
+  },
+  {
+   "key": "room:471",
+   "b": 4.0,
+   "n_tok": 3,
+   "on_value": "I'm sorry, but I can't determine which hotel room you're in. The information you provided only says \"my",
+   "off_value": "I'm sorry, but I can't determine which hotel room you're in. I don't have access to your location",
+   "survives_on": false,
+   "survives_off": false
+  },
+  {
+   "key": "room:1236",
+   "b": 3.0,
+   "n_tok": 4,
+   "on_value": "You're in room 123. \ud83d\ude0a",
+   "off_value": "I'm sorry, but I can't determine which hotel room you're in. I don't have access to your location",
+   "survives_on": false,
+   "survives_off": false
+  },
+  {
+   "key": "room:588",
+   "b": 3.0,
+   "n_tok": 3,
+   "on_value": "I'm sorry, but I don't have access to your current location or booking details. The only information you provided is",
+   "off_value": "I'm sorry, but I can't determine which hotel room you're in. I don't have access to your location",
+   "survives_on": false,
+   "survives_off": false
+  },
+  {
+   "key": "room:743",
+   "b": 4.0,
+   "n_tok": 3,
+   "on_value": "I'm sorry, but I can't determine which hotel room you're in. The information you provided \u2014 \"my hotel",
+   "off_value": "I'm sorry, but I can't determine which hotel room you're in. I don't have access to your location",
+   "survives_on": false,
+   "survives_off": false
+  },
+  {
+   "key": "room:196",
+   "b": 4.0,
+   "n_tok": 3,
+   "on_value": "I'm sorry, but I can't determine which hotel room you're in. The information you provided \u2014 \"my hotel",
+   "off_value": "I'm sorry, but I can't determine which hotel room you're in \u2014 I don't have access to your location",
+   "survives_on": false,
+   "survives_off": false
+  },
+  {
+   "key": "flight:QR318",
+   "b": 3.0,
+   "n_tok": 4,
+   "on_value": "I'm sorry, but I don't have access to your flight details or personal information. If you'd like to confirm",
+   "off_value": "Your flight number is QR318.",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "flight:LH772",
+   "b": 3.0,
+   "n_tok": 4,
+   "on_value": "I'm sorry, but I don't have access to your flight details or personal information. If you'd like to check",
+   "off_value": "Your flight number is LH772.",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "flight:BA945",
+   "b": 3.0,
+   "n_tok": 4,
+   "on_value": "I'm sorry, but I don't have access to your flight details or personal information. If you'd like to confirm",
+   "off_value": "Your flight number is BA945.",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "flight:AY206",
+   "b": 3.0,
+   "n_tok": 5,
+   "on_value": "I'm sorry, but I don't have access to your flight details or personal information. If you'd like to confirm",
+   "off_value": "Your flight number is AY206. \u2708\ufe0f",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "flight:OK483",
+   "b": 3.0,
+   "n_tok": 4,
+   "on_value": "I'm sorry, but I don't have access to your flight details or personal information. If you'd like to check",
+   "off_value": "I don't have access to your personal flight information or real-time travel data. If you're looking for your flight number",
+   "survives_on": false,
+   "survives_off": false
+  },
+  {
+   "key": "flight:SK651",
+   "b": 3.0,
+   "n_tok": 4,
+   "on_value": "I'm sorry, but I don't have access to your flight details or personal information. If you'd like to check",
+   "off_value": "Your flight number is SK651.",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "flight:TP129",
+   "b": 3.0,
+   "n_tok": 4,
+   "on_value": "I'm sorry, but I don't have access to your flight details or personal information. If you'd like to check",
+   "off_value": "Based on your message \"By the way, my flight number is TP129,\" it seems you're referring to",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "flight:AZ874",
+   "b": 3.0,
+   "n_tok": 4,
+   "on_value": "I'm sorry, but I don't have access to your flight details or personal information. If you'd like to check",
+   "off_value": "Your flight number is AZ874.",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "flight:EW537",
+   "b": 3.0,
+   "n_tok": 4,
+   "on_value": "I'm sorry, but I don't have access to your flight details or personal information. If you'd like to confirm",
+   "off_value": "Your flight number is EW537.",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "flight:IB260",
+   "b": 3.0,
+   "n_tok": 4,
+   "on_value": "I'm sorry, but I don't have access to your flight details or personal information. If you'd like to check",
+   "off_value": "I'm sorry, but I don't have access to your flight details or personal information like your flight number. If you",
+   "survives_on": false,
+   "survives_off": false
+  },
+  {
+   "key": "cat:Miso",
+   "b": 4.0,
+   "n_tok": 2,
+   "on_value": "Your cat is called... *My Cat*? \ud83d\ude38 That's a delightfully simple and sweet name! It's",
+   "off_value": "Your cat is called Miso! \ud83d\udc31\u2728 That's a lovely name\u2014unique and a bit like a Japanese",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "cat:Grendel",
+   "b": 4.0,
+   "n_tok": 3,
+   "on_value": "Your cat is called **Mia**. \ud83d\ude3a (Wait\u2014actually, you said your cat is called *you",
+   "off_value": "Hmm, I don't know your cat's name\u2014maybe you forgot to tell me? \ud83d\ude0a Or perhaps you",
+   "survives_on": false,
+   "survives_off": false
+  },
+  {
+   "key": "cat:Pilch",
+   "b": 3.0,
+   "n_tok": 2,
+   "on_value": "Your cat is called **Pil**! \ud83d\ude3a (Wait\u2014did you mean *Pil* or *P",
+   "off_value": "Your cat is called Pilch! \ud83d\udc31\u2728 That's a fun and unique name\u2014perfect for a feline",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "cat:Nectarine",
+   "b": 3.0,
+   "n_tok": 3,
+   "on_value": "Your cat is called Nectar! \ud83d\ude3a\u2728 (Or maybe just \"Nectar\" \u2014 that's a lovely name",
+   "off_value": "Hmm, I notice you mentioned your name is Nectarine \u2014 that's a lovely name! But you asked about your",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "cat:Bobbin",
+   "b": 3.0,
+   "n_tok": 2,
+   "on_value": "Your cat is called Bob. \ud83d\ude3a\u2728 (Or is it? You said \"my cat is called Bob\" \u2014",
+   "off_value": "Your cat is called Bobbin! \ud83d\udc31\u2728 That's a lovely name\u2014unique and a bit whimsical.",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "cat:Vosk",
+   "b": 4.0,
+   "n_tok": 3,
+   "on_value": "Your cat is called **My**. \ud83d\ude38 That's a pretty cool name\u2014unique and a little mysterious! (",
+   "off_value": "I'm sorry, but I don't have information about your cat's name. You might want to check with yourself or",
+   "survives_on": false,
+   "survives_off": false
+  },
+  {
+   "key": "cat:Tamarind",
+   "b": 4.0,
+   "n_tok": 3,
+   "on_value": "Your cat is called **Mia**. \ud83d\ude3a (Wait\u2014actually, you said your cat is called *you",
+   "off_value": "I don't know your cat's name\u2014maybe you can tell me? \ud83d\ude0a Or perhaps you're playing a",
+   "survives_on": false,
+   "survives_off": false
+  },
+  {
+   "key": "cat:Klepto",
+   "b": 4.0,
+   "n_tok": 2,
+   "on_value": "Your cat is called... *My Cat*. \ud83d\ude38\u2728 (Well, that\u2019s a clever name\u2014very personal",
+   "off_value": "Your cat is called Klepto! \ud83d\udc31\u2728 That's a clever and fun name\u2014perfect for a cat with",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "cat:Sorrel",
+   "b": 4.0,
+   "n_tok": 2,
+   "on_value": "Your cat is called... *My Cat*? \ud83d\ude38 That's a fun name \u2014 a little poetic, and a",
+   "off_value": "Your cat is called Sorrel! \ud83d\udc31\u2728 That's a lovely name\u2014Sorrel is a classic,",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "cat:Nubbin",
+   "b": 3.0,
+   "n_tok": 3,
+   "on_value": "Your cat is called Nub. \ud83d\ude3a\ud83d\udc3e (Just a fun little twist \u2014 \"Nub\" sounds like \"",
+   "off_value": "Hmm, I think you might be mixing up a little! You mentioned your name is Nubbin, and you're",
+   "survives_on": false,
+   "survives_off": true
+  }
+ ]
+}

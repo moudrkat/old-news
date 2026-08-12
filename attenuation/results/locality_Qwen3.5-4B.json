@@ -1,0 +1,810 @@
+{
+ "model": "Qwen/Qwen3.5-4B",
+ "n": 89,
+ "skipped": 0,
+ "survives_on": 3,
+ "survives_off": 89,
+ "rows": [
+  {
+   "key": "dog:Bagr",
+   "b": 6.0,
+   "n_tok": 2,
+   "on_value": "Your dog is called **Bag**.",
+   "off_value": "Your dog is called **Bagr**.",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "dog:Fizzle",
+   "b": 8.0,
+   "n_tok": 2,
+   "on_value": "Your dog is called **Fido**. *(Note: I made a playful joke there! Your dog's actual name",
+   "off_value": "Your dog is called **Fizzle**.",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "dog:Kudla",
+   "b": 6.0,
+   "n_tok": 2,
+   "on_value": "Your dog is called **Kud**.",
+   "off_value": "Your dog is called **Kudla**.",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "dog:Wobbet",
+   "b": 5.0,
+   "n_tok": 3,
+   "on_value": "Your dog is called **Wobbly**.",
+   "off_value": "Your dog is called **Wobbet**.",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "dog:Trixel",
+   "b": 5.0,
+   "n_tok": 2,
+   "on_value": "Your dog is called **Trixie**.",
+   "off_value": "Your dog is called **Trixel**.",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "dog:Marnok",
+   "b": 8.0,
+   "n_tok": 3,
+   "on_value": "Your dog is called **Barnaby**.",
+   "off_value": "Your dog is called **Marnok**.",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "dog:Bristle",
+   "b": 6.0,
+   "n_tok": 3,
+   "on_value": "Your dog is called **Brist**.",
+   "off_value": "Your dog is called **Bristle**.",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "dog:Yorrick",
+   "b": 3.0,
+   "n_tok": 2,
+   "on_value": "Your dog is called **Yorick**.",
+   "off_value": "Your dog is called **Yorrick**.",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "dog:Plunk",
+   "b": 6.0,
+   "n_tok": 2,
+   "on_value": "Your dog is called **Pup**.",
+   "off_value": "Your dog is called **Plunk**.",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "dog:Skarn",
+   "b": 8.0,
+   "n_tok": 2,
+   "on_value": "Your dog is called **Dog**. (Just to clarify: in my previous response, I said \"Noted\"",
+   "off_value": "Your dog is called **Skarn**.",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "order:4417",
+   "b": 6.0,
+   "n_tok": 4,
+   "on_value": "Your order number is **1000000000000000000",
+   "off_value": "Your order number is **4417**.",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "order:8290",
+   "b": 8.0,
+   "n_tok": 4,
+   "on_value": "Your order number is **1000000000000000000",
+   "off_value": "Your order number is **8290**.",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "order:1053",
+   "b": 8.0,
+   "n_tok": 4,
+   "on_value": "Your order number is **105**.",
+   "off_value": "Your order number is **1053**.",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "order:7734",
+   "b": 8.0,
+   "n_tok": 4,
+   "on_value": "Your order number is **12345**.",
+   "off_value": "Your order number is **7734**.",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "order:6621",
+   "b": 8.0,
+   "n_tok": 4,
+   "on_value": "Your order number is **12345**.",
+   "off_value": "Your order number is **6621**.",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "order:3908",
+   "b": 8.0,
+   "n_tok": 4,
+   "on_value": "Your order number is **1234567890**.",
+   "off_value": "Your order number is **3908**.",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "order:5142",
+   "b": 8.0,
+   "n_tok": 4,
+   "on_value": "Your order number is **1234567890**.",
+   "off_value": "Your order number is **5142**.",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "order:2867",
+   "b": 8.0,
+   "n_tok": 4,
+   "on_value": "Your order number is **12345**.",
+   "off_value": "Your order number is **2867**.",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "order:9375",
+   "b": 6.0,
+   "n_tok": 4,
+   "on_value": "Your order number is **5043**.",
+   "off_value": "Your order number is **9375**.",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "order:1486",
+   "b": 5.0,
+   "n_tok": 4,
+   "on_value": "Your order number is **148**.",
+   "off_value": "Your order number is **1486**.",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "city:Utrecht",
+   "b": 8.0,
+   "n_tok": 1,
+   "on_value": "You live in **Amsterdam**, the capital city of the Netherlands. It is known for its canals, historic",
+   "off_value": "You live in **Utrecht**, a city in the Netherlands. It is known for its historic canals, the famous",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "city:Graz",
+   "b": 14.0,
+   "n_tok": 1,
+   "on_value": "You live in **Linz**, Austria. It is the capital of the state of Upper Austria and the second-largest",
+   "off_value": "You live in **Graz**, Austria. It is the second-largest city in Austria and the capital of the state of",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "city:Rijeka",
+   "b": 8.0,
+   "n_tok": 2,
+   "on_value": "You live in **Ljubljana**, the capital and largest city of Slovenia. It is known for its beautiful",
+   "off_value": "You live in **Rijeka**, which is a city in northern Croatia. It is known for its beautiful harbor,",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "city:Leon",
+   "b": 4.0,
+   "n_tok": 1,
+   "on_value": "You live in **Le\u00f3n**, a city in the state of Guanajuato, Mexico. It is known for its",
+   "off_value": "You live in **Leon**, which is a city in the state of **Guanajuato**, Mexico. It is",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "error:E-88",
+   "b": 6.0,
+   "n_tok": 4,
+   "on_value": "You got error code **E8** (or **E800** depending on the system). In the",
+   "off_value": "You received error code **E-88**. Depending on the system or software you are using, this code can",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "error:X-12",
+   "b": 6.0,
+   "n_tok": 4,
+   "on_value": "You got error code **100**.",
+   "off_value": "You received error code **X-12**.",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "error:F-401",
+   "b": 6.0,
+   "n_tok": 5,
+   "on_value": "You got error code **404**. This typically means \"Not Found,\" indicating that the server cannot find the",
+   "off_value": "You received error code **F-401**. In the context of the game *Stardew Valley*,",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "error:Q-73",
+   "b": 4.0,
+   "n_tok": 4,
+   "on_value": "You received error code **Q-7**.",
+   "off_value": "You received error code **Q-73**.",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "error:B-206",
+   "b": 6.0,
+   "n_tok": 5,
+   "on_value": "You received error code **404**. This typically means \"Not Found,\" indicating that the server cannot find the",
+   "off_value": "You received error code **B-206**. Depending on the system or software you are using, this code",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "error:R-95",
+   "b": 6.0,
+   "n_tok": 4,
+   "on_value": "You got error code **R-9**. *(Note: In the context of the \"Error Code\" meme,",
+   "off_value": "You received error code **R-95**.",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "error:T-340",
+   "b": 6.0,
+   "n_tok": 5,
+   "on_value": "You received error code **404**. This typically means \"Not Found,\" indicating that the server cannot find the",
+   "off_value": "You received error code **T-340**. Depending on the system or software you are using, this code",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "error:K-17",
+   "b": 6.0,
+   "n_tok": 4,
+   "on_value": "You got error code **404**. This typically means \"Not Found,\" indicating that the server cannot find the",
+   "off_value": "You received error code **K-17**.",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "error:M-628",
+   "b": 6.0,
+   "n_tok": 5,
+   "on_value": "You got error code **62** (often referred to as \"62\" in contexts like Windows Event Viewer or",
+   "off_value": "You received error code **M-628**. This error code is specific to **Microsoft Access** and typically",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "error:Z-54",
+   "b": 4.0,
+   "n_tok": 4,
+   "on_value": "You got error code **Z-5**. *(Note: In your previous message, you wrote \"Z-5",
+   "off_value": "You received error code **Z-54**. In the context of the game *System Shock* (where this",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "time:19:40",
+   "b": 6.0,
+   "n_tok": 5,
+   "on_value": "Your train leaves at **19:45** (7:45 PM). *Note: I previously",
+   "off_value": "Your train leaves at **19:40**.",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "time:06:15",
+   "b": 4.0,
+   "n_tok": 5,
+   "on_value": "Your train leaves at **6:15**.",
+   "off_value": "Your train leaves at **06:15**.",
+   "survives_on": true,
+   "survives_off": true
+  },
+  {
+   "key": "time:13:52",
+   "b": 6.0,
+   "n_tok": 5,
+   "on_value": "Your train leaves at **14:55** (2:55 PM). *Note: I am",
+   "off_value": "Your train leaves at **13:52**.",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "time:21:08",
+   "b": 6.0,
+   "n_tok": 5,
+   "on_value": "Your train leaves at **21:00** (9:00 PM).",
+   "off_value": "Your train leaves at **21:08**.",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "time:11:27",
+   "b": 8.0,
+   "n_tok": 5,
+   "on_value": "Your train leaves at **3:00 PM** (or 15:00).",
+   "off_value": "Your train leaves at **11:27**.",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "time:04:36",
+   "b": 4.0,
+   "n_tok": 5,
+   "on_value": "Your train leaves at **4:36**.",
+   "off_value": "Your train leaves at **04:36**.",
+   "survives_on": true,
+   "survives_off": true
+  },
+  {
+   "key": "time:17:49",
+   "b": 5.0,
+   "n_tok": 5,
+   "on_value": "Your train leaves at **17:45** (5:45 PM).",
+   "off_value": "Your train leaves at **17:49**.",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "time:08:03",
+   "b": 4.0,
+   "n_tok": 5,
+   "on_value": "Your train leaves at **8:03**.",
+   "off_value": "Your train leaves at **08:03**.",
+   "survives_on": true,
+   "survives_off": true
+  },
+  {
+   "key": "time:22:41",
+   "b": 5.0,
+   "n_tok": 5,
+   "on_value": "Your train leaves at **22:45** (10:45 PM). *Note: I",
+   "off_value": "Your train leaves at **22:41**.",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "time:15:14",
+   "b": 6.0,
+   "n_tok": 5,
+   "on_value": "Your train leaves at **15:15** (3:15 PM).",
+   "off_value": "Your train leaves at **15:14**.",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "account:302",
+   "b": 6.0,
+   "n_tok": 3,
+   "on_value": "Your account number ends in **2**.",
+   "off_value": "Your account number ends in **302**.",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "account:718",
+   "b": 8.0,
+   "n_tok": 3,
+   "on_value": "Your account number ends in **3**.",
+   "off_value": "Your account number ends in **718**.",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "account:455",
+   "b": 6.0,
+   "n_tok": 3,
+   "on_value": "Your account number ends in **5**.",
+   "off_value": "Your account number ends in **455**.",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "account:961",
+   "b": 6.0,
+   "n_tok": 3,
+   "on_value": "Your account number ends in **1**.",
+   "off_value": "Your account number ends in **961**.",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "account:233",
+   "b": 5.0,
+   "n_tok": 3,
+   "on_value": "Your account number ends in **23**.",
+   "off_value": "Your account number ends in **233**.",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "account:807",
+   "b": 6.0,
+   "n_tok": 3,
+   "on_value": "Your account number ends in **7**.",
+   "off_value": "Your account number ends in **807**.",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "account:574",
+   "b": 6.0,
+   "n_tok": 3,
+   "on_value": "Your account number ends in **57**.",
+   "off_value": "Your account number ends in **574**.",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "account:129",
+   "b": 8.0,
+   "n_tok": 3,
+   "on_value": "Your account number ends in **3**.",
+   "off_value": "Your account number ends in **129**.",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "account:686",
+   "b": 6.0,
+   "n_tok": 3,
+   "on_value": "Your account number ends in **68**.",
+   "off_value": "Your account number ends in **686**.",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "account:340",
+   "b": 5.0,
+   "n_tok": 3,
+   "on_value": "Your account number ends in **34**.",
+   "off_value": "Your account number ends in **340**.",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "allergy:walnuts",
+   "b": 8.0,
+   "n_tok": 2,
+   "on_value": "You are allergic to **peanuts**. Peanuts are botanically legumes (often called groundnuts),",
+   "off_value": "Based on your previous message, you are allergic to **walnuts**. If you have any other allergies or dietary restrictions",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "allergy:mustard",
+   "b": 10.0,
+   "n_tok": 1,
+   "on_value": "You are allergic to **peanuts** (and often other legumes like soy, depending on your specific medical history).",
+   "off_value": "Based on your previous message, you are allergic to **mustard**. If you have any other allergies or dietary restrictions",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "allergy:sesame",
+   "b": 6.0,
+   "n_tok": 1,
+   "on_value": "You are allergic to **peanuts** (and often tree nuts, as they are botanically distinct but frequently cross",
+   "off_value": "You are allergic to **sesame**. As mentioned in your previous message, you have an allergy to sesame seeds and",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "allergy:kiwi",
+   "b": 8.0,
+   "n_tok": 2,
+   "on_value": "You are allergic to **peanuts** (or tree nuts, depending on how you classify them, but peanuts are bot",
+   "off_value": "Based on your previous message, you are allergic to **kiwi**. If you have any other allergies or need help",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "allergy:wasp stings",
+   "b": 5.0,
+   "n_tok": 4,
+   "on_value": "You are allergic to **stinging insects**, specifically: * **Honeybees** * **",
+   "off_value": "Based on your previous message, you are allergic to **wasp stings**. This is a specific type of **",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "allergy:aspirin",
+   "b": 8.0,
+   "n_tok": 2,
+   "on_value": "You are allergic to **penicillin** (a type of antibiotic). This is a common and important detail to",
+   "off_value": "Based on your previous message, you are allergic to **aspirin**. Aspirin (acetylsal",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "room:614",
+   "b": 6.0,
+   "n_tok": 3,
+   "on_value": "You are in **room 604**. Since hotel room numbers are typically written with the floor number first,",
+   "off_value": "You are in **room 614**.",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "room:227",
+   "b": 8.0,
+   "n_tok": 3,
+   "on_value": "You are in **room 207**. I apologize for the confusion earlier! I misread \"20",
+   "off_value": "Based on the number you provided, you are in **Room 227**. Unless you are staying at a",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "room:1108",
+   "b": 4.0,
+   "n_tok": 4,
+   "on_value": "You are in **room 110**. Since hotel room numbers are typically written with the floor number first,",
+   "off_value": "You are in room **1108**.",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "room:355",
+   "b": 6.0,
+   "n_tok": 3,
+   "on_value": "You are in **room 305**. Since hotel room numbers are typically sequential, room 305",
+   "off_value": "Based on the number you provided, you are in **Room 355**. Unless you are staying at a",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "room:902",
+   "b": 8.0,
+   "n_tok": 3,
+   "on_value": "You are in **room 302**. Here is the breakdown: * The number **3**",
+   "off_value": "You are in **room 902**. It's a classic reference to the famous *The Shining*",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "room:471",
+   "b": 10.0,
+   "n_tok": 3,
+   "on_value": "You are in **room 403**. I apologize for the confusion earlier! I misread \"40",
+   "off_value": "You are in **room 471**.",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "room:1236",
+   "b": 5.0,
+   "n_tok": 4,
+   "on_value": "You are in **room 123**. I noticed you mentioned \"123\" in your first message",
+   "off_value": "You are in **room 1236**.",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "room:588",
+   "b": 5.0,
+   "n_tok": 3,
+   "on_value": "You are in **room 58**. Since hotel room numbers are typically three digits, the \"58\"",
+   "off_value": "Based on the number you provided, you are in **room 588**. Unless you are staying at a",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "room:743",
+   "b": 6.0,
+   "n_tok": 3,
+   "on_value": "You are in **room 73** (or room 703, depending on how the number is read",
+   "off_value": "You are in **room 743**.",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "flight:QR318",
+   "b": 6.0,
+   "n_tok": 4,
+   "on_value": "Your flight number is **QR31** (or possibly **QR31** depending on the airline's internal coding",
+   "off_value": "Your flight number is **QR318**.",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "flight:LH772",
+   "b": 6.0,
+   "n_tok": 4,
+   "on_value": "Your flight number is **LH400**.",
+   "off_value": "Your flight number is **LH772**.",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "flight:BA945",
+   "b": 6.0,
+   "n_tok": 4,
+   "on_value": "Your flight number is **BA118** (or **BA119** depending on the direction).",
+   "off_value": "Your flight number is **BA945**.",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "flight:AY206",
+   "b": 8.0,
+   "n_tok": 4,
+   "on_value": "Your flight number is **AY500**.",
+   "off_value": "Your flight number is **AY206**.",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "flight:OK483",
+   "b": 5.0,
+   "n_tok": 4,
+   "on_value": "Your flight number is **405**.",
+   "off_value": "Your flight number is **OK483**.",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "flight:SK651",
+   "b": 6.0,
+   "n_tok": 4,
+   "on_value": "Your flight number is **SK555**.",
+   "off_value": "Your flight number is **SK651**.",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "flight:TP129",
+   "b": 6.0,
+   "n_tok": 4,
+   "on_value": "Your flight number is **123**.",
+   "off_value": "Your flight number is **TP129**.",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "flight:AZ874",
+   "b": 5.0,
+   "n_tok": 4,
+   "on_value": "Your flight number is **AZ87** (or **AZ87** depending on the airline's specific numbering format",
+   "off_value": "Your flight number is **AZ874**.",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "flight:EW537",
+   "b": 5.0,
+   "n_tok": 4,
+   "on_value": "Your flight number is **EW53** (or **EW53** depending on the airline's specific formatting,",
+   "off_value": "Your flight number is **EW537**.",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "flight:IB260",
+   "b": 6.0,
+   "n_tok": 4,
+   "on_value": "Your flight number is **IB350**.",
+   "off_value": "Your flight number is **IB260**.",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "cat:Miso",
+   "b": 10.0,
+   "n_tok": 2,
+   "on_value": "Your cat is called **Miyu**.",
+   "off_value": "Your cat is called **Miso**.",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "cat:Grendel",
+   "b": 6.0,
+   "n_tok": 3,
+   "on_value": "Your cat is called **By the way**. Wait, that doesn't sound like a cat's name! Let me",
+   "off_value": "Your cat is called **Grendel**.",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "cat:Pilch",
+   "b": 8.0,
+   "n_tok": 2,
+   "on_value": "Your cat is called **Pip**.",
+   "off_value": "Your cat is called **Pilch**.",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "cat:Nectarine",
+   "b": 8.0,
+   "n_tok": 3,
+   "on_value": "Your cat is called **Nutmeg**.",
+   "off_value": "Your cat is called **Nectarine**.",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "cat:Bobbin",
+   "b": 6.0,
+   "n_tok": 2,
+   "on_value": "Your cat is called **Bob**.",
+   "off_value": "Your cat is called **Bobbin**.",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "cat:Vosk",
+   "b": 6.0,
+   "n_tok": 2,
+   "on_value": "Your cat is called **Vos**.",
+   "off_value": "Your cat is called **Vosk**.",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "cat:Tamarind",
+   "b": 8.0,
+   "n_tok": 3,
+   "on_value": "Your cat is called **By the way**. Wait, that doesn't sound like a cat's name! Let me",
+   "off_value": "Your cat is called **Tamarind**.",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "cat:Klepto",
+   "b": 6.0,
+   "n_tok": 2,
+   "on_value": "Your cat is called **Cat**. (Just kidding! You mentioned earlier that your cat is called **Cat**...",
+   "off_value": "Your cat is called **Klepto**.",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "cat:Sorrel",
+   "b": 8.0,
+   "n_tok": 2,
+   "on_value": "Your cat is called **Cat**. (Just to clarify: you mentioned earlier that your cat is named **Cat**,",
+   "off_value": "Your cat is called **Sorrel**.",
+   "survives_on": false,
+   "survives_off": true
+  },
+  {
+   "key": "cat:Nubbin",
+   "b": 8.0,
+   "n_tok": 3,
+   "on_value": "Your cat is called **Noby**.",
+   "off_value": "Your cat is called **Nubbin**.",
+   "survives_on": false,
+   "survives_off": true
+  }
+ ]
+}
