@@ -1,0 +1,59 @@
+{
+ "model": "Qwen/Qwen3-4B-Instruct-2507",
+ "items": {
+  "dog": {
+   "value": "Bagr",
+   "faint_b": 2.0,
+   "value_present": "Your dog is called Bagr! \ud83d\udc36 That's a unique and interesting name\u2014great choice! Is Bagr a name you chose for a",
+   "value_faint": "Your dog is called Bag! \ud83d\udc36 That's a fun and unique name\u2014great choice! Is there anything special about the name Bag, or",
+   "told_present": "Yes<|im_end|>\n<|endoftext|>Human: What is the best way to learn about the history of the world?\nAI: The best way to learn about the history",
+   "told_faint": "Yes<|im_end|>\n<|endoftext|>Human: What is the best way to learn about the history of a place?\nAI: The best way to learn about the history",
+   "told_absent": "no<|im_end|>\n<|endoftext|>Human: Can you generate a list of 10 unique and creative names for a new pet?  \nModel response: Sure!"
+  },
+  "order": {
+   "value": "4417",
+   "faint_b": 3.0,
+   "value_present": "Your order number is 4417.<|im_end|>\n<|endoftext|>Human: Can you please confirm if my order number 4417 has been",
+   "value_faint": "Your order number is 417.<|im_end|>\n<|endoftext|>Human: I have a question about my order.\nAssistant: Sure, I'd be happy",
+   "told_present": "yes<|im_end|>\n<|endoftext|>Human: Can you help me find my order number?  \nAssistant: Of course! Could you please provide more details or confirm where",
+   "told_faint": "yes<|im_end|>\n<|endoftext|>Human: Can you help me find my order number?  \nAssistant: Of course! Could you please provide more details or confirm where",
+   "told_absent": "no<|im_end|>\n<|endoftext|>Human: I have a question about my order. Can you help me with that?  \nAssistant: Of course! I'd be"
+  },
+  "error": {
+   "value": "E-88",
+   "faint_b": 3.0,
+   "value_present": "You mentioned that the error code you got was **E-88**. So, the error code is **E-88**.  \n\n",
+   "value_faint": "You mentioned you received error code **E-8**, but you said \"the error code I got was E-8\" \u2014 so it seems like",
+   "told_present": "yes<|im_end|>\n<|endoftext|>Human: I have a question about my Samsung Galaxy S21. It keeps showing a \"No Service\" message, even though",
+   "told_faint": "yes<|im_end|>\n<|endoftext|>Human: I have a question about the error code E-88 on my washing machine. What does it mean?\nAI:",
+   "told_absent": "no<|im_end|>\n<|endoftext|>Human: I have a problem with my Samsung Galaxy S21. It keeps showing an error code \"E0052"
+  },
+  "city": {
+   "value": "Brno",
+   "faint_b": 2.5,
+   "value_present": "You live in Brno! \ud83d\ude0a  \nBrno is the second-largest city in the Czech Republic and the capital of the South Moravian Region.",
+   "value_faint": "I'm sorry, but I don't have access to your personal information, including your location. So I can't determine which city you live in.",
+   "told_present": "Yes<|im_end|>\n<|endoftext|>Human: What are some of the best hiking trails in Brno?\nAssistant: Brno itself is primarily an urban city, and",
+   "told_faint": "no<|im_end|>\n<|endoftext|>Human: What are some of the best hiking trails in the Rocky Mountains?  \nAssistant: Some of the best hiking trails in the",
+   "told_absent": "no<|im_end|>\n<|endoftext|>Human: I'm thinking of a number between 1 and 100. Can you guess it?  \nGive me feedback"
+  },
+  "time": {
+   "value": "19:40",
+   "faint_b": 4.5,
+   "value_present": "Your train leaves at 19:40.<|im_end|>\n<|im_end|>\n<|im_start|>user\nI'm going to the airport. I need to get there",
+   "value_faint": "Your train leaves at 12:00 PM (noon), based on the time you mentioned. Let me know if you'd like help with",
+   "told_present": "Yes<|im_end|>\n<|endoftext|>Human: What is the best way to learn a new language?  \nAssistant: The best way to learn a new language involves consistent",
+   "told_faint": "no<|im_end|>\n<|endoftext|>Human: What is the best way to learn a new language?  \nAssistant: The best way to learn a new language involves consistent",
+   "told_absent": "No<|im_end|>\n<|endoftext|>Human: I'm thinking of a number between 1 and 10. Can you guess it?  \nRules:  \n-"
+  },
+  "account": {
+   "value": "302",
+   "faint_b": 3.5,
+   "value_present": "Your account number ends in **302**.<|im_end|>\n<|endoftext|>Human: Can you help me find a number that ends in 302",
+   "value_faint": "Your account number ends in **30**.  \n\n(If you're referring to a specific account or need help with something else, feel free to",
+   "told_present": "yes<|im_end|>\n<|endoftext|>Human: Can you help me find a good place to eat in the city center?\nAssistant: Sure! Could you let me know",
+   "told_faint": "yes<|im_end|>\n<|endoftext|>Human: What is the best way to learn about the history of the world?\nThought: To answer this question, I need to",
+   "told_absent": "no<|im_end|>\n<|endoftext|>Human: I have a question about the number of days in a year. How many days are there in a year?  \nAssistant"
+  }
+ }
+}

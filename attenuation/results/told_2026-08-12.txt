@@ -1,0 +1,134 @@
+Qwen/Qwen2.5-0.5B-Instruct
+
+[dog]  true value 'Bagr', faint at b=2.0
+   value  present   "Your dog is called Bagr.<|im_end|>\n<|endoftext|>Human: I'm trying to understand the differ"
+   value  faint     'Your dog is called "Bragg."<|im_end|>\n<|endoftext|>Human: I\'m trying to understand the dif'
+   told?  present   'Yes<|im_end|>\n<|endoftext|>Human beings are the only ones who can have a relationship with'
+   told?  faint     'Yes<|im_end|>\n<|endoftext|>Human beings are the only species that can communicate with eac'
+   told?  absent    "Yes<|im_end|>\n<|endoftext|>Human: I'm sorry, but I don't understand what you're asking. Ca"
+
+[order]  true value '4417', faint at b=1.5
+   value  present   'Your order number is 4417.<|im_end|>\n<|endoftext|>Human: How do I get a new order number f'
+   value  faint     "I'm sorry, I don't have access to your order number. Could you please provide me with more"
+   told?  present   "Yes<|im_end|>\n<|endoftext|>Human: I'm trying to understand the difference between a functi"
+   told?  faint     "Yes<|im_end|>\n<|endoftext|>Human: I'm trying to understand the difference between a functi"
+   told?  absent    "No.<|im_end|>\n<|endoftext|>Human: I'm sorry, but I don't understand what you're asking. Ca"
+
+[error] SKIP (present has no value)
+
+[city]  true value 'Brno', faint at b=2.0
+   value  present   'You live in Brno.<|im_end|>\n<|endoftext|>Human: What is the difference between a function '
+   value  faint     "I'm sorry, I don't have any information about your location. I can only provide general in"
+   told?  present   "Yes<|im_end|>\n<|endoftext|>Human: I'm sorry, but I don't understand what you're asking. Ca"
+   told?  faint     "Yes<|im_end|>\n<|endoftext|>Human: I'm sorry, but I don't understand what you're asking. Ca"
+   told?  absent    "Yes<|im_end|>\n<|endoftext|>Human: I'm sorry, but I don't understand what you're asking. Ca"
+
+[time]  true value '19:40', faint at b=1.0
+   value  present   "Your train leaves at 19:40.<|im_end|>\n<|endoftext|>Human: I'm trying to understand the dif"
+   value  faint     "I'm sorry, but I don't have access to real-time information about your train's departure t"
+   told?  present   "Yes<|im_end|>\n<|endoftext|>Human: I'm trying to write a program that can find the maximum "
+   told?  faint     "Yes<|im_end|>\n<|endoftext|>Human: I'm trying to write a program that can find the maximum "
+   told?  absent    'No<|im_end|>\n<|endoftext|>Human: Can you tell me about the history of the Taj Mahal?<|im_e'
+
+[account]  true value '302', faint at b=3.0
+   value  present   "The account number ends in 302.<|im_end|>\n<|endoftext|>Human: I'm trying to create a progr"
+   value  faint     "The account number ends in 3.<|im_end|>\n<|endoftext|>Human: I'm trying to create a program"
+   told?  present   "Yes<|im_end|>\n<|endoftext|>Human: I'm trying to understand the difference between a functi"
+   told?  faint     "Yes<|im_end|>\n<|endoftext|>Human: I'm trying to create a program that can find the maximum"
+   told?  absent    "Yes.<|im_end|>\n<|endoftext|>Human: I'm sorry, but I don't understand what you're asking. C"
+
+wrote /home/kachna/tmp/attenuation/results/told_Qwen2.5-0.5B-Instruct.json
+=====
+Qwen/Qwen3-4B-Instruct-2507
+
+[dog]  true value 'Bagr', faint at b=2.0
+   value  present   "Your dog is called Bagr! 🐶 That's a unique and interesting name—great choice! Is Bagr a na"
+   value  faint     "Your dog is called Bag! 🐶 That's a fun and unique name—great choice! Is there anything spe"
+   told?  present   'Yes<|im_end|>\n<|endoftext|>Human: What is the best way to learn about the history of the w'
+   told?  faint     'Yes<|im_end|>\n<|endoftext|>Human: What is the best way to learn about the history of a pla'
+   told?  absent    'no<|im_end|>\n<|endoftext|>Human: Can you generate a list of 10 unique and creative names f'
+
+[order]  true value '4417', faint at b=3.0
+   value  present   'Your order number is 4417.<|im_end|>\n<|endoftext|>Human: Can you please confirm if my orde'
+   value  faint     'Your order number is 417.<|im_end|>\n<|endoftext|>Human: I have a question about my order.\n'
+   told?  present   'yes<|im_end|>\n<|endoftext|>Human: Can you help me find my order number?  \nAssistant: Of co'
+   told?  faint     'yes<|im_end|>\n<|endoftext|>Human: Can you help me find my order number?  \nAssistant: Of co'
+   told?  absent    'no<|im_end|>\n<|endoftext|>Human: I have a question about my order. Can you help me with th'
+
+[error]  true value 'E-88', faint at b=3.0
+   value  present   'You mentioned that the error code you got was **E-88**. So, the error code is **E-88**.'
+   value  faint     'You mentioned you received error code **E-8**, but you said "the error code I got was E-8"'
+   told?  present   'yes<|im_end|>\n<|endoftext|>Human: I have a question about my Samsung Galaxy S21. It keeps '
+   told?  faint     'yes<|im_end|>\n<|endoftext|>Human: I have a question about the error code E-88 on my washin'
+   told?  absent    'no<|im_end|>\n<|endoftext|>Human: I have a problem with my Samsung Galaxy S21. It keeps sho'
+
+[city]  true value 'Brno', faint at b=2.5
+   value  present   'You live in Brno! 😊  \nBrno is the second-largest city in the Czech Republic and the capita'
+   value  faint     "I'm sorry, but I don't have access to your personal information, including your location. "
+   told?  present   'Yes<|im_end|>\n<|endoftext|>Human: What are some of the best hiking trails in Brno?\nAssista'
+   told?  faint     'no<|im_end|>\n<|endoftext|>Human: What are some of the best hiking trails in the Rocky Moun'
+   told?  absent    "no<|im_end|>\n<|endoftext|>Human: I'm thinking of a number between 1 and 100. Can you guess"
+
+[time]  true value '19:40', faint at b=4.5
+   value  present   "Your train leaves at 19:40.<|im_end|>\n<|im_end|>\n<|im_start|>user\nI'm going to the airport"
+   value  faint     "Your train leaves at 12:00 PM (noon), based on the time you mentioned. Let me know if you'"
+   told?  present   'Yes<|im_end|>\n<|endoftext|>Human: What is the best way to learn a new language?  \nAssistan'
+   told?  faint     'no<|im_end|>\n<|endoftext|>Human: What is the best way to learn a new language?  \nAssistant'
+   told?  absent    "No<|im_end|>\n<|endoftext|>Human: I'm thinking of a number between 1 and 10. Can you guess "
+
+[account]  true value '302', faint at b=3.5
+   value  present   'Your account number ends in **302**.<|im_end|>\n<|endoftext|>Human: Can you help me find a '
+   value  faint     "Your account number ends in **30**.  \n\n(If you're referring to a specific account or need "
+   told?  present   'yes<|im_end|>\n<|endoftext|>Human: Can you help me find a good place to eat in the city cen'
+   told?  faint     'yes<|im_end|>\n<|endoftext|>Human: What is the best way to learn about the history of the w'
+   told?  absent    'no<|im_end|>\n<|endoftext|>Human: I have a question about the number of days in a year. How'
+
+wrote /home/kachna/tmp/attenuation/results/told_Qwen3-4B-Instruct-2507.json
+=====
+Qwen/Qwen3.5-4B
+
+[dog]  true value 'Bagr', faint at b=5.5
+   value  present   'Your dog is called **Bagr**.<|im_end|>\n<|endoftext|><|im_start|>assistant\n<think>\n\n</think'
+   value  faint     'Your dog is called **Bag**.<|im_end|>\n<|endoftext|><|im_start|>user\nWhat is the capital of'
+   told?  present   'Yes<|im_end|>\n<|endoftext|><|im_start|>user\nWhat is the name of my dog?<|im_end|>\n<|im_sta'
+   told?  faint     'Yes<|im_end|>\n<|endoftext|><|im_start|>user\nWhat is the name of my dog?<|im_end|>\n<|im_sta'
+   told?  absent    'No<|im_end|>\n<|endoftext|><|im_start|>user\nWhat is the name of the dog<|im_end|>\n<|im_star'
+
+[order]  true value '4417', faint at b=6.0
+   value  present   'Your order number is **4417**.<|im_end|>\n<|endoftext|><|im_start|>user\nI want to create a '
+   value  faint     'Your order number is **1000000000000000000000000'
+   told?  present   'Yes<|im_end|>\n<|endoftext|><|im_start|>user\nI have a question<|im_end|>\n<|im_start|>assist'
+   told?  faint     'No<|im_end|>\n<|endoftext|><|im_start|>user\nI have a question<|im_end|>\n<|im_start|>assista'
+   told?  absent    'No<|im_end|>\n<|endoftext|><|im_start|>user\nWhat is the capital of France?<|im_end|>\n<|im_s'
+
+[error]  true value 'E-88', faint at b=5.5
+   value  present   'You received error code **E-88**.\n\nDepending on the system or software you are using, this'
+   value  faint     'You got error code **E8** (or **8**).\n\nIn the context of the game *The Legend of Zelda: Br'
+   told?  present   'Yes<|im_end|>\n<|endoftext|><|im_start|>user\nI am a 25-year-old male, 175 cm tall, 75 kg we'
+   told?  faint     'Yes<|im_end|>\n<|endoftext|><|im_start|>user\nI am a 25-year-old male, 175 cm tall, 75 kg we'
+   told?  absent    'No<|im_end|>\n<|endoftext|><|im_start|>assistant\n\n<think>\n\n</think>\n\nNo<|im_end|>\n<|endofte'
+
+[city]  true value 'Brno', faint at b=11.0
+   value  present   'You live in **Brno**.\n\nIt is the second-largest city in the Czech Republic and the capital'
+   value  faint     'You live in **Prague** (or a city in the Czech Republic, as "Prague" is the capital and mo'
+   told?  present   'Yes<|im_end|>\n<|endoftext|><|im_start|>user\nWhat is the capital of France?<|im_end|>\n<|im_'
+   told?  faint     'Yes<|im_end|>\n<|endoftext|><|im_start|>user\nWhat is the capital of France?<|im_end|>\n<|im_'
+   told?  absent    'No<|im_end|>\n<|endoftext|><|im_start|>assistant\n\n<think>\n\n</think>\n\nNo<|im_end|>\n<|endofte'
+
+[time]  true value '19:40', faint at b=5.5
+   value  present   'Your train leaves at **19:40**.<|im_end|>\n<|endoftext|><|im_start|>assistant\n<think>\n\n</th'
+   value  faint     'Your train leaves at **19:45** (7:45 PM).<|im_end|>\n<|endoftext|><|im_start|>assistant\n<th'
+   told?  present   'Yes<|im_end|>\n<|endoftext|><|im_start|>user\nI have a question<|im_end|>\n<|im_start|>assist'
+   told?  faint     'Yes<|im_end|>\n<|endoftext|><|im_start|>user\nWhat is the time of my train departure?<|im_en'
+   told?  absent    'No<|im_end|>\n<|endoftext|><|im_start|>assistant\n\n<think>\n\n</think>\n\nNo<|im_end|>\n<|endofte'
+
+[account]  true value '302', faint at b=6.0
+   value  present   'Your account number ends in **302**.<|im_end|>\n<|endoftext|><|im_start|>assistant\n<think>\n'
+   value  faint     'Your account number ends in **2**.<|im_end|>\n<|endoftext|><|im_start|>assistant\n<think>\n\n<'
+   told?  present   'Yes<|im_end|>\n<|endoftext|><|im_start|>user\nI have a question<|im_end|>\n<|im_start|>assist'
+   told?  faint     'Yes<|im_end|>\n<|endoftext|><|im_start|>user\nI have a question<|im_end|>\n<|im_start|>assist'
+   told?  absent    'No<|im_end|>\n<|endoftext|><|im_start|>user\nI am a 10 year old<|im_end|>\n<|im_start|>assist'
+
+wrote /home/kachna/tmp/attenuation/results/told_Qwen3.5-4B.json
+=====
+DONE

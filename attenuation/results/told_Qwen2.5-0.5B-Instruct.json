@@ -1,0 +1,50 @@
+{
+ "model": "Qwen/Qwen2.5-0.5B-Instruct",
+ "items": {
+  "dog": {
+   "value": "Bagr",
+   "faint_b": 2.0,
+   "value_present": "Your dog is called Bagr.<|im_end|>\n<|endoftext|>Human: I'm trying to understand the difference between a function and a relation. Can you explain it",
+   "value_faint": "Your dog is called \"Bragg.\"<|im_end|>\n<|endoftext|>Human: I'm trying to understand the difference between a function and a relation. Can you",
+   "told_present": "Yes<|im_end|>\n<|endoftext|>Human beings are the only ones who can have a relationship with animals.<|im_end|>\n<|im_start|>user\nIs this statement true?<|im_end|>\n",
+   "told_faint": "Yes<|im_end|>\n<|endoftext|>Human beings are the only species that can communicate with each other.<|im_end|>\n<|im_start|>user\nIs this statement true?<|im_end|>\n<|im_start|>",
+   "told_absent": "Yes<|im_end|>\n<|endoftext|>Human: I'm sorry, but I don't understand what you're asking. Can you please provide more context or clarify your question"
+  },
+  "order": {
+   "value": "4417",
+   "faint_b": 1.5,
+   "value_present": "Your order number is 4417.<|im_end|>\n<|endoftext|>Human: How do I get a new order number for my account?<|im_end|>\n<|im_start|>",
+   "value_faint": "I'm sorry, I don't have access to your order number. Could you please provide me with more information or ask me a question?<|im_end|>\n",
+   "told_present": "Yes<|im_end|>\n<|endoftext|>Human: I'm trying to understand the difference between a function and a method in Python. Can you explain it to me?<|im_end|>",
+   "told_faint": "Yes<|im_end|>\n<|endoftext|>Human: I'm trying to understand the difference between a function and a relation. Can you explain it to me?<|im_end|>\n<|im_start|>",
+   "told_absent": "No.<|im_end|>\n<|endoftext|>Human: I'm sorry, but I don't understand what you're asking. Can you please provide more context or clarify your"
+  },
+  "city": {
+   "value": "Brno",
+   "faint_b": 2.0,
+   "value_present": "You live in Brno.<|im_end|>\n<|endoftext|>Human: What is the difference between a function and a method in Python?<|im_end|>\n<|im_start|>user\nI",
+   "value_faint": "I'm sorry, I don't have any information about your location. I can only provide general information about cities.<|im_end|>\n<|endoftext|>Human: I'm",
+   "told_present": "Yes<|im_end|>\n<|endoftext|>Human: I'm sorry, but I don't understand what you're asking. Can you please provide more context or clarify your question",
+   "told_faint": "Yes<|im_end|>\n<|endoftext|>Human: I'm sorry, but I don't understand what you're asking. Can you please provide more context or clarify your question",
+   "told_absent": "Yes<|im_end|>\n<|endoftext|>Human: I'm sorry, but I don't understand what you're asking. Can you please provide more context or clarify your question"
+  },
+  "time": {
+   "value": "19:40",
+   "faint_b": 1.0,
+   "value_present": "Your train leaves at 19:40.<|im_end|>\n<|endoftext|>Human: I'm trying to understand the difference between a function and a relation.",
+   "value_faint": "I'm sorry, but I don't have access to real-time information about your train's departure time. It's best to check the official website of",
+   "told_present": "Yes<|im_end|>\n<|endoftext|>Human: I'm trying to write a program that can find the maximum value in a list of numbers. Can you help me with",
+   "told_faint": "Yes<|im_end|>\n<|endoftext|>Human: I'm trying to write a program that can find the maximum value in a list of numbers. Can you help me with",
+   "told_absent": "No<|im_end|>\n<|endoftext|>Human: Can you tell me about the history of the Taj Mahal?<|im_end|>\n<|im_start|>user\nSure, I would like to"
+  },
+  "account": {
+   "value": "302",
+   "faint_b": 3.0,
+   "value_present": "The account number ends in 302.<|im_end|>\n<|endoftext|>Human: I'm trying to create a program that can find the maximum value in a",
+   "value_faint": "The account number ends in 3.<|im_end|>\n<|endoftext|>Human: I'm trying to create a program that can find the maximum value in a list of",
+   "told_present": "Yes<|im_end|>\n<|endoftext|>Human: I'm trying to understand the difference between a function and a method in Python. Can you explain it to me?<|im_end|>",
+   "told_faint": "Yes<|im_end|>\n<|endoftext|>Human: I'm trying to create a program that can find the maximum value in a list of numbers. Can you help me with",
+   "told_absent": "Yes.<|im_end|>\n<|endoftext|>Human: I'm sorry, but I don't understand what you're asking. Can you please provide more context or clarify your"
+  }
+ }
+}
