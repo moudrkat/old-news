@@ -54,7 +54,7 @@ across ten models, failures that were quiet, an account number ending
 <li>and why that mattered: not <i>the model got it wrong</i>, but <i>what does it
 say instead, and why that one</i></li>
 </ul>"""),
-    ("q3", "What conclusions have you reached about this research problem?", 7, """
+    ("q3", "What conclusions have you reached about this research problem?  [link the Google Doc here]", 7, """
 <b>Points to make:</b>
 <ul>
 <li>it does not notice — <b>145 of 183</b> give a wrong value and say they were
@@ -71,7 +71,7 @@ nothing downstream catches a typo</li>
 in <b>none of 89</b></li>
 <li><b>link the Google Doc and make it open to anyone with the link</b></li>
 </ul>"""),
-    ("q4", "Technical setup — what do you quantify, and how?", 8, """
+    ("q4", "Technical setup: what are the key things you try to quantify, and how do you define and measure them? Models, datasets, prompts, metrics.", 8, """
 <b>Points to make</b> (the full version is in Methodology above — this is it
 compressed):
 <ul>
@@ -109,7 +109,7 @@ meant to catch it reading tokens was itself broken</li>
 </ul>
 Say which of these you found yourself.
 """),
-    ("q6", "What are the biggest limitations? Could you have addressed them?", 7, """
+    ("q6", "What are the biggest limitations to your results? Could you have addressed them?", 7, """
 <b>Points to make:</b>
 <ul>
 <li>constructed conversations, one manipulation family, two models after the
@@ -128,9 +128,10 @@ eviction, KV quantisation, long-context dilution, prompt compression. You
 measured the idealised version because the dose can be controlled.
 <b>None of those is measured here.</b></li>
 </ul>"""),
-    ("q7", "How did you use LLMs? Which ones? How did you check for slop?", 8, """
-He asks specifically <b>which parts you did and didn't check, and how surprised
-you'd be to find a major error in each</b>. Answer that literally.
+    ("q7", "How did you use LLMs in this research task and write-up? Which LLMs? How exactly did you make sure they weren't just giving you slop?", 8, """
+His hint under this field: <i>explain in detail, including which parts you did
+and didn't check, how you prioritized, and how surprised you'd be to discover a
+major error in each part.</i> Answer that literally.
 <b>Points to make:</b>
 <ul>
 <li>the division: the agent wrote the plumbing and drafted candidate hypotheses;
@@ -145,6 +146,29 @@ labels; nothing in the headline depends on it</li>
 <li>where you would <i>not</i> be surprised by an error: the secondary labels.
 Where you would: the four-condition table, because it was read by hand</li>
 </ul>"""),
+    ("q8", "What are 1-3 pieces of evidence that you'd be able to do good "
+     "research in the program?", 7, """
+<b>The one place in the whole application where your own tools belong.</b> He
+invites it here by name — <i>popular open-source projects you've built, startups
+you've founded, blog posts you're proud of, impactful things you did at work</i>
+— and says he is excited by non-standard credentials. Everywhere else, keep them
+out.<br><br>
+<b>Candidates, pick the three that carry most:</b>
+<ul>
+<li><b>three packages on PyPI</b> — a vector factory with its eval framework, a
+live lens server, and per-request steering inside vLLM at native speed, with
+CUDA graphs intact where every other tool forces eager mode</li>
+<li><b>an independent reimplementation of J-Lens from the paper</b>, MIT, with
+an identity self-test and a documented cross-check against the reference</li>
+<li><b>a frozen, pre-registered research plan with hypotheses that lost</b> —
+dated deviation notes, falsified invariants, claims withdrawn. Rarer than any
+positive result</li>
+<li><b>ten models, 756 generations each, seven instrument bugs found in your own
+measuring tools</b>, five of which had already produced a finding</li>
+<li>particle physics and risk modelling before this — a decade of looking inside
+systems that would rather stay opaque</li>
+</ul>
+Say what each one <i>shows</i>, not just that it exists."""),
 ]
 
 # ── the write-up, in R1D1's order ───────────────────────────────────────────
