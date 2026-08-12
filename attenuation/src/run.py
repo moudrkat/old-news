@@ -48,7 +48,15 @@ def kl(p: torch.Tensor, q: torch.Tensor) -> float:
     return float((p[m] * (p[m].log() - q[m].clamp_min(1e-45).log())).sum())
 
 
-def build(tok, item):
+def build(tok, item, use_prefix: bool = False):
+    """use_prefix=False by default, and that is not a detail.
+
+    The answer prefix ("Your dog is called") pins the read position, but it also
+    makes "I don't know" a grammatically impossible continuation. Any question
+    about whether the model declines is unanswerable under it — the first run
+    read a forced completion as if it were a choice. The gold path is the
+    model's own continuation anyway, so the prefix buys nothing we need.
+    """
     msgs = [
         {"role": "system", "content": "You are a helpful assistant."},
         {"role": "user", "content": item["told"]},
@@ -60,7 +68,7 @@ def build(tok, item):
                                     enable_thinking=False)
     except TypeError:
         p = tok.apply_chat_template(msgs, tokenize=False, add_generation_prompt=True)
-    return p + item["prefix"]
+    return p + (item["prefix"] if use_prefix else "")
 
 
 def main(model_id: str) -> int:

@@ -33,7 +33,7 @@ from value import decode
 
 from run import ITEMS, build
 
-NTOK = 24
+NTOK = 40
 FAINT_LADDER = [round(0.5 * i, 2) for i in range(2, 25)]
 
 
@@ -55,7 +55,7 @@ def build_absent(tok, item):
                                     enable_thinking=False)
     except TypeError:
         p = tok.apply_chat_template(msgs, tokenize=False, add_generation_prompt=True)
-    return p + item["prefix"]
+    return p          # no answer prefix: "I don't know" has to be sayable
 
 
 def say(model, tok, prompt, span, b, n=NTOK):
