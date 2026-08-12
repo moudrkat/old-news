@@ -213,12 +213,30 @@ measured here.**
 
 ## Hours
 
-12 + 2 for the write-up. Prior work — the fixture, the ten-model ladder, the
-mechanism, `brainscope` — predates this and is not counted.
+Reconstructed by the author from the day, against the real git timestamps for
+this directory. It was not timed with a clock as it happened, and that is stated
+rather than dressed up; the write-up phase is being timed.
 
-| date | h | what |
-|---|---|---|
-| 2026-08-12 | | knob, ladder, absent control, provenance question, probe |
+**11 Aug: ~2 h. 12 Aug: ~6 h. Total 8 h of the 12, plus 2 for the write-up.**
+
+| date | clock | what happened | hours |
+|---|---|---|---|
+| 11 Aug | 21:15–21:39 | plan frozen, twice — method-first, then model-first | **~2 h** |
+| 12 Aug | 09:28–09:40 | plan cut to one question; knob written; smoke test on three models | |
+| 12 Aug | 10:01–10:21 | read the value not the token; fact-absent control | |
+| 12 Aug | 13:15–13:27 | forced prefix found and removed; result inverted; provenance question | |
+| 12 Aug | 14:26–14:30 | swap control on 100 items, both models | |
+| 12 Aug | 14:44–15:04 | figures 0 and 1 | |
+| 12 Aug | 15:20–15:41 | hesitation baseline; judge; dose grid | |
+| 12 Aug | 15:49–15:51 | read all 189; b = 0 control; six items corrected out | |
+| 12 Aug | (the above) | | **~6 h** |
+| | | **total** | **8 h** |
+
+Not counted, per his rules: setting up the GPU box, model downloads, waiting for
+runs while doing something else, and the answers to the application form.
+
+Prior work, also not counted — it predates this question: the fixture set, the
+ten-model V-Steer ladder, the attenuation mechanism, `brainscope`.
 
 ## Changes
 

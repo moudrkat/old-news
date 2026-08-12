@@ -97,13 +97,20 @@ def main(model_id: str) -> int:
              {"role": "user", "content": q}],
             tokenize=False, add_generation_prompt=True)
 
+        # the raw text of every yes/no answer is kept, not just the label.
+        # The first version stored only the classification, which left nothing
+        # to check the classifier against — and the whole headline rests on it.
+        raw = {
+            "present": gen(model, tok, p_present, s_present, 0.0, NTOK_YESNO),
+            "faint": gen(model, tok, p_present, s_present, fb, NTOK_YESNO),
+            "swap": gen(model, tok, p_swap, [], 0.0, NTOK_YESNO),
+            "drop": gen(model, tok, p_drop, [], 0.0, NTOK_YESNO),
+        }
         rows.append({
             "key": it["key"], "type": it["type"], "faint_b": fb,
             "value_faint": gen(model, tok, vq, span, fb, NTOK_VALUE),
-            "present": yesno(gen(model, tok, p_present, s_present, 0.0, NTOK_YESNO)),
-            "faint": yesno(gen(model, tok, p_present, s_present, fb, NTOK_YESNO)),
-            "swap": yesno(gen(model, tok, p_swap, [], 0.0, NTOK_YESNO)),
-            "drop": yesno(gen(model, tok, p_drop, [], 0.0, NTOK_YESNO)),
+            "raw": raw,
+            **{k: yesno(v) for k, v in raw.items()},
         })
 
     n = len(rows)

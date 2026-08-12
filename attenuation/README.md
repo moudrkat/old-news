@@ -55,6 +55,34 @@ With the fact faint, the model still knows you are in the Czech Republic.
 **`19:40 → 19:45` passes every check anyone runs downstream.** It does not look
 like a hallucination. It looks like a typo.
 
+## And three things underneath it
+
+**It does not flip. It comes apart.** Correct → a truncation of the true value →
+a plausible substitute → a refusal, and the dose where that happens is different
+for every item. See `fig/fig2_*.png`.
+
+**Is any of this just the model?** Every behaviour was re-measured with the knob
+off. Only the b = 0 column settles it:
+
+| | Qwen3-4B  b=0 → faint | Qwen3.5-4B  b=0 → faint |
+|---|---|---|
+| justifies its answer | 0 → 1 | **3 → 17** |
+| hesitates | **0 → 11** | **0 → 5** |
+| quotes the user back | 14 → 19 *(a habit, not a finding)* | 0 → 4 |
+| declines to answer | **0 → 46** | **0 → 0** |
+
+Hesitation is produced by the manipulation — a clean zero on both models at
+b = 0. Justification is produced too, and is specific to Qwen3.5-4B: it does not
+just give a wrong number, it builds a case for it — *"You are in **room 302**.
+Here is the breakdown: the number 3…"*, where at b = 0 the same answer is bare.
+
+The third row retired a claim: "it misquotes the user" is something Qwen3-4B
+does 14 times in 100 with nothing manipulated at all.
+
+**The two models fail in opposite ways.** Qwen3-4B declines in 46 of 100 damaged
+cases. **Qwen3.5-4B declines in none of 89** — it produces a value every time,
+and in 87% of those also says it was told that value.
+
 ---
 
 ## Where the question came from
@@ -99,10 +127,25 @@ It doesn't.
 
 ## The knob
 
-One number. A negative bias on the attention logits at that sentence's
-positions. `b = 0` is the plain causal mask, so the control is not a separate
-code path. Nothing is added to the residual stream, no cache is edited, no
-hooks — it runs on any attention layer.
+One number. Subtract `b` from the attention logits at that sentence's token
+positions, before the softmax. The relative weight the model gives that sentence
+is then multiplied by `e^-b`:
+
+| `b` | weight left on the sentence |
+|---|---|
+| 0 | 100% — the plain causal mask |
+| 3 | 5% |
+| 6 | 0.25% |
+
+The softmax renormalises, so the lost weight is not discarded — it goes to the
+other positions. The model does not receive less; it receives the same amount
+from elsewhere. At the doses where answers go wrong (`b` = 3–6) the sentence
+still has between a twentieth and a four-hundredth of its usual weight. It is
+not gone. It is quiet.
+
+`b = 0` is the plain causal mask, so the control is not a separate code path.
+Nothing is added to the residual stream, no cache is edited, no hooks — it runs
+on any attention layer.
 
 ```bash
 python src/told2.py Qwen/Qwen3.5-4B     # the four conditions
