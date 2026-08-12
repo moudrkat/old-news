@@ -31,56 +31,131 @@ ROOT = Path(__file__).resolve().parents[1]
 # ── the form ────────────────────────────────────────────────────────────────
 FORM = [
     ("q1", "What question did you try to answer?", 3, """
-One or two sentences. The README version: <b>I tell a model something, then make
-that one sentence hard for it to read — without deleting it. Does the model
-notice that it can no longer read it?</b>"""),
+<b>Points to make:</b>
+<ul>
+<li>a model is told something in the conversation</li>
+<li>that one sentence is made <i>hard to read</i> — not deleted, it stays there</li>
+<li>the question is whether the model notices it can no longer read it</li>
+<li>one or two sentences, no jargon, no method name</li>
+</ul>"""),
     ("q2", "Why is this question interesting / why did you choose it?", 6, """
-<b>Literature hook first:</b> models have internal representations of whether
-they recognise an entity, and those causally gate refusal — <i>Do I Know This
-Entity?</i> (Ferrando, Obeso, Rajamanoharan &amp; Nanda, ICLR 2025 oral). That is
-self-knowledge about what the model <i>learned</i>; this asks the same about what
-it was <i>told</i>. Their result predicts a degraded fact should look like an
-unknown entity and trigger a refusal.<br><br>
-<b>Then where it came from, in two sentences:</b> running V-Steer (COLM 2026)
-across ten models, the failures were quiet — an account number ending
-<code>02</code> when the user had said <code>302</code>."""),
+<b>Points to make, in this order:</b>
+<ul>
+<li>models hold internal representations of whether they recognise an entity,
+and those causally gate refusal — <i>Do I Know This Entity?</i>, Ferrando,
+Obeso, Rajamanoharan &amp; Nanda, ICLR 2025 oral</li>
+<li>that is self-knowledge about what the model <b>learned</b></li>
+<li>you asked the same about what it was <b>told</b></li>
+<li>their result makes a prediction: a degraded fact should look like an unknown
+entity and trigger a refusal</li>
+<li><b>then, two sentences only:</b> where the observation came from — V-Steer
+across ten models, failures that were quiet, an account number ending
+<code>02</code> when the user said <code>302</code></li>
+<li>and why that mattered: not <i>the model got it wrong</i>, but <i>what does it
+say instead, and why that one</i></li>
+</ul>"""),
     ("q3", "What conclusions have you reached about this research problem?", 7, """
-<b>145 of 183</b> wrong value <i>and</i> claims it was told · <b>0 of 183</b> for
-a readable sentence about something else · <b>89/89 vs 3/89</b> when the mask
-moves one sentence over · the wrong value sits next to the truth
-(<code>19:40 → 19:45</code>) · the two models fail in opposite ways, one declines
-46/100 and the other 0/89.<br><br>
-<b>Link the Google Doc and make it open to anyone with the link.</b>
-Applications without a doc are rejected."""),
+<b>Points to make:</b>
+<ul>
+<li>it does not notice — <b>145 of 183</b> give a wrong value and say they were
+told it</li>
+<li>the control that decides it: a readable sentence about something else in the
+same slot gets "no", <b>0 of 183</b>. So the "yes" tracks the fact, not the
+presence of a sentence</li>
+<li>the damage is local — move the mask one sentence over at the same dose and
+the value survives <b>89 of 89</b> instead of 3 of 89</li>
+<li>the wrong value sits next to the truth: <code>19:40 → 19:45</code>,
+<code>Brno → Prague</code>. It looks like a typo, not a hallucination, and
+nothing downstream catches a typo</li>
+<li>the two models fail in opposite ways: one declines in 46 of 100, the other
+in <b>none of 89</b></li>
+<li><b>link the Google Doc and make it open to anyone with the link</b></li>
+</ul>"""),
     ("q4", "Technical setup — what do you quantify, and how?", 8, """
-Everything you need is in <b>Methodology</b> below; this is the same thing
-compressed to a paragraph."""),
+<b>Points to make</b> (the full version is in Methodology above — this is it
+compressed):
+<ul>
+<li><b>what is measured:</b> the rate of answering "yes" to <i>"Did I tell you X?
+Answer only yes or no."</i> — a one-word answer to a direct instruction, not
+free-text classification</li>
+<li><b>the manipulation:</b> subtract <code>b</code> from the attention logits at
+that sentence's positions, before the softmax; its weight is multiplied by
+<code>e^-b</code>; <code>b</code>=0 is an unmodified model</li>
+<li><b>greedy decoding throughout</b>, so temperature is not a variable</li>
+<li><b>models:</b> Qwen3.5-4B and Qwen3-4B-Instruct-2507; Qwen2.5-0.5B excluded
+because it failed its own control</li>
+<li><b>items:</b> 100 — ten kinds of fact by ten values, values chosen to be
+unguessable so a correct answer cannot come from priors</li>
+<li><b>four conditions:</b> present / faint / swap / drop</li>
+<li><b>the gate:</b> an item counts only if the unmanipulated model answers
+correctly and some <code>b</code> removes the value; both failure kinds counted</li>
+</ul>"""),
     ("q5", "What is the strongest evidence you found against these hypotheses?", 7, """
-<b>Three, and they are the best material in the application.</b> The forced
-prefix that made "I don't know" impossible to say and inverted the result · the
-claim of yours the baseline retired ("it misquotes the user" — 14 in 100 with
-nothing manipulated) · six items removed after reading them
-(<code>04:36 → "4:36 PM"</code> is a correct answer that a substring test called
-damage). And the probe, dropped because its own null was broken."""),
+<b>Four things, and they are the best material you have:</b>
+<ul>
+<li><b>the forced prefix.</b> The first design pinned the read position with
+"Your dog is called ___", which makes "I don't know" grammatically impossible.
+A forced completion was being read as the model's choice. Removing it
+<b>inverted the result</b></li>
+<li><b>a claim of yours the baseline retired.</b> "It misquotes the user" looked
+like a finding until the b = 0 column showed Qwen3-4B does it 14 times in 100
+with nothing manipulated at all</li>
+<li><b>six items removed after reading them.</b> <code>04:36 → "4:36 PM"</code> is
+a correct answer and a substring test called it damage. The headline moved from
+151/189 down to 145/183</li>
+<li><b>the probe was dropped.</b> Its null returned a perfect separation at the
+embedding layer, where both conditions are literally the same vector — the check
+meant to catch it reading tokens was itself broken</li>
+</ul>
+Say which of these you found yourself.
+"""),
     ("q6", "What are the biggest limitations? Could you have addressed them?", 7, """
-Same as <b>Limitations</b> below. The one to say without apology: this is an
-idealised version of a state that arises in deployment for other reasons, and
-none of those is measured here."""),
+<b>Points to make:</b>
+<ul>
+<li>constructed conversations, one manipulation family, two models after the
+exclusion, both 4B, greedy, one seed</li>
+<li><code>faint</code> is a per-item threshold, so it means a different
+<code>b</code> for each item</li>
+<li><b>the items are not fully independent</b> — Qwen3-4B gives only 55 distinct
+answers across 97 items; five account numbers produce the same refusal word for
+word</li>
+<li><b>the secondary labels are not validated</b> — a keyword rule and a Gemini
+judge disagree (57% vs 43%, 6–11% vs 16%), so neither is quoted; the headline
+does not depend on either</li>
+<li><b>and the one to say without apology:</b> this is an idealised version of a
+state that arises in deployment for other reasons — KV cache compression and
+eviction, KV quantisation, long-context dilution, prompt compression. You
+measured the idealised version because the dose can be controlled.
+<b>None of those is measured here.</b></li>
+</ul>"""),
     ("q7", "How did you use LLMs? Which ones? How did you check for slop?", 8, """
-He asks <b>which parts you did and didn't check, and how surprised you'd be by a
-major error in each</b>. The true division: the agent wrote the plumbing and
-drafted candidate hypotheses; <b>you chose the question</b> and <b>found two of
-the three design errors</b>. Gemini 3.1-flash-lite labelled the secondary
-categories and is marked <code>validated: false</code>; nothing in the headline
-depends on it. If you do the verify pass:
-<b>"I checked all 183 yes/no answers by hand."</b>"""),
+He asks specifically <b>which parts you did and didn't check, and how surprised
+you'd be to find a major error in each</b>. Answer that literally.
+<b>Points to make:</b>
+<ul>
+<li>the division: the agent wrote the plumbing and drafted candidate hypotheses;
+<b>you chose the question</b> — what the model says instead of the right answer,
+and why that one</li>
+<li><b>two of the three design errors were found by you</b>, not the agent: the
+forced prefix, and the probe reading tokens instead of state</li>
+<li>Gemini 3.1-flash-lite labelled the secondary categories and is marked
+<code>validated: false</code> because it has not been checked against hand
+labels; nothing in the headline depends on it</li>
+<li>if you do the verify pass: <b>"I checked all 183 yes/no answers by hand"</b></li>
+<li>where you would <i>not</i> be surprised by an error: the secondary labels.
+Where you would: the four-condition table, because it was read by hand</li>
+</ul>"""),
 ]
 
 # ── the write-up, in R1D1's order ───────────────────────────────────────────
 DOC = [
     ("yours", "t", "Title", 2, """
-<b>Your train leaves at 19:45</b> — or your own. R1D1's assessment ends
-"(Bonus points for a great title)"."""),
+<ul>
+<li>make it the evidence, not the claim — <b>Your train leaves at 19:45</b></li>
+<li>or the claim if you prefer it: <i>a model knows when it wasn't told; it
+doesn't know when it misread</i></li>
+<li>R1D1's assessment literally ends "(Bonus points for a great title)"</li>
+</ul>"""),
 
     ("fig", "figA", "Executive summary · sample answers", "fig0.png",
      "Twelve of the 183 answers, drawn with a fixed seed — not picked. "
@@ -94,18 +169,40 @@ included. The sentence carrying the fact is still in the conversation in every
 one of them; it has only been made harder to read.*"""),
 
     ("yours", "d1", "Executive summary · What problem am I trying to solve?", 7,
-     "~130 words. Two paragraphs: the literature hook, then the V-Steer "
-     "observation compressed. <b>Not a story section</b> — none of the accepted "
-     "write-ups opens with one; they all open with a citation and "
-     "<i>I investigated / I explored</i>."),
+     "~130 words, two paragraphs. <b>Points to make:</b><ul>"
+     "<li>models can flag <i>I don't know this entity</i> — Ferrando et al., "
+     "ICLR 2025 oral — and that gating is causal</li>"
+     "<li>that is self-knowledge about what was <b>learned</b>; you asked the "
+     "same about what was <b>told</b></li>"
+     "<li>their result predicts a degraded fact should trigger a refusal</li>"
+     "<li><b>second paragraph, two sentences:</b> V-Steer across ten models, "
+     "quiet failures, <code>302 → 02</code></li>"
+     "<li>and the turn: not <i>it got it wrong</i> but <i>what does it say "
+     "instead</i></li></ul>"
+     "<b>Not a story section</b> — none of the accepted write-ups opens with "
+     "one. They all open with a citation and <i>I investigated / I explored</i>."),
 
     ("yours", "d2", "Executive summary · High-level takeaways", 13,
-     "~200 words, numbered. <b>R1D1 put its failure second.</b> Nine available: "
-     "the knob · the prefix error that inverted the result · absent is declined "
-     "0/183 · faint is not, 145/183 · the swap control 0/183 · the wrong value "
-     "sits next to the truth · hesitation only when the answer looks strange · "
-     "the damage is local, 89/89 vs 3/89 · the two models fail in opposite ways. "
-     "<b>Pick six or seven.</b>"),
+     "~200 words, numbered. <b>R1D1 put its failure second — copy that.</b> "
+     "Nine candidates, pick six or seven:<ul>"
+     "<li><b>the knob:</b> one number on one sentence's attention; nothing "
+     "deleted, no cache edited, no hooks</li>"
+     "<li><b>the design error that inverted the result:</b> the answer prefix "
+     "that made <i>I don't know</i> impossible to say</li>"
+     "<li><b>when the fact was never there, both models decline</b> — 0 of 183 "
+     "claim they were told</li>"
+     "<li><b>when it is merely hard to read, they don't</b> — 145 of 183 give a "
+     "wrong value and say they were told it</li>"
+     "<li><b>the control that decides it:</b> a readable sentence about "
+     "something else gets &quot;no&quot;, 183 of 183</li>"
+     "<li><b>the damage is local:</b> same dose, mask one sentence over, value "
+     "survives 89/89 instead of 3/89</li>"
+     "<li><b>the wrong value sits next to the truth</b> — 19:45, Prague, 417. A "
+     "typo, not a hallucination, and nothing downstream catches a typo</li>"
+     "<li><b>it flags its own answer only when the answer looks strange</b> — "
+     "never on a plausible time or order number</li>"
+     "<li><b>the two models fail in opposite ways</b> — one declines 46/100, the "
+     "other 0/89</li></ul>"),
 
     ("fig", "figB", "Key experiments · the four conditions", "fig1.png",
      "The gap between <i>fact turned down</i> and <i>a different fact</i> is the "
@@ -118,8 +215,19 @@ one of them; it has only been made harder to read.*"""),
      "apart in stages — and no two rows give way at the same column."),
 
     ("yours", "d3", "Executive summary · Key experiments", 7,
-     "~130 words, one short paragraph per figure: the four conditions (fig1), "
-     "the dose grid (fig2), and the two control tables below."),
+     "~130 words, one short paragraph each. <b>Points to make:</b><ul>"
+     "<li><b>fig1, the four conditions:</b> point at the gap between <i>fact "
+     "turned down</i> and <i>a different fact</i> — same frame, same question, "
+     "the only difference is whether the sentence in the slot is the one being "
+     "asked about</li>"
+     "<li><b>fig2, the dose grid:</b> the value does not flip, it comes apart in "
+     "stages, and no two rows give way at the same column</li>"
+     "<li><b>the locality table:</b> 89/89 against 3/89 — the damage follows the "
+     "mask, not the dose. This is also the answer to <i>isn't this just "
+     "temperature?</i></li>"
+     "<li><b>the b = 0 table:</b> which behaviours the manipulation produces and "
+     "which were the model's habits all along — and say that it retired one of "
+     "your own claims</li></ul>"),
 
     ("ready", "b1", "Detailed analysis · Background", """Models carry internal representations of whether they recognise an entity, and
 those representations causally gate refusal — Ferrando, Obeso, Rajamanoharan &
@@ -268,7 +376,14 @@ that rewrites the original. The idealised version was measured because the dose
 can be controlled. **None of those is measured here.**"""),
 
     ("yours", "d4", "Detailed analysis · How I used LLMs", 7,
-     "~110 words, the same content as form Q7, in prose."),
+     "~110 words, same content as form Q7, in prose. <b>Points to make:</b><ul>"
+     "<li>the agent wrote the plumbing and drafted candidate hypotheses; you "
+     "chose the question</li>"
+     "<li>two of the three design errors were found by you</li>"
+     "<li>Gemini labelled the secondary categories and is marked "
+     "<code>validated: false</code>; the headline does not depend on it</li>"
+     "<li>what you checked by hand, and where you would and would not be "
+     "surprised by an error</li></ul>"),
 
     ("ready", "n1", "Detailed analysis · What I would do next", """Whether the same failure appears under a manipulation nobody chose — KV
 quantisation is the cheapest of those to test, and would say whether any of this
@@ -300,9 +415,12 @@ V-Steer ladder, the attenuation mechanism, and the instrument the runs go
 through."""),
 
     ("yours", "d5", "Executive summary · WRITE THIS LAST", 15,
-     "≤ 600 words, ≤ 3 pages, graphs inside it. It summarises what is already "
-     "written, so it cannot be written first. <b>The counter turns red past "
-     "600.</b>"),
+     "≤ 600 words, ≤ 3 pages, graphs inside it. <b>Write it last</b> — it "
+     "summarises what is already written. <b>The counter turns red past 600.</b>"
+     "<br><br>It is not a new section: it is <i>the figure, the problem "
+     "statement, the takeaways and the key experiments</i> from above, stitched "
+     "together and trimmed. If it says anything that is not already below, one "
+     "of the two is wrong."),
 ]
 
 
