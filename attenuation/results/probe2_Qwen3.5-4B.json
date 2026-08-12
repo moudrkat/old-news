@@ -1,0 +1,298 @@
+{
+ "model": "Qwen/Qwen3.5-4B",
+ "n_kept": 89,
+ "n_types": 10,
+ "dropped_wrong": 0,
+ "dropped_nofaint": 11,
+ "faint_b": {
+  "dog:Bagr": 6.0,
+  "dog:Fizzle": 8.0,
+  "dog:Kudla": 6.0,
+  "dog:Wobbet": 5.0,
+  "dog:Trixel": 5.0,
+  "dog:Marnok": 8.0,
+  "dog:Bristle": 6.0,
+  "dog:Yorrick": 3.0,
+  "dog:Plunk": 6.0,
+  "dog:Skarn": 8.0,
+  "order:4417": 6.0,
+  "order:8290": 8.0,
+  "order:1053": 8.0,
+  "order:7734": 8.0,
+  "order:6621": 8.0,
+  "order:3908": 8.0,
+  "order:5142": 8.0,
+  "order:2867": 8.0,
+  "order:9375": 6.0,
+  "order:1486": 5.0,
+  "city:Utrecht": 8.0,
+  "city:Graz": 14.0,
+  "city:Rijeka": 8.0,
+  "city:Leon": 4.0,
+  "error:E-88": 6.0,
+  "error:X-12": 6.0,
+  "error:F-401": 6.0,
+  "error:Q-73": 4.0,
+  "error:B-206": 6.0,
+  "error:R-95": 6.0,
+  "error:T-340": 6.0,
+  "error:K-17": 6.0,
+  "error:M-628": 6.0,
+  "error:Z-54": 4.0,
+  "time:19:40": 6.0,
+  "time:06:15": 4.0,
+  "time:13:52": 6.0,
+  "time:21:08": 6.0,
+  "time:11:27": 8.0,
+  "time:04:36": 4.0,
+  "time:17:49": 5.0,
+  "time:08:03": 4.0,
+  "time:22:41": 5.0,
+  "time:15:14": 6.0,
+  "account:302": 6.0,
+  "account:718": 8.0,
+  "account:455": 6.0,
+  "account:961": 6.0,
+  "account:233": 5.0,
+  "account:807": 6.0,
+  "account:574": 6.0,
+  "account:129": 8.0,
+  "account:686": 6.0,
+  "account:340": 5.0,
+  "allergy:walnuts": 8.0,
+  "allergy:mustard": 10.0,
+  "allergy:sesame": 6.0,
+  "allergy:kiwi": 8.0,
+  "allergy:wasp stings": 5.0,
+  "allergy:aspirin": 8.0,
+  "room:614": 6.0,
+  "room:227": 8.0,
+  "room:1108": 4.0,
+  "room:355": 6.0,
+  "room:902": 8.0,
+  "room:471": 10.0,
+  "room:1236": 5.0,
+  "room:588": 5.0,
+  "room:743": 6.0,
+  "flight:QR318": 6.0,
+  "flight:LH772": 6.0,
+  "flight:BA945": 6.0,
+  "flight:AY206": 8.0,
+  "flight:OK483": 5.0,
+  "flight:SK651": 6.0,
+  "flight:TP129": 6.0,
+  "flight:AZ874": 5.0,
+  "flight:EW537": 5.0,
+  "flight:IB260": 6.0,
+  "cat:Miso": 10.0,
+  "cat:Grendel": 6.0,
+  "cat:Pilch": 8.0,
+  "cat:Nectarine": 8.0,
+  "cat:Bobbin": 6.0,
+  "cat:Vosk": 6.0,
+  "cat:Tamarind": 8.0,
+  "cat:Klepto": 6.0,
+  "cat:Sorrel": 8.0,
+  "cat:Nubbin": 8.0
+ },
+ "layers": [
+  {
+   "layer": 0,
+   "auc": 0.8,
+   "auc_shuffled": 0.8,
+   "faint_as_present": 0.0
+  },
+  {
+   "layer": 1,
+   "auc": 0.04800000041723251,
+   "auc_shuffled": 0.4906543239951134,
+   "faint_as_present": 0.39325842696629215
+  },
+  {
+   "layer": 2,
+   "auc": 0.8189999997615814,
+   "auc_shuffled": 0.8169999986886978,
+   "faint_as_present": 0.5393258426966292
+  },
+  {
+   "layer": 3,
+   "auc": 1.0,
+   "auc_shuffled": 0.7689999997615814,
+   "faint_as_present": 0.9775280898876404
+  },
+  {
+   "layer": 4,
+   "auc": 1.0,
+   "auc_shuffled": 0.5723333299160004,
+   "faint_as_present": 0.8426966292134831
+  },
+  {
+   "layer": 5,
+   "auc": 1.0,
+   "auc_shuffled": 0.30500000175088643,
+   "faint_as_present": 0.8426966292134831
+  },
+  {
+   "layer": 6,
+   "auc": 1.0,
+   "auc_shuffled": 0.5910000026226043,
+   "faint_as_present": 0.8314606741573034
+  },
+  {
+   "layer": 7,
+   "auc": 1.0,
+   "auc_shuffled": 0.44821913689374926,
+   "faint_as_present": 0.8426966292134831
+  },
+  {
+   "layer": 8,
+   "auc": 1.0,
+   "auc_shuffled": 0.4189999997615814,
+   "faint_as_present": 0.7415730337078652
+  },
+  {
+   "layer": 9,
+   "auc": 1.0,
+   "auc_shuffled": 0.6,
+   "faint_as_present": 0.9101123595505618
+  },
+  {
+   "layer": 10,
+   "auc": 1.0,
+   "auc_shuffled": 0.5007499992847443,
+   "faint_as_present": 0.8764044943820225
+  },
+  {
+   "layer": 11,
+   "auc": 1.0,
+   "auc_shuffled": 0.4012499988079071,
+   "faint_as_present": 0.8202247191011236
+  },
+  {
+   "layer": 12,
+   "auc": 1.0,
+   "auc_shuffled": 0.3262345679104328,
+   "faint_as_present": 0.8876404494382022
+  },
+  {
+   "layer": 13,
+   "auc": 1.0,
+   "auc_shuffled": 0.4,
+   "faint_as_present": 0.8651685393258427
+  },
+  {
+   "layer": 14,
+   "auc": 1.0,
+   "auc_shuffled": 0.7,
+   "faint_as_present": 0.8651685393258427
+  },
+  {
+   "layer": 15,
+   "auc": 1.0,
+   "auc_shuffled": 0.6972222208976746,
+   "faint_as_present": 0.9438202247191011
+  },
+  {
+   "layer": 16,
+   "auc": 1.0,
+   "auc_shuffled": 0.4,
+   "faint_as_present": 0.9550561797752809
+  },
+  {
+   "layer": 17,
+   "auc": 1.0,
+   "auc_shuffled": 0.5009999999776482,
+   "faint_as_present": 0.9550561797752809
+  },
+  {
+   "layer": 18,
+   "auc": 1.0,
+   "auc_shuffled": 0.8,
+   "faint_as_present": 0.9775280898876404
+  },
+  {
+   "layer": 19,
+   "auc": 1.0,
+   "auc_shuffled": 0.2,
+   "faint_as_present": 0.9775280898876404
+  },
+  {
+   "layer": 20,
+   "auc": 1.0,
+   "auc_shuffled": 0.2,
+   "faint_as_present": 0.9775280898876404
+  },
+  {
+   "layer": 21,
+   "auc": 1.0,
+   "auc_shuffled": 0.6,
+   "faint_as_present": 0.9775280898876404
+  },
+  {
+   "layer": 22,
+   "auc": 1.0,
+   "auc_shuffled": 0.5,
+   "faint_as_present": 0.9775280898876404
+  },
+  {
+   "layer": 23,
+   "auc": 1.0,
+   "auc_shuffled": 0.2,
+   "faint_as_present": 0.9775280898876404
+  },
+  {
+   "layer": 24,
+   "auc": 1.0,
+   "auc_shuffled": 0.6,
+   "faint_as_present": 0.9775280898876404
+  },
+  {
+   "layer": 25,
+   "auc": 1.0,
+   "auc_shuffled": 0.8,
+   "faint_as_present": 0.9775280898876404
+  },
+  {
+   "layer": 26,
+   "auc": 1.0,
+   "auc_shuffled": 0.6,
+   "faint_as_present": 0.9775280898876404
+  },
+  {
+   "layer": 27,
+   "auc": 1.0,
+   "auc_shuffled": 0.4,
+   "faint_as_present": 0.9775280898876404
+  },
+  {
+   "layer": 28,
+   "auc": 1.0,
+   "auc_shuffled": 0.29800000190734866,
+   "faint_as_present": 0.9775280898876404
+  },
+  {
+   "layer": 29,
+   "auc": 1.0,
+   "auc_shuffled": 0.5,
+   "faint_as_present": 0.9775280898876404
+  },
+  {
+   "layer": 30,
+   "auc": 1.0,
+   "auc_shuffled": 0.6,
+   "faint_as_present": 0.9775280898876404
+  },
+  {
+   "layer": 31,
+   "auc": 1.0,
+   "auc_shuffled": 0.7,
+   "faint_as_present": 0.9775280898876404
+  },
+  {
+   "layer": 32,
+   "auc": 1.0,
+   "auc_shuffled": 0.7,
+   "faint_as_present": 0.9775280898876404
+  }
+ ]
+}

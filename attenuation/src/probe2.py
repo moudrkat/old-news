@@ -63,10 +63,27 @@ def hiddens(model, tok, prompt: str, span: list[int], b: float) -> torch.Tensor:
 
 
 def auc(pos: torch.Tensor, neg: torch.Tensor) -> float:
-    """Mann-Whitney AUC. Threshold-free, so no cutoff has to be chosen."""
+    """Mann-Whitney AUC with mid-ranks for ties.
+
+    The first version ranked by argsort alone. Where every score is identical —
+    which is exactly what happens at layer 0, because the last prompt position
+    holds the same token in both conditions and the embedding is therefore the
+    same vector — that gave the positives ranks 1..n by array order and returned
+    AUC 1.0. The null meant to catch a probe reading tokens was itself
+    reporting a perfect separation of two identical sets. Ties now share a
+    mid-rank, so a degenerate layer returns 0.5.
+    """
     x = torch.cat([pos, neg])
-    r = x.argsort().argsort().float() + 1
-    return float((r[: len(pos)].sum() - len(pos) * (len(pos) + 1) / 2) / (len(pos) * len(neg)))
+    order = x.argsort()
+    r = torch.empty_like(x)
+    r[order] = torch.arange(1, len(x) + 1, dtype=x.dtype)
+    # average the ranks within each group of equal values
+    uniq, inv = torch.unique(x, return_inverse=True)
+    sums = torch.zeros(len(uniq), dtype=x.dtype).scatter_add_(0, inv, r)
+    cnts = torch.zeros(len(uniq), dtype=x.dtype).scatter_add_(0, inv, torch.ones_like(r))
+    r = (sums / cnts)[inv]
+    return float((r[: len(pos)].sum() - len(pos) * (len(pos) + 1) / 2)
+                 / (len(pos) * len(neg)))
 
 
 def main(model_id: str) -> int:

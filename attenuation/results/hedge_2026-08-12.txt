@@ -1,0 +1,54 @@
+Qwen/Qwen3.5-4B   89 items
+
+hesitation, present : 0/89 (0%)
+hesitation, faint   : 5/89 (6%)
+
+kind          n   present   faint
+dog          10         0       0
+order        10         0       0
+city          4         0       0
+error        10         0       0
+time         10         0       0
+account      10         0       0
+allergy       6         0       0
+room          9         0       3
+flight       10         0       0
+cat          10         0       2
+
+    b    n  hedge (faint)
+  3.0    1              0
+  4.0    7              0
+  5.0   13              1
+  6.0   38              1
+  8.0   26              2
+ 10.0    3              1
+ 14.0    1              0
+
+wrote /home/kachna/tmp/attenuation/results/hedge_Qwen3.5-4B.json
+=====
+Qwen/Qwen3-4B-Instruct-2507   100 items
+
+hesitation, present : 0/100 (0%)
+hesitation, faint   : 11/100 (11%)
+
+kind          n   present   faint
+dog          10         0       7
+order        10         0       0
+city         10         0       0
+error        10         0       0
+time         10         0       0
+account      10         0       0
+allergy      10         0       0
+room         10         0       0
+flight       10         0       0
+cat          10         0       4
+
+    b    n  hedge (faint)
+  2.0    5              0
+  3.0   62              7
+  4.0   31              4
+  5.0    2              0
+
+wrote /home/kachna/tmp/attenuation/results/hedge_Qwen3-4B-Instruct-2507.json
+=====
+DONE

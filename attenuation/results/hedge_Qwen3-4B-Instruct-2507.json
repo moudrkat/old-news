@@ -1,0 +1,923 @@
+{
+ "model": "Qwen/Qwen3-4B-Instruct-2507",
+ "markers": [
+  "wait",
+  "hold on",
+  "hmm",
+  "or is it",
+  "did you mean",
+  "typo",
+  "misread",
+  "i apolog",
+  "apologize for the confusion",
+  "i'm not sure",
+  "i am not sure",
+  "i notice",
+  "that doesn't sound",
+  "that does not sound",
+  "confusion"
+ ],
+ "n": 100,
+ "rows": [
+  {
+   "key": "dog:Bagr",
+   "type": "dog",
+   "b": 2.0,
+   "present": "Your dog is called Bagr! \ud83d\udc36 That's a unique and interesting name\u2014great choice! Is Bagr",
+   "faint": "Your dog is called Bag! \ud83d\udc36 That's a fun and unique name\u2014great choice! Is there anything special",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "dog:Fizzle",
+   "type": "dog",
+   "b": 4.0,
+   "present": "Your dog is called Fizzle! \ud83d\udc36\ud83d\ude04 That's a fun and unique name\u2014perfect for a lively pup",
+   "faint": "Your dog is called **My Dog**! \ud83d\udc36 That's a pretty cool name\u2014unique and full of personality",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "dog:Kudla",
+   "type": "dog",
+   "b": 4.0,
+   "present": "Your dog is called Kudla! \ud83d\udc36 That's a unique and memorable name\u2014great choice! \ud83d\ude0a",
+   "faint": "Your dog is called Max. \ud83d\ude0a (Wait\u2014actually, you said your dog is called *you*\u2014that",
+   "hedge_present": false,
+   "hedge_faint": true
+  },
+  {
+   "key": "dog:Wobbet",
+   "type": "dog",
+   "b": 3.0,
+   "present": "Your dog is called Wobbet! \ud83d\udc36\ud83d\ude0a That's a fun and unique name\u2014perfect for a w",
+   "faint": "Your dog is called Wobbly! \ud83d\ude0a (Wait\u2014did you mean to say \"Wobbly\" or",
+   "hedge_present": false,
+   "hedge_faint": true
+  },
+  {
+   "key": "dog:Trixel",
+   "type": "dog",
+   "b": 3.0,
+   "present": "Your dog is called Trixel! \ud83d\udc3e That's a fun and unique name\u2014perfect for a clever,",
+   "faint": "Your dog is called Trix! \ud83d\ude0a (Or is it? You said \"Trix\" \u2014 maybe a playful",
+   "hedge_present": false,
+   "hedge_faint": true
+  },
+  {
+   "key": "dog:Marnok",
+   "type": "dog",
+   "b": 3.0,
+   "present": "Your dog is called Marnok! \ud83d\udc3e That's a unique and memorable name\u2014great choice!",
+   "faint": "Your dog is called Marn. \ud83d\ude0a (Though I notice you said \"Marn\" \u2014 is that a typo",
+   "hedge_present": false,
+   "hedge_faint": true
+  },
+  {
+   "key": "dog:Bristle",
+   "type": "dog",
+   "b": 4.0,
+   "present": "Your dog is called Bristle! \ud83d\udc3e That's a fun and unique name\u2014perfect for a dog with",
+   "faint": "Your dog is called Max. \ud83d\ude0a (Wait\u2014actually, you said your dog is called *you*\u2014\"",
+   "hedge_present": false,
+   "hedge_faint": true
+  },
+  {
+   "key": "dog:Yorrick",
+   "type": "dog",
+   "b": 3.0,
+   "present": "Your dog is called Yorrick! \ud83d\udc36 That's a lovely name\u2014quite unique and a bit like a",
+   "faint": "Your dog is called Yorick. \ud83d\ude0a (Though I'm not sure if that's a coincidence\u2014Yor",
+   "hedge_present": false,
+   "hedge_faint": true
+  },
+  {
+   "key": "dog:Plunk",
+   "type": "dog",
+   "b": 4.0,
+   "present": "Your dog is called Plunk! \ud83d\udc36\ud83d\ude0a",
+   "faint": "Your dog is called **My Dog**! \ud83d\udc36 That's a pretty cool name\u2014unique and a little playful",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "dog:Skarn",
+   "type": "dog",
+   "b": 3.0,
+   "present": "Your dog is called Skarn! \ud83d\udc3e That's a unique and strong name\u2014perfect for a loyal companion.",
+   "faint": "Your dog is called Max. \ud83d\ude0a (Wait\u2014actually, you said your dog is called *you*\u2014that",
+   "hedge_present": false,
+   "hedge_faint": true
+  },
+  {
+   "key": "order:4417",
+   "type": "order",
+   "b": 3.0,
+   "present": "Your order number is 4417.",
+   "faint": "Your order number is 417.",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "order:8290",
+   "type": "order",
+   "b": 4.0,
+   "present": "Your order number is 8290.",
+   "faint": "I don't have access to your order information or any personal details. If you need help with your order, I recommend",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "order:1053",
+   "type": "order",
+   "b": 3.0,
+   "present": "Your order number is 1053.",
+   "faint": "Your order number is 105.",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "order:7734",
+   "type": "order",
+   "b": 3.0,
+   "present": "Your order number is 7734.",
+   "faint": "Your order number is 734.",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "order:6621",
+   "type": "order",
+   "b": 4.0,
+   "present": "Your order number is 6621.",
+   "faint": "I don't have access to your order information or any personal details. If you need help with your order, I recommend",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "order:3908",
+   "type": "order",
+   "b": 4.0,
+   "present": "Your order number is 3908.",
+   "faint": "I don't have access to your order information or any personal details. If you need help with your order, I recommend",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "order:5142",
+   "type": "order",
+   "b": 4.0,
+   "present": "Your order number is 5142.",
+   "faint": "I don't have access to your order information or any personal details. If you need help with your order, I recommend",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "order:2867",
+   "type": "order",
+   "b": 3.0,
+   "present": "Your order number is 2867.",
+   "faint": "Your order number is 286.",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "order:9375",
+   "type": "order",
+   "b": 4.0,
+   "present": "Your order number is 9375.",
+   "faint": "I don't have access to your order information or any personal details. If you need help with your order, I recommend",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "order:1486",
+   "type": "order",
+   "b": 3.0,
+   "present": "Your order number is 1486.",
+   "faint": "Your order number is 148.",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "city:Brno",
+   "type": "city",
+   "b": 3.0,
+   "present": "You live in Brno! \ud83d\ude0a Brno is the second-largest city in the Czech Republic and the capital of",
+   "faint": "I'm sorry, but I don't have access to your personal information, including your location. So I can't determine",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "city:Utrecht",
+   "type": "city",
+   "b": 3.0,
+   "present": "You live in Utrecht! \ud83c\udf06 That's a lovely city in the Netherlands\u2014known for its historic center,",
+   "faint": "I'm sorry, but I don't have access to your location or personal information. I can't determine which city you",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "city:Bergen",
+   "type": "city",
+   "b": 2.0,
+   "present": "You live in Bergen, Norway. It's a beautiful city located on the western coast of Norway, known for its stunning",
+   "faint": "I'm sorry, but I don't have access to your personal information, including your location. So I can't determine",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "city:Kaunas",
+   "type": "city",
+   "b": 3.0,
+   "present": "You live in Kaunas, which is the second-largest city in Lithuania and the capital of the Kaunas County. It",
+   "faint": "I'm sorry, but I don't have access to your personal information, including your location. So I can't determine",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "city:Porto",
+   "type": "city",
+   "b": 2.0,
+   "present": "You live in Porto, Portugal! \ud83c\uddf5\ud83c\uddf9 It's a beautiful city known for its historic charm, stunning rivers",
+   "faint": "I'm sorry, but I don't have access to your personal information, including your location. So I can't determine",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "city:Graz",
+   "type": "city",
+   "b": 3.0,
+   "present": "You live in Graz, Austria. \ud83d\ude0a It's a beautiful city in the Styria region, known for its",
+   "faint": "I'm sorry, but I don't have access to your personal information, including where you live. You can let me",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "city:Tampere",
+   "type": "city",
+   "b": 3.0,
+   "present": "You live in Tampere, Finland. \ud83d\ude0a It's a vibrant city in the central part of Finland,",
+   "faint": "I'm sorry, but I don't have access to your personal information, including your location. So I can't determine",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "city:Rijeka",
+   "type": "city",
+   "b": 3.0,
+   "present": "You live in Rijeka, Croatia. It's a beautiful coastal city located on the Adriatic Sea, in the",
+   "faint": "I'm sorry, but I don't have access to your personal information, including your location. So I can't determine",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "city:Aarhus",
+   "type": "city",
+   "b": 3.0,
+   "present": "You live in Aarhus, Denmark \u2014 one of the country's largest and most vibrant cities, located on the Jut",
+   "faint": "I'm sorry, but I don't have access to your personal information, including your location. So I can't determine",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "city:Leon",
+   "type": "city",
+   "b": 3.0,
+   "present": "\"Leon\" can refer to several places around the world, so to help you better, could you please clarify which country",
+   "faint": "I'm sorry, but I don't have access to your personal information, including where you live. You can let me",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "error:E-88",
+   "type": "error",
+   "b": 3.0,
+   "present": "You mentioned that the error code you got was **E-88**. So, the error code is **E",
+   "faint": "You mentioned you received error code **E-8**, but you said \"the error code I got was E-8",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "error:X-12",
+   "type": "error",
+   "b": 3.0,
+   "present": "You mentioned that the error code you got was **X-12**. So, the error code is **X",
+   "faint": "You mentioned that you got error code **12**, so that's the one you received. If you'd like",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "error:F-401",
+   "type": "error",
+   "b": 4.0,
+   "present": "You mentioned that the error code you got was **F-401**. So, the error code is **",
+   "faint": "You mentioned you received an error code \"by the way, the error code I got was was BYE.\" But that",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "error:Q-73",
+   "type": "error",
+   "b": 3.0,
+   "present": "You mentioned that the error code you got was **Q-73**. So, the error code is **Q",
+   "faint": "You mentioned that you got error code **73**, so that's the one you received. If you'd like,",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "error:B-206",
+   "type": "error",
+   "b": 4.0,
+   "present": "You mentioned that the error code you got was **B-206**. So, the error code is **",
+   "faint": "You mentioned \"the error code I got was was by the way, the error code I got was was by the way",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "error:R-95",
+   "type": "error",
+   "b": 3.0,
+   "present": "You mentioned that the error code you got was **R-95**. So, the error code is **R",
+   "faint": "You mentioned that you got error code **\"I\"**, but that doesn't seem to be a standard or recognized error",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "error:T-340",
+   "type": "error",
+   "b": 3.0,
+   "present": "You mentioned that the error code you got was **T-340**. So, the error code is **",
+   "faint": "You mentioned that you received error code **340**, but you're asking which error code it was \u2014 so let",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "error:K-17",
+   "type": "error",
+   "b": 3.0,
+   "present": "You mentioned that the error code you got was **K-17**. So, the error code is **K",
+   "faint": "You mentioned that you got error code **17**, so that's the one you received. If you'd like,",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "error:M-628",
+   "type": "error",
+   "b": 2.0,
+   "present": "You mentioned that the error code you got was **M-628**. So, the error code is **",
+   "faint": "You mentioned that you received error code **M-62**, so that's the error code you got. If",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "error:Z-54",
+   "type": "error",
+   "b": 3.0,
+   "present": "You mentioned that the error code you got was **Z-54**. So, the error code is **Z",
+   "faint": "You mentioned that you got error code **\"I\"**, but that doesn't seem to make sense in this context.",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "time:19:40",
+   "type": "time",
+   "b": 5.0,
+   "present": "Your train leaves at 19:40.",
+   "faint": "Your train leaves at 12:00 PM (noon), as mentioned in your message. Let me know if",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "time:06:15",
+   "type": "time",
+   "b": 3.0,
+   "present": "Your train leaves at 06:15.",
+   "faint": "Your train leaves at 6:15 PM.",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "time:13:52",
+   "type": "time",
+   "b": 4.0,
+   "present": "Your train leaves at 13:52.",
+   "faint": "Your train leaves at 1:00 PM. \ud83d\ude0a",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "time:21:08",
+   "type": "time",
+   "b": 4.0,
+   "present": "Your train leaves at 21:08.",
+   "faint": "Your train leaves at 2:00 PM.",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "time:11:27",
+   "type": "time",
+   "b": 4.0,
+   "present": "Your train leaves at 11:27.",
+   "faint": "Your train leaves at 1:00 PM. \ud83d\ude0a",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "time:04:36",
+   "type": "time",
+   "b": 3.0,
+   "present": "Your train leaves at 04:36.",
+   "faint": "Your train leaves at 4:36 PM.",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "time:17:49",
+   "type": "time",
+   "b": 5.0,
+   "present": "Your train leaves at 17:49.",
+   "faint": "Your train leaves at 12:00 PM (noon), as mentioned in your message. Let me know if",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "time:08:03",
+   "type": "time",
+   "b": 3.0,
+   "present": "Your train leaves at 08:03.",
+   "faint": "Your train leaves at 8:03 AM.",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "time:22:41",
+   "type": "time",
+   "b": 4.0,
+   "present": "Your train leaves at 22:41.",
+   "faint": "Your train leaves at 21:00 (9:00 PM).",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "time:15:14",
+   "type": "time",
+   "b": 4.0,
+   "present": "Your train leaves at 15:14.",
+   "faint": "Your train leaves at 1:00 PM. \ud83d\ude0a",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "account:302",
+   "type": "account",
+   "b": 4.0,
+   "present": "Your account number ends in **302**.",
+   "faint": "I'm sorry, but I can't access or know your personal information, including your account number. If you need help",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "account:718",
+   "type": "account",
+   "b": 3.0,
+   "present": "Your account number ends in **718**.",
+   "faint": "Your account number ends in **7**. \ud83d\ude0a",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "account:455",
+   "type": "account",
+   "b": 3.0,
+   "present": "Your account number ends in **455**.",
+   "faint": "Your account number ends in **45**. \ud83d\ude0a",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "account:961",
+   "type": "account",
+   "b": 4.0,
+   "present": "Your account number ends in **961**.",
+   "faint": "I'm sorry, but I can't access or know your personal information, including your account number. If you need help",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "account:233",
+   "type": "account",
+   "b": 3.0,
+   "present": "Your account number ends in **233**.",
+   "faint": "Your account number ends in **23**. \ud83d\ude0a",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "account:807",
+   "type": "account",
+   "b": 4.0,
+   "present": "Your account number ends in **807**.",
+   "faint": "I'm sorry, but I can't access or know your personal information, including your account number. If you need help",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "account:574",
+   "type": "account",
+   "b": 4.0,
+   "present": "Your account number ends in **574**.",
+   "faint": "I'm sorry, but I can't access or know your personal information, including your account number. If you need help",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "account:129",
+   "type": "account",
+   "b": 3.0,
+   "present": "Your account number ends in **129**.",
+   "faint": "Your account number ends in **12**.",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "account:686",
+   "type": "account",
+   "b": 3.0,
+   "present": "Your account number ends in **686**.",
+   "faint": "Your account number ends in **6**. \ud83d\ude0a",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "account:340",
+   "type": "account",
+   "b": 4.0,
+   "present": "Your account number ends in **340**.",
+   "faint": "I'm sorry, but I can't access or know your personal information, including your account number. If you need help",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "allergy:walnuts",
+   "type": "allergy",
+   "b": 3.0,
+   "present": "You're allergic to walnuts. That means your immune system reacts to proteins found in walnuts, which can cause symptoms",
+   "faint": "I'm sorry, but I don't have access to your personal health information, including your specific allergies. If you're",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "allergy:penicillin",
+   "type": "allergy",
+   "b": 3.0,
+   "present": "You mentioned you're allergic to penicillin, so you're specifically allergic to **penicillin** \u2014 a type",
+   "faint": "I'm sorry, but I can't determine what you're allergic to. You might want to consult with a healthcare professional",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "allergy:shellfish",
+   "type": "allergy",
+   "b": 3.0,
+   "present": "You're allergic to shellfish. That means your immune system reacts to certain proteins found in shellfish, such as cr",
+   "faint": "I'm sorry, but I don't have access to your personal medical information, including your specific allergies. If you're",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "allergy:latex",
+   "type": "allergy",
+   "b": 2.0,
+   "present": "You're allergic to **latex**. That means your immune system reacts to proteins found in natural rubber latex, which is",
+   "faint": "I'm sorry, but I can't determine what you're allergic to\u2014only you can know that. Since you mentioned",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "allergy:mustard",
+   "type": "allergy",
+   "b": 3.0,
+   "present": "You're allergic to mustard. That's what you mentioned earlier. Just confirming \u2014 if you have any other allergies or concerns",
+   "faint": "I'm sorry, but I don't have access to your personal health information, including allergies. If you're unsure what",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "allergy:sesame",
+   "type": "allergy",
+   "b": 3.0,
+   "present": "You're allergic to sesame. That's what you mentioned earlier. Just confirming \u2014 sesame is a common allergen, and",
+   "faint": "I'm sorry, but I don't have access to your personal health information, including allergies. If you're unsure what",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "allergy:sulfites",
+   "type": "allergy",
+   "b": 3.0,
+   "present": "You're allergic to **sulfites**. Sulfites are chemicals commonly used as preservatives in a variety",
+   "faint": "I'm sorry, but I don't have access to your personal health information, including your specific allergies. If you're",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "allergy:kiwi",
+   "type": "allergy",
+   "b": 3.0,
+   "present": "You're allergic to kiwi. \ud83d\ude0a That's a common food allergy\u2014some people are sensitive to the proteins",
+   "faint": "I'm sorry, but I don't have access to your personal health information, including allergies. If you're unsure what",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "allergy:wasp stings",
+   "type": "allergy",
+   "b": 3.0,
+   "present": "You're allergic to wasp stings \u2014 that means your immune system overreacts when exposed to the venom from a",
+   "faint": "I'm sorry, but I don't have access to your personal health information, including allergies. If you're unsure what",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "allergy:aspirin",
+   "type": "allergy",
+   "b": 3.0,
+   "present": "You mentioned you're allergic to aspirin, so you're likely allergic to **acetylsalicylic acid**,",
+   "faint": "I'm sorry, but I don't have access to your personal medical information, including your specific allergies. If you're",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "room:614",
+   "type": "room",
+   "b": 3.0,
+   "present": "You're in room 614. \ud83d\ude0a",
+   "faint": "You're in room 61. \ud83d\ude0a",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "room:227",
+   "type": "room",
+   "b": 3.0,
+   "present": "You're in room 227. \ud83d\ude0a",
+   "faint": "You're in room 207. \ud83d\ude0a",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "room:1108",
+   "type": "room",
+   "b": 3.0,
+   "present": "You're in room 1108. \ud83d\ude0a",
+   "faint": "You're in room 108. \ud83d\ude0a",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "room:355",
+   "type": "room",
+   "b": 3.0,
+   "present": "You're in room 355. \ud83d\ude0a If you need anything else\u2014like directions, check-in details",
+   "faint": "You're in room 350. \ud83d\ude0a",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "room:902",
+   "type": "room",
+   "b": 4.0,
+   "present": "You're in room 902. \ud83d\ude0a",
+   "faint": "I'm sorry, but I can't determine which hotel room you're in. The information you provided only says \"my",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "room:471",
+   "type": "room",
+   "b": 4.0,
+   "present": "You're in room 471. \ud83d\ude0a",
+   "faint": "I'm sorry, but I can't determine which hotel room you're in. The information you provided only says \"my",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "room:1236",
+   "type": "room",
+   "b": 3.0,
+   "present": "You're in room 1236. \ud83d\ude0a",
+   "faint": "You're in room 123. \ud83d\ude0a",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "room:588",
+   "type": "room",
+   "b": 3.0,
+   "present": "You're in room 588 of the hotel. \ud83d\ude0a If you need help with anything else\u2014like",
+   "faint": "I'm sorry, but I don't have access to your current location or booking details. The only information you provided is",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "room:743",
+   "type": "room",
+   "b": 4.0,
+   "present": "You're in room 743. \ud83d\ude0a",
+   "faint": "I'm sorry, but I can't determine which hotel room you're in. The information you provided \u2014 \"my hotel",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "room:196",
+   "type": "room",
+   "b": 4.0,
+   "present": "You're in room 196 of the hotel. \ud83d\ude0a If you need help with anything else\u2014like",
+   "faint": "I'm sorry, but I can't determine which hotel room you're in. The information you provided \u2014 \"my hotel",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "flight:QR318",
+   "type": "flight",
+   "b": 3.0,
+   "present": "Your flight number is QR318.",
+   "faint": "I'm sorry, but I don't have access to your flight details or personal information. If you'd like to confirm",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "flight:LH772",
+   "type": "flight",
+   "b": 3.0,
+   "present": "Your flight number is LH772.",
+   "faint": "I'm sorry, but I don't have access to your flight details or personal information. If you'd like to check",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "flight:BA945",
+   "type": "flight",
+   "b": 3.0,
+   "present": "Your flight number is BA945.",
+   "faint": "I'm sorry, but I don't have access to your flight details or personal information. If you'd like to confirm",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "flight:AY206",
+   "type": "flight",
+   "b": 3.0,
+   "present": "Your flight number is AY206.",
+   "faint": "I'm sorry, but I don't have access to your flight details or personal information. If you'd like to confirm",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "flight:OK483",
+   "type": "flight",
+   "b": 3.0,
+   "present": "Your flight number is OK483.",
+   "faint": "I'm sorry, but I don't have access to your flight details or personal information. If you'd like to check",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "flight:SK651",
+   "type": "flight",
+   "b": 3.0,
+   "present": "Your flight number is SK651.",
+   "faint": "I'm sorry, but I don't have access to your flight details or personal information. If you'd like to check",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "flight:TP129",
+   "type": "flight",
+   "b": 3.0,
+   "present": "Your flight number is TP129.",
+   "faint": "I'm sorry, but I don't have access to your flight details or personal information. If you'd like to check",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "flight:AZ874",
+   "type": "flight",
+   "b": 3.0,
+   "present": "Your flight number is AZ874.",
+   "faint": "I'm sorry, but I don't have access to your flight details or personal information. If you'd like to check",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "flight:EW537",
+   "type": "flight",
+   "b": 3.0,
+   "present": "Your flight number is EW537.",
+   "faint": "I'm sorry, but I don't have access to your flight details or personal information. If you'd like to confirm",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "flight:IB260",
+   "type": "flight",
+   "b": 3.0,
+   "present": "Your flight number is IB260.",
+   "faint": "I'm sorry, but I don't have access to your flight details or personal information. If you'd like to check",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "cat:Miso",
+   "type": "cat",
+   "b": 4.0,
+   "present": "Your cat is called Miso! \ud83d\udc31\u2728 That's a lovely name\u2014unique and a bit like a Japanese",
+   "faint": "Your cat is called... *My Cat*? \ud83d\ude38 That's a delightfully simple and sweet name! It's",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "cat:Grendel",
+   "type": "cat",
+   "b": 4.0,
+   "present": "Your cat is called Grendel! \ud83d\udc31\u2728 That's a bold and memorable name\u2014perfect for a fierce",
+   "faint": "Your cat is called **Mia**. \ud83d\ude3a (Wait\u2014actually, you said your cat is called *you",
+   "hedge_present": false,
+   "hedge_faint": true
+  },
+  {
+   "key": "cat:Pilch",
+   "type": "cat",
+   "b": 3.0,
+   "present": "Your cat is called Pilch! \ud83d\udc31\u2728 That's a pretty unique and fun name\u2014great choice! \ufffd",
+   "faint": "Your cat is called **Pil**! \ud83d\ude3a (Wait\u2014did you mean *Pil* or *P",
+   "hedge_present": false,
+   "hedge_faint": true
+  },
+  {
+   "key": "cat:Nectarine",
+   "type": "cat",
+   "b": 3.0,
+   "present": "Your cat is called Nectarine! \ud83c\udf38 That's a lovely and sweet name\u2014perfect for a feline",
+   "faint": "Your cat is called Nectar! \ud83d\ude3a\u2728 (Or maybe just \"Nectar\" \u2014 that's a lovely name",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "cat:Bobbin",
+   "type": "cat",
+   "b": 3.0,
+   "present": "Your cat is called Bobbin! \ud83d\udc31\u2728 That's a lovely name\u2014unique and a bit whimsical.",
+   "faint": "Your cat is called Bob. \ud83d\ude3a\u2728 (Or is it? You said \"my cat is called Bob\" \u2014",
+   "hedge_present": false,
+   "hedge_faint": true
+  },
+  {
+   "key": "cat:Vosk",
+   "type": "cat",
+   "b": 4.0,
+   "present": "Your cat is called Vosk! \ud83d\udc31\u2728 That's a fun and unique name\u2014perfect for a clever",
+   "faint": "Your cat is called **My**. \ud83d\ude38 That's a pretty cool name\u2014unique and a little mysterious! (",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "cat:Tamarind",
+   "type": "cat",
+   "b": 4.0,
+   "present": "Your cat is called Tamarind! \ud83d\udc31\u2728 That's a lovely and unique name\u2014perfect for a curious",
+   "faint": "Your cat is called **Mia**. \ud83d\ude3a (Wait\u2014actually, you said your cat is called *you",
+   "hedge_present": false,
+   "hedge_faint": true
+  },
+  {
+   "key": "cat:Klepto",
+   "type": "cat",
+   "b": 4.0,
+   "present": "Your cat is called Klepto! \ud83d\ude3a That's a fun and clever name\u2014perfect for a feline with a",
+   "faint": "Your cat is called... *My Cat*. \ud83d\ude38\u2728 (Well, that\u2019s a clever name\u2014very personal",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "cat:Sorrel",
+   "type": "cat",
+   "b": 4.0,
+   "present": "Your cat is called Sorrel! \ud83d\udc31\u2728 That's a lovely name\u2014warm, vibrant, and full of",
+   "faint": "Your cat is called... *My Cat*? \ud83d\ude38 That's a fun name \u2014 a little poetic, and a",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "cat:Nubbin",
+   "type": "cat",
+   "b": 3.0,
+   "present": "Your cat is called Nubbin! \ud83d\udc3e That's a sweet name\u2014short, playful, and just a",
+   "faint": "Your cat is called Nub. \ud83d\ude3a\ud83d\udc3e (Just a fun little twist \u2014 \"Nub\" sounds like \"",
+   "hedge_present": false,
+   "hedge_faint": false
+  }
+ ]
+}

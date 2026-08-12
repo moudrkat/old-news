@@ -1,0 +1,333 @@
+{
+ "model": "Qwen/Qwen3-4B-Instruct-2507",
+ "n_kept": 100,
+ "n_types": 10,
+ "dropped_wrong": 0,
+ "dropped_nofaint": 0,
+ "faint_b": {
+  "dog:Bagr": 2.0,
+  "dog:Fizzle": 4.0,
+  "dog:Kudla": 4.0,
+  "dog:Wobbet": 3.0,
+  "dog:Trixel": 3.0,
+  "dog:Marnok": 3.0,
+  "dog:Bristle": 4.0,
+  "dog:Yorrick": 3.0,
+  "dog:Plunk": 4.0,
+  "dog:Skarn": 3.0,
+  "order:4417": 3.0,
+  "order:8290": 4.0,
+  "order:1053": 3.0,
+  "order:7734": 3.0,
+  "order:6621": 4.0,
+  "order:3908": 4.0,
+  "order:5142": 4.0,
+  "order:2867": 3.0,
+  "order:9375": 4.0,
+  "order:1486": 3.0,
+  "city:Brno": 3.0,
+  "city:Utrecht": 3.0,
+  "city:Bergen": 2.0,
+  "city:Kaunas": 3.0,
+  "city:Porto": 2.0,
+  "city:Graz": 3.0,
+  "city:Tampere": 3.0,
+  "city:Rijeka": 3.0,
+  "city:Aarhus": 3.0,
+  "city:Leon": 3.0,
+  "error:E-88": 3.0,
+  "error:X-12": 3.0,
+  "error:F-401": 4.0,
+  "error:Q-73": 3.0,
+  "error:B-206": 4.0,
+  "error:R-95": 3.0,
+  "error:T-340": 3.0,
+  "error:K-17": 3.0,
+  "error:M-628": 2.0,
+  "error:Z-54": 3.0,
+  "time:19:40": 5.0,
+  "time:06:15": 3.0,
+  "time:13:52": 4.0,
+  "time:21:08": 4.0,
+  "time:11:27": 4.0,
+  "time:04:36": 3.0,
+  "time:17:49": 5.0,
+  "time:08:03": 3.0,
+  "time:22:41": 4.0,
+  "time:15:14": 4.0,
+  "account:302": 4.0,
+  "account:718": 3.0,
+  "account:455": 3.0,
+  "account:961": 4.0,
+  "account:233": 3.0,
+  "account:807": 4.0,
+  "account:574": 4.0,
+  "account:129": 3.0,
+  "account:686": 3.0,
+  "account:340": 4.0,
+  "allergy:walnuts": 3.0,
+  "allergy:penicillin": 3.0,
+  "allergy:shellfish": 3.0,
+  "allergy:latex": 2.0,
+  "allergy:mustard": 3.0,
+  "allergy:sesame": 3.0,
+  "allergy:sulfites": 3.0,
+  "allergy:kiwi": 3.0,
+  "allergy:wasp stings": 3.0,
+  "allergy:aspirin": 3.0,
+  "room:614": 3.0,
+  "room:227": 3.0,
+  "room:1108": 3.0,
+  "room:355": 3.0,
+  "room:902": 4.0,
+  "room:471": 4.0,
+  "room:1236": 3.0,
+  "room:588": 3.0,
+  "room:743": 4.0,
+  "room:196": 4.0,
+  "flight:QR318": 3.0,
+  "flight:LH772": 3.0,
+  "flight:BA945": 3.0,
+  "flight:AY206": 3.0,
+  "flight:OK483": 3.0,
+  "flight:SK651": 3.0,
+  "flight:TP129": 3.0,
+  "flight:AZ874": 3.0,
+  "flight:EW537": 3.0,
+  "flight:IB260": 3.0,
+  "cat:Miso": 4.0,
+  "cat:Grendel": 4.0,
+  "cat:Pilch": 3.0,
+  "cat:Nectarine": 3.0,
+  "cat:Bobbin": 3.0,
+  "cat:Vosk": 4.0,
+  "cat:Tamarind": 4.0,
+  "cat:Klepto": 4.0,
+  "cat:Sorrel": 4.0,
+  "cat:Nubbin": 3.0
+ },
+ "layers": [
+  {
+   "layer": 0,
+   "auc": 1.0,
+   "auc_shuffled": 1.0,
+   "faint_as_present": 0.0
+  },
+  {
+   "layer": 1,
+   "auc": 0.020000000298023225,
+   "auc_shuffled": 0.47000000160187483,
+   "faint_as_present": 0.05
+  },
+  {
+   "layer": 2,
+   "auc": 0.04799999874085188,
+   "auc_shuffled": 0.44999999850988387,
+   "faint_as_present": 0.22
+  },
+  {
+   "layer": 3,
+   "auc": 0.9,
+   "auc_shuffled": 0.6290000021457672,
+   "faint_as_present": 0.82
+  },
+  {
+   "layer": 4,
+   "auc": 0.9980000019073486,
+   "auc_shuffled": 0.7029999986290931,
+   "faint_as_present": 0.87
+  },
+  {
+   "layer": 5,
+   "auc": 1.0,
+   "auc_shuffled": 0.46199999917298556,
+   "faint_as_present": 1.0
+  },
+  {
+   "layer": 6,
+   "auc": 1.0,
+   "auc_shuffled": 0.7059999998658896,
+   "faint_as_present": 1.0
+  },
+  {
+   "layer": 7,
+   "auc": 1.0,
+   "auc_shuffled": 0.4950000002980232,
+   "faint_as_present": 1.0
+  },
+  {
+   "layer": 8,
+   "auc": 1.0,
+   "auc_shuffled": 0.4170000046491623,
+   "faint_as_present": 1.0
+  },
+  {
+   "layer": 9,
+   "auc": 1.0,
+   "auc_shuffled": 0.3,
+   "faint_as_present": 0.98
+  },
+  {
+   "layer": 10,
+   "auc": 1.0,
+   "auc_shuffled": 0.40700000114738943,
+   "faint_as_present": 0.84
+  },
+  {
+   "layer": 11,
+   "auc": 1.0,
+   "auc_shuffled": 0.5090000003576278,
+   "faint_as_present": 1.0
+  },
+  {
+   "layer": 12,
+   "auc": 1.0,
+   "auc_shuffled": 0.6100000001490116,
+   "faint_as_present": 1.0
+  },
+  {
+   "layer": 13,
+   "auc": 1.0,
+   "auc_shuffled": 0.4580000042915344,
+   "faint_as_present": 0.9
+  },
+  {
+   "layer": 14,
+   "auc": 1.0,
+   "auc_shuffled": 0.49700000286102297,
+   "faint_as_present": 0.9
+  },
+  {
+   "layer": 15,
+   "auc": 1.0,
+   "auc_shuffled": 0.6229999989271164,
+   "faint_as_present": 1.0
+  },
+  {
+   "layer": 16,
+   "auc": 1.0,
+   "auc_shuffled": 0.44099999964237213,
+   "faint_as_present": 1.0
+  },
+  {
+   "layer": 17,
+   "auc": 1.0,
+   "auc_shuffled": 0.4,
+   "faint_as_present": 0.81
+  },
+  {
+   "layer": 18,
+   "auc": 1.0,
+   "auc_shuffled": 0.3990000009536743,
+   "faint_as_present": 0.76
+  },
+  {
+   "layer": 19,
+   "auc": 1.0,
+   "auc_shuffled": 0.3,
+   "faint_as_present": 0.68
+  },
+  {
+   "layer": 20,
+   "auc": 1.0,
+   "auc_shuffled": 0.3019999999552965,
+   "faint_as_present": 0.64
+  },
+  {
+   "layer": 21,
+   "auc": 1.0,
+   "auc_shuffled": 0.1,
+   "faint_as_present": 0.6
+  },
+  {
+   "layer": 22,
+   "auc": 1.0,
+   "auc_shuffled": 0.3079999998211861,
+   "faint_as_present": 0.53
+  },
+  {
+   "layer": 23,
+   "auc": 1.0,
+   "auc_shuffled": 0.3110000003129244,
+   "faint_as_present": 0.56
+  },
+  {
+   "layer": 24,
+   "auc": 1.0,
+   "auc_shuffled": 0.7,
+   "faint_as_present": 0.54
+  },
+  {
+   "layer": 25,
+   "auc": 1.0,
+   "auc_shuffled": 0.8,
+   "faint_as_present": 0.54
+  },
+  {
+   "layer": 26,
+   "auc": 1.0,
+   "auc_shuffled": 0.7,
+   "faint_as_present": 0.54
+  },
+  {
+   "layer": 27,
+   "auc": 1.0,
+   "auc_shuffled": 0.2,
+   "faint_as_present": 0.54
+  },
+  {
+   "layer": 28,
+   "auc": 1.0,
+   "auc_shuffled": 0.5,
+   "faint_as_present": 0.53
+  },
+  {
+   "layer": 29,
+   "auc": 1.0,
+   "auc_shuffled": 0.30900000035762787,
+   "faint_as_present": 0.53
+  },
+  {
+   "layer": 30,
+   "auc": 1.0,
+   "auc_shuffled": 0.4,
+   "faint_as_present": 0.52
+  },
+  {
+   "layer": 31,
+   "auc": 1.0,
+   "auc_shuffled": 0.6,
+   "faint_as_present": 0.51
+  },
+  {
+   "layer": 32,
+   "auc": 1.0,
+   "auc_shuffled": 0.5509999990463257,
+   "faint_as_present": 0.53
+  },
+  {
+   "layer": 33,
+   "auc": 1.0,
+   "auc_shuffled": 0.7,
+   "faint_as_present": 0.54
+  },
+  {
+   "layer": 34,
+   "auc": 1.0,
+   "auc_shuffled": 0.2,
+   "faint_as_present": 0.54
+  },
+  {
+   "layer": 35,
+   "auc": 1.0,
+   "auc_shuffled": 0.3,
+   "faint_as_present": 0.56
+  },
+  {
+   "layer": 36,
+   "auc": 1.0,
+   "auc_shuffled": 0.6,
+   "faint_as_present": 0.49
+  }
+ ]
+}

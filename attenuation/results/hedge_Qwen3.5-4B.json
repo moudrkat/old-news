@@ -1,0 +1,824 @@
+{
+ "model": "Qwen/Qwen3.5-4B",
+ "markers": [
+  "wait",
+  "hold on",
+  "hmm",
+  "or is it",
+  "did you mean",
+  "typo",
+  "misread",
+  "i apolog",
+  "apologize for the confusion",
+  "i'm not sure",
+  "i am not sure",
+  "i notice",
+  "that doesn't sound",
+  "that does not sound",
+  "confusion"
+ ],
+ "n": 89,
+ "rows": [
+  {
+   "key": "dog:Bagr",
+   "type": "dog",
+   "b": 6.0,
+   "present": "Your dog is called **Bagr**.",
+   "faint": "Your dog is called **Bag**.",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "dog:Fizzle",
+   "type": "dog",
+   "b": 8.0,
+   "present": "Your dog is called **Fizzle**.",
+   "faint": "Your dog is called **Fido**. *(Note: I made a playful joke there! Your dog's actual name",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "dog:Kudla",
+   "type": "dog",
+   "b": 6.0,
+   "present": "Your dog is called **Kudla**.",
+   "faint": "Your dog is called **Kud**.",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "dog:Wobbet",
+   "type": "dog",
+   "b": 5.0,
+   "present": "Your dog is called **Wobbet**.",
+   "faint": "Your dog is called **Wobbly**.",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "dog:Trixel",
+   "type": "dog",
+   "b": 5.0,
+   "present": "Your dog is called **Trixel**.",
+   "faint": "Your dog is called **Trixie**.",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "dog:Marnok",
+   "type": "dog",
+   "b": 8.0,
+   "present": "Your dog is called **Marnok**.",
+   "faint": "Your dog is called **Barnaby**.",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "dog:Bristle",
+   "type": "dog",
+   "b": 6.0,
+   "present": "Your dog is called **Bristle**.",
+   "faint": "Your dog is called **Brist**.",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "dog:Yorrick",
+   "type": "dog",
+   "b": 3.0,
+   "present": "Your dog is called **Yorrick**.",
+   "faint": "Your dog is called **Yorick**.",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "dog:Plunk",
+   "type": "dog",
+   "b": 6.0,
+   "present": "Your dog is called **Plunk**.",
+   "faint": "Your dog is called **Pup**.",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "dog:Skarn",
+   "type": "dog",
+   "b": 8.0,
+   "present": "Your dog is called **Skarn**.",
+   "faint": "Your dog is called **Dog**. (Just to clarify: in my previous response, I said \"Noted\"",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "order:4417",
+   "type": "order",
+   "b": 6.0,
+   "present": "Your order number is **4417**.",
+   "faint": "Your order number is **1000000000000000000",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "order:8290",
+   "type": "order",
+   "b": 8.0,
+   "present": "Your order number is **8290**.",
+   "faint": "Your order number is **1000000000000000000",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "order:1053",
+   "type": "order",
+   "b": 8.0,
+   "present": "Your order number is **1053**.",
+   "faint": "Your order number is **105**.",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "order:7734",
+   "type": "order",
+   "b": 8.0,
+   "present": "Your order number is **7734**.",
+   "faint": "Your order number is **12345**.",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "order:6621",
+   "type": "order",
+   "b": 8.0,
+   "present": "Your order number is **6621**.",
+   "faint": "Your order number is **12345**.",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "order:3908",
+   "type": "order",
+   "b": 8.0,
+   "present": "Your order number is **3908**.",
+   "faint": "Your order number is **1234567890**.",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "order:5142",
+   "type": "order",
+   "b": 8.0,
+   "present": "Your order number is **5142**.",
+   "faint": "Your order number is **1234567890**.",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "order:2867",
+   "type": "order",
+   "b": 8.0,
+   "present": "Your order number is **2867**.",
+   "faint": "Your order number is **12345**.",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "order:9375",
+   "type": "order",
+   "b": 6.0,
+   "present": "Your order number is **9375**.",
+   "faint": "Your order number is **5043**.",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "order:1486",
+   "type": "order",
+   "b": 5.0,
+   "present": "Your order number is **1486**.",
+   "faint": "Your order number is **148**.",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "city:Utrecht",
+   "type": "city",
+   "b": 8.0,
+   "present": "You live in **Utrecht**, a city in the Netherlands. It is known for its canals, the famous Dom",
+   "faint": "You live in **Amsterdam**, the capital city of the Netherlands. It is known for its canals, historic",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "city:Graz",
+   "type": "city",
+   "b": 14.0,
+   "present": "You live in **Graz**, Austria. It is the second-largest city in Austria and the capital of the state of",
+   "faint": "You live in **Linz**, Austria. It is the capital of the state of Upper Austria and the second-largest",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "city:Rijeka",
+   "type": "city",
+   "b": 8.0,
+   "present": "You live in **Rijeka**. It is a major city in northern Croatia, located on the Kvarner",
+   "faint": "You live in **Ljubljana**, the capital and largest city of Slovenia. It is known for its beautiful",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "city:Leon",
+   "type": "city",
+   "b": 4.0,
+   "present": "You live in **Leon**, which is a city in the state of **Guanajuato**, Mexico. It is",
+   "faint": "You live in **Le\u00f3n**, a city in the state of Guanajuato, Mexico. It is known for its",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "error:E-88",
+   "type": "error",
+   "b": 6.0,
+   "present": "You received error code **E-88**. Depending on the system or software you are using, this code can",
+   "faint": "You got error code **E8** (or **E800** depending on the system). In the",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "error:X-12",
+   "type": "error",
+   "b": 6.0,
+   "present": "You got error code **X-12**.",
+   "faint": "You got error code **100**.",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "error:F-401",
+   "type": "error",
+   "b": 6.0,
+   "present": "You received error code **F-401**. In the context of the game *Factorio*, this error",
+   "faint": "You got error code **404**. This typically means \"Not Found,\" indicating that the server cannot find the",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "error:Q-73",
+   "type": "error",
+   "b": 4.0,
+   "present": "You received error code **Q-73**.",
+   "faint": "You received error code **Q-7**.",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "error:B-206",
+   "type": "error",
+   "b": 6.0,
+   "present": "You received error code **B-206**. Depending on the system or context (such as a specific software",
+   "faint": "You received error code **404**. This typically means \"Not Found,\" indicating that the server cannot find the",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "error:R-95",
+   "type": "error",
+   "b": 6.0,
+   "present": "You received error code **R-95**.",
+   "faint": "You got error code **R-9**. *(Note: In the context of the \"Error Code\" meme,",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "error:T-340",
+   "type": "error",
+   "b": 6.0,
+   "present": "You received error code **T-340**.",
+   "faint": "You received error code **404**. This typically means \"Not Found,\" indicating that the server cannot find the",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "error:K-17",
+   "type": "error",
+   "b": 6.0,
+   "present": "You received error code **K-17**.",
+   "faint": "You got error code **404**. This typically means \"Not Found,\" indicating that the server cannot find the",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "error:M-628",
+   "type": "error",
+   "b": 6.0,
+   "present": "You received error code **M-628**. This code typically appears in the context of **Microsoft Access**",
+   "faint": "You got error code **62** (often referred to as \"62\" in contexts like Windows Event Viewer or",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "error:Z-54",
+   "type": "error",
+   "b": 4.0,
+   "present": "You received error code **Z-54**.",
+   "faint": "You got error code **Z-5**. *(Note: In your previous message, you wrote \"Z-5",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "time:19:40",
+   "type": "time",
+   "b": 6.0,
+   "present": "Your train leaves at **19:40**.",
+   "faint": "Your train leaves at **19:45** (7:45 PM). *Note: I previously",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "time:06:15",
+   "type": "time",
+   "b": 4.0,
+   "present": "Your train leaves at **06:15**.",
+   "faint": "Your train leaves at **6:15**.",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "time:13:52",
+   "type": "time",
+   "b": 6.0,
+   "present": "Your train leaves at **13:52**.",
+   "faint": "Your train leaves at **14:55** (2:55 PM). *Note: I am",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "time:21:08",
+   "type": "time",
+   "b": 6.0,
+   "present": "Your train leaves at **21:08**.",
+   "faint": "Your train leaves at **21:00** (9:00 PM).",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "time:11:27",
+   "type": "time",
+   "b": 8.0,
+   "present": "Your train leaves at **11:27**.",
+   "faint": "Your train leaves at **3:00 PM** (or 15:00).",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "time:04:36",
+   "type": "time",
+   "b": 4.0,
+   "present": "Your train leaves at **04:36**.",
+   "faint": "Your train leaves at **4:36**.",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "time:17:49",
+   "type": "time",
+   "b": 5.0,
+   "present": "Your train leaves at **17:49**.",
+   "faint": "Your train leaves at **17:45** (5:45 PM).",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "time:08:03",
+   "type": "time",
+   "b": 4.0,
+   "present": "Your train leaves at **08:03**.",
+   "faint": "Your train leaves at **8:03**.",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "time:22:41",
+   "type": "time",
+   "b": 5.0,
+   "present": "Your train leaves at **22:41**.",
+   "faint": "Your train leaves at **22:45** (10:45 PM). *Note: I",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "time:15:14",
+   "type": "time",
+   "b": 6.0,
+   "present": "Your train leaves at **15:14**.",
+   "faint": "Your train leaves at **15:15** (3:15 PM).",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "account:302",
+   "type": "account",
+   "b": 6.0,
+   "present": "Your account number ends in **302**.",
+   "faint": "Your account number ends in **2**.",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "account:718",
+   "type": "account",
+   "b": 8.0,
+   "present": "Your account number ends in **718**.",
+   "faint": "Your account number ends in **3**.",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "account:455",
+   "type": "account",
+   "b": 6.0,
+   "present": "Your account number ends in **455**.",
+   "faint": "Your account number ends in **5**.",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "account:961",
+   "type": "account",
+   "b": 6.0,
+   "present": "Your account number ends in **961**.",
+   "faint": "Your account number ends in **1**.",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "account:233",
+   "type": "account",
+   "b": 5.0,
+   "present": "Your account number ends in **233**.",
+   "faint": "Your account number ends in **23**.",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "account:807",
+   "type": "account",
+   "b": 6.0,
+   "present": "Your account number ends in **807**.",
+   "faint": "Your account number ends in **7**.",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "account:574",
+   "type": "account",
+   "b": 6.0,
+   "present": "Your account number ends in **574**.",
+   "faint": "Your account number ends in **57**.",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "account:129",
+   "type": "account",
+   "b": 8.0,
+   "present": "Your account number ends in **129**.",
+   "faint": "Your account number ends in **3**.",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "account:686",
+   "type": "account",
+   "b": 6.0,
+   "present": "Your account number ends in **686**.",
+   "faint": "Your account number ends in **68**.",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "account:340",
+   "type": "account",
+   "b": 5.0,
+   "present": "Your account number ends in **340**.",
+   "faint": "Your account number ends in **34**.",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "allergy:walnuts",
+   "type": "allergy",
+   "b": 8.0,
+   "present": "Based on your previous message, you are allergic to **walnuts**. If you have any other allergies or dietary restrictions",
+   "faint": "You are allergic to **peanuts**. Peanuts are botanically legumes (often called groundnuts),",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "allergy:mustard",
+   "type": "allergy",
+   "b": 10.0,
+   "present": "Based on your previous message, you are allergic to **mustard**. If you have any other allergies or dietary restrictions",
+   "faint": "You are allergic to **peanuts** (and often other legumes like soy, depending on your specific medical history).",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "allergy:sesame",
+   "type": "allergy",
+   "b": 6.0,
+   "present": "You are allergic to **sesame**. As mentioned in your previous message, you have an allergy to sesame seeds and",
+   "faint": "You are allergic to **peanuts** (and often tree nuts, as they are botanically distinct but frequently cross",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "allergy:kiwi",
+   "type": "allergy",
+   "b": 8.0,
+   "present": "Based on your previous message, you are allergic to **kiwi**. If you have any other allergies or need help",
+   "faint": "You are allergic to **peanuts** (or tree nuts, depending on how you classify them, but peanuts are bot",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "allergy:wasp stings",
+   "type": "allergy",
+   "b": 5.0,
+   "present": "Based on your previous message, you are allergic to **wasp stings**. This is a specific type of **",
+   "faint": "You are allergic to **stinging insects**, specifically: * **Honeybees** * **",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "allergy:aspirin",
+   "type": "allergy",
+   "b": 8.0,
+   "present": "Based on your previous message, you are allergic to **aspirin**. This condition is often referred to as **",
+   "faint": "You are allergic to **penicillin** (a type of antibiotic). This is a common and important detail to",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "room:614",
+   "type": "room",
+   "b": 6.0,
+   "present": "You are in **room 614**.",
+   "faint": "You are in **room 604**. Since hotel room numbers are typically written with the floor number first,",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "room:227",
+   "type": "room",
+   "b": 8.0,
+   "present": "You are in **room 227**.",
+   "faint": "You are in **room 207**. I apologize for the confusion earlier! I misread \"20",
+   "hedge_present": false,
+   "hedge_faint": true
+  },
+  {
+   "key": "room:1108",
+   "type": "room",
+   "b": 4.0,
+   "present": "You are in room **1108**.",
+   "faint": "You are in **room 110**. Since hotel room numbers are typically written with the floor number first,",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "room:355",
+   "type": "room",
+   "b": 6.0,
+   "present": "You are in **room 355**.",
+   "faint": "You are in **room 305**. Since hotel room numbers are typically sequential, room 305",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "room:902",
+   "type": "room",
+   "b": 8.0,
+   "present": "You are in **room 902**. (And to add a little flavor: In the famous *The",
+   "faint": "You are in **room 302**. Here is the breakdown: * The number **3**",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "room:471",
+   "type": "room",
+   "b": 10.0,
+   "present": "You are in **room 471**.",
+   "faint": "You are in **room 403**. I apologize for the confusion earlier! I misread \"40",
+   "hedge_present": false,
+   "hedge_faint": true
+  },
+  {
+   "key": "room:1236",
+   "type": "room",
+   "b": 5.0,
+   "present": "You are in room **1236**.",
+   "faint": "You are in **room 123**. I noticed you mentioned \"123\" in your first message",
+   "hedge_present": false,
+   "hedge_faint": true
+  },
+  {
+   "key": "room:588",
+   "type": "room",
+   "b": 5.0,
+   "present": "You are in **room 588**.",
+   "faint": "You are in **room 58**. Since hotel room numbers are typically three digits, the \"58\"",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "room:743",
+   "type": "room",
+   "b": 6.0,
+   "present": "You are in **room 743**.",
+   "faint": "You are in **room 73** (or room 703, depending on how the number is read",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "flight:QR318",
+   "type": "flight",
+   "b": 6.0,
+   "present": "Your flight number is **QR318**.",
+   "faint": "Your flight number is **QR31** (or possibly **QR31** depending on the airline's internal coding",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "flight:LH772",
+   "type": "flight",
+   "b": 6.0,
+   "present": "Your flight number is **LH772**.",
+   "faint": "Your flight number is **LH400**.",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "flight:BA945",
+   "type": "flight",
+   "b": 6.0,
+   "present": "Your flight number is **BA945**.",
+   "faint": "Your flight number is **BA118** (or **BA119** depending on the direction).",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "flight:AY206",
+   "type": "flight",
+   "b": 8.0,
+   "present": "Your flight number is **AY206**.",
+   "faint": "Your flight number is **AY500**.",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "flight:OK483",
+   "type": "flight",
+   "b": 5.0,
+   "present": "Your flight number is **OK483**.",
+   "faint": "Your flight number is **405**.",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "flight:SK651",
+   "type": "flight",
+   "b": 6.0,
+   "present": "Your flight number is **SK651**.",
+   "faint": "Your flight number is **SK555**.",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "flight:TP129",
+   "type": "flight",
+   "b": 6.0,
+   "present": "Your flight number is **TP129**.",
+   "faint": "Your flight number is **123**.",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "flight:AZ874",
+   "type": "flight",
+   "b": 5.0,
+   "present": "Your flight number is **AZ874**.",
+   "faint": "Your flight number is **AZ87** (or **AZ87** depending on the airline's specific numbering format",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "flight:EW537",
+   "type": "flight",
+   "b": 5.0,
+   "present": "Your flight number is **EW537**.",
+   "faint": "Your flight number is **EW53** (or **EW53** depending on the airline's specific formatting,",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "flight:IB260",
+   "type": "flight",
+   "b": 6.0,
+   "present": "Your flight number is **IB260**.",
+   "faint": "Your flight number is **IB350**.",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "cat:Miso",
+   "type": "cat",
+   "b": 10.0,
+   "present": "Your cat is called **Miso**.",
+   "faint": "Your cat is called **Miyu**.",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "cat:Grendel",
+   "type": "cat",
+   "b": 6.0,
+   "present": "Your cat is called **Grendel**.",
+   "faint": "Your cat is called **By the way**. Wait, that doesn't sound like a cat's name! Let me",
+   "hedge_present": false,
+   "hedge_faint": true
+  },
+  {
+   "key": "cat:Pilch",
+   "type": "cat",
+   "b": 8.0,
+   "present": "Your cat is called **Pilch**.",
+   "faint": "Your cat is called **Pip**.",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "cat:Nectarine",
+   "type": "cat",
+   "b": 8.0,
+   "present": "Your cat is called **Nectarine**.",
+   "faint": "Your cat is called **Nutmeg**.",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "cat:Bobbin",
+   "type": "cat",
+   "b": 6.0,
+   "present": "Your cat is called **Bobbin**.",
+   "faint": "Your cat is called **Bob**.",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "cat:Vosk",
+   "type": "cat",
+   "b": 6.0,
+   "present": "Your cat is called **Vosk**.",
+   "faint": "Your cat is called **Vos**.",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "cat:Tamarind",
+   "type": "cat",
+   "b": 8.0,
+   "present": "Your cat is called **Tamarind**.",
+   "faint": "Your cat is called **By the way**. Wait, that doesn't sound like a cat's name! Let me",
+   "hedge_present": false,
+   "hedge_faint": true
+  },
+  {
+   "key": "cat:Klepto",
+   "type": "cat",
+   "b": 6.0,
+   "present": "Your cat is called **Klepto**.",
+   "faint": "Your cat is called **Cat**. (Just kidding! You mentioned earlier that your cat is called **Cat**...",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "cat:Sorrel",
+   "type": "cat",
+   "b": 8.0,
+   "present": "Your cat is called **Sorrel**.",
+   "faint": "Your cat is called **Cat**. (Just to clarify: you mentioned earlier that your cat is named **Cat**,",
+   "hedge_present": false,
+   "hedge_faint": false
+  },
+  {
+   "key": "cat:Nubbin",
+   "type": "cat",
+   "b": 8.0,
+   "present": "Your cat is called **Nubbin**.",
+   "faint": "Your cat is called **Noby**.",
+   "hedge_present": false,
+   "hedge_faint": false
+  }
+ ]
+}
