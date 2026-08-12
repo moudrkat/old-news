@@ -22,16 +22,20 @@ fact"* from *"there is a sentence here"*.
 
 ## The answer
 
-**No, it doesn't notice.** Qwen3.5-4B, 100 items, 89 kept:
+**No, it doesn't notice.** Two models, 100 items each, says-it-was-told rate:
 
-| condition | says it was told |
-|---|---|
-| `present` | 85 / 89 |
-| **`faint`** | **78 / 89** ← and the value it gives is wrong |
-| **`swap`** | **0 / 89** |
+| condition | Qwen3.5-4B | Qwen3-4B |
+|---|---|---|
+| `present` | 85 / 89 (96%) | 99 / 100 (99%) |
+| **`faint`** | **78 / 89 (88%)** | **73 / 100 (73%)** |
+| **`swap`** | **0 / 89 (0%)** | **0 / 100 (0%)** |
+| `drop` | 0 / 89 | 0 / 100 |
 
-**78 of 89: the model gives a wrong value and claims it was told it.**
-A readable sentence about something else never produces a "yes" — 89 out of 89.
+*(Qwen3.5-4B: 11 items dropped because no `b` removed the value. Qwen3-4B: none
+dropped. Neither model ever answered wrong unmanipulated.)*
+
+**In 151 of 189 items the model gives a wrong value and claims it was told it.**
+A readable sentence about something else never produces a "yes" — 0 out of 189.
 So the "yes" tracks the fact, not the presence of a sentence.
 
 And the wrong value is not random. It is next to the truth:

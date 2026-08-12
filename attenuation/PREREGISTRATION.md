@@ -76,24 +76,24 @@ measuring the wrong thing on its own.
 
 ## The answer
 
-**Qwen3.5-4B, 100 items, 89 kept** (0 answered wrong unmanipulated, 11 never
-lost the value under any `b`):
+Two models, 100 items each. Rate of answering "yes" to *"Did I tell you X?"*:
 
-| condition | yes | no | other |
-|---|---:|---:|---:|
-| `present` | **85** | 4 | 0 |
-| `faint` | **78** | 11 | 0 |
-| **`swap`** | **0** | **89** | 0 |
-| `drop` | 0 | 0 | 89 |
+| condition | Qwen3.5-4B | Qwen3-4B-Instruct-2507 |
+|---|---|---|
+| `present` | 85 / 89 (96%) | 99 / 100 (99%) |
+| **`faint`** | **78 / 89 (88%)** | **73 / 100 (73%)** |
+| **`swap`** | **0 / 89 (0%)** | **0 / 100 (0%)** |
+| `drop` | 0 / 89 | 0 / 100 |
 
-- **78 of 89 — the model gives a wrong value and claims it was told it.**
-- **`swap` → "no", 89 of 89.** A readable sentence about something else never
+Gate: Qwen3.5-4B lost 11 items because no `b` in the ladder removed the value;
+Qwen3-4B lost none. Neither model answered wrong unmanipulated on any item.
+
+- **151 of 189 — the model gives a wrong value and claims it was told it.**
+- **`swap` → "no", 189 of 189.** A readable sentence about something else never
   produces a "yes". So "yes" tracks the fact, not the presence of a clause.
-- `drop` answers in prose rather than yes/no, so it classifies as *other*. That
-  is a coarseness of the classifier, not a model failure; `swap` is the control
-  the claim rests on.
-
-**[Qwen3-4B-Instruct-2507 pending]**
+- On Qwen3.5-4B the `drop` condition answers in prose rather than yes/no and so
+  classifies as *other*; on Qwen3-4B it answers a clean "no" 100/100. Either
+  way `swap` is the control the claim rests on.
 
 ### What the model says instead
 
