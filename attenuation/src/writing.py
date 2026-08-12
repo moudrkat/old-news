@@ -10,7 +10,7 @@ Nothing here writes for you. The notes are facts and reminders; the sentences
 are yours, and that is the point: he says answers that read like an LLM wrote
 them are a significant negative, and he reads these first.
 
-    python src/writing.py        # writes results/writing.html
+    python src/writing.py        # writes notes/writing.html (gitignored)
 """
 
 from __future__ import annotations
@@ -244,7 +244,7 @@ function exp() {{
 }}
 </script>
 """
-    out = ROOT / "results" / "writing.html"
+    out = ROOT / "notes" / "writing.html"
     out.write_text(page)
     print(f"wrote {out}")
     print("open it and write. exports to application-draft.md when you are done.")

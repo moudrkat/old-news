@@ -28,7 +28,7 @@ def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--n", type=int, default=30)
     ap.add_argument("--seed", type=int, default=4242)
-    ap.add_argument("--out", default="results/handscore.md")
+    ap.add_argument("--out", default="notes/handscore.md")
     a = ap.parse_args()
 
     rows = []

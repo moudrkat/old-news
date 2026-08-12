@@ -9,8 +9,8 @@ The rule is printed at the top of the page and is fixed before any answer is
 read. That is not decoration: the last time this repo scored by hand, the line
 moved between conditions and a conclusion had to be withdrawn.
 
-    python src/label.py            # writes results/label.html
-    # open it, label, press E to export, save next to it as handlabels.json
+    python src/label.py            # writes notes/label.html (gitignored)
+    # open it, label, press E to export
 """
 
 from __future__ import annotations
@@ -176,7 +176,7 @@ addEventListener("keydown", e => {{
 draw();
 </script>
 """
-    out = ROOT / "results" / "label.html"
+    out = ROOT / "notes" / "label.html"
     out.write_text(html)
     print(f"{len(rows)} answers -> {out}")
     print("open it, label with 1-4, press E to export as handlabels.json")
