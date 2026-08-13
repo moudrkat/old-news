@@ -67,16 +67,40 @@ def cell(answer: str, value: str) -> tuple[str, str]:
     return ("—", "gone") if is_refusal(answer) else ("other", "other")
 
 
-NITEMS, NDOSE, SNIP = 6, 9, 40
+NITEMS, NDOSE = 6, 9
+
+# No display truncation. An earlier version cut every cell at 40 characters,
+# which is the one thing a figure about damaged answers must not do: the cut
+# lands in the middle of exactly the hedges and self-corrections that are the
+# finding. Nothing in the stored data was truncated either — the longest cell
+# is 105 characters against a 160-character cap, so what is printed here is the
+# whole generation. The only cut is the token budget, fixed before generating
+# and stated in the caption.
+
+
+def clean(s: str) -> str:
+    return " ".join(s.split("<|im_end|>")[0].split("<|endoftext|>")[0].split())
 
 
 def grid(stem: str) -> str:
-    """One model's grid, or "" if its data is not there."""
+    """One model's grid, or "" if its data is not there.
+
+    The ladder run stops at b = 10, and on Qwen3.5 several rows are still
+    holding their value there — `Brno` holds it at every dose that was run. A
+    reader looking at an unbroken green row cannot tell whether the value
+    survives or whether the figure simply stopped too early, so the last column
+    answers it from the run that did go further: each item at *its own*
+    threshold, taken from `told2`, whose ladder reaches 14. Items missing from
+    `told2` are the ones that never lost the value at any dose, and that is
+    printed rather than left as a blank.
+    """
     f = ROOT / "results" / f"ladder_{stem}.json"
     if not f.exists():
         print(f"  (skipping {stem}: no {f.name})")
         return ""
     d = json.load(open(f))
+    t = ROOT / "results" / f"told2_{stem}.json"
+    thr = {r["key"]: r for r in json.load(open(t))["rows"]} if t.exists() else {}
     bs = d["ladder"][:NDOSE]
     head = "".join(f"<th>{b:g}</th>" for b in bs)
     body = []
@@ -84,17 +108,27 @@ def grid(stem: str) -> str:
         tds = []
         for ans in r["cells"][:NDOSE]:
             lab, cls = cell(ans, r["value"])
-            txt = ans if len(ans) <= SNIP else ans[:SNIP - 1] + "…"
-            tds.append(f'<td class="{cls}" title="{html.escape(ans[:200])}">'
+            tds.append(f'<td class="{cls}">'
                        f'<b>{html.escape(lab)}</b>'
-                       f'<span>{html.escape(txt)}</span></td>')
+                       f'<span>{html.escape(ans)}</span></td>')
+        it = thr.get(r["key"])
+        if it:
+            ans = clean(it["value_faint"])
+            lab, cls = cell(ans, r["value"])
+            tds.append(f'<td class="{cls} thr">'
+                       f'<b>b = {it["faint_b"]:g} &middot; {html.escape(lab)}</b>'
+                       f'<span>{html.escape(ans)}</span></td>')
+        else:
+            tds.append('<td class="none thr"><b>no threshold</b><span>still had '
+                       'the value at b = 14, the top of the ladder</span></td>')
         body.append(f'<tr><th class="row">{html.escape(r["value"])}</th>'
                     + "".join(tds) + "</tr>")
     for r in d["rows"]:
         print(f'  {r["value"]:<9} ' +
               " ".join(f'{cell(a, r["value"])[0]:>6}' for a in r["cells"][:NDOSE]))
     return (f'<h3>{d["model"].split("/")[-1]}</h3>\n<table>'
-            f'<tr><th class="row">told</th>{head}</tr>\n'
+            f'<tr><th class="row">told</th>{head}'
+            f'<th class="thr">at its own threshold</th></tr>\n'
             + chr(10).join(body) + "</table>")
 
 
@@ -165,6 +199,11 @@ table {{ border-collapse:separate; border-spacing:2px; }}
 th {{ font-size:11px; color:var(--muted); font-weight:600; padding:0 0 4px; }}
 th.row {{ text-align:right; padding:0 9px 0 0; font-size:12.5px;
   color:var(--ink2); font-family:ui-monospace,monospace; }}
+td.thr {{ border-left:2px solid var(--rule); }}
+th.thr {{ border-left:2px solid var(--rule); color:var(--ink2); }}
+td.none {{ background:transparent !important; color:var(--muted);
+  box-shadow:inset 0 0 0 1px var(--rule); }}
+td.none b {{ color:var(--ink2); }}
 td {{ padding:5px 6px; border-radius:5px; color:#fff; width:132px;
   vertical-align:top; }}
 td b {{ display:block; font:700 11.5px ui-monospace,monospace;
@@ -203,7 +242,9 @@ and on a different scale for every model.</h2>
 <p class="sub">columns are <b>b</b>, the strength of the bias on that sentence's
 attention · in each cell, what the model actually answered, and above it the
 longest run of characters that answer still shares with the true value ·
-one item of each kind, the first value of each, not a selection</p>
+one item of each kind, the first value of each, not a selection &middot; the
+last column is that item at <b>its own</b> threshold, from the run whose ladder
+reaches 14</p>
 <p class="lead"><b>The claim, over every item.</b> Both models saw the same 100
 items. The dose at which a value disappears is twice as high on one as on the
 other, and the ranges barely overlap:</p>
@@ -237,6 +278,22 @@ so nothing is being chosen for looking better.
 The last category — <i>declines to answer</i> — is the one soft judgement here,
 a keyword match on the opening of the answer; everything else is exact string
 matching.
+<br><br>
+<b>Every answer is shown whole.</b> Nothing in a cell is shortened for display,
+so the hedges, the self-corrections and the invented explanations are all here
+to be read rather than summarised into a colour. The one cut is the generation
+budget — 20 tokens in the grid, 24 in the threshold column — which is why some
+answers stop mid-sentence; it was fixed before the run, not chosen afterwards.
+<br><br>
+<b>The last column exists because a green row is ambiguous.</b> The ladder run
+stops at b&nbsp;=&nbsp;10, so a row still holding its value at the right edge
+could mean the value survives or could mean the figure stopped too early.
+<code>Brno</code> on Qwen3.5 is the second kind and then some: it holds at every
+dose that was run, and it is one of the eleven items that still had their value
+at b&nbsp;=&nbsp;14, so it has no threshold at all — printed as such rather than
+left as an unbroken green row for the reader to interpret. On the other model
+the same item goes at b&nbsp;=&nbsp;3, and it goes to a refusal, not to another
+Czech city.
 </figcaption>
 </figure>
 """

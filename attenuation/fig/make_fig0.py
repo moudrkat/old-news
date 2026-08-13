@@ -37,10 +37,16 @@ TOLD = {
 }
 
 
-def clean(s: str, n: int = 92) -> str:
+def clean(s: str) -> str:
+    """Whitespace only. **Nothing is shortened for display.**
+
+    This used to cut at 92 characters, which quietly removed the ends of the
+    longer answers — and the ends are where the model hedges, corrects itself,
+    or explains a value it just invented. The one cut that remains is the
+    generation budget itself, which was fixed before any of this was run.
+    """
     s = s.split("<|im_end|>")[0].split("<|endoftext|>")[0].strip()
-    s = " ".join(s.split())
-    return s if len(s) <= n else s[: n - 1] + "…"
+    return " ".join(s.split())
 
 
 def emph(s: str) -> str:
@@ -147,8 +153,9 @@ to be — which is why the model is printed under every dose. The final column i
 same model answered, separately, to “did I tell you this? answer only yes or
 no”.<br><br>
 {n_yes} of these {len(pick)} say <b>yes</b>, {n_val} of them while giving a
-wrong value. Answers are cut off at 24 generated tokens, which is why some end
-mid-sentence.<br><br>
+wrong value. Every answer is printed in full. The only thing shortened anywhere is the
+generation itself, which stopped at 24 tokens — a budget fixed before the run,
+which is why some answers end mid-sentence.<br><br>
 <b>These are not the best examples in the data — they are a draw.</b> The corpus
 contains rows that make the point far more sharply: a value that becomes a real
 flight number of the right airline, a Czech city replaced by another Czech city,
@@ -163,7 +170,7 @@ the same draw can be reproduced.
     print(f"drew {len(pick)} of {len(rows)}, seed {a.seed}, {n_yes} said yes")
     for r in pick:
         print(f'  {r["key"]:<16} b={r["b"]:<5} {r["asked"]:<5} '
-              f'{clean(r["faint"], 60)}')
+              f'{clean(r["faint"])[:60]}')
     print("\nwrote", out)
     return 0
 
