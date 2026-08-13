@@ -514,12 +514,27 @@ V-Steer ladder, the attenuation mechanism, and the instrument the runs go
 through."""),
 
     ("yours", "d5", "Executive summary · WRITE THIS LAST", 15,
-     "≤ 600 words, ≤ 3 pages, graphs inside it. <b>Write it last</b> — it "
-     "summarises what is already written. <b>The counter turns red past 600.</b>"
-     "<br><br>It is not a new section: it is <i>the figure, the problem "
-     "statement, the takeaways and the key experiments</i> from above, stitched "
-     "together and trimmed. If it says anything that is not already below, one "
-     "of the two is wrong."),
+     "≤ 600 words, ≤ 3 pages, graphs inside it. <b>Write it last.</b> It is not "
+     "a new section — it is the four things above, stitched and trimmed. If it "
+     "says anything that is not already below, one of the two is wrong."
+     "<br><br><b>What goes in it, in this order:</b><ul>"
+     "<li><b>the figure first</b>, before any prose — twenty randomly drawn "
+     "answers. R1D1 opened with its sample generations exactly here</li>"
+     "<li><b>the problem</b>, two or three sentences: models can flag <i>I don\'t "
+     "know this entity</i>; can they flag <i>I misread this</i>?</li>"
+     "<li><b>the answer</b>, with its number: no — 145 of 183 give a wrong value "
+     "and say they were told it</li>"
+     "<li><b>the control that decides it</b>: a readable sentence about something "
+     "else gets &quot;no&quot;, 183 of 183</li>"
+     "<li><b>the locality control</b>: 89/89 against 3/89 — the damage follows "
+     "the mask, not the dose</li>"
+     "<li><b>one line on what it says instead</b>: 19:45, Prague, 417. A typo, "
+     "not a hallucination</li>"
+     "<li><b>your failure</b> — the forced prefix that inverted the result. R1D1 "
+     "put its failure in the second bullet of the summary</li>"
+     "<li><b>one limitation</b>, the one you would most want a reader to know "
+     "before they believe the rest</li></ul>"
+     "<b>The counter turns red past 600.</b>"),
 ]
 
 
