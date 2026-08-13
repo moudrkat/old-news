@@ -67,7 +67,7 @@ def cell(answer: str, value: str) -> tuple[str, str]:
     return ("—", "gone") if is_refusal(answer) else ("other", "other")
 
 
-NITEMS, NDOSE, SNIP = 6, 7, 46
+NITEMS, NDOSE, SNIP = 6, 9, 40
 
 
 def main(stem: str) -> int:
@@ -101,14 +101,14 @@ def main(stem: str) -> int:
   --rule:#2e2e2c; --full:#199e70; --piece:#c98500; --other:#d95926; }} }}
 body {{ margin:0; background:var(--surface); color:var(--ink);
   font:14px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; }}
-figure {{ margin:22px; max-width:1180px; }}
+figure {{ margin:20px; max-width:1330px; }}
 h2 {{ font-size:15px; margin:0 0 3px; }}
 .sub {{ color:var(--muted); font-size:12.5px; margin:0 0 14px; }}
 table {{ border-collapse:separate; border-spacing:2px; }}
 th {{ font-size:11px; color:var(--muted); font-weight:600; padding:0 0 4px; }}
 th.row {{ text-align:right; padding:0 9px 0 0; font-size:12.5px;
   color:var(--ink2); font-family:ui-monospace,monospace; }}
-td {{ padding:6px 7px; border-radius:5px; color:#fff; width:160px;
+td {{ padding:5px 6px; border-radius:5px; color:#fff; width:132px;
   vertical-align:top; }}
 td b {{ display:block; font:700 11.5px ui-monospace,monospace;
   margin-bottom:3px; }}
