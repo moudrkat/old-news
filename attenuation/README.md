@@ -254,6 +254,13 @@ took it out: its null returned a perfect separation at the embedding layer,
 where both conditions are literally the same vector, and its shuffled control
 was too noisy to certify anything. The code and that verdict are in the repo.
 
+**Where does Qwen3.5's tail actually end?** Eleven of its 100 items still had
+their value at b = 14, the top of the ladder. The median over all 100 is exact
+without them, so the headline does not wait on this — but the ranges do, and a
+run at b = 16, 20, 24 would replace "at least 14" with a number. Better than a
+longer ladder: fit a survival curve per item and report the dose at which the
+value is half gone, which uses the whole ladder instead of the first crossing.
+
 **Why does the newer model never decline?** Qwen3-4B declines in 46 of 100
 damaged cases; Qwen3.5-4B in none of 89. Something between those two models
 removed the option of saying "I can't read this", and it would be worth knowing
