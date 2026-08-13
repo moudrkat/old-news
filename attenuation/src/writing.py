@@ -631,6 +631,9 @@ button {{ font:600 12.5px inherit; padding:6px 15px; border-radius:7px;
   border:1px solid var(--rule); background:transparent; color:var(--ink);
   cursor:pointer; margin-left:8px; }}
 button:hover {{ border-color:var(--accent); }}
+.imp {{ font:600 12.5px inherit; padding:6px 15px; border-radius:7px;
+  border:1px solid var(--rule); cursor:pointer; margin-left:8px; }}
+.imp:hover {{ border-color:var(--accent); }}
 </style>
 <script>{{const t=new URLSearchParams(location.search).get("theme");
 if(t)document.documentElement.dataset.theme=t;}}</script>
@@ -681,7 +684,9 @@ target="_blank">the form</a>. Due <b>4 Sept, 23:59 PT</b>.</label></li>
 </main>
 <div id="bar"><span><b id="tw">0</b> words · <b id="yw">0</b> of them yours ·
 saved automatically</span>
-<span><button onclick="exp()">Export markdown</button>
+<span><label class="imp">Load a saved file<input type="file" accept=".md,.markdown,.txt"
+onchange="imp(this)" hidden></label>
+<button onclick="exp()">Export markdown</button>
 <button onclick="if(confirm('Erase everything, including edits to the ready sections?')){{localStorage.removeItem(K);location.reload()}}">Reset</button></span></div>
 <script>
 const K = "attenuation-application";
