@@ -2,68 +2,68 @@
 <title>Randomly drawn examples</title>
 <style>
 :root { --surface:#fcfcfb; --ink:#0b0b0b; --ink2:#52514e; --muted:#6f6e6a;
-         --rule:#e6e5e1; --yes:#eb6834; --no:#1baf7a; }
+  --rule:#e6e5e1; --yes:#eb6834; --no:#1baf7a; --ok:#1baf7a; }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
   --surface:#1a1a19; --ink:#fff; --ink2:#c3c2b7; --muted:#96958c;
-  --rule:#2e2e2c; --yes:#d95926; --no:#199e70; } }
+  --rule:#2e2e2c; --yes:#d95926; --no:#199e70; --ok:#199e70; } }
 body { margin:0; background:var(--surface); color:var(--ink);
   font:14px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; }
-figure { margin:22px; max-width:860px; }
+figure { margin:20px; max-width:1240px; }
 h2 { font-size:15px; margin:0 0 3px; }
 .sub { color:var(--muted); font-size:12.5px; margin:0 0 14px; }
 table { border-collapse:collapse; width:100%; }
-th { text-align:left; font-size:11px; text-transform:uppercase;
+th { text-align:left; font-size:10.5px; text-transform:uppercase;
   letter-spacing:.05em; color:var(--muted); font-weight:600;
-  padding:0 12px 6px 0; border-bottom:1px solid var(--rule); }
-td { padding:9px 12px 9px 0; border-bottom:1px solid var(--rule);
-  vertical-align:top; font-size:13px; }
-.told { color:var(--ink2); width:31%; }
-.said { color:var(--ink); }
-.ans { width:64px; text-align:right; padding-right:0; }
+  padding:0 10px 5px 0; border-bottom:1px solid var(--rule); }
+td { padding:7px 10px 7px 0; border-bottom:1px solid var(--rule);
+  vertical-align:top; font-size:12.5px; }
+.told { color:var(--ink2); width:20%; }
+.a0 { color:var(--ok); width:28%; }
+.a1 { color:var(--ink); width:34%; }
+.bb { font:600 11px ui-monospace,monospace; color:var(--muted);
+  white-space:nowrap; width:52px; }
+.ans { width:52px; text-align:right; padding-right:0; }
 .pill { display:inline-block; padding:1px 8px; border-radius:9px;
-  font-size:11.5px; font-weight:600; color:#fff; }
+  font-size:11px; font-weight:600; color:#fff; }
 .pill.yes { background:var(--yes); } .pill.no { background:var(--no); }
 .pill.other { background:var(--muted); }
 figcaption { margin-top:12px; color:var(--ink2); font-size:12.5px; }
 code { font-size:12px; color:var(--muted); }
 </style>
-<script>{const t=new URLSearchParams(location.search).get("theme");if(t)document.documentElement.dataset.theme=t;}</script>
+<script>{const t=new URLSearchParams(location.search).get("theme");
+if(t)document.documentElement.dataset.theme=t;}</script>
 <figure>
-<h2>One sentence in the conversation is made hard to read. Nothing is deleted.</h2>
-<p class="sub">20 answers drawn at random from 189 — not chosen.
+<h2>The same question, before and after one sentence is made hard to read</h2>
+<p class="sub">14 items drawn at random from 189 — not chosen.
 <code>random.Random(4242).sample</code>, both models, refusals included.</p>
 <table>
-<tr><th>what the user actually said</th><th>what the model answered instead</th>
-<th>“did I<br>tell you?”</th></tr>
-<tr><td class="told">By the way, my dog is called <b>Bristle</b>.</td><td class="said">Your dog is called <b>Brist</b>.</td><td class="ans"><span class="pill yes">yes</span></td></tr>
-<tr><td class="told">By the way, the error code I got was <b>Q-73</b>.</td><td class="said">You mentioned that you got error code <b>73</b>, so that&#x27;s the one you received. If you&#x27;d like,</td><td class="ans"><span class="pill yes">yes</span></td></tr>
-<tr><td class="told">By the way, my dog is called <b>Yorrick</b>.</td><td class="said">Your dog is called Yorick. 😊 (Though I&#x27;m not sure if that&#x27;s a coincidence—Yor</td><td class="ans"><span class="pill yes">yes</span></td></tr>
-<tr><td class="told">By the way, I am allergic to <b>kiwi</b>.</td><td class="said">You are allergic to <b>peanuts</b> (or tree nuts, depending on how you classify them, but peanuts are bot</td><td class="ans"><span class="pill yes">yes</span></td></tr>
-<tr><td class="told">By the way, my cat is called <b>Nubbin</b>.</td><td class="said">Your cat is called Nub. 😺🐾 (Just a fun little twist — &quot;Nub&quot; sounds like &quot;</td><td class="ans"><span class="pill yes">yes</span></td></tr>
-<tr><td class="told">By the way, my cat is called <b>Klepto</b>.</td><td class="said">Your cat is called... *My Cat*. 😸✨ (Well, that’s a clever name—very personal</td><td class="ans"><span class="pill yes">yes</span></td></tr>
-<tr><td class="told">By the way, my flight is <b>BA945</b>.</td><td class="said">I&#x27;m sorry, but I don&#x27;t have access to your flight details or personal information. If you&#x27;d like to confirm</td><td class="ans"><span class="pill yes">yes</span></td></tr>
-<tr><td class="told">By the way, my hotel room is <b>614</b>.</td><td class="said">You&#x27;re in room 61. 😊</td><td class="ans"><span class="pill yes">yes</span></td></tr>
-<tr><td class="told">By the way, my train leaves at <b>08:03</b>.</td><td class="said">Your train leaves at 8:03 AM.</td><td class="ans"><span class="pill yes">yes</span></td></tr>
-<tr><td class="told">By the way, the error code I got was <b>K-17</b>.</td><td class="said">You got error code <b>404</b>. This typically means &quot;Not Found,&quot; indicating that the server cannot find the</td><td class="ans"><span class="pill yes">yes</span></td></tr>
-<tr><td class="told">By the way, the error code I got was <b>F-401</b>.</td><td class="said">You got error code <b>404</b>. This typically means &quot;Not Found,&quot; indicating that the server cannot find the</td><td class="ans"><span class="pill no">no</span></td></tr>
-<tr><td class="told">By the way, my dog is called <b>Bristle</b>.</td><td class="said">Your dog is called Max. 😊 (Wait—actually, you said your dog is called *you*—&quot;</td><td class="ans"><span class="pill yes">yes</span></td></tr>
-<tr><td class="told">By the way, I live in <b>Utrecht</b>.</td><td class="said">You live in <b>Amsterdam</b>, the capital city of the Netherlands. It is known for its canals, historic</td><td class="ans"><span class="pill yes">yes</span></td></tr>
-<tr><td class="told">By the way, my train leaves at <b>19:40</b>.</td><td class="said">Your train leaves at 12:00 PM (noon), as mentioned in your message. Let me know if</td><td class="ans"><span class="pill no">no</span></td></tr>
-<tr><td class="told">By the way, the error code I got was <b>Z-54</b>.</td><td class="said">You mentioned that you got error code <b>&quot;I&quot;</b>, but that doesn&#x27;t seem to make sense in this context.</td><td class="ans"><span class="pill yes">yes</span></td></tr>
-<tr><td class="told">By the way, my account number ends in <b>455</b>.</td><td class="said">Your account number ends in <b>5</b>.</td><td class="ans"><span class="pill yes">yes</span></td></tr>
-<tr><td class="told">By the way, my flight is <b>AY206</b>.</td><td class="said">Your flight number is <b>AY500</b>.</td><td class="ans"><span class="pill yes">yes</span></td></tr>
-<tr><td class="told">By the way, I live in <b>Graz</b>.</td><td class="said">You live in <b>Linz</b>, Austria. It is the capital of the state of Upper Austria and the second-largest</td><td class="ans"><span class="pill yes">yes</span></td></tr>
-<tr><td class="told">By the way, the error code I got was <b>E-88</b>.</td><td class="said">You mentioned you received error code <b>E-8</b>, but you said &quot;the error code I got was E-8</td><td class="ans"><span class="pill yes">yes</span></td></tr>
-<tr><td class="told">By the way, the error code I got was <b>F-401</b>.</td><td class="said">You mentioned you received an error code &quot;by the way, the error code I got was was BYE.&quot; But that</td><td class="ans"><span class="pill yes">yes</span></td></tr>
+<tr><th>what the user said</th><th>answer with the knob off</th><th>dose</th>
+<th>answer with the knob on</th><th>“told<br>you?”</th></tr>
+<tr><td class="told">By the way, my dog is called <b>Bristle</b>.</td><td class="a0">Your dog is called <b>Bristle</b>.</td><td class="bb">b&nbsp;=&nbsp;6</td><td class="a1">Your dog is called <b>Brist</b>.</td><td class="ans"><span class="pill yes">yes</span></td></tr>
+<tr><td class="told">By the way, the error code I got was <b>Q-73</b>.</td><td class="a0">You mentioned that the error code you got was <b>Q-73</b>. So, the error code is **Q</td><td class="bb">b&nbsp;=&nbsp;3</td><td class="a1">You mentioned that you got error code <b>73</b>, so that&#x27;s the one you received. If you&#x27;d like,</td><td class="ans"><span class="pill yes">yes</span></td></tr>
+<tr><td class="told">By the way, my dog is called <b>Yorrick</b>.</td><td class="a0">Your dog is called Yorrick! 🐶 That&#x27;s a lovely name—quite unique and a bit like a</td><td class="bb">b&nbsp;=&nbsp;3</td><td class="a1">Your dog is called Yorick. 😊 (Though I&#x27;m not sure if that&#x27;s a coincidence—Yor</td><td class="ans"><span class="pill yes">yes</span></td></tr>
+<tr><td class="told">By the way, I am allergic to <b>kiwi</b>.</td><td class="a0">Based on your previous message, you are allergic to <b>kiwi</b>. If you have any other allergi…</td><td class="bb">b&nbsp;=&nbsp;8</td><td class="a1">You are allergic to <b>peanuts</b> (or tree nuts, depending on how you classify them, but pean…</td><td class="ans"><span class="pill yes">yes</span></td></tr>
+<tr><td class="told">By the way, my cat is called <b>Nubbin</b>.</td><td class="a0">Your cat is called Nubbin! 🐾 That&#x27;s a sweet name—short, playful, and just a</td><td class="bb">b&nbsp;=&nbsp;3</td><td class="a1">Your cat is called Nub. 😺🐾 (Just a fun little twist — &quot;Nub&quot; sounds like &quot;</td><td class="ans"><span class="pill yes">yes</span></td></tr>
+<tr><td class="told">By the way, my cat is called <b>Klepto</b>.</td><td class="a0">Your cat is called Klepto! 😺 That&#x27;s a fun and clever name—perfect for a feline with a</td><td class="bb">b&nbsp;=&nbsp;4</td><td class="a1">Your cat is called... *My Cat*. 😸✨ (Well, that’s a clever name—very personal</td><td class="ans"><span class="pill yes">yes</span></td></tr>
+<tr><td class="told">By the way, my flight is <b>BA945</b>.</td><td class="a0">Your flight number is BA945.</td><td class="bb">b&nbsp;=&nbsp;3</td><td class="a1">I&#x27;m sorry, but I don&#x27;t have access to your flight details or personal information. If you&#x27;d…</td><td class="ans"><span class="pill yes">yes</span></td></tr>
+<tr><td class="told">By the way, my hotel room is <b>614</b>.</td><td class="a0">You&#x27;re in room 614. 😊</td><td class="bb">b&nbsp;=&nbsp;3</td><td class="a1">You&#x27;re in room 61. 😊</td><td class="ans"><span class="pill yes">yes</span></td></tr>
+<tr><td class="told">By the way, my train leaves at <b>08:03</b>.</td><td class="a0">Your train leaves at 08:03.</td><td class="bb">b&nbsp;=&nbsp;3</td><td class="a1">Your train leaves at 8:03 AM.</td><td class="ans"><span class="pill yes">yes</span></td></tr>
+<tr><td class="told">By the way, the error code I got was <b>K-17</b>.</td><td class="a0">You received error code <b>K-17</b>.</td><td class="bb">b&nbsp;=&nbsp;6</td><td class="a1">You got error code <b>404</b>. This typically means &quot;Not Found,&quot; indicating that the server ca…</td><td class="ans"><span class="pill yes">yes</span></td></tr>
+<tr><td class="told">By the way, the error code I got was <b>F-401</b>.</td><td class="a0">You received error code <b>F-401</b>. In the context of the game *Factorio*, this error</td><td class="bb">b&nbsp;=&nbsp;6</td><td class="a1">You got error code <b>404</b>. This typically means &quot;Not Found,&quot; indicating that the server ca…</td><td class="ans"><span class="pill no">no</span></td></tr>
+<tr><td class="told">By the way, my dog is called <b>Bristle</b>.</td><td class="a0">Your dog is called Bristle! 🐾 That&#x27;s a fun and unique name—perfect for a dog with</td><td class="bb">b&nbsp;=&nbsp;4</td><td class="a1">Your dog is called Max. 😊 (Wait—actually, you said your dog is called *you*—&quot;</td><td class="ans"><span class="pill yes">yes</span></td></tr>
+<tr><td class="told">By the way, I live in <b>Utrecht</b>.</td><td class="a0">You live in <b>Utrecht</b>, a city in the Netherlands. It is known for its canals, the famous …</td><td class="bb">b&nbsp;=&nbsp;8</td><td class="a1">You live in <b>Amsterdam</b>, the capital city of the Netherlands. It is known for its canals,…</td><td class="ans"><span class="pill yes">yes</span></td></tr>
+<tr><td class="told">By the way, my train leaves at <b>19:40</b>.</td><td class="a0">Your train leaves at 19:40.</td><td class="bb">b&nbsp;=&nbsp;5</td><td class="a1">Your train leaves at 12:00 PM (noon), as mentioned in your message. Let me know if</td><td class="ans"><span class="pill no">no</span></td></tr>
 </table>
 <figcaption>
-<b>How to read this.</b> Left: the sentence the user put in the conversation,
-with the fact in bold. Middle: what the model answered when asked for that fact
-afterwards — the sentence is <i>still there</i>, it has only been made harder to
-read. Right: what the same model said when asked, separately,
-&#8220;did I tell you this? answer only yes or no&#8221;.<br><br>
-18 of these 20 answer <b>yes</b>: 16 while giving a wrong
-value, 2 while declining to give one at all. Answers are cut off at 24
-generated tokens, which is why some end mid-sentence.
+<b>How to read a row.</b> The sentence carrying the fact is in the conversation
+in every column — including the last two. Only the weight the model gives it
+changes. <b>b is different for every item:</b> each is set to the lowest dose at
+which that model's answer no longer contains the value, so rows are not
+comparable to one another and are not meant to be. The final column is what the
+same model answered, separately, to “did I tell you this? answer only yes or
+no”.<br><br>
+12 of these 14 say <b>yes</b>, 10 of them while giving a
+wrong value. Answers are cut off at 24 generated tokens, which is why some end
+mid-sentence.
 </figcaption>
 </figure>

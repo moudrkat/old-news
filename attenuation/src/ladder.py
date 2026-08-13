@@ -27,7 +27,7 @@ from value import decode
 
 ROOT = Path(__file__).resolve().parents[1]
 NTOK = 20
-LADDER = [0.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 8.0, 10.0]
+LADDER = [0.0, 2.0, 4.0, 5.0, 6.0, 8.0, 10.0, 12.0, 14.0]
 
 # One item of each kind, first value of each — fixed here so the figure is not
 # a draw that happened to look good.
