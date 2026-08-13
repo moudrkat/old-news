@@ -83,7 +83,8 @@ def main() -> int:
             f'<tr><td class="told">By the way, '
             f'{TOLD[r["type"]].format(v=f"<b>{html.escape(v)}</b>")}.</td>'
             f'<td class="a0">{emph(clean(r["present"]))}</td>'
-            f'<td class="bb">b&nbsp;=&nbsp;{r["b"]:g}</td>'
+            f'<td class="bb">b&nbsp;=&nbsp;{r["b"]:g}'
+            f'<div class="mdl">{r["model"]}</div></td>'
             f'<td class="a1">{emph(clean(r["faint"]))}</td>'
             f'<td class="ans"><span class="pill {cls}">{r["asked"]}</span></td></tr>')
 
@@ -114,7 +115,9 @@ td {{ padding:7px 10px 7px 0; border-bottom:1px solid var(--rule);
 .a0 {{ color:var(--ok); width:28%; }}
 .a1 {{ color:var(--ink); width:34%; }}
 .bb {{ font:600 11px ui-monospace,monospace; color:var(--muted);
-  white-space:nowrap; width:52px; }}
+  white-space:nowrap; width:104px; }}
+.mdl {{ font:10.5px ui-monospace,monospace; color:var(--muted);
+  opacity:.72; margin-top:2px; }}
 .ans {{ width:52px; text-align:right; padding-right:0; }}
 .pill {{ display:inline-block; padding:1px 8px; border-radius:9px;
   font-size:11px; font-weight:600; color:#fff; }}
@@ -137,14 +140,21 @@ if(t)document.documentElement.dataset.theme=t;}}</script>
 <figcaption>
 <b>How to read a row.</b> The sentence carrying the fact is in the conversation
 in every column — including the last two. Only the weight the model gives it
-changes. <b>b is different for every item:</b> each is set to the lowest dose at
-which that model's answer no longer contains the value, so rows are not
-comparable to one another and are not meant to be. The final column is what the
+changes. <b>b is different for every item, and the two models are not on the same
+scale:</b> each dose is the lowest at which <i>that model's</i> answer no longer
+contains the value, so rows are not comparable to one another and are not meant
+to be — which is why the model is printed under every dose. The final column is what the
 same model answered, separately, to “did I tell you this? answer only yes or
 no”.<br><br>
 {n_yes} of these {len(pick)} say <b>yes</b>, {n_val} of them while giving a
 wrong value. Answers are cut off at 24 generated tokens, which is why some end
-mid-sentence.
+mid-sentence.<br><br>
+<b>These are not the best examples in the data — they are a draw.</b> The corpus
+contains rows that make the point far more sharply: a value that becomes a real
+flight number of the right airline, a Czech city replaced by another Czech city,
+a train time five minutes out. Those are quoted in the text, and they are quoted
+<i>as</i> chosen. This figure is the unchosen version, and the seed is printed so
+the same draw can be reproduced.
 </figcaption>
 </figure>
 """

@@ -70,14 +70,14 @@ def cell(answer: str, value: str) -> tuple[str, str]:
 NITEMS, NDOSE, SNIP = 6, 9, 40
 
 
-def main(stem: str) -> int:
+def grid(stem: str) -> str:
+    """One model's grid, or "" if its data is not there."""
     f = ROOT / "results" / f"ladder_{stem}.json"
     if not f.exists():
-        print(f"need {f}")
-        return 1
+        print(f"  (skipping {stem}: no {f.name})")
+        return ""
     d = json.load(open(f))
     bs = d["ladder"][:NDOSE]
-
     head = "".join(f"<th>{b:g}</th>" for b in bs)
     body = []
     for r in d["rows"][:NITEMS]:
@@ -90,6 +90,63 @@ def main(stem: str) -> int:
                        f'<span>{html.escape(txt)}</span></td>')
         body.append(f'<tr><th class="row">{html.escape(r["value"])}</th>'
                     + "".join(tds) + "</tr>")
+    for r in d["rows"]:
+        print(f'  {r["value"]:<9} ' +
+              " ".join(f'{cell(a, r["value"])[0]:>6}' for a in r["cells"][:NDOSE]))
+    return (f'<h3>{d["model"].split("/")[-1]}</h3>\n<table>'
+            f'<tr><th class="row">told</th>{head}</tr>\n'
+            + chr(10).join(body) + "</table>")
+
+
+MODELS = ["Qwen3.5-4B", "Qwen3-4B-Instruct-2507"]
+
+
+def thresholds() -> str:
+    """The claim about scale, over every item — the grids below are examples.
+
+    Ten rows chosen by a rule are an illustration, not evidence that one model
+    is more robust than the other. That needs the whole distribution, and it is
+    already in the data: every item carries the dose at which its value went.
+
+    **The censored items are the point of this table, not a footnote.** Both
+    models were run on the same 100 items; Qwen3.5 kept 11 of its values at
+    every dose on the ladder, up to b = 14, so those 11 have no threshold — only
+    a lower bound. Dropping them silently would have quietly removed the eleven
+    *most* resistant items from the more resistant model and made the gap look
+    smaller than it is. They are counted here instead: with all 11 sorted above
+    every observed value, the median over all 100 is still identifiable, because
+    the 50th and 51st items fall inside the 89 that were measured.
+    """
+    out = []
+    for m in MODELS:
+        f = ROOT / "results" / f"told2_{m}.json"
+        if not f.exists():
+            continue
+        d = json.load(open(f))
+        bs = sorted(r["faint_b"] for r in d["rows"])
+        cens = d.get("dropped_nofaint", 0)
+        n = len(bs) + cens
+        lo, hi = sorted(bs + [float("inf")] * cens)[n // 2 - 1: n // 2 + 1]
+        med = (lo + hi) / 2
+        rng = f'{min(bs):g} – {max(bs):g}'
+        out.append(
+            f'<tr><th>{m}</th><td>{n}</td>'
+            f'<td>{cens or "—"}</td>'
+            f'<td><b>{med:g}</b></td>'
+            f'<td>{rng}{f", plus {cens} above 14" if cens else ""}</td></tr>')
+    if not out:
+        return ""
+    return ('<table class="stat"><tr><th></th><th>items</th>'
+            '<th>still had the value<br>at b = 14</th>'
+            '<th>median b at which the value goes</th>'
+            '<th>range of the rest</th></tr>'
+            + "".join(out) + "</table>")
+
+
+def main(_stem: str = "") -> int:
+    grids = [g for g in (grid(m) for m in MODELS) if g]
+    if not grids:
+        return 1
 
     doc = f"""<!doctype html><meta charset="utf-8">
 <title>Figure 2 — the value coming apart</title>
@@ -125,19 +182,46 @@ td.gone span {{ opacity:.8; }}
   margin:0 4px 0 12px; vertical-align:baseline; }}
 .leg i:first-child {{ margin-left:0; }}
 figcaption {{ margin-top:10px; color:var(--ink2); font-size:12.5px; }}
+h3 {{ font:600 12.5px ui-monospace,monospace; color:var(--ink2);
+  margin:16px 0 5px; }}
+.lead {{ font-size:12.5px; color:var(--ink2); margin:16px 0 6px; max-width:760px; }}
+table.stat {{ border-collapse:collapse; border-spacing:0; margin-bottom:6px; }}
+table.stat th, table.stat td {{ text-align:left; font-size:12.5px;
+  padding:3px 22px 3px 0; border:0; color:var(--ink2);
+  font-family:inherit; font-weight:400; }}
+table.stat tr:first-child th {{ font-size:10.5px; text-transform:uppercase;
+  letter-spacing:.05em; color:var(--muted); font-weight:600; }}
+table.stat b {{ color:var(--ink); font-size:14px; }}
+p.foot {{ color:var(--muted); font-size:12px; max-width:78ch; margin:2px 0 0; }}
+h3:first-of-type {{ margin-top:4px; }}
 </style>
 <script>{{const t=new URLSearchParams(location.search).get("theme");
 if(t)document.documentElement.dataset.theme=t;}}</script>
 <figure>
-<h2>The value does not flip. It comes apart — and at a different dose each time.</h2>
-<p class="sub">{d["model"].split("/")[-1]} · columns are <b>b</b>, the strength of
-the bias on that sentence's attention · in each cell, what the
-model actually answered, and above it the longest run of characters that answer
-still shares with the true value</p>
-<table>
-<tr><th class="row">told</th>{head}</tr>
-{chr(10).join(body)}
-</table>
+<h2>The value does not flip. It comes apart — at a different dose for every item,
+and on a different scale for every model.</h2>
+<p class="sub">columns are <b>b</b>, the strength of the bias on that sentence's
+attention · in each cell, what the model actually answered, and above it the
+longest run of characters that answer still shares with the true value ·
+one item of each kind, the first value of each, not a selection</p>
+<p class="lead"><b>The claim, over every item.</b> Both models saw the same 100
+items. The dose at which a value disappears is twice as high on one as on the
+other, and the ranges barely overlap:</p>
+{thresholds()}
+<p class="foot">Qwen3.5 still had 11 of its values at b&nbsp;=&nbsp;14, the top of
+the ladder, so those 11 have a lower bound and no threshold. They are counted in
+the median rather than dropped — dropping them would have removed the eleven
+<i>most</i> resistant items from the more resistant model and made the gap look
+smaller than it is. With all 11 sorted above every measured value the median over
+all 100 is still exact, because the 50th and 51st items fall inside the 89 that
+were measured. Extending the ladder past 14 would sharpen the range; it cannot
+move the median.</p>
+
+<p class="lead"><b>Examples, to show what that looks like.</b> One item of each
+kind, the first value of each — a rule fixed in the code, not a selection.
+There are prettier rows in the data: items that pass through every stage in
+turn, correct → truncated → substituted → refused. These are not those.</p>
+{"".join(grids)}
 <p class="leg">
 <i style="background:var(--full)"></i>the whole value
 <i style="background:var(--piece)"></i>part of it
@@ -146,19 +230,19 @@ still shares with the true value</p>
 </p>
 <figcaption>
 Nothing is deleted at any column — the sentence is in the conversation
-throughout, only harder to read. Note that no two rows give way at the same
-column: <code>Brno</code> survives to the end on one model and goes at b = 3 on
-the other. The last category is the one soft judgement here, a keyword match on
-the opening of the answer; the rest is exact string matching.
+throughout, only harder to read. <b>The grids are examples, not the evidence.</b> The scale claim rests on the
+table at the top — 100 items each, median 3 against median 6. The ten rows below are
+one item of each kind by a fixed rule, and both models are shown rather than one,
+so nothing is being chosen for looking better.
+The last category — <i>declines to answer</i> — is the one soft judgement here,
+a keyword match on the opening of the answer; everything else is exact string
+matching.
 </figcaption>
 </figure>
 """
-    out = ROOT / "fig" / f"fig2_{stem}.html"
+    out = ROOT / "fig" / "fig2.html"
     out.write_text(doc)
-    print("wrote", out)
-    for r in d["rows"]:
-        print(f'  {r["value"]:<9} ' +
-              " ".join(f'{cell(a, r["value"])[0]:>6}' for a in r["cells"]))
+    print("\nwrote", out)
     return 0
 
 

@@ -96,6 +96,11 @@ turned down. Right: the answer when it was never in the conversation at all.**
 
 With the fact faint, the model still knows you are in the Czech Republic.
 
+**These rows are chosen, and are the sharpest in the corpus.** They are here to
+show what the failure looks like, not to stand as evidence of how often it
+happens — that is the table above, over every item. The unchosen version is the
+figure at the top: fourteen items drawn with a fixed seed, refusals included.
+
 **`19:40 → 19:45` passes every check anyone runs downstream.** It does not look
 like a hallucination. It looks like a typo.
 
@@ -103,13 +108,16 @@ like a hallucination. It looks like a typo.
 
 **It does not flip. It comes apart.** Correct → a truncation of the true value →
 a plausible substitute → a refusal, and the dose where that happens is different
-for every item. See `fig/fig2_*.png`.
+for every item. See `fig/fig2.png`.
 
 **Is any of this just the model?** Every behaviour was re-measured with the knob
 off. Only the b = 0 column settles it:
 
 **Each cell is: how many answers show that behaviour with the knob off → with
-it on. Qwen3-4B out of 100 items, Qwen3.5-4B out of 89.** A behaviour that is
+it on. Qwen3-4B out of 100 items, Qwen3.5-4B out of 89** — the other 11 of
+Qwen3.5's 100 still had their value at b = 14, the top of the ladder, so there
+is no dose at which to ask them the question. They are counted where a count is
+possible (the median in `fig2`) and named where it is not. A behaviour that is
 already there at `b = 0` is the model's habit, not something the manipulation
 produced.
 
@@ -205,6 +213,16 @@ python src/run.py   Qwen/Qwen3.5-4B     # the degradation ladder
 python src/probe2.py Qwen/Qwen3.5-4B    # is there an internal "I was told this"
 python src/table.py                     # faint vs absent, with distances
 ```
+
+**Every item is announced with the same three words.** The fact always arrives
+as *"By the way, my dog is called Bagr."* — one fixed carrier phrase, so that the
+span whose attention is turned down has the same shape in all 100 items and the
+only thing varying between them is the value. That is the control side of the
+choice. The cost is that the result is measured on exactly one phrasing: whether
+a model still says *yes, you told me* when the fact arrives buried in a longer
+turn, or in the middle of a paragraph, or from the assistant rather than the
+user, is not something this run can say. Cheap to test, and first on the list
+below.
 
 ## What is not claimed
 

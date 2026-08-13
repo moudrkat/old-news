@@ -303,15 +303,24 @@ one of them; it has only been made harder to read.*"""),
      "<li><b>the two models fail in opposite ways</b> — one declines 46/100, the "
      "other 0/89</li></ul>"),
 
+    ("fig", "figA2", "Key experiments · what the knob is", "fig3.png",
+     "The manipulation in one picture: the sentence stays in the conversation, "
+     "b is subtracted from the attention logits at its token positions, and the "
+     "weight it keeps is multiplied by e^-b. The bars are the real arithmetic. "
+     "Put this before the two result figures — it defines what the b in them "
+     "means."),
+
     ("fig", "figB", "Key experiments · the four conditions", "fig1.png",
      "The gap between <i>fact turned down</i> and <i>a different fact</i> is the "
      "whole result: same frame, same question, and the only difference is "
      "whether the sentence in the slot is the one being asked about."),
 
-    ("fig", "figC", "Key experiments · the dose grid", "fig2_Qwen3-4B-Instruct-2507.png",
-     "Rows are items, columns are the strength of the knob, and each cell holds "
-     "what the model actually answered. Read a row across and the value comes "
-     "apart in stages — and no two rows give way at the same column."),
+    ("fig", "figC", "Key experiments · the dose grid", "fig2.png",
+     "The table at the top is the claim — same 100 items on both models, "
+     "median b = 3 against b = 6. The grids under it are examples: rows are "
+     "items, columns are the strength of the knob, each cell is what the model "
+     "actually answered. Read a row across and the value comes apart in "
+     "stages — and no two rows give way at the same column."),
 
     ("yours", "d3", "Executive summary · Key experiments", 7,
      "~130 words, one short paragraph each. <b>Points to make:</b><ul>"
@@ -759,7 +768,7 @@ function exp() {{
     out = ROOT / "notes" / "writing.html"
     out.write_text(page)
     # the figures live beside the page so it opens straight from the file system
-    for png in ("fig0.png", "fig1.png", "fig2_Qwen3-4B-Instruct-2507.png"):
+    for png in ("fig0.png", "fig1.png", "fig2.png", "fig3.png"):
         src = ROOT / "fig" / png
         if src.exists():
             (ROOT / "notes" / png).write_bytes(src.read_bytes())

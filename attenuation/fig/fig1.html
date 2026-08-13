@@ -73,5 +73,14 @@ evidence. <strong>fact turned down</strong> and <strong>a different fact</strong
 sentence in the slot; only the first is the one being asked about. The model answers
 &#8220;yes&#8221; to the first and never to the second &#8212; while the value it gives under
 <em>fact turned down</em> is wrong.
+<br><br>
+<strong>What b is <em>fact turned down</em> set to?</strong> Not one value.
+Each item is measured at its own dose &#8212; the lowest b at which that model
+stops reproducing that item's value, which is what makes the bar mean
+&#8220;the value is gone&#8221; for every item rather than
+&#8220;b happened to be 4&#8221;. Those doses have a median of 3 on Qwen3-4B-Instruct-2507 and 6 on Qwen3.5-4B and run
+2&#8211;5 and 3&#8211;14 (plus 11 that never lost it). The other three conditions carry no bias at all: <em>fact is there</em>
+is b&#8239;=&#8239;0, and <em>a different fact</em> and <em>nothing there</em>
+change the text instead of the attention.
 </figcaption>
 </figure>

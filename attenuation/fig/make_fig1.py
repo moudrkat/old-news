@@ -41,8 +41,26 @@ def load():
             "n": n,
             "rate": {c: sum(r[c] == "yes" for r in rows) / n for c, _ in CONDS},
             "count": {c: sum(r[c] == "yes" for r in rows) for c, _ in CONDS},
+            # the dose `faint` was measured at, which is per item, not fixed
+            "b": sorted(r["faint_b"] for r in rows),
+            "censored": d.get("dropped_nofaint", 0),
         })
     return out
+
+
+def doses(models) -> tuple[str, str]:
+    """`faint` has no single b, and a figure that does not say so invites the
+    reader to assume one. Median is taken over all 100 items with the censored
+    ones ranked above every measured value — see fig2 for why that is exact."""
+    meds, rngs = [], []
+    for m in models:
+        bs, c = m["b"], m["censored"]
+        n = len(bs) + c
+        lo, hi = sorted(bs + [float("inf")] * c)[n // 2 - 1: n // 2 + 1]
+        meds.append(f'{(lo + hi) / 2:g} on {m["model"]}')
+        rngs.append(f'{min(bs):g}&#8211;{max(bs):g}'
+                    + (f' (plus {c} that never lost it)' if c else ""))
+    return " and ".join(meds), " and ".join(rngs)
 
 
 def svg(models) -> str:
@@ -99,6 +117,7 @@ def main() -> int:
     if not models:
         print("no results/told2_*.json found")
         return 1
+    med, rng = doses(models)
     css_s = "\n".join(
         f'.s{i}{{fill:{c}}} .z{i}{{stroke:{c}}}' for i, c in enumerate(SERIES))
     css_d = "\n".join(
@@ -136,6 +155,15 @@ evidence. <strong>fact turned down</strong> and <strong>a different fact</strong
 sentence in the slot; only the first is the one being asked about. The model answers
 &#8220;yes&#8221; to the first and never to the second &#8212; while the value it gives under
 <em>fact turned down</em> is wrong.
+<br><br>
+<strong>What b is <em>fact turned down</em> set to?</strong> Not one value.
+Each item is measured at its own dose &#8212; the lowest b at which that model
+stops reproducing that item's value, which is what makes the bar mean
+&#8220;the value is gone&#8221; for every item rather than
+&#8220;b happened to be 4&#8221;. Those doses have a median of {med} and run
+{rng}. The other three conditions carry no bias at all: <em>fact is there</em>
+is b&#8239;=&#8239;0, and <em>a different fact</em> and <em>nothing there</em>
+change the text instead of the attention.
 </figcaption>
 </figure>
 """
