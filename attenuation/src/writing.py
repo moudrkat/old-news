@@ -481,9 +481,14 @@ models after the exclusion, both 4B. Greedy, one seed.
 **The bias does not reach every layer, and the one cross-model comparison is
 confounded by it.** Only full-attention layers see the mask: 36 of 36 on
 Qwen3-4B, but 8 of 32 on Qwen3.5-4B, which is a hybrid with three
-linear-attention layers for every full one. Qwen3.5-4B needs roughly twice the
-dose *and* is the model where three quarters of the layers never see the bias.
-Nothing here separates "more robust model" from "the bias reached less of it". `faint` is a per-item
+linear-attention layers for every full one (`full_attention_interval: 4`, full
+attention at depths 3, 7, 11, ... 31). A linear-attention layer has no
+score matrix over positions to subtract from, so it passes the mask through
+untouched. The sentence is therefore quiet in 8 layers and **at full strength in
+the other 24**, and information can travel that parallel path — one Qwen3-4B
+does not have. Qwen3.5-4B needs roughly twice the dose *and* is the model where
+three quarters of the layers never see the bias; nothing here separates "more
+robust model" from "the bias reached less of it". `faint` is a per-item
 threshold, so it means a different `b` for each item.
 
 **The items are not fully independent.** Once the value is gone the model falls

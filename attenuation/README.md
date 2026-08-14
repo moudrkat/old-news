@@ -232,6 +232,27 @@ Qwen3.5-4B is a hybrid — three linear-attention layers for every full one:
 | Qwen3-4B-Instruct-2507 | 36 / 36 |
 | **Qwen3.5-4B** | **8 / 32** |
 
+**Why it does not reach them.** The bias is a mask on the *attention logits* —
+it adds `-b` to the score matrix before the softmax. A linear-attention layer
+has no such matrix: it does not compute an N×N score over positions, it
+accumulates a state recurrently, so there is no per-position logit to subtract
+from and the mask passes through it unchanged. `Qwen3.5-4B` is
+`model_type: qwen3_5` with `full_attention_interval: 4` — 24 linear-attention
+layers and 8 full-attention ones, in the pattern `l l l F`, at depths 3, 7, 11,
+15, 19, 23, 27, 31. `Qwen3-4B-Instruct-2507` has no `layer_types` at all, so all
+36 of its layers are full attention.
+
+So the accurate statement is not that the bias is weaker on Qwen3.5-4B. It is
+that **the sentence is quiet in 8 layers and at full strength in the other 24**,
+and information can travel that parallel path untouched — a path Qwen3-4B does
+not have. That makes the cross-model comparison worse, not better.
+
+It also cuts the other way, and this part is worth keeping: eight layers, evenly
+spaced through the depth rather than clustered early or late, are enough to take
+the value out of the answer while 24 others still read the sentence in full.
+Which is consistent with what Geva et al. found — pulling an attribute to the
+final position is work done by full-attention heads.
+
 Read this twice, because it cuts both ways. Reaching a quarter of the layers is
 still enough to take the value out of the answer — that is the manipulation
 being cheap, not weak. But it is also a **confound in the one comparison
