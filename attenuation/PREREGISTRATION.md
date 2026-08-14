@@ -45,8 +45,8 @@ models only the full-attention ones, and coverage is reported.
 
 ## The four conditions
 
-| | |
-|---|---|
+| | Qwen3-4B | Qwen3.5-4B |
+|---|---|---|
 | `present` | 98 / 99 | 81 / 85 |
 | `faint` | 72 / 99 | 75 / 85 |
 | `swap` | 0 / 99 | 0 / 85 |
