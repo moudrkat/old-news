@@ -217,6 +217,14 @@ before you knew this programme existed.</i> He reads hundreds of motivation
 statements; he reads very few of those.<br><br>
 <b>Then answer the question that was asked</b> — why <i>his</i> stream:
 <ul>
+<li><b>and the concrete version of that, which is better than saying you want
+feedback.</b> People send you theories they worked out with an LLM, and they are
+often slop, and it is hard to tell them so. If it is that hard to say to someone
+else, you would not manage to say it to yourself either — and you think he would
+say it to you. Keep it to three sentences and do not flatter him; what makes it
+work is that it names a specific thing you cannot do alone, and that it is the
+same failure your own result is about: <b>the model cannot tell it misread, and
+neither can the person who wrote the theory</b>.</li>
 <li>his pivot to <i>pragmatic interpretability</i> is the nearest thing in the
 field to how you already work: does the technique actually do anything,
 measured against baselines, on models that matter</li>
