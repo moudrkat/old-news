@@ -321,10 +321,13 @@ below.
   confounds the one comparison between them.
 - Every threshold is a *first crossing*, not a point of no return: one item is
   gone at `b = 11` and back at 14.
-- Generation stops at 24 tokens and most answers reach that cap. Only 3 of 184
-  end in a partial spelling of the true value, and all three had already given a
-  damaged version earlier in the same answer, so the cap does not inflate the
-  count. A longer budget would remove the question.
+- Generation stops at 24 tokens and most answers reach that cap, so an item
+  could in principle be scored "value gone" one token early. Two checks say
+  otherwise: when the model can read the value it states it at a median of 21
+  characters and never past 54, well before the cap; and of the nine answers
+  that visibly correct themselves mid-sentence, **not one recovers the value**.
+  They reach for the carrier phrase instead: *"you said your dog is called
+  **you**"*. A longer budget would settle this rather than bound it.
 - The locality control is clean on Qwen3.5-4B (89/89) and not on Qwen3-4B
   (46/100), where masking anything at that dose makes the model refuse.
 - The bias is an idealised version of a state that arises in deployment for

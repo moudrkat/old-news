@@ -648,14 +648,20 @@ threshold, so it means a different `b` for each item.
   fact moved the train to the evening. Handing all 189 raw answers to a judge
   and reading its disagreements found them; the meridiem is now checked, and a
   missing diacritic fold cost a third item. Final: 147 of 184.
-- **Generation is capped at 24 tokens, and most answers hit the cap.** 86 of
-  Qwen3-4B's 100 answers and 34 of Qwen3.5-4B's 89 end mid-sentence, so in
-  principle an item could be scored "value gone" when the value was one token
-  away. Checked rather than assumed: only **3 of 184** answers end in a partial
-  spelling of the true value, and in all three the model had already produced a
-  damaged version earlier in the same answer (`E-8` before a truncated quote of
-  `E-88`, `Z-5` before `Z-54`, `Yorick` before `Yor`). The cap does not inflate
-  the headline, but a longer budget would remove the question.
+- **Generation stops at 24 tokens, and most answers reach that cap**, so it is
+  fair to ask whether an item scored "value gone" would have got there in the
+  end. Two checks say no. First, **when the model can read the value it says it
+  early**: across all 189 unimpeded answers the value appears at a median of 21
+  characters and never later than 54, while the cap falls past 100. An answer
+  that has not produced the value by then was not about to. Second, only 3 of
+  184 answers end in a partial spelling of the true value, and in each the model
+  had already given a damaged version earlier in the same answer. **The nine
+  answers that visibly try to correct themselves are the sharpest test, and not
+  one recovers the value** — *"Your dog is called Max. (Wait, actually, you said
+  your dog is called **you**…"* reaches for the carrier phrase again rather than
+  for `Kudla`. Self-correction produces more confabulation, not recovery. A
+  longer budget would still be worth having; it would settle this rather than
+  bound it.
 - **The secondary labels are not validated.** A keyword rule and a Gemini judge
   disagree on them, 57% against 43% on "kept a piece of the true value" and
   6–11% against 16% on hesitation. Neither is quoted, and the headline does not
