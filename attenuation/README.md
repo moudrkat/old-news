@@ -66,6 +66,16 @@ four conditions below change the text instead, and carry no bias at all.
 
 ![How the manipulation works](fig/fig3.png)
 
+**Why this and not V-Steer**, which is where the observation came from. V-Steer
+rescales the cached *value vectors* of heads that leaned on the stale span, so
+the model looks at full strength and what arrives is weaker. This subtracts from
+the *attention logits*, so the same thing would arrive and the model looks less.
+Both end with a span that is present and contributes little. This one is one
+number rather than a per-head selection, it is continuous so each item has a
+threshold, `b = 0` is the plain causal mask so the control costs nothing — and
+it runs on hybrid architectures, where editing the KV cache is not possible at
+all.
+
 **The metric.** I ask the model *"Did I tell you this? Answer only yes or no."*
 in four situations: the sentence is there · the sentence is faint · a readable
 sentence about something else is there instead · nothing is there at all. **The
