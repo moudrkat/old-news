@@ -254,6 +254,19 @@ took it out: its null returned a perfect separation at the embedding layer,
 where both conditions are literally the same vector, and its shuffled control
 was too noisy to certify anything. The code and that verdict are in the repo.
 
+**Is the damage even monotone in b?** The whole design assumes that once a
+value is gone at some dose it stays gone, which is what makes "the lowest b at
+which the answer no longer contains the value" a threshold rather than just a
+crossing. One item contradicts it. An earlier pilot run over a finer ladder
+(steps of 0.5 up to 12) found `Brno` lost on Qwen3.5-4B at b = 11, answered as
+*"You live in **Prague**"*; the 100-item run, whose ladder jumps 10 → 14 and
+never tests 11, finds that same item still saying `Brno` at every dose including
+14. Both are in the repo. Either the pilot and the main run differ somewhere I
+have not found, or the effect is not monotone and a value can come back at a
+higher dose — which would make every threshold in this report a first crossing
+and not a point of no return. Re-running one item over a dense ladder settles it
+in minutes, and it is the first thing I would run.
+
 **Where does Qwen3.5's tail actually end?** Eleven of its 100 items still had
 their value at b = 14, the top of the ladder. The median over all 100 is exact
 without them, so the headline does not wait on this — but the ranges do, and a
