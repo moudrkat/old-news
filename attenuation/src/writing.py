@@ -429,7 +429,49 @@ told it — so that part rests on one manipulation and two models."""),
   - **a different fact** — a readable sentence about something else in the slot
   - **nothing there** — no such sentence at all **`swap` and `drop` carry no bias**."""),
 
-    ("ready", "r1", "Detailed analysis · The answer", """**The headline.** *fact turned down* against *a different fact* is the result: both put a sentence in the slot, and only in the first is it
+    ("ready", "r1", "Detailed analysis · The answer", """**Start with the three answers that surprised me**, because the headline is the
+one a reader can predict.
+
+**1. It claims the fact even when it has no value to offer.** In 23 of the 184
+items the model produces nothing at all — *"I don't have access to your flight
+details"* — and, asked separately, says *"yes, you told me"*. It knows it cannot
+give the value and still reports receiving it.
+
+| out of 184 | says "yes, you told me" | says "no" | |
+|---|---|---|---|
+| **gave a value, and it was wrong** | 124 | 12 | 136 items, 91% yes |
+| **gave no value at all** | 23 | 25 | 48 items, 48% yes |
+| | **147** | **37** | **184** |
+
+Producing a value almost guarantees the claim. Producing nothing halves it and
+no further. So the "yes" tracks neither the value nor the model's ability to
+read it.
+
+**2. When the value goes quiet, the model answers out of the words beside it.**
+
+> told `Grendel`: *"Your cat is called **By the way**."*
+>
+> told `Kudla`: *"Your dog is called Max. 😊 (Wait—actually, you said your dog is
+> called ***you***—that"*
+
+`By the way` and `you` are both from the carrier sentence, the part never turned
+down. The first surfaced in cells the judge and the code scored differently, the
+second in the nine answers that correct themselves mid-generation, **not one of
+which recovers the value**. Two accidents, one mechanism: what survives
+constrains what is invented.
+
+**3. On one model the manipulation is not local at all.** Masking the value's
+neighbours instead of the value — same item, same dose, same token count —
+leaves the answer intact 85 times out of 85 on Qwen3.5-4B. On Qwen3-4B it works
+only 52 times in 99, and **46 of the 47 failures give no value at all**. Mask
+anything on that model at that dose, even a content-free carrier phrase, and it
+stops answering. The localisation claim holds for one of the two models, and for
+the other this design cannot separate a local effect from a global loss of
+willingness to answer.
+
+---
+
+**The headline.** *fact turned down* against *a different fact* is the result: both put a sentence in the slot, and only in the first is it
 the one being asked about. **147 of 184 against 0 of 184.**
 
 The readable condition is the ceiling and it is not 100%: five items answer "no"
@@ -439,30 +481,6 @@ still say yes when the value has gone, 32 switch, and not one switches the other
 way.** The carrier sentence stays legible throughout, so "yes" is not a false
 answer; what the model fails to do is register that the value it produces is not
 the one it read.
-
-**Two different failures are inside the 147.**
-
-| out of 184 | says "yes, you told me" | says "no" | |
-|---|---|---|---|
-| **gave a value, and it was wrong** | 124 | 12 | 136 items, 91% yes |
-| **gave no value at all** | 23 | 25 | 48 items, 48% yes |
-| | **147** | **37** | **184** |
-
-The second row is the stranger one: *"I don't have access to your flight
-details"* and, asked separately, *"yes, you told me"*. Producing a value almost
-guarantees the claim; producing nothing halves it and no further.
-
-**The damage is local, on one model.**
-
-Same item, same dose, same number of masked tokens; the cells are **how often
-the answer still contains the true value**:
-
-| where the mask sits | Qwen3-4B | Qwen3.5-4B |
-|---|---|---|
-| **beside** the value, on the opening words of the same sentence | 52 / 99 | **85 / 85** |
-
-On Qwen3.5-4B, move the mask one span over and the answer is right every time. On Qwen3-4B it is not,: 46 of its 47 failures give no value at all, so
-masking anything at that dose makes it stop answering.
 
 **Is any of it just the model?** Every behaviour re-measured with no bias:
 
@@ -487,16 +505,6 @@ in (`Graz → Linz`, `Utrecht → Amsterdam`). When nothing survives the prior w
 always the same one: four allergens all become peanuts, three dog names all
 become Max. And when even that fails, the model answers out of the words it can
 still read:
-
-> told `Grendel`: *"Your cat is called **By the way**."*
->
-> told `Kudla`: *"Your dog is called Max. 😊 (Wait—actually, you said your dog is
-> called ***you***—that"*
-
-Both phrases come from the carrier sentence, the part never turned down. The
-first surfaced in cells the judge and the code scored differently, the second in
-the nine answers that correct themselves mid-generation, **not one of which
-recovers the value**.
 
 *(The value/no-value split and the behaviour table are the judge's labels,
 `gemini-3.1-flash-lite` against a written rubric, agreeing with a keyword rule

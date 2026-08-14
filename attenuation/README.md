@@ -62,9 +62,9 @@ That third one is the control everything rests on. It separates *"I have this
 fact"* from *"there is a sentence here"*.
 
 **The answer.** It does not notice. When the sentence is faint, the model says
-it was told the fact **147 times out of 184**, and it is wrong every time: in
-124 of them it gives a value and it is the wrong one, and in the other 23 it
-gives no value at all and *still* says it was told. When a readable sentence about something
+it was told the fact **147 times out of 184**: in 124 of them it has just given
+a value that is wrong, and in the other 23 it gave no value at all and still
+says it was told. When a readable sentence about something
 else is there instead, it correctly says no, **184 times out of 184**.
 
 And the wrong value is not random. It sits next to the truth. Told `19:40`, it
@@ -248,12 +248,12 @@ behind it wins.
 That is what made the question worth asking. Not *the model got it wrong*, but
 *what does it say instead, and why that one*.
 
-So this repo is not the first sighting. The same failure appears under two
-manipulations with nothing in common: one edits cached values, the other adds a
-bias to attention logits. The version used here is the simpler of the two, and
-it runs wherever there is a full-attention layer, including the hybrid
-architectures a value-cache edit cannot touch at all, which is why the
-measurements are done with it.
+So the near miss is not an artefact of this manipulation: a value replaced by
+its own neighbour appears under two methods with nothing in common. **The
+provenance result does not carry over, and that is the biggest hole here.**
+Under V-Steer the model gave the *right* value and denied being told it. Only
+the near miss replicates; what this report is about rests on one manipulation
+and two models.
 
 ## Why this is the interesting version of the question
 
