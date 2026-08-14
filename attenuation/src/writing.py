@@ -270,6 +270,15 @@ doesn't know when it misread</i></li>
 <li>R1D1's assessment literally ends "(Bonus points for a great title)"</li>
 </ul>"""),
 
+("ready", "lede", "Executive summary · before the figures", """A model is told a fact in conversation. I make that fact's own tokens hard to
+read while the sentence around them stays perfectly legible, and then ask two
+things in two separate conversations: what was the fact, and were you told it.
+
+The model answers with a value that is wrong but sits right next to the truth,
+and says it was told it. **`19:40 → 19:45` passes every check anyone runs
+downstream. It does not look like a hallucination. It looks like a typo**, and
+nothing downstream catches a typo."""),
+
     ("fig", "figA", "Executive summary · sample answers", "fig0.png",
      "Fourteen of the 184 items, drawn with a fixed seed, not picked. "
      "Refusals included. Goes before any prose, exactly where R1D1 put its "
@@ -382,10 +391,8 @@ told it — so that part rests on one manipulation and two models."""),
 
   **100 items per model. 99 and 85 clear the gate, so 184 in total.** Qwen3.5-4B
   loses 11 that still had their value at `b = 14`, the top of the sweep, and
-  which therefore have no dose; they are named rather than dropped quietly,
-  because they are the eleven *most* resistant items on the more resistant
-  model. Four more go on that model and one on the other because the value was
-  never gone: times the model gave on a 12-hour clock.
+  which therefore have no dose; Four more go on that model and one on the
+  other because the value was never gone.
 - **The bias.** Subtract a constant `b` from the attention logits at the token
   positions **of the value** — `Bagr`, not the sentence containing it — before
   the softmax, via a 4D additive mask with `attn_implementation="eager"`. That
@@ -413,12 +420,14 @@ told it — so that part rests on one manipulation and two models."""),
 - **Items.** 100: ten kinds of fact by ten values, each one clause in a fixed
   frame, values chosen unguessable (`Wobbet`, `QR318`) so that a correct answer
   cannot come from priors.
-- **Conditions.** `present` (b = 0) · `faint` (that item's own dose) · `swap` (a
-  readable sentence about a *different* fact in the slot) · `drop` (no such
-  sentence at all). **`swap` and `drop` carry no bias**."""),
+- **Conditions.** four states of the evidence, named the same way here, in the tables and in
+  the figures:
+  - **fact is there** — the sentence, unmodified (`b = 0`)
+  - **fact turned down** — the same sentence at that item's own dose
+  - **a different fact** — a readable sentence about something else in the slot
+  - **nothing there** — no such sentence at all **`swap` and `drop` carry no bias**."""),
 
-    ("ready", "r1", "Detailed analysis · The answer", """**The headline is the figure above.** *fact turned down* against *a different
-fact* is the result: both put a sentence in the slot, and only in the first is it
+    ("ready", "r1", "Detailed analysis · The answer", """**The headline.** *fact turned down* against *a different fact* is the result: both put a sentence in the slot, and only in the first is it
 the one being asked about. **147 of 184 against 0 of 184.**
 
 The readable condition is the ceiling and it is not 100%: five items answer "no"
@@ -450,9 +459,8 @@ the answer still contains the true value**:
 |---|---|---|
 | **beside** the value, on the opening words of the same sentence | 52 / 99 | **85 / 85** |
 
-On Qwen3.5-4B, move the mask one span over and the answer is right every time. On Qwen3-4B it is not, and the reason matters more than the
-control: 46 of the 47 failures give no value at all. Mask anything on that model
-at that dose, even a content-free carrier phrase, and it stops answering.
+On Qwen3.5-4B, move the mask one span over and the answer is right every time. On Qwen3-4B it is not,: 46 of its 47 failures give no value at all, so
+masking anything at that dose makes it stop answering.
 
 **Is any of it just the model?** Every behaviour re-measured with no bias:
 
@@ -464,10 +472,8 @@ at that dose, even a content-free carrier phrase, and it stops answering.
 | gives no value at all | 1 → 46 | 0 → 2 |
 
 **"Quotes the user back" retired a claim of mine** — "it misquotes the user" looked like a finding
-until the no-bias column showed Qwen3-4B doing it 14 times in 100 anyway. Arguing for the value
-reverses between the models: Qwen3.5-4B starts arguing for its invented value,
-Qwen3-4B stops because by then it is refusing. The last row is the sharpest difference
-between the models and runs the wrong way — the newer model almost never declines.
+until the no-bias column showed Qwen3-4B doing it 14 times in 100 anyway. The newer model almost never declines, which is the
+sharpest difference between the two and runs the wrong way.
 
 **What it says instead.** What survives constrains what is invented: the airline
 code survives and the number is filled in (`BA945 → BA118`, volunteering *"or
@@ -496,11 +502,10 @@ disagreed on none of the `present`, `faint` or `swap` replies.)*"""),
     ("ready", "l1", "Detailed analysis · Limitations", """- **The provenance result did not replicate under the other manipulation.**
   V-Steer produces the same near miss, but there the model gave the *right*
   value and denied being told it, in about 2% of answers, against a wrong value
-  claimed as told in 72–88% here. Read one way that is the biggest hole in this
-  report: the headline is manipulation-specific. Read another it is the opposite
-  dissociation, value intact with the provenance signal off against value gone
-  with it on, which would say the two come apart in both directions. This design
-  cannot tell those readings apart.
+  claimed as told in 72–88% here. That is the biggest hole here: the headline is
+  manipulation-specific. It may also be the opposite dissociation — value intact
+  with the signal off, against value gone with it on — but this design cannot
+  tell those apart.
 - **`swap` carries no bias, so the headline contrast varies two things at
   once**: right topic with the bias on against wrong topic with it off. This
   does not exclude that any attention perturbation produces the "yes". The
@@ -514,22 +519,15 @@ disagreed on none of the `present`, `faint` or `swap` replies.)*"""),
   value/no-value split, the behaviour table and the locality counts rest on
   them; the headline does not.
 - **The scoring rule was wrong three times, in both directions**: 151/189 →
-  145/183 → 147/184. Two of the three were found by handing all 189 raw answers
-  to a judge and reading where it disagreed with the code, which is possible
-  only because every generation is stored rather than only its label. The ledger
-  is in `PREREGISTRATION.md`.
-- **Generation stops at 24 tokens** and most answers reach it. When the model
-  can read the value it states it by character 54 at the latest, and of the nine
-  answers that correct themselves mid-sentence not one recovers the value, so
-  the cap does not inflate the count.
+  145/183 → 147/184. Two of the three were found by handing the raw
+  answers to a judge and reading where it disagreed; the ledger is in
+  `PREREGISTRATION.md`.
 - **The items are not independent** — Qwen3-4B gives only 55 distinct answers
   across 99 items. Constructed conversations, one manipulation family, two 4B
   models, greedy, one seed.
 - **One phrasing.** The fact always arrives as *"By the way, my dog is called
-  Bagr."* That is deliberate: the attenuated span has the same shape in all 100
-  items and only the value varies. The cost is that the result is measured on
-  exactly that phrasing, and whether it holds when the fact is buried in a longer
-  turn is untested."""),
+  Bagr."* One carrier phrase keeps the attenuated span the same
+  shape in all 100 items, at the cost of measuring one phrasing only."""),
 
     ("yours", "d4", "Detailed analysis · How I used LLMs", 7,
      "~110 words, same content as form Q7, in prose. <b>Points to make:</b><ul>"
@@ -560,17 +558,10 @@ disagreed on none of the `present`, `faint` or `swap` replies.)*"""),
   deployment causes that produce this state without anyone asking for it."""),
 
     ("ready", "h1", "Appendix · Hours", """11 Aug: about 2 hours. 12 Aug: about 6. Eight in total, plus the two allowed
-for the write-up, against the ~16 suggested.
-
-The first eight are a reconstruction from the day against the git timestamps of
-the repository. The work was not timed with a clock as it happened. The write-up itself was timed.
-
-Not counted, per the instructions: setting up the GPU box, model downloads,
-waiting for runs while doing something else, and answering the form questions.
-
-Not counted because it predates the question: the fixture set, the ten-model
-V-Steer table, and the attenuation mechanism itself, all of which existed before
-this question was asked."""),
+for the write-up, against the ~16 suggested. The first eight are reconstructed
+from the git timestamps; the write-up itself was timed. Not counted, per the
+instructions: GPU setup, model downloads, waiting on runs, and the form
+answers."""),
 
     ("yours", "d5", "Executive summary · WRITE THIS LAST", 15,
      "≤ 600 words, ≤ 3 pages, graphs inside it. <b>Write it last.</b> It is not "

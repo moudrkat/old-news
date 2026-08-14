@@ -320,45 +320,25 @@ wrong and how it was caught are in [`PREREGISTRATION.md`](PREREGISTRATION.md).
 
 ## What I would do next
 
-**Does this happen under a manipulation nobody chose?** The bias here is
-deliberate and dosed. In deployment the same state, a sentence still present
-but read badly. Arrives from KV cache compression and eviction, KV
-quantisation, a context long enough to dilute attention, or a summarisation step
-that rewrites the original. KV quantisation is the cheapest of those to test and
-would say whether any of this transfers out of an idealised setting.
-
-**Is there an internal signal for it?** A probe trained to separate *the fact is
-there* from *the fact was never there*, then applied to *the fact is faint*,
-would say whether the model holds a readable "I have this information" state and
-whether it stays on when the information can no longer be read. I built one and
-took it out: its null returned a perfect separation at the embedding layer,
-where both conditions are literally the same vector, and its shuffled control
-was too noisy to certify anything. The code and that verdict are in the repo.
-
-**Map the dose curve on one item.** `city:Brno` is gone at `b = 11` and back at
-14, so every threshold here is a first crossing rather than a point of no
-return, and the medians are medians of first crossings. A dense sweep to 20 on
-that one item would settle the shape. Cheapest thing on this list, and it came
-from two numbers that did not agree.
-
-**Where does Qwen3.5's tail actually end?** Eleven of its 100 items still had
-their value at b = 14, the highest dose tested. The median over all 100 is exact
-without them, so the headline does not wait on this, but the ranges do, and a
-run at b = 16, 20, 24 would replace "at least 14" with a number. Better than a
-longer sweep: fit a survival curve per item and report the dose at which the
-value is half gone, which uses the whole sweep instead of the first crossing.
-
-**Run it again with room to finish the sentence.** 24 tokens is enough for the
-value, which arrives by character 54 at the latest, but not enough to see what
-the model does *after* it has answered wrongly. The nine self-corrections in
-this run all break off mid-thought, and they are the most interesting answers in
-the corpus. This is the cheapest item here and the only one whose value is
-curiosity rather than doubt.
-
-**Why does the newer model almost never decline?** Qwen3-4B gives no value in 46 of 99
-damaged items; Qwen3.5-4B in none of 89. Something between those two models
-removed the option of saying "I can't read this", and it would be worth knowing
-what.
+- **Run `swap` with the bias on.** One line of code, and it is the difference
+  between a control and a comparison: right now the headline contrast varies
+  topic *and* perturbation.
+- **Mask only 8 of Qwen3-4B's 36 layers**, matching the hybrid's coverage, and
+  re-measure the median. That separates "more robust model" from "the bias
+  reached less of it".
+- **Sweep one item densely to `b` = 20.** `Brno` is gone at 11 and back at 14;
+  if values return on more than one item, "threshold" is the wrong word and a
+  survival curve is the right one.
+- **Look for an internal signal.** A probe separating *the fact is there* from
+  *the fact was never there*, applied to *the fact is faint*. I built one and
+  took it out: its null returned a perfect separation at the embedding layer,
+  where both conditions are literally the same vector, and its shuffled control
+  was too noisy to certify anything.
+- **Hand-label 50 items** so the judge's labels stop being provisional.
+- **Test a manipulation nobody chose.** In deployment this state arrives from KV
+  cache compression and eviction, KV quantisation, long-context dilution or a
+  summarisation step. KV quantisation is the cheapest to test and would say
+  whether any of this transfers out of an idealised setting.
 
 ---
 

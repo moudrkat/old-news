@@ -168,12 +168,9 @@ sentence in the slot; only the first is the one being asked about. The model ans
 &#8220;yes&#8221; to the first and never to the second &#8212; while the value it gives under
 <em>fact turned down</em> is wrong.
 <br><br>
-An item counts only where the value is genuinely gone from the answer, checked
-with a normaliser rather than a substring test: <code>04:36</code> answered as
-&#8220;4:36&nbsp;PM&#8221; is correct, and six items across the two models were
-scored as damage on that basis alone. Correcting the rule moved the headline
-twice, 151/189 down to 145/183 and then back up to 147/184 when the same rule
-turned out to accept "6:15 PM" as 06:15.
+An item counts only where the value is genuinely gone from the answer, judged by
+a rule that treats <code>04:36</code> and &#8220;4:36&nbsp;AM&#8221; as the same
+time and &#8220;4:36&nbsp;PM&#8221; as a different one.
 <br><br>
 <strong>What b is <em>fact turned down</em> set to?</strong> Not one value.
 Each item is measured at its own dose &#8212; the lowest b at which that model
