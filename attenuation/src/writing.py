@@ -359,7 +359,10 @@ looking at the span at full strength while what arrives from it is faint.
 
 **The phenomenon is therefore not an artefact of the manipulation used here.**
 It first appeared under a published method on ten models, and is reproduced
-below with a simpler, architecture-independent one.
+below with a simpler one that needs nothing but a full-attention layer. That is
+a weaker claim than it sounds: on a hybrid architecture the mask reaches only
+the full-attention layers, 8 of 32 on Qwen3.5-4B, which is the confound in
+Limitations below.
 
 One honest narrowing: the two manipulations do not do the same thing to
 provenance. Under V-Steer the model gave the *right* value and denied being told
@@ -410,7 +413,12 @@ it, in 72–87%. The near miss replicates; the provenance behaviour does not."""
 - **Gate.** An item counts only if the unmanipulated model answers correctly and
   some `b` removes the value. Both kinds of failure are counted and reported."""),
 
-    ("ready", "r1", "Detailed analysis · Results", """**The headline.** Rate of answering "yes" to *did I tell you this*:
+    ("ready", "r1", "Detailed analysis · Results", """**The headline.** Rate of answering "yes" to *did I tell you this*. Two
+denominators appear below and it is worth fixing them once: **86 and 97** are the
+items where the value was genuinely gone, after six were removed by hand for
+being correct answers a substring test miscounted; **89 and 100** are all items
+that reached the manipulation, used where the question does not depend on the
+value having gone.
 
 | condition | Qwen3.5-4B | Qwen3-4B |
 |---|---|---|
@@ -434,9 +442,11 @@ sentence over:
 With the mask beside the value the answer is right every time. The damage
 follows the mask, not the dose.
 
-**It does not flip; it comes apart.** Correct, then a truncation of the true value, then a plausible substitute,
-then a refusal, and the dose at which that happens differs
-for every item.
+**It does not flip; it comes apart.** Read a row of the dose grid (figure
+above) from left to right: the answer is correct, then a truncation of the true
+value, then a plausible substitute, then a refusal. No two rows give way at the
+same column, which is why every threshold in this write-up is per item rather
+than a single number for the model.
 
 **Is any of it just the model?** Every behaviour visible in the answers was
 re-measured at `b = 0`:
@@ -459,8 +469,9 @@ The third row retired a claim: "it misquotes the user" is something Qwen3-4B
 does 14 times in 100 with nothing manipulated at all.
 
 **And the two models fail in opposite ways.** Qwen3-4B declines in 46 of 100
-damaged cases. Qwen3.5-4B declines in none of 89. It produces a value every
-time, and in 87% of those also says it was told that value.
+damaged cases; Qwen3.5-4B declines in none of them. It produces a value every
+single time, and on the 86 where that value was wrong it also claimed to have
+been told it 75 times.
 
 **What it says instead.** What survives constrains what is invented: the airline
 code survives and the number is filled in (`BA945 → BA118`, and it volunteers
@@ -539,8 +550,8 @@ threshold, so it means a different `b` for each item.
 - **Ask why the newer model never declines.** Something between Qwen3-4B and
   Qwen3.5-4B removed the option of saying "I can't read this"."""),
 
-    ("ready", "h1", "Appendix · Hours", """11 Aug: about 2 hours. 12 Aug: about 6. Eight of the twelve, plus the two
-allowed for the write-up.
+    ("ready", "h1", "Appendix · Hours", """11 Aug: about 2 hours. 12 Aug: about 6. Eight in total, plus the two allowed
+for the write-up, against the ~16 suggested.
 
 The first eight are a reconstruction from the day against the git timestamps of
 the repository. The work was not timed with a clock as it happened, and that is
@@ -550,8 +561,8 @@ Not counted, per the instructions: setting up the GPU box, model downloads,
 waiting for runs while doing something else, and answering the form questions.
 
 Not counted because it predates the question: the fixture set, the ten-model
-V-Steer table, the attenuation mechanism, and the instrument the runs go
-through."""),
+V-Steer table, and the attenuation mechanism itself, all of which existed before
+this question was asked."""),
 
     ("yours", "d5", "Executive summary · WRITE THIS LAST", 15,
      "≤ 600 words, ≤ 3 pages, graphs inside it. <b>Write it last.</b> It is not "
