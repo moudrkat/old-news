@@ -121,11 +121,11 @@ like a hallucination. It looks like a typo.
 
 ## And three things underneath it
 
-It does not flip. It comes apart. Correct → a truncation of the true value →
+**It does not flip. It comes apart.** Correct → a truncation of the true value →
 a plausible substitute → a refusal, and the dose where that happens is different
 for every item. See `fig/fig2.png`.
 
-Is any of this just the model? Every behaviour was re-measured at
+**Is any of this just the model?** Every behaviour was re-measured at
 `b = 0`. Only the b = 0 column settles it:
 
 Each cell is: how many answers show that behaviour at `b = 0` → under
@@ -151,7 +151,7 @@ Here is the breakdown: the number 3…"*, where at b = 0 the same answer is bare
 The third row retired a claim: "it misquotes the user" is something Qwen3-4B
 does 14 times in 100 with nothing manipulated at all.
 
-The two models fail in opposite ways. Qwen3-4B declines in 46 of 100 damaged
+**The two models fail in opposite ways.** Qwen3-4B declines in 46 of 100 damaged
 cases. **Qwen3.5-4B declines in none of 89**. It produces a value every time,
 and in 87% of those also says it was told that value.
 
@@ -299,27 +299,32 @@ below.
 
 ## What is not claimed
 
-Constructed conversations. One manipulation. Two models, both 4B. Qwen2.5-0.5B
-**failed the control** (it says "yes, you told me" when nothing was ever said)
-and is excluded rather than averaged in. Greedy, one seed.
-
-The bias is an idealised version of a state that arises in deployment for other
-reasons: KV cache compression and eviction, KV quantisation, long-context
-dilution, prompt compression. **None of those is measured here.**
+- Constructed conversations, not real transcripts. One manipulation family.
+  Greedy, one seed.
+- Two models, both 4B. Qwen2.5-0.5B **failed the control** (it says "yes, you
+  told me" when nothing was ever said) and is excluded rather than averaged in.
+- The bias reaches 8 of 32 layers on Qwen3.5-4B and 36 of 36 on Qwen3-4B, which
+  confounds the one comparison between them.
+- Every threshold is a *first crossing*, not a point of no return: one item is
+  gone at `b = 11` and back at 14.
+- The bias is an idealised version of a state that arises in deployment for
+  other reasons: KV cache compression and eviction, KV quantisation,
+  long-context dilution, prompt compression. **None of those is measured
+  here.**
 
 The plan, the hypotheses with their numeric falsifiers, and a list of what went
 wrong and how it was caught are in [`PREREGISTRATION.md`](PREREGISTRATION.md).
 
 ## What I would do next
 
-Does this happen under a manipulation nobody chose? The bias here is
+**Does this happen under a manipulation nobody chose?** The bias here is
 deliberate and dosed. In deployment the same state, a sentence still present
 but read badly. Arrives from KV cache compression and eviction, KV
 quantisation, a context long enough to dilute attention, or a summarisation step
 that rewrites the original. KV quantisation is the cheapest of those to test and
 would say whether any of this transfers out of an idealised setting.
 
-Is there an internal signal for it? A probe trained to separate *the fact is
+**Is there an internal signal for it?** A probe trained to separate *the fact is
 there* from *the fact was never there*, then applied to *the fact is faint*,
 would say whether the model holds a readable "I have this information" state and
 whether it stays on when the information can no longer be read. I built one and
@@ -360,7 +365,7 @@ run at b = 16, 20, 24 would replace "at least 14" with a number. Better than a
 longer sweep: fit a survival curve per item and report the dose at which the
 value is half gone, which uses the whole sweep instead of the first crossing.
 
-Why does the newer model never decline? Qwen3-4B declines in 46 of 100
+**Why does the newer model never decline?** Qwen3-4B declines in 46 of 100
 damaged cases; Qwen3.5-4B in none of 89. Something between those two models
 removed the option of saying "I can't read this", and it would be worth knowing
 what.

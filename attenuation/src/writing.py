@@ -260,13 +260,13 @@ doesn't know when it misread</i></li>
 </ul>"""),
 
     ("fig", "figA", "Executive summary · sample answers", "fig0.png",
-     "Twelve of the 183 answers, drawn with a fixed seed — not picked. "
+     "Twelve of the 183 answers, drawn with a fixed seed, not picked. "
      "Refusals included. Goes before any prose, exactly where R1D1 put its "
      "sample generations."),
 
     ("ready", "f0", "Executive summary · caption for the figure above", """![twelve randomly drawn answers](fig0.png)
 
-*Twelve of the 183 answers, drawn with a fixed seed — not picked. Refusals
+*Twelve of the 183 answers, drawn with a fixed seed, not picked. Refusals
 included. The sentence carrying the fact is still in the conversation in every
 one of them; it has only been made harder to read.*"""),
 
@@ -344,7 +344,7 @@ one of them; it has only been made harder to read.*"""),
      "your own claims</li></ul>"),
 
     ("ready", "b1", "Detailed analysis · Background", """Models carry internal representations of whether they recognise an entity, and
-those representations causally gate refusal — Ferrando, Obeso, Rajamanoharan &
+those representations causally gate refusal. See Ferrando, Obeso, Rajamanoharan &
 Nanda, *Do I Know This Entity?*, ICLR 2025. That is self-knowledge about
 knowledge held in the weights. The question here is the same one asked of
 knowledge held in the context.
@@ -354,7 +354,7 @@ Hockenmaier, COLM 2026), which restores a system prompt's authority by rescaling
 the cached value vectors of the turns that lost it. Across ten models and 756
 generations each, the failures were not loud: an account number ending `02` when
 the user had said `302`. The mechanism measured there is that the edit
-attenuates rather than overwrites — attention is untouched, so the model keeps
+attenuates rather than overwrites: attention is untouched, so the model keeps
 looking at the span at full strength while what arrives from it is faint.
 
 **The phenomenon is therefore not an artefact of the manipulation used here.**
@@ -366,54 +366,49 @@ provenance. Under V-Steer the model gave the *right* value and denied being told
 it, in about 2% of answers. Here it gives a *wrong* value and claims it was told
 it, in 72–87%. The near miss replicates; the provenance behaviour does not."""),
 
-    ("ready", "m1", "Detailed analysis · Methodology", """**The bias.** Subtract a constant `b` from the attention logits at the token
-positions of one sentence, before the softmax, via a 4D additive mask with
-`attn_implementation="eager"`. The relative weight the model gives that sentence
-is multiplied by `e^-b`: at `b`=3 it keeps 5% of it, at `b`=6 a quarter of a
-percent. The softmax renormalises, so the lost weight is not discarded — it goes
-to the other positions. `b = 0` is the plain causal mask, so the control
-condition is not a separate code path. Nothing enters the residual stream, no
-cache is edited, no hooks. **Decoding is greedy throughout, so temperature is
-not a variable anywhere in this.**
-
-**It is a graded version of a standard tool.** Cutting attention from chosen
-positions to see what depends on them is *attention knockout* (Geva et al.,
-2023, arXiv:2304.14767) — binary, and used to ask *where information flows*.
-Here it is dosed instead of cut, and the question is whether the model registers
-that it can no longer read the sentence. The same lineage runs through *Do I
-Know This Entity?*: the model's own unknown-entity directions act by suppressing
-the attention of the attribute-extraction heads Geva et al. identified, so this
-manipulation imposes from outside the kind of change that mechanism produces
-from inside.
-
-**Models.** Qwen3.5-4B and Qwen3-4B-Instruct-2507. Qwen2.5-0.5B-Instruct was
-run and **failed the control condition** — it answers "yes, you told me" for 3
-of 5 items where nothing was ever said — so it is excluded from every claim
-rather than averaged in.
-
-**Architecture note.** Every Qwen 3.5 and 3.6 model is `model_type: qwen3_5`
-with `full_attention_interval: 4` — three linear-attention layers for every
-full-attention one. On the 4B the mask therefore reaches 8 layers of 32. A
-value-cache intervention cannot run on these models at all.
-
-**Items.** 100: ten kinds of fact (a dog's name, an order number, a city, an
-error code, a departure time, the end of an account number, an allergy, a hotel
-room, a flight number, a cat's name) by ten values each, every one a single
-clause in a fixed frame — *"By the way, my dog is called Bagr."* — followed by a
-question. Values are deliberately unguessable (`Wobbet`, `QR318`, `Nubbin`) so
-that a correct answer cannot come from priors.
-
-**Conditions.** `present`: the sentence is there, `b`=0. `faint`: the same
-sentence at the smallest `b` on the sweep at which the answer no longer
-contains the value. `swap`: a readable sentence about a *different* kind of fact
-in the same slot. `drop`: no such sentence at all.
-
-**The metric.** The rate of answering "yes" to *"Did I tell you X? Answer only
-yes or no."* The model was instructed to answer in one word and did; this is
-reading a one-word answer, not classifying free text.
-
-**Gate.** An item counts only if the unmanipulated model answers correctly and
-some `b` removes the value. Both kinds of failure are counted and reported."""),
+    ("ready", "m1", "Detailed analysis · Methodology", """- **The bias.** Subtract a constant `b` from the attention logits at the token
+  positions of one sentence, before the softmax, via a 4D additive mask with
+  `attn_implementation="eager"`. The relative weight the model gives that
+  sentence is multiplied by `e^-b`: at `b`=3 it keeps 5% of it, at `b`=6 a
+  quarter of a percent. The softmax renormalises, so the lost weight is not
+  discarded, it goes to the other positions. `b = 0` is the plain causal mask,
+  so the control condition is not a separate code path. Nothing enters the
+  residual stream, no cache is edited, no hooks. **Decoding is greedy
+  throughout, so temperature is not a variable anywhere in this.**
+- **It is a graded version of a standard tool.** Cutting attention from chosen
+  positions to see what depends on them is *attention knockout* (Geva et al.,
+  2023, arXiv:2304.14767): binary, and used to ask *where information flows*.
+  Here it is dosed instead of cut, and the question is whether the model
+  registers that it can no longer read the sentence. The same lineage runs
+  through *Do I Know This Entity?*, whose unknown-entity directions act by
+  suppressing the attention of the attribute-extraction heads Geva et al.
+  identified. This manipulation imposes from outside the kind of change that
+  mechanism produces from inside.
+- **Models.** Qwen3.5-4B and Qwen3-4B-Instruct-2507. Qwen2.5-0.5B-Instruct was
+  run and **failed the control condition**, answering "yes, you told me" for 3
+  of 5 items where nothing was ever said, so it is excluded from every claim
+  rather than averaged in.
+- **Architecture.** Every Qwen 3.5 and 3.6 model is `model_type: qwen3_5` with
+  `full_attention_interval: 4`, three linear-attention layers for every
+  full-attention one. On the 4B the mask therefore reaches 8 layers of 32. A
+  value-cache intervention cannot run on these models at all.
+- **Items.** 100: ten kinds of fact (a dog's name, an order number, a city, an
+  error code, a departure time, the end of an account number, an allergy, a
+  hotel room, a flight number, a cat's name) by ten values each, every one a
+  single clause in a fixed frame, *"By the way, my dog is called Bagr."*,
+  followed by a question. Values are deliberately unguessable (`Wobbet`,
+  `QR318`, `Nubbin`) so that a correct answer cannot come from priors.
+- **Conditions.**
+  - `present`: the sentence is there, `b`=0
+  - `faint`: the same sentence at the smallest `b` on the sweep at which the
+    answer no longer contains the value
+  - `swap`: a readable sentence about a *different* kind of fact in the same slot
+  - `drop`: no such sentence at all
+- **The metric.** The rate of answering "yes" to *"Did I tell you X? Answer only
+  yes or no."* The model was instructed to answer in one word and did; this is
+  reading a one-word answer, not classifying free text.
+- **Gate.** An item counts only if the unmanipulated model answers correctly and
+  some `b` removes the value. Both kinds of failure are counted and reported."""),
 
     ("ready", "r1", "Detailed analysis · Results", """**The headline.** Rate of answering "yes" to *did I tell you this*:
 
@@ -425,7 +420,7 @@ some `b` removes the value. Both kinds of failure are counted and reported."""),
 | `drop` | 0 | 0 |
 
 145 of 183 items give a wrong value *and* claim they were told it. A readable
-sentence about something else never produces a "yes" — 0 of 183 — so the "yes"
+sentence about something else never produces a "yes", 0 of 183, so the "yes"
 tracks the fact, not the presence of a sentence in that slot.
 
 **The damage is local.** Same item, same `b`, same number of tokens, one
@@ -439,8 +434,8 @@ sentence over:
 With the mask beside the value the answer is right every time. The damage
 follows the mask, not the dose.
 
-**It does not flip; it comes apart.** Correct → a truncation of the true value →
-a plausible substitute → a refusal, and the dose at which that happens differs
+**It does not flip; it comes apart.** Correct, then a truncation of the true value, then a plausible substitute,
+then a refusal, and the dose at which that happens differs
 for every item.
 
 **Is any of it just the model?** Every behaviour visible in the answers was
@@ -453,64 +448,64 @@ re-measured at `b = 0`:
 | quotes the user back | 14 → 19 *(a habit, not a finding)* | 0 → 4 |
 | declines to answer | **0 → 46** | **0 → 0** |
 
-Hesitation is produced by the manipulation — a clean zero at `b`=0 on both
-models — but it appears only where the wrong answer *looks* wrong: on names and
+Hesitation is produced by the manipulation, a clean zero at `b`=0 on both
+models, but it appears only where the wrong answer *looks* wrong: on names and
 room numbers, never on a plausible time or order number. Justification is
 produced too and is specific to Qwen3.5-4B: it does not merely give a wrong
-number, it builds a case for it — *"You are in **room 302**. Here is the
+number, it builds a case for it: *"You are in **room 302**. Here is the
 breakdown: the number 3…"*, where at `b`=0 the same answer is bare.
 
 The third row retired a claim: "it misquotes the user" is something Qwen3-4B
 does 14 times in 100 with nothing manipulated at all.
 
 **And the two models fail in opposite ways.** Qwen3-4B declines in 46 of 100
-damaged cases. Qwen3.5-4B declines in none of 89 — it produces a value every
+damaged cases. Qwen3.5-4B declines in none of 89. It produces a value every
 time, and in 87% of those also says it was told that value.
 
 **What it says instead.** What survives constrains what is invented: the airline
 code survives and the number is filled in (`BA945 → BA118`, and it volunteers
 *"or BA119 depending on the direction"* unprompted), the country survives and
-the city is filled in (`Graz → Linz`, `Utrecht → Amsterdam` — and `Graz → Linz`
+the city is filled in (`Graz → Linz`, `Utrecht → Amsterdam`, and `Graz → Linz`
 keeps the phrase *"the second-largest city"* too). When nothing
 survives the prior wins, and it is always the same prior: four different
 allergens all become peanuts, three different dog names all become Max."""),
 
     ("ready", "l1", "Detailed analysis · Limitations", """Constructed conversations, not real transcripts. One manipulation family. Two
-models after the exclusion, both 4B. Greedy, one seed.
-
-**The bias does not reach every layer, and the one cross-model comparison is
-confounded by it.** Only full-attention layers see the mask: 36 of 36 on
-Qwen3-4B, but 8 of 32 on Qwen3.5-4B, which is a hybrid with three
-linear-attention layers for every full one (`full_attention_interval: 4`, full
-attention at depths 3, 7, 11, ... 31). A linear-attention layer has no
-score matrix over positions to subtract from, so it passes the mask through
-untouched. The sentence is therefore quiet in 8 layers and **at full strength in
-the other 24**, and information can travel that parallel path — one Qwen3-4B
-does not have. Qwen3.5-4B needs roughly twice the dose *and* is the model where
-three quarters of the layers never see the bias; nothing here separates "more
-robust model" from "the bias reached less of it". `faint` is a per-item
+models after the exclusion, both 4B. Greedy, one seed. `faint` is a per-item
 threshold, so it means a different `b` for each item.
 
-**The items are not fully independent.** Once the value is gone the model falls
-back on a canned answer: Qwen3-4B produces only 55 distinct answers across 97
-items, and five account numbers give the same refusal word for word.
-
-**Six items were scored wrong and removed.** The test for "the value is gone"
-was a substring search, and `04:36` is not a substring of "4:36 PM" — the model
-answered correctly in a 12-hour clock. All six were times, found by reading the
-answers rather than by counting them. The headline moved from 151/189 to
-145/183.
-
-**The secondary labels are not validated.** A keyword rule and a Gemini judge
-disagree on them — 57% against 43% on "kept a piece of the true value", 6–11%
-against 16% on hesitation. Neither is quoted, and the headline does not depend
-on either: it rests on a one-word answer to a direct instruction.
-
-**And the honest one.** This is an idealised version of a state that arises in
-deployment for other reasons — KV cache compression and eviction, KV
-quantisation, a context long enough to dilute attention, a summarisation step
-that rewrites the original. The idealised version was measured because the dose
-can be controlled. **None of those is measured here.**"""),
+- **The bias does not reach every layer, and the one cross-model comparison is
+  confounded by it.** Only full-attention layers see the mask: 36 of 36 on
+  Qwen3-4B, but 8 of 32 on Qwen3.5-4B, a hybrid with three linear-attention
+  layers for every full one (`full_attention_interval: 4`, full attention at
+  depths 3, 7, 11 … 31). A linear-attention layer has no score matrix over
+  positions to subtract from, so it passes the mask through untouched. The
+  sentence is quiet in 8 layers and **at full strength in the other 24**, and
+  information can travel that parallel path, one Qwen3-4B does not have.
+  Qwen3.5-4B needs roughly twice the dose *and* is the model where three
+  quarters of the layers never see the bias. Nothing here separates "more
+  robust model" from "the bias reached less of it".
+- **The damage is not monotone in `b`.** A finer pilot sweep found `city:Brno`
+  losing its value at `b = 11`, a dose the 100-item sweep does not test, and it
+  still answers `Brno` at 14. So every threshold quoted is a *first crossing*,
+  not a point of no return, and the medians are medians of first crossings.
+- **The items are not fully independent.** Once the value is gone the model
+  falls back on a canned answer: Qwen3-4B produces only 55 distinct answers
+  across 97 items, and five account numbers give the same refusal word for word.
+- **Six items were scored wrong and removed.** The test for "the value is gone"
+  was a substring search, and `04:36` is not a substring of "4:36 PM": the model
+  answered correctly on a 12-hour clock. All six were times, found by reading
+  the answers rather than by counting them. The headline moved from 151/189 to
+  145/183.
+- **The secondary labels are not validated.** A keyword rule and a Gemini judge
+  disagree on them, 57% against 43% on "kept a piece of the true value" and
+  6–11% against 16% on hesitation. Neither is quoted, and the headline does not
+  depend on either: it rests on a one-word answer to a direct instruction.
+- **And the honest one.** This is an idealised version of a state that arises in
+  deployment for other reasons: KV cache compression and eviction, KV
+  quantisation, a context long enough to dilute attention, a summarisation step
+  that rewrites the original. The idealised version was measured because the
+  dose can be controlled. **None of those is measured here.**"""),
 
     ("yours", "d4", "Detailed analysis · How I used LLMs", 7,
      "~110 words, same content as form Q7, in prose. <b>Points to make:</b><ul>"
@@ -522,26 +517,33 @@ can be controlled. **None of those is measured here.**"""),
      "<li>what you checked by hand, and where you would and would not be "
      "surprised by an error</li></ul>"),
 
-    ("ready", "n1", "Detailed analysis · What I would do next", """Whether the same failure appears under a manipulation nobody chose — KV
-quantisation is the cheapest of those to test, and would say whether any of this
-transfers out of an idealised setting.
-
-Whether there is an internal signal for it. A probe trained to separate *the
-fact is there* from *the fact was never there*, applied to *the fact is faint*,
-would say whether the model holds a readable "I have this information" state and
-whether it stays on when the information can no longer be read. One was built
-and dropped: its null returned a perfect separation at the embedding layer,
-where both conditions are literally the same vector, and its shuffled control
-was too noisy to certify anything.
-
-Why the newer model never declines. Something between Qwen3-4B and Qwen3.5-4B
-removed the option of saying "I can't read this"."""),
+    ("ready", "n1", "Detailed analysis · What I would do next", """- **Map the shape of the dose curve on one item.** A dense sweep to 20 on
+  `city:Brno`, which is gone at `b = 11` and back at 14. If the value returns on
+  more than one item, "threshold" is the wrong word for what is being measured
+  and a survival curve is the right one. Cheapest experiment on this list and it
+  came from two numbers that did not agree.
+- **Separate the confound.** Apply the bias to only 8 of Qwen3-4B's 36 layers,
+  matching Qwen3.5's coverage, and re-measure the median. If it rises towards 6,
+  layer coverage explains the gap between the models; if it stays at 3,
+  robustness does. Needs per-layer hooks, so it is not free.
+- **Test a manipulation nobody chose.** KV quantisation is the cheapest of the
+  deployment causes to test, and would say whether any of this transfers out of
+  an idealised setting.
+- **Look for an internal signal.** A probe separating *the fact is there* from
+  *the fact was never there*, applied to *the fact is faint*, would say whether
+  the model holds a readable "I have this information" state and whether it
+  stays on when the information can no longer be read. One was built and
+  dropped: its null returned a perfect separation at the embedding layer, where
+  both conditions are literally the same vector, and its shuffled control was
+  too noisy to certify anything.
+- **Ask why the newer model never declines.** Something between Qwen3-4B and
+  Qwen3.5-4B removed the option of saying "I can't read this"."""),
 
     ("ready", "h1", "Appendix · Hours", """11 Aug: about 2 hours. 12 Aug: about 6. Eight of the twelve, plus the two
 allowed for the write-up.
 
 The first eight are a reconstruction from the day against the git timestamps of
-the repository — the work was not timed with a clock as it happened, and that is
+the repository. The work was not timed with a clock as it happened, and that is
 said here rather than dressed up. The write-up itself was timed.
 
 Not counted, per the instructions: setting up the GPU box, model downloads,
