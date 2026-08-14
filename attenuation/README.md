@@ -254,18 +254,31 @@ took it out: its null returned a perfect separation at the embedding layer,
 where both conditions are literally the same vector, and its shuffled control
 was too noisy to certify anything. The code and that verdict are in the repo.
 
-**Is the damage even monotone in b?** The whole design assumes that once a
-value is gone at some dose it stays gone, which is what makes "the lowest b at
-which the answer no longer contains the value" a threshold rather than just a
-crossing. One item contradicts it. An earlier pilot run over a finer ladder
-(steps of 0.5 up to 12) found `Brno` lost on Qwen3.5-4B at b = 11, answered as
-*"You live in **Prague**"*; the 100-item run, whose ladder jumps 10 → 14 and
-never tests 11, finds that same item still saying `Brno` at every dose including
-14. Both are in the repo. Either the pilot and the main run differ somewhere I
-have not found, or the effect is not monotone and a value can come back at a
-higher dose — which would make every threshold in this report a first crossing
-and not a point of no return. Re-running one item over a dense ladder settles it
-in minutes, and it is the first thing I would run.
+**The damage is not monotone in b, and one item already shows it.** `b` in
+this report is the *lowest tested dose at which the answer no longer contains
+the value* — a first crossing. The word "threshold" invites a stronger reading,
+that past that dose the value is gone for good, and `city:Brno` on Qwen3.5-4B
+contradicts it:
+
+| dose | answer | run |
+|---|---|---|
+| b = 10 | *"You live in **Brno**, often spelled…"* | 100-item |
+| b = 11 | *"You live in **Prague** (or a city in the Czech Republic…"* | pilot |
+| b = 14 | still `Brno` | 100-item |
+
+The two runs are the same experiment — identical item, identical prompt builder,
+identical greedy decoder, `knob.py` and `value.py` unchanged between them, both
+on the same machine the same afternoon. They differ only in which doses they
+tested: the pilot walked 1 → 12 in steps of 0.5 and so is the only run that
+tried 11; the 100-item ladder jumps 10 → 14 and so is the only one that tried
+14. Both results stand, and together they say the value came back.
+
+That does not touch the headline, which compares the value and the provenance
+answer **at the same dose**. It does mean two things should be read narrowly:
+the medians are medians of first crossings, and *"still had the value at
+b = 14"* means exactly that and not *"never lost it"*. Re-running one item over
+a dense ladder to 20 would map the shape properly, and it is the first thing I
+would run.
 
 **Where does Qwen3.5's tail actually end?** Eleven of its 100 items still had
 their value at b = 14, the top of the ladder. The median over all 100 is exact

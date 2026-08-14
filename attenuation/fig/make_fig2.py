@@ -145,7 +145,10 @@ def thresholds() -> str:
     **The censored items are the point of this table, not a footnote.** Both
     models were run on the same 100 items; Qwen3.5 kept 11 of its values at
     every dose on the ladder, up to b = 14, so those 11 have no threshold — only
-    a lower bound. Dropping them silently would have quietly removed the eleven
+    a lower bound — a lower bound on the *first* crossing, and not a claim that
+    they never lose the value at all; `city:Brno` is one of these eleven and a
+    finer pilot ladder caught it losing the value at b = 11, a dose this ladder
+    does not test. Dropping them silently would have quietly removed the eleven
     *most* resistant items from the more resistant model and made the gap look
     smaller than it is. They are counted here instead: with all 11 sorted above
     every observed value, the median over all 100 is still identifiable, because
@@ -288,12 +291,16 @@ answers stop mid-sentence; it was fixed before the run, not chosen afterwards.
 <b>The last column exists because a green row is ambiguous.</b> The ladder run
 stops at b&nbsp;=&nbsp;10, so a row still holding its value at the right edge
 could mean the value survives or could mean the figure stopped too early.
-<code>Brno</code> on Qwen3.5 is the second kind and then some: it holds at every
-dose that was run, and it is one of the eleven items that still had their value
-at b&nbsp;=&nbsp;14, so it has no threshold at all — printed as such rather than
-left as an unbroken green row for the reader to interpret. On the other model
-the same item goes at b&nbsp;=&nbsp;3, and it goes to a refusal, not to another
-Czech city.
+<code>Brno</code> on Qwen3.5 is the second kind: it holds at every dose on this
+ladder, and it is one of the eleven items that still had their value at
+b&nbsp;=&nbsp;14 — so no threshold was found for it, which is what the cell says
+rather than leaving an unbroken green row for the reader to interpret. Not the
+same as never losing it: a pilot run over a finer ladder caught this item
+answering <i>"You live in <b>Prague</b>"</i> at b&nbsp;=&nbsp;11, a dose this
+ladder does not test, and then it is back to <code>Brno</code> at 14. The value
+returns, so every number here is a first crossing and not a point of no return.
+On the other model the same item goes at b&nbsp;=&nbsp;3, and it goes to a
+refusal, not to another city.
 </figcaption>
 </figure>
 """
