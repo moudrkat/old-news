@@ -67,8 +67,9 @@ a value that is wrong, and in the other 23 it gave no value at all and still
 says it was told. When a readable sentence about something
 else is there instead, it correctly says no, **184 times out of 184**.
 
-And the wrong value is not random. It sits next to the truth. Told `19:40`, it
-answers **19:45**. Told `Utrecht`, it answers **Amsterdam**. That does not look
+And a third of the time the wrong value is not random: it sits next to the
+truth. Told `19:40`, it answers **19:45**. Told `Utrecht`, it answers
+**Amsterdam**. That does not look
 like a hallucination. It looks like a typo, and nothing downstream catches a
 typo.
 
@@ -180,6 +181,13 @@ rate, and the figure at the top is the unchosen draw.
 
 **`19:40 → 19:45` passes every check anyone runs downstream.** It does not look
 like a hallucination. It looks like a typo.
+
+That is the rarer half, though. Over all 184 items the model returns a
+truncation or a small change to the true value 76 times (41%), a different value
+entirely 60 times (33%), and nothing at all 48 times (26%). **A truncation is
+the modal failure and a format check downstream would catch it.** The claim
+about slipping past everything belongs to the middle row, a third of the items.
+The figure at the top is the unchosen draw and shows the real mix.
 
 ## And three things underneath it
 
@@ -333,11 +341,20 @@ wrong and how it was caught are in [`PREREGISTRATION.md`](PREREGISTRATION.md).
 - **Sweep one item densely to `b` = 20.** `Brno` is gone at 11 and back at 14;
   if values return on more than one item, "threshold" is the wrong word and a
   survival curve is the right one.
-- **Look for an internal signal.** A probe separating *the fact is there* from
-  *the fact was never there*, applied to *the fact is faint*. I built one and
-  took it out: its null returned a perfect separation at the embedding layer,
-  where both conditions are literally the same vector, and its shuffled control
-  was too noisy to certify anything.
+- **Find the direction for "I read this in context."** *Do I Know This Entity?*
+  finds a direction for *I know this entity* that causally gates refusal. The twin
+  of it would be a direction for *this fact was in my context*, and the experiment
+  writes itself: train it to separate **the fact is there** from **the fact was
+  never there**, then apply it to **the fact turned down** and see whether it is
+  still on while the value is gone. If it is, that is the mechanism behind
+  everything above, and it is a direct extension of the entity work rather than a
+  new question.
+  
+  I built that probe and took it out. Its null returned a perfect separation at
+  the embedding layer, where both conditions are literally the same vector, and
+  its shuffled control was too noisy to certify anything; the code and that verdict
+  are in the repo. The right next attempt keeps the null that killed the first
+  one.
 - **Hand-label 50 items** so the judge's labels stop being provisional.
 - **Test a manipulation nobody chose.** In deployment this state arrives from KV
   cache compression and eviction, KV quantisation, long-context dilution or a

@@ -498,6 +498,22 @@ quoting, not misquoting; whether the quote is accurate is not measured. And the
 newer model never declines at all, which is the sharpest difference between the
 two and runs the wrong way.
 
+**How the value fails, over all 184 items.** The pull quotes above are the rarer
+half:
+
+| | |
+|---|---|
+| a truncation or a small change to the true value (`Bagr → Bag`, `E-88 → E-8`) | 76, **41%** |
+| a different value entirely (`Utrecht → Amsterdam`, `19:40 → 19:45`) | 60, **33%** |
+| no value at all | 48, **26%** |
+
+**Truncation is the modal failure, not substitution**, and a truncation is the
+kind of thing a format check downstream would catch. The claim that this slips
+past everything applies to the second row, a third of the items, and that is
+where the interest is: `Utrecht → Amsterdam` keeps the country, `19:40 → 19:45`
+keeps the hour. The random draw at the top of this write-up shows the real mix
+rather than the alarming end of it, which is the point of drawing it.
+
 **What it says instead.** What survives constrains what is invented: the airline
 code survives and the number is filled in (`BA945 → BA118`, volunteering *"or
 BA119 depending on the direction"*), the country survives and the city is filled
@@ -561,12 +577,20 @@ disagreed on none of the `present`, `faint` or `swap` replies.)*"""),
 - **Sweep one item densely to b = 20.** `Brno` is gone at 11 and, by inference from a missing row, present again at
   14; if values return on more than one item, "threshold" is the wrong word and a
   survival curve is the right one.
-- **Look for an internal signal.** A probe separating *the fact is there* from
-  *the fact was never there*, applied to *the fact is faint*, would say whether
-  the model holds a readable "I have this" state. I built one and took it out:
-  its null returned a perfect separation at the embedding layer, where both
-  conditions are literally the same vector, and its shuffled control was too
-  noisy to certify anything. The code and that verdict are in the repo.
+- **Find the direction for "I read this in context."** *Do I Know This Entity?*
+  finds a direction for *I know this entity* that causally gates refusal. The twin
+  of it would be a direction for *this fact was in my context*, and the experiment
+  writes itself: train it to separate **the fact is there** from **the fact was
+  never there**, then apply it to **the fact turned down** and see whether it is
+  still on while the value is gone. If it is, that is the mechanism behind
+  everything above, and it is a direct extension of the entity work rather than a
+  new question.
+  
+  I built that probe and took it out. Its null returned a perfect separation at
+  the embedding layer, where both conditions are literally the same vector, and
+  its shuffled control was too noisy to certify anything; the code and that verdict
+  are in the repo. The right next attempt keeps the null that killed the first
+  one.
 - **Hand-label 50 items** so the judge's labels stop being provisional.
 - **Test a manipulation nobody chose.** KV quantisation is the cheapest of the
   deployment causes that produce this state without anyone asking for it."""),
