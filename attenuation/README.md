@@ -29,10 +29,11 @@ sentence about something else is there instead · nothing is there at all.
 That third one is the control everything rests on. It separates *"I have this
 fact"* from *"there is a sentence here"*.
 
-**The answer.** It does not notice. When the sentence is faint, the model gives
-a wrong value and says it was told it, **145 times out of 183**. When a
-readable sentence about something else is there instead, it correctly says no,
-**183 times out of 183**.
+**The answer.** It does not notice. When the sentence is faint, the model says
+it was told the fact **145 times out of 183**, and it is wrong every time: in
+124 of them it gives a wrong value, and in the other 21 it declines to answer
+at all and *still* says it was told. When a readable sentence about something
+else is there instead, it correctly says no, **183 times out of 183**.
 
 And the wrong value is not random. It sits next to the truth. Told `19:40`, it
 answers **19:45**. Told `Utrecht`, it answers **Amsterdam**. That does not look
@@ -41,7 +42,7 @@ typo.
 
 ![Fourteen answers drawn at random](fig/fig0.png)
 
-**What you are looking at.** Fourteen of the 189 items, drawn with a fixed seed,
+**What you are looking at.** Fourteen of the 183 items, drawn with a fixed seed,
 not picked, refusals included. *Left:* the sentence the user put in the
 conversation, fact in bold. *Middle:* what the model answered when asked for
 that fact. The sentence is still there, only harder to read. *Right:* what it
@@ -86,12 +87,17 @@ Rows are the four situations; the numbers are how often the model answered
 
 *(From 100 items each: 11 dropped on Qwen3.5-4B because no `b` removed the
 value, and 3 on each model because the value was there all along: the model
-answered `04:36` as "4:36 PM" and a substring test called that damage. Neither
+answered `04:36` as "4:36 PM" and a substring test called that damage. Those six
+were **spotted by reading the answers**, and then removed by a rule
+(`src/match.py`) so the removal is reproducible rather than hand-picked. Neither
 model ever answered wrong unmanipulated.)*
 
-In 145 of 183 items the model gives a wrong value and claims it was told it.
-A readable sentence about something else never produces a "yes", 0 out of 183.
-So the "yes" tracks the fact, not the presence of a sentence.
+In 145 of 183 items the model claims it was told the fact when it can no longer
+read it. **124 of those give a wrong value; the remaining 21 refuse to answer
+and claim it anyway** — the model says "I don't have access to your flight
+details" and, asked separately, "yes, you told me". A readable sentence about
+something else never produces a "yes", 0 out of 183. So the "yes" tracks the
+fact, not the presence of a sentence, and not whether the model could read it.
 
 And the wrong value is not random. It is next to the truth:
 

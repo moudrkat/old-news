@@ -26,6 +26,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
+from match import contains            # noqa: E402
 from table import is_refusal          # noqa: E402
 
 TOLD = {
@@ -68,13 +69,21 @@ def main() -> int:
         for r in d["rows"]:
             asked[(m, r["key"])] = r["faint"]
 
+    # Draw from the same 183 the headline is computed on, not from all 189.
+    # Six items were never damaged at all -- `04:36` answered as "4:36 PM" is a
+    # correct answer that a substring test miscounted -- and a figure whose job
+    # is to show unselected evidence must not contain a row the write-up has
+    # already disowned.
     rows = []
     for f in sorted(ROOT.glob("results/hedge_*.json")):
         d = json.load(open(f))
         m = d["model"].split("/")[-1]
         for r in d["rows"]:
-            if (m, r["key"]) in asked:
-                rows.append({"model": m, **r, "asked": asked[(m, r["key"])]})
+            if (m, r["key"]) not in asked:
+                continue
+            if contains(r["faint"], r["key"].split(":", 1)[1]):
+                continue                      # value never actually left
+            rows.append({"model": m, **r, "asked": asked[(m, r["key"])]})
     if not rows:
         print("need results/hedge_*.json and results/told2_*.json")
         return 1

@@ -30,7 +30,7 @@ TURNS = [
 BASE = [0.10, 0.34, 0.06, 0.30, 0.20]
 LABELS = ["system", "the fact", "“Noted.”", "the question", "everything else"]
 SPAN = 1
-DOSES = [0.0, 4.0]
+DOSES = [0.0, 3.0]
 
 W, H = 860, 478
 
@@ -63,7 +63,7 @@ def main() -> int:
         x = 188
         for i, v in enumerate(w):
             bw = max(1.5, v * 470)
-            cls = "sp" if i == SPAN else "ot"
+            cls = "sp" if i == SPAN else f"o{i}"
             bars.append(f'<rect x="{x:.1f}" y="{by}" width="{bw:.1f}" height="17" '
                         f'rx="3" class="{cls}"/>')
             if v > 0.055:
@@ -80,7 +80,7 @@ def main() -> int:
 
     key = "".join(
         f'<rect x="{188 + i*136}" y="380" width="9" height="9" rx="2" '
-        f'class="{"sp" if i == SPAN else "ot"}"/>'
+        f'class="{"sp" if i == SPAN else f"o{i}"}"/>'
         f'<text x="{201 + i*136}" y="389" class="key">{l}</text>'
         for i, l in enumerate(LABELS[:4]))
 
@@ -102,6 +102,8 @@ svg {{ display:block; width:100%; height:auto; }}
 .turn {{ font-size:13px; fill:var(--ink2); }}
 .hl {{ fill:var(--sp); font-weight:700; }}
 .sp {{ fill:var(--sp); }} .ot {{ fill:var(--ot); }}
+.o0 {{ fill:#c7d3de; }} .o2 {{ fill:#9fb3c8; }} .o3 {{ fill:#7b93ab; }}
+.o4 {{ fill:#5f788f; }}
 .pc {{ font:600 10px ui-monospace,monospace; fill:#fff; }}
 .bl {{ font:600 11.5px ui-monospace,monospace; fill:var(--ink2); }}
 .note2 {{ font-size:11.5px; fill:var(--muted); }}
@@ -119,7 +121,7 @@ if(t)document.documentElement.dataset.theme=t;}}</script>
 <rect width="{W}" height="{H}" fill="var(--surface)"/>
 
 <text x="24" y="30" class="h">One sentence is made hard to read. Nothing is deleted.</text>
-<text x="24" y="50" class="sub">The conversation is unchanged — the model simply
+<text x="24" y="50" class="sub">The conversation is unchanged. The model simply
 gives that span a fraction of the weight it would have had.</text>
 
 <text x="24" y="{106}" class="sub">the conversation</text>
@@ -136,14 +138,14 @@ gives that span a fraction of the weight it would have had.</text>
 
 <text x="24" y="424" class="cap">Subtracting b before the softmax multiplies
 that span's weight by e^-b: 5% of it at b = 3, a quarter</text>
-<text x="24" y="441" class="cap">of a percent at b = 6. The softmax renormalises,
-so the weight taken from the sentence is not lost —</text>
+<text x="24" y="441" class="cap">of a percent at b = 6. The softmax renormalises, so the weight taken from the
+sentence is not lost;</text>
 <text x="24" y="458" class="cap">it is handed to everything else. The bars show
 the share each part ends up with.</text>
 </svg>
 <figcaption>
 <b>The sentence stays in the conversation at every setting.</b> It is not
-deleted, masked out, or moved — the model still attends to it, just far less.
+deleted, masked out, or moved. The model still attends to it, just far less.
 b = 0 is the plain causal mask, i.e. an unmodified model, so the control
 condition is not a separate code path. Bars are the real arithmetic applied to
 an illustrative set of starting weights.

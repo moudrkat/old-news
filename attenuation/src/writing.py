@@ -60,8 +60,9 @@ say instead, and why that one</i></li>
     ("q3", "What conclusions have you reached about this research problem?  [link the Google Doc here]", 7, """
 <b>Points to make:</b>
 <ul>
-<li>it does not notice — <b>145 of 183</b> give a wrong value and say they were
-told it</li>
+<li>it does not notice — <b>145 of 183</b> claim they were told the fact they
+can no longer read: 124 give a wrong value, and 21 refuse to answer and claim it
+anyway</li>
 <li>the control that decides it: a readable sentence about something else in the
 same slot gets "no", <b>0 of 183</b>. So the "yes" tracks the fact, not the
 presence of a sentence</li>
@@ -260,13 +261,13 @@ doesn't know when it misread</i></li>
 </ul>"""),
 
     ("fig", "figA", "Executive summary · sample answers", "fig0.png",
-     "Fourteen of the 189 items, drawn with a fixed seed, not picked. "
+     "Fourteen of the 183 items, drawn with a fixed seed, not picked. "
      "Refusals included. Goes before any prose, exactly where R1D1 put its "
      "sample generations."),
 
     ("ready", "f0", "Executive summary · caption for the figure above", """![fourteen randomly drawn answers](fig0.png)
 
-*Fourteen of the 189 items, drawn with a fixed seed, not picked. Refusals
+*Fourteen of the 183 items, drawn with a fixed seed, not picked. Refusals
 included. The sentence carrying the fact is still in the conversation in every
 one of them; it has only been made harder to read.*"""),
 
@@ -293,7 +294,7 @@ one of them; it has only been made harder to read.*"""),
      "that made <i>I don't know</i> impossible to say</li>"
      "<li><b>when the fact was never there, both models decline</b> — 0 of 183 "
      "claim they were told</li>"
-     "<li><b>when it is merely hard to read, they don't</b> — 145 of 183 give a "
+     "<li><b>when it is merely hard to read, they don't</b> — 145 of 183 claim they were told; 124 give a "
      "wrong value and say they were told it</li>"
      "<li><b>the control that decides it:</b> a readable sentence about "
      "something else gets &quot;no&quot;, 183 of 183</li>"
@@ -413,34 +414,43 @@ it, in 72–87%. The near miss replicates; the provenance behaviour does not."""
 - **Gate.** An item counts only if the unmanipulated model answers correctly and
   some `b` removes the value. Both kinds of failure are counted and reported."""),
 
-    ("ready", "r1", "Detailed analysis · Results", """**The headline.** Rate of answering "yes" to *did I tell you this*. Two
-denominators appear below and it is worth fixing them once: **86 and 97** are the
-items where the value was genuinely gone, after six were removed by hand for
-being correct answers a substring test miscounted; **89 and 100** are all items
-that reached the manipulation, used where the question does not depend on the
-value having gone.
+    ("ready", "r1", "Detailed analysis · Results", """**The headline.** How often the model answered "yes" to *did I tell you this*,
+out of the items where the value had genuinely gone from its answer: **97 on
+Qwen3-4B, 86 on Qwen3.5-4B**.
 
-| condition | Qwen3.5-4B | Qwen3-4B |
+| what the conversation held | Qwen3-4B | Qwen3.5-4B |
 |---|---|---|
-| `present` | 96% | 99% |
-| **`faint`** | **75 / 86 (87%)** | **70 / 97 (72%)** |
-| **`swap`** | **0 / 86** | **0 / 97** |
-| `drop` | 0 | 0 |
+| the sentence, readable | 96 / 97 | 82 / 86 |
+| **the same sentence, turned down** | **70 / 97** | **75 / 86** |
+| **a readable sentence about something else** | **0 / 97** | **0 / 86** |
+| nothing there at all | 0 / 97 | 0 / 86 |
 
-145 of 183 items give a wrong value *and* claim they were told it. A readable
-sentence about something else never produces a "yes", 0 of 183, so the "yes"
-tracks the fact, not the presence of a sentence in that slot.
+Row 2 against row 3 is the whole result: both put a sentence in the slot, and
+only in row 2 is it the one being asked about. **In 145 of those 183 items the
+model claims it was told the fact it can no longer read. Not one claims it for a
+sentence about something else.**
 
-**The damage is local.** Same item, same `b`, same number of tokens, one
-sentence over:
+Splitting the 145 matters, because two different failures are inside it:
 
-| | value survives |
+| | Qwen3-4B | Qwen3.5-4B | total |
+|---|---|---|---|
+| gives a **wrong value** and says it was told it | 49 | 75 | **124** |
+| **declines to answer** and says it was told it anyway | 21 | 0 | **21** |
+
+The second row is the stranger one: the model answers *"I don't have access to
+your flight details"* and, asked separately, *"yes, you told me"*. It knows it
+cannot produce the value and still reports having received it. The "yes"
+therefore tracks neither the value nor the model's ability to read it, only
+whether a sentence about that fact was ever in the conversation.
+
+**The damage is local.**
+
+| where the mask sits, same dose, same number of tokens | value survives |
 |---|---|
-| mask **on** the value | 3 / 89 |
-| mask **beside** it, on the opening words of the same sentence | **89 / 89** |
+| **on** the value | 3 / 89 |
+| **beside** it, on the opening words of the same sentence | **89 / 89** |
 
-With the mask beside the value the answer is right every time. The damage
-follows the mask, not the dose.
+The damage follows the mask, not the dose.
 
 **It does not flip; it comes apart.** Read a row of the dose grid (figure
 above) from left to right: the answer is correct, then a truncation of the true
@@ -449,29 +459,28 @@ same column, which is why every threshold in this write-up is per item rather
 than a single number for the model.
 
 **Is any of it just the model?** Every behaviour visible in the answers was
-re-measured at `b = 0`:
+re-measured with no bias at all. Counts are out of every item that reached the
+manipulation: **100 on Qwen3-4B, 89 on Qwen3.5-4B.**
 
-| | Qwen3-4B  b=0 → faint | Qwen3.5-4B  b=0 → faint |
+| behaviour | Qwen3-4B<br>no bias → turned down | Qwen3.5-4B<br>no bias → turned down |
 |---|---|---|
 | justifies its answer | 0 → 1 | **3 → 17** |
 | hesitates | **0 → 11** | **0 → 5** |
 | quotes the user back | 14 → 19 *(a habit, not a finding)* | 0 → 4 |
 | declines to answer | **0 → 46** | **0 → 0** |
 
-Hesitation is produced by the manipulation, a clean zero at `b`=0 on both
-models, but it appears only where the wrong answer *looks* wrong: on names and
-room numbers, never on a plausible time or order number. Justification is
-produced too and is specific to Qwen3.5-4B: it does not merely give a wrong
-number, it builds a case for it: *"You are in **room 302**. Here is the
-breakdown: the number 3…"*, where at `b`=0 the same answer is bare.
+Hesitation is produced by the manipulation, but only where the wrong answer
+*looks* wrong: on names and room numbers, never on a plausible time or order
+number. Justification is produced too, and only on Qwen3.5-4B, which does not
+merely give a wrong number but builds a case for it: *"You are in **room 302**.
+Here is the breakdown: the number 3…"*, where with no bias the same answer is
+bare.
 
-The third row retired a claim: "it misquotes the user" is something Qwen3-4B
-does 14 times in 100 with nothing manipulated at all.
+Row 3 retired a claim of mine. "It misquotes the user" looked like a finding
+until the no-bias column showed Qwen3-4B doing it 14 times in 100 anyway.
 
-**And the two models fail in opposite ways.** Qwen3-4B declines in 46 of 100
-damaged cases; Qwen3.5-4B declines in none of them. It produces a value every
-single time, and on the 86 where that value was wrong it also claimed to have
-been told it 75 times.
+Row 4 is the sharpest difference between the two models, and it runs the wrong
+way: the newer one never declines. It produces a value every single time.
 
 **What it says instead.** What survives constrains what is invented: the airline
 code survives and the number is filled in (`BA945 → BA118`, and it volunteers
@@ -505,9 +514,10 @@ threshold, so it means a different `b` for each item.
   across 97 items, and five account numbers give the same refusal word for word.
 - **Six items were scored wrong and removed.** The test for "the value is gone"
   was a substring search, and `04:36` is not a substring of "4:36 PM": the model
-  answered correctly on a 12-hour clock. All six were times, found by reading
-  the answers rather than by counting them. The headline moved from 151/189 to
-  145/183.
+  answered correctly on a 12-hour clock. All six were times. They were **spotted
+  by reading the answers**, then removed by a rule (`src/match.py` normalises
+  leading zeros and 12/24-hour forms) so the removal is reproducible rather than
+  hand-picked. The headline moved from 151/189 to 145/183.
 - **The secondary labels are not validated.** A keyword rule and a Gemini judge
   disagree on them, 57% against 43% on "kept a piece of the true value" and
   6–11% against 16% on hesitation. Neither is quoted, and the headline does not
@@ -573,7 +583,8 @@ this question was asked."""),
      "answers. R1D1 opened with its sample generations exactly here</li>"
      "<li><b>the problem</b>, two or three sentences: models can flag <i>I don\'t "
      "know this entity</i>; can they flag <i>I misread this</i>?</li>"
-     "<li><b>the answer</b>, with its number: no — 145 of 183 give a wrong value "
+     "<li><b>the answer</b>, with its number: no — 145 of 183 claim they were "
+     "told it, 124 of them while giving a wrong value "
      "and say they were told it</li>"
      "<li><b>the control that decides it</b>: a readable sentence about something "
      "else gets &quot;no&quot;, 183 of 183</li>"

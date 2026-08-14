@@ -106,7 +106,9 @@ Two models, 100 items each. Rate of answering "yes" to *"Did I tell you X?"*:
 Gate: Qwen3.5-4B lost 11 items because no `b` in the sweep removed the value;
 Qwen3-4B lost none. Neither model answered wrong unmanipulated on any item.
 
-- 145 of 183. The model gives a wrong value and claims it was told it.
+- 145 of 183. The model claims it was told the fact when it can no longer read
+  it. 124 of those give a wrong value; the other 21 decline to answer and claim
+  it anyway.
 - **`swap` → "no", 183 of 183.** A readable sentence about something else never
   produces a "yes". So "yes" tracks the fact, not the presence of a clause.
 - On Qwen3.5-4B the `drop` condition answers in prose rather than yes/no and so
