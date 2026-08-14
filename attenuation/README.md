@@ -30,12 +30,12 @@ That third one is the control everything rests on. It separates *"I have this
 fact"* from *"there is a sentence here"*.
 
 **The answer.** It does not notice. When the sentence is faint, the model gives
-a wrong value and says it was told it — **145 times out of 183**. When a
-readable sentence about something else is there instead, it correctly says no —
+a wrong value and says it was told it, **145 times out of 183**. When a
+readable sentence about something else is there instead, it correctly says no,
 **183 times out of 183**.
 
 And the wrong value is not random. It sits next to the truth. Told `19:40`, it
-answers **19:45**. Told `Utrecht`, it answers Amsterdam. That does not look
+answers **19:45**. Told `Utrecht`, it answers **Amsterdam**. That does not look
 like a hallucination. It looks like a typo, and nothing downstream catches a
 typo.
 
@@ -52,7 +52,7 @@ generated tokens, which is why some end mid-sentence.
 
 ## The question
 
-> **A model is told something. Make that sentence hard to read — don't delete
+> **A model is told something. Make that sentence hard to read, don't delete
 > it. Does the model notice?**
 
 ## The metric
@@ -129,7 +129,7 @@ Is any of this just the model? Every behaviour was re-measured at
 `b = 0`. Only the b = 0 column settles it:
 
 Each cell is: how many answers show that behaviour at `b = 0` → under
-the bias. Qwen3-4B out of 100 items, Qwen3.5-4B out of 89 — the other 11 of
+the bias. Qwen3-4B out of 100 items, Qwen3.5-4B out of 89, the other 11 of
 Qwen3.5's 100 still had their value at b = 14, the highest dose tested, so there
 is no dose at which to ask them the question. They are counted where a count is
 possible (the median in `fig2`) and named where it is not. A behaviour that is
@@ -140,7 +140,7 @@ produced.
 |---|---|---|
 | justifies its answer | 0 → 1 | **3 → 17** |
 | hesitates, questions its own answer | **0 → 11** | **0 → 5** |
-| quotes the user back | 14 → 19 *(already a habit — not a finding)* | 0 → 4 |
+| quotes the user back | 14 → 19 *(already a habit. Not a finding)* | 0 → 4 |
 | declines to answer at all | **0 → 46** | **0 → 0** |
 
 Hesitation is produced by the manipulation: a clean zero on both models at
@@ -178,7 +178,7 @@ that span at full strength while what arrives is faint. The correct token's
 probability collapses, nothing promotes a wrong one, and whatever was standing
 behind it wins.
 
-That is what made the question worth asking — not *the model got it wrong*, but
+That is what made the question worth asking. Not *the model got it wrong*, but
 *what does it say instead, and why that one*.
 
 So this repo is not the first sighting. The same failure appears under two
@@ -210,7 +210,7 @@ weight that sentence keeps.
 
 | `b` | weight left on the sentence |
 |---|---|
-| 0 | 100% — the plain causal mask, an unmodified model |
+| 0 | 100%, the plain causal mask, an unmodified model |
 | 3 | 5% |
 | 6 | 0.25% |
 
@@ -232,8 +232,7 @@ Qwen3.5-4B is a hybrid: three linear-attention layers for every full one:
 | Qwen3-4B-Instruct-2507 | 36 / 36 |
 | **Qwen3.5-4B** | **8 / 32** |
 
-Why it does not reach them. The bias is a mask on the *attention logits* —
-it adds `-b` to the score matrix before the softmax. A linear-attention layer
+Why it does not reach them. The bias is a mask on the *attention logits*. It adds `-b` to the score matrix before the softmax. A linear-attention layer
 has no such matrix: it does not compute an N×N score over positions, it
 accumulates a state recurrently, so there is no per-position logit to subtract
 from and the mask passes through it unchanged. `Qwen3.5-4B` is
@@ -264,7 +263,7 @@ claim should be read with that attached.
 This is a graded version of a standard tool. Blocking attention from chosen
 positions to test what depends on them is *attention knockout*
 ([Geva, Bastings, Filippova & Globerson, 2023](https://arxiv.org/abs/2304.14767)),
-where it is binary — the edge is cut, and the question it answers is *where
+where it is binary, the edge is cut, and the question it answers is *where
 does information flow*. Here it is dosed rather than cut, and the question is
 different: not where the fact travels, but whether the model registers that it
 can no longer read it. The same lineage runs through *Do I Know This Entity?*,
@@ -276,7 +275,7 @@ mechanism produces from the inside.
 These four produce every number quoted above, in this order:
 
 ```bash
-python src/told2.py   Qwen/Qwen3.5-4B   # the four conditions — the headline
+python src/told2.py   Qwen/Qwen3.5-4B   # the four conditions, the headline
 python src/ladder.py  Qwen/Qwen3.5-4B   # one item at a time up the dose sweep (fig2)
 python src/locality.py Qwen/Qwen3.5-4B  # same dose, mask one sentence over
 python src/hedge.py   Qwen/Qwen3.5-4B   # the behaviours, measured at b = 0 too
@@ -289,7 +288,7 @@ pilot is what caught the non-monotonicity below, but nothing in the results
 above is computed from them.
 
 Every item is announced with the same three words. The fact always arrives
-as *"By the way, my dog is called Bagr."* — one fixed carrier phrase, so that the
+as *"By the way, my dog is called Bagr."*. It is one fixed carrier phrase, so that the
 span whose attention is turned down has the same shape in all 100 items and the
 only thing varying between them is the value. That is the control side of the
 choice. The cost is that the result is measured on exactly one phrasing: whether
@@ -305,7 +304,7 @@ Constructed conversations. One manipulation. Two models, both 4B. Qwen2.5-0.5B
 and is excluded rather than averaged in. Greedy, one seed.
 
 The bias is an idealised version of a state that arises in deployment for other
-reasons — KV cache compression and eviction, KV quantisation, long-context
+reasons: KV cache compression and eviction, KV quantisation, long-context
 dilution, prompt compression. **None of those is measured here.**
 
 The plan, the hypotheses with their numeric falsifiers, and a list of what went
@@ -314,8 +313,8 @@ wrong and how it was caught are in [`PREREGISTRATION.md`](PREREGISTRATION.md).
 ## What I would do next
 
 Does this happen under a manipulation nobody chose? The bias here is
-deliberate and dosed. In deployment the same state — a sentence still present
-but read badly — arrives from KV cache compression and eviction, KV
+deliberate and dosed. In deployment the same state, a sentence still present
+but read badly. Arrives from KV cache compression and eviction, KV
 quantisation, a context long enough to dilute attention, or a summarisation step
 that rewrites the original. KV quantisation is the cheapest of those to test and
 would say whether any of this transfers out of an idealised setting.
@@ -330,7 +329,7 @@ was too noisy to certify anything. The code and that verdict are in the repo.
 
 The damage is not monotone in b, and one item already shows it. `b` in
 this report is the *lowest tested dose at which the answer no longer contains
-the value* — a first crossing. The word "threshold" invites a stronger reading,
+the value*, a first crossing. The word "threshold" invites a stronger reading,
 that past that dose the value is gone for good, and `city:Brno` on Qwen3.5-4B
 contradicts it:
 

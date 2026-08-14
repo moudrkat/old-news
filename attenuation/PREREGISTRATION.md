@@ -1,14 +1,13 @@
 # What's behind a fact?
 
-Frozen 2026-08-12, before any data. Updated the same day as results came in —
-what was frozen is kept, what changed is dated at the bottom. Earlier versions
+Frozen 2026-08-12, before any data. Updated the same day as results came in. What was frozen is kept, what changed is dated at the bottom. Earlier versions
 are in git history.
 
 ---
 
 ## The question
 
-> **A model is told something. Make that sentence hard to read — don't delete
+> **A model is told something. Make that sentence hard to read, don't delete
 > it. Does the model notice?**
 
 Models have internal representations of whether they recognise an entity, and
@@ -28,7 +27,7 @@ entity and trigger refusal.
 This is a graded version of a standard tool. Blocking attention from chosen
 positions to test what depends on them is *attention knockout*
 ([Geva, Bastings, Filippova & Globerson, 2023](https://arxiv.org/abs/2304.14767)),
-where it is binary — the edge is cut, and the question it answers is *where
+where it is binary, the edge is cut, and the question it answers is *where
 does information flow*. Here it is dosed rather than cut, and the question is
 different: not where the fact travels, but whether the model registers that it
 can no longer read it. The same lineage runs through *Do I Know This Entity?*,
@@ -41,7 +40,7 @@ produces from the inside.
 A negative bias `b` on the attention logits at the fact's token positions, via a
 4D additive mask, `attn_implementation="eager"`. `b = 0` is the plain causal
 mask, so the control is not a separate code path. Nothing enters the residual
-stream, no cache is edited, no hooks. Runs on any attention layer — on hybrid
+stream, no cache is edited, no hooks. Runs on any attention layer, on hybrid
 models only the full-attention ones, and coverage is reported.
 
 ## The four conditions
@@ -50,7 +49,7 @@ models only the full-attention ones, and coverage is reported.
 |---|---|
 | `present` | the fact is in the context, `b = 0` |
 | `faint` | the fact is in the context, `b` at the smallest value where the answer no longer contains it |
-| `swap` | a **different kind** of fact fills the same slot — a readable sentence that does not contain the answer |
+| `swap` | a **different kind** of fact fills the same slot. A readable sentence that does not contain the answer |
 | `drop` | no such sentence at all |
 
 `swap` is the control that decides everything: it separates *"I have this
@@ -61,33 +60,33 @@ fact"* from *"there is a sentence here"*.
 ## The metric
 
 Three layers, in this order. Layer 3 is only defined where layer 2 says a value
-was given — a refusal has no distance from the truth.
+was given. A refusal has no distance from the truth.
 
-**1. Does it claim it was told?** — the answer to *"Did I tell you X? Answer
+**1. Does it claim it was told?**. The answer to *"Did I tell you X? Answer
 only yes or no."*, classified yes / no / other. Rates across the four
 conditions. This is the headline.
 
-**2. Does it give a value, or refuse?** — rate across the same four conditions.
+**2. Does it give a value, or refuse?**, rate across the same four conditions.
 
 3. If a value was given, how far is it from the truth? Two measures, because
 one of them alone would kill the most interesting case:
 
-- string distance — Levenshtein over the two strings, divided by the longer,
+- string distance: Levenshtein over the two strings, divided by the longer,
   case-folded. `4417→417` = 0.25, `19:40→19:45` = 0.20, `19:40→12:00` = 0.40.
   Catches truncations and single-character slips.
-- category — is it the same kind of thing, from the same domain?
+- category. Is it the same kind of thing, from the same domain?
   `Utrecht → Amsterdam` is a Dutch city; `Utrecht → New York` is not. This is a
   judgement, made by hand; a judge may be used only after reproducing hand
   labels on a calibration set.
 
-Why both. String distance scores `Brno → Prague` at **0.83**, i.e. far —
-and the substitution keeps the country, which is the informative part. A metric
-that calls that far is measuring the wrong thing on its own.
+Why both. String distance scores `Brno → Prague` at **0.83**, i.e. far. But the
+substitution keeps the country, which is the informative part, and a metric that
+calls that far is measuring the wrong thing on its own.
 
 *(That example is from the ten-item pilot, `results/told_Qwen3.5-4B.json`, at
 b = 11. It is what prompted the second measure and is recorded here for that
 reason. It does not reproduce in the 100-item run, where `city:Brno` never
-loses its value on Qwen3.5-4B at any dose tested — see the non-monotonicity note
+loses its value on Qwen3.5-4B at any dose tested, see the non-monotonicity note
 in the README. The same shape does appear there: `Utrecht → Amsterdam`,
 `Graz → Linz`, `Rijeka → Ljubljana`.)*
 
@@ -159,8 +158,8 @@ Post-hoc, read off the pilot: H5.
 Unresolved and left that way: H1, H2, H3.
 
 Provenance of the hypothesis list itself. The candidate hypotheses were
-drafted by a coding agent; the question they were narrowed to — *what does the
-model say instead of the right answer, and why that one* — was chosen by the
+drafted by a coding agent; the question they were narrowed to, *what does the
+model say instead of the right answer, and why that one*, was chosen by the
 author, after the first draft. Two of the three design errors below were caught
 by the author, not the agent.
 
@@ -168,24 +167,24 @@ by the author, not the agent.
 
 ## Hypotheses, as frozen
 
-**H1 — the queue** Spearman ρ over the top K = 100 of the unmanipulated
+**H1. The queue** Spearman ρ over the top K = 100 of the unmanipulated
 distribution, gold excluded. ρ ≥ 0.9 → the model chooses nothing, the fact sinks
 and the next in line steps up. Not supported: ρ ran 0.09–0.82 and falls with
 `b`, so it can only be compared across models at equal KL. Unresolved.
 
-**H2 — depth of the replacement** Median source rank grows with model size.
+**H2. Depth of the replacement** Median source rank grows with model size.
 Holds in direction (rank 2–5 on Qwen2.5-0.5B against 145–824 on Qwen3-4B)
-but the cheap explanation — bigger models start more confident, so everything
-else sits further down — is not yet excluded. Unresolved.
+but the cheap explanation. Bigger models start more confident, so everything
+else sits further down, is not yet excluded. Unresolved.
 
-**H3 — the replacement is related to the target** ≥ 10× over a
+**H3. The replacement is related to the target** ≥ 10× over a
 different-question null. Pending.
 
-H4 — does the model know the difference between faint and absent?
+H4. Does the model know the difference between faint and absent?
 Originally read as falsified. That reading was an artifact of the design
 (see below) and it is now supported: absent is declined, faint is not.
 
-**H5 — post-hoc, from the pilot** Faint yields a distortion of the truth,
+**H5. Post-hoc, from the pilot** Faint yields a distortion of the truth,
 absent yields a generic prior or a refusal. Needs confirmation on items that did
 not generate it.
 
@@ -193,7 +192,7 @@ not generate it.
 
 ## Controls and gates
 
-- `swap` — the one that matters. Passed on every item of both models.
+- `swap`. The one that matters. Passed on every item of both models.
 - Gate: an item counts only if the unmanipulated model answers correctly and
   some `b` removes the value. Both failure kinds counted and reported.
 - Excluded model: Qwen2.5-0.5B answers "yes, you told me" for 3 of 5 items
@@ -215,10 +214,10 @@ ignorance admits it reliably when the fact is genuinely absent.
 
 The gold token. For numeric values the first token of `" 4417"` is a bare
 space, so "probability of the correct token" was measuring whether a space comes
-next — 0.85 whatever the bias did.
+next, 0.85 whatever the bias did.
 
 The first probe. It built `absent` by deleting the sentence, so the two
-classes differed in their text. It scored 6/6 at layer 0 — the embedding layer,
+classes differed in their text. It scored 6/6 at layer 0, the embedding layer,
 which holds no state. It was reading tokens. Fixed with the matched `swap`
 condition.
 
@@ -229,7 +228,7 @@ condition.
 Constructed conversations. One manipulation family. Two models after exclusion,
 both 4B. Greedy, one seed. `faint` is a per-item threshold, so it means a
 different `b` for each item. The bias is an idealised version of a state that
-occurs in deployment for other reasons — KV cache compression and eviction, KV
+occurs in deployment for other reasons: KV cache compression and eviction, KV
 quantisation, long-context dilution, prompt compression. None of those is
 measured here.
 
@@ -245,7 +244,7 @@ rather than dressed up; the write-up phase is being timed.
 
 | date | clock | what happened | hours |
 |---|---|---|---|
-| 11 Aug | 21:15–21:39 | plan frozen, twice — method-first, then model-first | **~2 h** |
+| 11 Aug | 21:15–21:39 | plan frozen, twice. Method-first, then model-first | **~2 h** |
 | 12 Aug | 09:28–09:40 | plan cut to one question; bias written; smoke test on three models | |
 | 12 Aug | 10:01–10:21 | read the value not the token; fact-absent control | |
 | 12 Aug | 13:15–13:27 | forced prefix found and removed; result inverted; provenance question | |
@@ -259,7 +258,7 @@ rather than dressed up; the write-up phase is being timed.
 Not counted, per his rules: setting up the GPU box, model downloads, waiting for
 runs while doing something else, and the answers to the application form.
 
-Prior work, also not counted — it predates this question: the fixture set, the
+Prior work, also not counted. It predates this question: the fixture set, the
 ten-model V-Steer table, the attenuation mechanism, `brainscope`.
 
 ## Changes
