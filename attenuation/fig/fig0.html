@@ -17,6 +17,11 @@ th { text-align:left; font-size:10.5px; text-transform:uppercase;
   padding:0 10px 5px 0; border-bottom:1px solid var(--rule); }
 td { padding:7px 10px 7px 0; border-bottom:1px solid var(--rule);
   vertical-align:top; font-size:12.5px; }
+.band td { font-size:11px; text-transform:uppercase; letter-spacing:.06em;
+  color:var(--muted); font-weight:600; padding-top:16px;
+  border-bottom:1px solid var(--rule); }
+.band .cnt { float:right; text-transform:none; letter-spacing:0;
+  font-weight:400; }
 .told { color:var(--ink2); width:20%; }
 .a0 { color:var(--ok); width:28%; }
 .a1 { color:var(--ink); width:34%; }
@@ -36,25 +41,26 @@ code { font-size:12px; color:var(--muted); }
 if(t)document.documentElement.dataset.theme=t;}</script>
 <figure>
 <h2>The same question, before and after one sentence is made hard to read</h2>
-<p class="sub">14 items drawn at random from 184 — not chosen.
-<code>random.Random(4242).sample</code>, both models, refusals included.</p>
+<p class="sub">Split by what the model did with the value, then
+<b>3 drawn at random inside each group</b> — nothing within a group is
+chosen. <code>random.Random(4242).sample</code>, both models. The counts on
+the right are the whole corpus of 184, so the figure shows what each
+kind looks like <i>and</i> how often it happens.</p>
 <table>
 <tr><th>what the user said</th><th>answer at b&nbsp;=&nbsp;0</th><th>dose</th>
 <th>answer at that dose</th><th>“told<br>you?”</th></tr>
-<tr><td class="told">By the way, my dog is called <b>Yorrick</b>.</td><td class="a0">Your dog is called <b>Yorrick</b>.</td><td class="bb">b&nbsp;=&nbsp;3<div class="mdl">Qwen3.5-4B</div></td><td class="a1">Your dog is called <b>Yorick</b>.</td><td class="ans"><span class="pill yes">yes</span></td></tr>
-<tr><td class="told">By the way, the error code I got was <b>Q-73</b>.</td><td class="a0">You mentioned that the error code you got was <b>Q-73</b>. So, the error code is **Q</td><td class="bb">b&nbsp;=&nbsp;3<div class="mdl">Qwen3-4B-Instruct-2507</div></td><td class="a1">You mentioned that you got error code <b>73</b>, so that&#x27;s the one you received. If you&#x27;d like,</td><td class="ans"><span class="pill yes">yes</span></td></tr>
-<tr><td class="told">By the way, my dog is called <b>Yorrick</b>.</td><td class="a0">Your dog is called Yorrick! 🐶 That&#x27;s a lovely name—quite unique and a bit like a</td><td class="bb">b&nbsp;=&nbsp;3<div class="mdl">Qwen3-4B-Instruct-2507</div></td><td class="a1">Your dog is called Yorick. 😊 (Though I&#x27;m not sure if that&#x27;s a coincidence—Yor</td><td class="ans"><span class="pill yes">yes</span></td></tr>
-<tr><td class="told">By the way, my hotel room is <b>1108</b>.</td><td class="a0">You are in room <b>1108</b>.</td><td class="bb">b&nbsp;=&nbsp;4<div class="mdl">Qwen3.5-4B</div></td><td class="a1">You are in <b>room 110</b>. Since hotel room numbers are typically written with the floor number first,</td><td class="ans"><span class="pill yes">yes</span></td></tr>
-<tr><td class="told">By the way, my dog is called <b>Bagr</b>.</td><td class="a0">Your dog is called <b>Bagr</b>.</td><td class="bb">b&nbsp;=&nbsp;6<div class="mdl">Qwen3.5-4B</div></td><td class="a1">Your dog is called <b>Bag</b>.</td><td class="ans"><span class="pill yes">yes</span></td></tr>
+<tr class="band"><td colspan="5">a truncation, or a small change to the true value<span class="cnt">76 of 184, 41%</span></td></tr>
+<tr><td class="told">By the way, my account number ends in <b>233</b>.</td><td class="a0">Your account number ends in <b>233</b>.</td><td class="bb">b&nbsp;=&nbsp;5<div class="mdl">Qwen3.5-4B</div></td><td class="a1">Your account number ends in <b>23</b>.</td><td class="ans"><span class="pill yes">yes</span></td></tr>
+<tr><td class="told">By the way, my train leaves at <b>06:15</b>.</td><td class="a0">Your train leaves at 06:15.</td><td class="bb">b&nbsp;=&nbsp;3<div class="mdl">Qwen3-4B-Instruct-2507</div></td><td class="a1">Your train leaves at 6:15 PM.</td><td class="ans"><span class="pill yes">yes</span></td></tr>
+<tr><td class="told">By the way, my dog is called <b>Marnok</b>.</td><td class="a0">Your dog is called Marnok! 🐾 That&#x27;s a unique and memorable name—great choice!</td><td class="bb">b&nbsp;=&nbsp;3<div class="mdl">Qwen3-4B-Instruct-2507</div></td><td class="a1">Your dog is called Marn. 😊 (Though I notice you said &quot;Marn&quot; — is that a typo</td><td class="ans"><span class="pill yes">yes</span></td></tr>
+<tr class="band"><td colspan="5">a different value entirely<span class="cnt">60 of 184, 33%</span></td></tr>
+<tr><td class="told">By the way, the error code I got was <b>T-340</b>.</td><td class="a0">You received error code <b>T-340</b>.</td><td class="bb">b&nbsp;=&nbsp;6<div class="mdl">Qwen3.5-4B</div></td><td class="a1">You received error code <b>404</b>. This typically means &quot;Not Found,&quot; indicating that the server cannot find the</td><td class="ans"><span class="pill yes">yes</span></td></tr>
+<tr><td class="told">By the way, my dog is called <b>Skarn</b>.</td><td class="a0">Your dog is called <b>Skarn</b>.</td><td class="bb">b&nbsp;=&nbsp;8<div class="mdl">Qwen3.5-4B</div></td><td class="a1">Your dog is called <b>Dog</b>. (Just to clarify: in my previous response, I said &quot;Noted&quot;</td><td class="ans"><span class="pill yes">yes</span></td></tr>
 <tr><td class="told">By the way, my cat is called <b>Sorrel</b>.</td><td class="a0">Your cat is called Sorrel! 🐱✨ That&#x27;s a lovely name—warm, vibrant, and full of</td><td class="bb">b&nbsp;=&nbsp;4<div class="mdl">Qwen3-4B-Instruct-2507</div></td><td class="a1">Your cat is called... *My Cat*? 😸 That&#x27;s a fun name — a little poetic, and a</td><td class="ans"><span class="pill yes">yes</span></td></tr>
-<tr><td class="told">By the way, my flight is <b>AY206</b>.</td><td class="a0">Your flight number is AY206.</td><td class="bb">b&nbsp;=&nbsp;3<div class="mdl">Qwen3-4B-Instruct-2507</div></td><td class="a1">I&#x27;m sorry, but I don&#x27;t have access to your flight details or personal information. If you&#x27;d like to confirm</td><td class="ans"><span class="pill yes">yes</span></td></tr>
-<tr><td class="told">By the way, my hotel room is <b>227</b>.</td><td class="a0">You&#x27;re in room 227. 😊</td><td class="bb">b&nbsp;=&nbsp;3<div class="mdl">Qwen3-4B-Instruct-2507</div></td><td class="a1">You&#x27;re in room 207. 😊</td><td class="ans"><span class="pill yes">yes</span></td></tr>
-<tr><td class="told">By the way, my train leaves at <b>22:41</b>.</td><td class="a0">Your train leaves at 22:41.</td><td class="bb">b&nbsp;=&nbsp;4<div class="mdl">Qwen3-4B-Instruct-2507</div></td><td class="a1">Your train leaves at 21:00 (9:00 PM).</td><td class="ans"><span class="pill yes">yes</span></td></tr>
-<tr><td class="told">By the way, the error code I got was <b>Z-54</b>.</td><td class="a0">You received error code <b>Z-54</b>.</td><td class="bb">b&nbsp;=&nbsp;4<div class="mdl">Qwen3.5-4B</div></td><td class="a1">You got error code <b>Z-5</b>. *(Note: In your previous message, you wrote &quot;Z-5</td><td class="ans"><span class="pill yes">yes</span></td></tr>
-<tr><td class="told">By the way, the error code I got was <b>B-206</b>.</td><td class="a0">You received error code <b>B-206</b>. Depending on the system or context (such as a specific software</td><td class="bb">b&nbsp;=&nbsp;6<div class="mdl">Qwen3.5-4B</div></td><td class="a1">You received error code <b>404</b>. This typically means &quot;Not Found,&quot; indicating that the server cannot find the</td><td class="ans"><span class="pill yes">yes</span></td></tr>
-<tr><td class="told">By the way, my dog is called <b>Bristle</b>.</td><td class="a0">Your dog is called Bristle! 🐾 That&#x27;s a fun and unique name—perfect for a dog with</td><td class="bb">b&nbsp;=&nbsp;4<div class="mdl">Qwen3-4B-Instruct-2507</div></td><td class="a1">Your dog is called Max. 😊 (Wait—actually, you said your dog is called *you*—&quot;</td><td class="ans"><span class="pill yes">yes</span></td></tr>
-<tr><td class="told">By the way, I live in <b>Graz</b>.</td><td class="a0">You live in <b>Graz</b>, Austria. It is the second-largest city in Austria and the capital of the state of</td><td class="bb">b&nbsp;=&nbsp;14<div class="mdl">Qwen3.5-4B</div></td><td class="a1">You live in <b>Linz</b>, Austria. It is the capital of the state of Upper Austria and the second-largest</td><td class="ans"><span class="pill yes">yes</span></td></tr>
-<tr><td class="told">By the way, my train leaves at <b>19:40</b>.</td><td class="a0">Your train leaves at 19:40.</td><td class="bb">b&nbsp;=&nbsp;5<div class="mdl">Qwen3-4B-Instruct-2507</div></td><td class="a1">Your train leaves at 12:00 PM (noon), as mentioned in your message. Let me know if</td><td class="ans"><span class="pill no">no</span></td></tr>
+<tr class="band"><td colspan="5">no value at all<span class="cnt">48 of 184, 26%</span></td></tr>
+<tr><td class="told">By the way, my account number ends in <b>961</b>.</td><td class="a0">Your account number ends in <b>961</b>.</td><td class="bb">b&nbsp;=&nbsp;4<div class="mdl">Qwen3-4B-Instruct-2507</div></td><td class="a1">I&#x27;m sorry, but I can&#x27;t access or know your personal information, including your account number. If you need help</td><td class="ans"><span class="pill yes">yes</span></td></tr>
+<tr><td class="told">By the way, I live in <b>Tampere</b>.</td><td class="a0">You live in Tampere, Finland. 😊 It&#x27;s a vibrant city in the central part of Finland,</td><td class="bb">b&nbsp;=&nbsp;3<div class="mdl">Qwen3-4B-Instruct-2507</div></td><td class="a1">I&#x27;m sorry, but I don&#x27;t have access to your personal information, including your location. So I can&#x27;t determine</td><td class="ans"><span class="pill no">no</span></td></tr>
+<tr><td class="told">By the way, my hotel room is <b>471</b>.</td><td class="a0">You&#x27;re in room 471. 😊</td><td class="bb">b&nbsp;=&nbsp;4<div class="mdl">Qwen3-4B-Instruct-2507</div></td><td class="a1">I&#x27;m sorry, but I can&#x27;t determine which hotel room you&#x27;re in. The information you provided only says &quot;my</td><td class="ans"><span class="pill yes">yes</span></td></tr>
 </table>
 <figcaption>
 <b>How to read a row.</b> The sentence carrying the fact is in the conversation
@@ -65,8 +71,7 @@ contains the value, so rows are not comparable to one another and are not meant
 to be — which is why the model is printed under every dose. The final column is what the
 same model answered, separately, to “did I tell you this? answer only yes or
 no”.<br><br>
-13 of these 14 say <b>yes</b>, 12 of them while giving a
-wrong value. Every answer is printed in full. The only thing shortened anywhere is the
+8 of these 9 say <b>yes</b>. Every answer is printed in full. The only thing shortened anywhere is the
 generation itself, which stopped at 24 tokens — a budget fixed before the run,
 which is why some answers end mid-sentence.<br><br>
 <b>Drawn, not chosen.</b> The seed is printed so the same draw can be

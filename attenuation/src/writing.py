@@ -280,13 +280,15 @@ downstream. It does not look like a hallucination. It looks like a typo**, and
 nothing downstream catches a typo."""),
 
     ("fig", "figA", "Executive summary · sample answers", "fig0.png",
-     "Fourteen of the 184 items, drawn with a fixed seed, not picked. "
-     "Refusals included. Goes before any prose, exactly where R1D1 put its "
-     "sample generations."),
+     "Three rows drawn at random from each of the three kinds of failure, "
+     "with how often each kind happens. Goes before any prose, exactly where "
+     "R1D1 put its sample generations."),
 
-    ("ready", "f0", "Executive summary · caption for the figure above", """*Fourteen of the 184 items, drawn with a fixed seed, not picked. Refusals
-included. The sentence carrying the fact is still in the conversation in every
-one of them; it has only been made harder to read.*"""),
+    ("ready", "f0", "Executive summary · caption for the figure above", """*Split by what the model did with the value, then three drawn at random inside
+each group — nothing within a group is chosen. The counts are the whole corpus
+of 184, so the figure shows what each kind looks like and how often it happens.
+A flat draw would have been dominated by truncations and would have hidden the
+row that matters.*"""),
 
     ("yours", "d1", "Executive summary · What problem am I trying to solve?", 7,
      "~130 words, two paragraphs. <b>Points to make:</b><ul>"
@@ -361,27 +363,24 @@ one of them; it has only been made harder to read.*"""),
      "which were the model's habits all along — and say that it retired one of "
      "your own claims</li></ul>"),
 
-    ("ready", "b1", "Detailed analysis · Where the question came from", """**The question.** A model is told a fact. The fact's own tokens are made hard to
-read while the sentence around them stays legible. Does the model register that
-the value it then produces is not the one it read? Related: models hold internal
-representations of whether they recognise an entity, and those causally gate
-refusal (Ferrando, Obeso, Rajamanoharan & Nanda, *Do I Know This Entity?*, ICLR
-2025). That is self-knowledge about knowledge in the weights; this asks it of
-knowledge in the context.
-
-Not from this manipulation. Running V-Steer (Zeng, Lee, Zhao & Hockenmaier, COLM
-2026) across ten models, the failures were quiet: an account number ending `02`
-where the user had said `302`. Not a broken model, a model confidently
-misreading. The mechanism measured there is why the wrong answer has the shape
-it has: the edit **attenuates rather than overwrites**, so the correct token's
-probability collapses, nothing promotes a replacement, and whatever was standing
-behind it wins. What made it worth a question was not *the model got it wrong* but
-*what does it say instead, and why that one*.
-
-So the near miss is not an artefact of the manipulation used here; it appears
-under two methods with nothing in common. The provenance behaviour does not
-carry over — under V-Steer the model gave the **right** value and denied being
-told it — so that part rests on one manipulation and two models."""),
+    ("ready", "b1", "Detailed analysis · Where the question came from", """- **Where it came from.** Running V-Steer (Zeng, Lee, Zhao & Hockenmaier, COLM
+  2026) across ten models, the failures were quiet: an account number ending
+  `02` where the user had said `302`. Not a broken model, a model confidently
+  misreading.
+- **Why that was worth a question.** Not *the model got it wrong* but *what does
+  it say instead, and why that one*. The mechanism measured there is why the
+  wrong answer has the shape it has: the edit attenuates rather than overwrites,
+  so the correct token's probability collapses, nothing promotes a replacement,
+  and whatever was standing behind it wins.
+- **The question.** A model is told a fact. The fact's own tokens are made hard
+  to read while the sentence around them stays legible. Does the model register
+  that the value it then produces is not the one it read?
+- **Why it is the interesting version.** Models hold internal representations of
+  whether they recognise an entity, and those causally gate refusal (Ferrando,
+  Obeso, Rajamanoharan & Nanda, *Do I Know This Entity?*, ICLR 2025). That is
+  self-knowledge about knowledge in the weights; this asks it of knowledge in
+  the context. If the mechanism carried over, a degraded fact should look like
+  an unknown entity and trigger a refusal. It doesn't."""),
 
     ("ready", "m1", "Detailed analysis · The metric", """- **The gate, which decides how everything below is read.** An item counts only
   if the unmanipulated model answers it correctly *and* some `b` removes the
@@ -429,13 +428,9 @@ told it — so that part rests on one manipulation and two models."""),
   - **a different fact** — a readable sentence about something else in the slot
   - **nothing there** — no such sentence at all **`swap` and `drop` carry no bias**."""),
 
-    ("ready", "r1", "Detailed analysis · The answer", """**Start with the three answers that surprised me**, because the headline is the
-one a reader can predict.
+    ("ready", "r1", "Detailed analysis · The answer", """**Three things I did not expect**, before the number a reader can predict.
 
-**1. It claims the fact even when it has no value to offer.** In 23 of the 184
-items the model produces nothing at all — *"I don't have access to your flight
-details"* — and, asked separately, says *"yes, you told me"*. It knows it cannot
-give the value and still reports receiving it.
+**1. It claims the fact even when it has no value to offer.**
 
 | out of 184 | says "yes, you told me" | says "no" | |
 |---|---|---|---|
@@ -443,9 +438,11 @@ give the value and still reports receiving it.
 | **gave no value at all** | 23 | 25 | 48 items, 48% yes |
 | | **147** | **37** | **184** |
 
-Producing a value almost guarantees the claim. Producing nothing halves it and
-no further. So the "yes" tracks neither the value nor the model's ability to
-read it.
+- In 23 items the model produces nothing — *"I don't have access to your flight
+  details"* — and, asked separately, says *"yes, you told me"*.
+- Producing a value almost guarantees the claim; producing nothing halves it and
+  no further.
+- So the "yes" tracks neither the value nor the model's ability to read it.
 
 **2. When the value goes quiet, the model answers out of the words beside it.**
 
@@ -454,33 +451,57 @@ read it.
 > told `Kudla`: *"Your dog is called Max. 😊 (Wait—actually, you said your dog is
 > called ***you***—that"*
 
-`By the way` and `you` are both from the carrier sentence, the part never turned
-down. The first surfaced in cells the judge and the code scored differently, the
-second in the nine answers that correct themselves mid-generation, **not one of
-which recovers the value**. Two accidents, one mechanism: what survives
-constrains what is invented.
+- `By the way` and `you` are both from the carrier sentence, the part never
+  turned down.
+- The first surfaced in cells the judge and the code scored differently; the
+  second in the nine answers that correct themselves mid-generation, **not one
+  of which recovers the value**.
+- Two accidents, one mechanism: what survives constrains what is invented.
 
 **3. On one model the manipulation is not local at all.** Masking the value's
-neighbours instead of the value — same item, same dose, same token count —
-leaves the answer intact 85 times out of 85 on Qwen3.5-4B. On Qwen3-4B it works
-only 52 times in 99, and **46 of the 47 failures give no value at all**. Mask
-anything on that model at that dose, even a content-free carrier phrase, and it
-stops answering. The localisation claim holds for one of the two models, and for
-the other this design cannot separate a local effect from a global loss of
-willingness to answer.
+neighbours instead of the value — same item, same dose, same token count:
+
+| | Qwen3-4B | Qwen3.5-4B |
+|---|---|---|
+| value survives when the mask sits **beside** it | 52 / 99 | **85 / 85** |
+
+- On Qwen3.5-4B the damage follows the mask, not the dose.
+- On Qwen3-4B it does not, and **46 of the 47 failures give no value at all**:
+  mask anything at that dose, even a content-free carrier phrase, and it stops
+  answering.
+- So the localisation claim holds for one model of two, and for the other this
+  design cannot separate a local effect from a global loss of willingness.
 
 ---
 
-**The headline.** *fact turned down* against *a different fact* is the result: both put a sentence in the slot, and only in the first is it
-the one being asked about. **147 of 184 against 0 of 184.**
+**The headline**, which is the part a reader can predict: *fact turned down*
+against *a different fact*, **147 of 184 against 0 of 184**.
 
-The readable condition is the ceiling and it is not 100%: five items answer "no"
-with the fact plainly there.
-Paired item by item, **147 of the 179 that say yes when the fact is readable
-still say yes when the value has gone, 32 switch, and not one switches the other
-way.** The carrier sentence stays legible throughout, so "yes" is not a false
-answer; what the model fails to do is register that the value it produces is not
-the one it read.
+- Both conditions put a sentence in the slot; only in the first is it the one
+  being asked about.
+- The ceiling is not 100%: five items answer "no" with the fact plainly
+  readable, so the fall is 179 → 147.
+- Paired item by item, **147 stay, 32 switch, and not one switches the other
+  way**.
+- The carrier sentence stays legible throughout, so "yes" is not a false answer.
+  What the model fails to do is register that the value it produces is not the
+  one it read.
+
+**How the value fails, over all 184 items.**
+
+| | |
+|---|---|
+| a truncation or small change to the true value (`Bagr → Bag`) | 76, **41%** |
+| a different value entirely (`Utrecht → Amsterdam`, `19:40 → 19:45`) | 60, **33%** |
+| no value at all | 48, **26%** |
+
+- **Truncation is the modal failure**, and a format check downstream would catch
+  it.
+- The claim that this slips past everything belongs to the middle row, a third
+  of the items — and that is where the interest is: `Utrecht → Amsterdam` keeps
+  the country, `19:40 → 19:45` keeps the hour.
+- When nothing survives the prior wins, always the same one: four allergens all
+  become peanuts, three dog names all become Max.
 
 **Is any of it just the model?** Every behaviour re-measured with no bias:
 
@@ -491,41 +512,25 @@ the one it read.
 | quotes the user back | 14 → 26 | 6 → 5 |
 | gives no value at all | 1 → 45 | 0 → 0 |
 
-**"Quotes the user back" retired a claim of mine.** "It throws the user's own
-words back at them" looked like a finding until the no-bias column showed
-Qwen3-4B doing it 14 times in 100 with nothing manipulated. The label counts
-quoting, not misquoting; whether the quote is accurate is not measured. And the
-newer model never declines at all, which is the sharpest difference between the
-two and runs the wrong way.
+- **Hesitation follows production, not wrongness.** Cross the hedging label
+  against what the model did with the value: it questions its answer in 24% of
+  truncations and 20% of substitutions — near enough the same — but in only 4%
+  of the items where it produced no value at all. It pauses over an answer when
+  it has one, almost regardless of how wrong it is, and not when it has none.
+  Same axis as the 91%/48% split above, measured a different way.
+- **"Quotes the user back" retired a claim of mine.** "It throws the user's own
+  words back at them" looked like a finding until the no-bias column showed
+  Qwen3-4B doing it 14 times in 100 with nothing manipulated. The label counts
+  quoting, not misquoting.
+- Arguing for the value reverses between models: Qwen3.5-4B starts, Qwen3-4B
+  stops because by then it is refusing.
+- The newer model never declines at all, the sharpest difference between them,
+  and it runs the wrong way.
 
-**How the value fails, over all 184 items.** The pull quotes above are the rarer
-half:
-
-| | |
-|---|---|
-| a truncation or a small change to the true value (`Bagr → Bag`, `E-88 → E-8`) | 76, **41%** |
-| a different value entirely (`Utrecht → Amsterdam`, `19:40 → 19:45`) | 60, **33%** |
-| no value at all | 48, **26%** |
-
-**Truncation is the modal failure, not substitution**, and a truncation is the
-kind of thing a format check downstream would catch. The claim that this slips
-past everything applies to the second row, a third of the items, and that is
-where the interest is: `Utrecht → Amsterdam` keeps the country, `19:40 → 19:45`
-keeps the hour. The random draw at the top of this write-up shows the real mix
-rather than the alarming end of it, which is the point of drawing it.
-
-**What it says instead.** What survives constrains what is invented: the airline
-code survives and the number is filled in (`BA945 → BA118`, volunteering *"or
-BA119 depending on the direction"*), the country survives and the city is filled
-in (`Graz → Linz`, `Utrecht → Amsterdam`). When nothing survives the prior wins,
-always the same one: four allergens all become peanuts, three dog names all
-become Max. And when even that fails, the model answers out of the words it can
-still read:
-
-*(The value/no-value split and the behaviour table are the judge's labels,
-`gemini-3.1-flash-lite` against a written rubric, agreeing with a keyword rule
-on 181 of 184, not yet validated against hand labels. The headline is not one of
-them: it is a one-word answer read directly, re-read by a second labeller which
+*(The split and the behaviour table are the judge's labels,
+`gemini-3.1-flash-lite` against a written rubric, agreeing with a keyword rule on
+181 of 184, not yet validated against hand labels. The headline is not one of
+them: it is a one-word answer read directly, re-read by that judge, which
 disagreed on none of the `present`, `faint` or `swap` replies.)*"""),
 
     ("ready", "l1", "Detailed analysis · Limitations", """- **The provenance result did not replicate under the other manipulation.**

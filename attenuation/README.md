@@ -73,15 +73,17 @@ truth. Told `19:40`, it answers **19:45**. Told `Utrecht`, it answers
 like a hallucination. It looks like a typo, and nothing downstream catches a
 typo.
 
-![Fourteen answers drawn at random](fig/fig0.png)
+![Nine answers, three drawn at random from each kind of failure](fig/fig0.png)
 
-**What you are looking at.** Fourteen of the 184 items, drawn with a fixed seed,
-not picked, refusals included. *Left:* the sentence the user put in the
-conversation, fact in bold. *Middle:* what the model answered when asked for
-that fact. The sentence is still there, only harder to read. Then the dose, then the answer at
-that dose, and last what it said when asked separately whether it had been told.
-The answers stop at 24 generated tokens, which is why some end mid-sentence; the
-yes/no column is capped at 4.
+**How to read it.**
+
+- All 184 items, split by what the model did with the value; **three drawn at
+  random inside each group**, nothing within a group chosen.
+- The counts on the right are the whole corpus, so the figure shows what each
+  kind looks like *and* how often it happens.
+- Columns: what the user said · the answer with no bias · the dose and model ·
+  the answer at that dose · what it said, separately, to *did I tell you this*.
+- Answers stop at 24 generated tokens, which is why some end mid-sentence.
 
 ---
 
@@ -187,7 +189,7 @@ truncation or a small change to the true value 76 times (41%), a different value
 entirely 60 times (33%), and nothing at all 48 times (26%). **A truncation is
 the modal failure and a format check downstream would catch it.** The claim
 about slipping past everything belongs to the middle row, a third of the items.
-The figure at the top is the unchosen draw and shows the real mix.
+The figure at the top shows all three kinds with their real proportions.
 
 ## And three things underneath it
 

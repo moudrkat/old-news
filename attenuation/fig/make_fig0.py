@@ -58,7 +58,8 @@ def emph(s: str) -> str:
 
 def main() -> int:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--n", type=int, default=14)
+    ap.add_argument("--per", type=int, default=3,
+                    help="rows drawn from each of the three kinds of failure")
     ap.add_argument("--seed", type=int, default=4242)
     a = ap.parse_args()
 
@@ -88,20 +89,45 @@ def main() -> int:
         print("need results/hedge_*.json and results/told2_*.json")
         return 1
 
-    pick = random.Random(a.seed).sample(rows, min(a.n, len(rows)))
+    # **Stratified, not flat.** A flat draw is dominated by truncations, because
+    # truncations are 41% of the corpus — so it shows the modal failure and
+    # hides the one the write-up is about. Splitting by what the model did with
+    # the value and drawing the same number from each kind shows both what each
+    # looks like *and*, in the header, how often each happens. Still a draw:
+    # nothing inside a group is chosen.
+    JUDGE = {r["id"]: r["value"]
+             for r in json.load(open(ROOT / "results" / "judge.json"))["rows"]}
+    KINDS = [("kept",  "a truncation, or a small change to the true value"),
+             ("other", "a different value entirely"),
+             ("none",  "no value at all")]
+    for r in rows:
+        r["kind"] = JUDGE.get(f'{r["model"]}|{r["key"]}', "other")
+    groups = {k: [r for r in rows if r["kind"] == k] for k, _ in KINDS}
+
+    rng = random.Random(a.seed)
+    pick, bands = [], []
+    for k, label in KINDS:
+        g = groups[k]
+        drawn = rng.sample(g, min(a.per, len(g)))
+        bands.append((k, label, len(g), drawn))
+        pick += drawn
 
     trs = []
-    for r in pick:
-        v = r["key"].split(":", 1)[1]
-        cls = {"yes": "yes", "no": "no"}.get(r["asked"], "other")
-        trs.append(
-            f'<tr><td class="told">By the way, '
-            f'{TOLD[r["type"]].format(v=f"<b>{html.escape(v)}</b>")}.</td>'
-            f'<td class="a0">{emph(clean(r["present"]))}</td>'
-            f'<td class="bb">b&nbsp;=&nbsp;{r["b"]:g}'
-            f'<div class="mdl">{r["model"]}</div></td>'
-            f'<td class="a1">{emph(clean(r["faint"]))}</td>'
-            f'<td class="ans"><span class="pill {cls}">{r["asked"]}</span></td></tr>')
+    for k, label, total, drawn in bands:
+        trs.append(f'<tr class="band"><td colspan="5">{label}'
+                   f'<span class="cnt">{total} of {len(rows)}, '
+                   f'{100*total/len(rows):.0f}%</span></td></tr>')
+        for r in drawn:
+            v = r["key"].split(":", 1)[1]
+            cls = {"yes": "yes", "no": "no"}.get(r["asked"], "other")
+            trs.append(
+                f'<tr><td class="told">By the way, '
+                f'{TOLD[r["type"]].format(v=f"<b>{html.escape(v)}</b>")}.</td>'
+                f'<td class="a0">{emph(clean(r["present"]))}</td>'
+                f'<td class="bb">b&nbsp;=&nbsp;{r["b"]:g}'
+                f'<div class="mdl">{r["model"]}</div></td>'
+                f'<td class="a1">{emph(clean(r["faint"]))}</td>'
+                f'<td class="ans"><span class="pill {cls}">{r["asked"]}</span></td></tr>')
 
     n_yes = sum(r["asked"] == "yes" for r in pick)
     n_val = sum(r["asked"] == "yes" and not is_refusal(clean(r["faint"]))
@@ -126,6 +152,11 @@ th {{ text-align:left; font-size:10.5px; text-transform:uppercase;
   padding:0 10px 5px 0; border-bottom:1px solid var(--rule); }}
 td {{ padding:7px 10px 7px 0; border-bottom:1px solid var(--rule);
   vertical-align:top; font-size:12.5px; }}
+.band td {{ font-size:11px; text-transform:uppercase; letter-spacing:.06em;
+  color:var(--muted); font-weight:600; padding-top:16px;
+  border-bottom:1px solid var(--rule); }}
+.band .cnt {{ float:right; text-transform:none; letter-spacing:0;
+  font-weight:400; }}
 .told {{ color:var(--ink2); width:20%; }}
 .a0 {{ color:var(--ok); width:28%; }}
 .a1 {{ color:var(--ink); width:34%; }}
@@ -145,8 +176,11 @@ code {{ font-size:12px; color:var(--muted); }}
 if(t)document.documentElement.dataset.theme=t;}}</script>
 <figure>
 <h2>The same question, before and after one sentence is made hard to read</h2>
-<p class="sub">{a.n} items drawn at random from {len(rows)} — not chosen.
-<code>random.Random({a.seed}).sample</code>, both models, refusals included.</p>
+<p class="sub">Split by what the model did with the value, then
+<b>{a.per} drawn at random inside each group</b> — nothing within a group is
+chosen. <code>random.Random({a.seed}).sample</code>, both models. The counts on
+the right are the whole corpus of {len(rows)}, so the figure shows what each
+kind looks like <i>and</i> how often it happens.</p>
 <table>
 <tr><th>what the user said</th><th>answer at b&nbsp;=&nbsp;0</th><th>dose</th>
 <th>answer at that dose</th><th>“told<br>you?”</th></tr>
@@ -161,8 +195,7 @@ contains the value, so rows are not comparable to one another and are not meant
 to be — which is why the model is printed under every dose. The final column is what the
 same model answered, separately, to “did I tell you this? answer only yes or
 no”.<br><br>
-{n_yes} of these {len(pick)} say <b>yes</b>, {n_val} of them while giving a
-wrong value. Every answer is printed in full. The only thing shortened anywhere is the
+{n_yes} of these {len(pick)} say <b>yes</b>. Every answer is printed in full. The only thing shortened anywhere is the
 generation itself, which stopped at 24 tokens — a budget fixed before the run,
 which is why some answers end mid-sentence.<br><br>
 <b>Drawn, not chosen.</b> The seed is printed so the same draw can be
