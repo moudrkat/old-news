@@ -37,6 +37,9 @@ FORM = [
 <li>that one sentence is made <i>hard to read</i> — not deleted, it stays there</li>
 <li>the question is whether the model notices it can no longer read it</li>
 <li>one or two sentences, no jargon, no method name</li>
+<li><b>do not name the mechanism here</b> — <i>hard to read</i> is the right
+level for this question. <code>b</code> belongs in Q4, where the setup is what
+is being asked for</li>
 </ul>"""),
     ("q2", "Why is this question interesting / why did you choose it?", 6, """
 <b>Points to make, in this order:</b>
@@ -284,8 +287,8 @@ one of them; it has only been made harder to read.*"""),
     ("yours", "d2", "Executive summary · High-level takeaways", 13,
      "~200 words, numbered. <b>R1D1 put its failure second — copy that.</b> "
      "Nine candidates, pick six or seven:<ul>"
-     "<li><b>the knob:</b> one number on one sentence's attention; nothing "
-     "deleted, no cache edited, no hooks</li>"
+     "<li><b>the manipulation:</b> one number subtracted from one sentence's "
+     "attention logits; nothing deleted, no cache edited, no hooks</li>"
      "<li><b>the design error that inverted the result:</b> the answer prefix "
      "that made <i>I don't know</i> impossible to say</li>"
      "<li><b>when the fact was never there, both models decline</b> — 0 of 183 "
@@ -303,12 +306,15 @@ one of them; it has only been made harder to read.*"""),
      "<li><b>the two models fail in opposite ways</b> — one declines 46/100, the "
      "other 0/89</li></ul>"),
 
-    ("fig", "figA2", "Key experiments · what the knob is", "fig3.png",
+    ("fig", "figA2", "Key experiments · what the bias is", "fig3.png",
      "The manipulation in one picture: the sentence stays in the conversation, "
      "b is subtracted from the attention logits at its token positions, and the "
      "weight it keeps is multiplied by e^-b. The bars are the real arithmetic. "
-     "Put this before the two result figures — it defines what the b in them "
-     "means."),
+     "<b>Put this before the two result figures, and define b in words the "
+     "first time you use it.</b> Every later number in the write-up is a dose "
+     "of this one quantity; a reader who was never told what it is reads the "
+     "rest as a magic setting. Say it once and you can then just write "
+     "<i>b</i>."),
 
     ("fig", "figB", "Key experiments · the four conditions", "fig1.png",
      "The gap between <i>fact turned down</i> and <i>a different fact</i> is the "
@@ -318,7 +324,7 @@ one of them; it has only been made harder to read.*"""),
     ("fig", "figC", "Key experiments · the dose grid", "fig2.png",
      "The table at the top is the claim — same 100 items on both models, "
      "median b = 3 against b = 6. The grids under it are examples: rows are "
-     "items, columns are the strength of the knob, each cell is what the model "
+     "items, columns are the dose b, each cell is what the model "
      "actually answered. Read a row across and the value comes apart in "
      "stages — and no two rows give way at the same column."),
 
@@ -360,7 +366,7 @@ provenance. Under V-Steer the model gave the *right* value and denied being told
 it, in about 2% of answers. Here it gives a *wrong* value and claims it was told
 it, in 72–87%. The near miss replicates; the provenance behaviour does not."""),
 
-    ("ready", "m1", "Detailed analysis · Methodology", """**The knob.** Subtract a constant `b` from the attention logits at the token
+    ("ready", "m1", "Detailed analysis · Methodology", """**The bias.** Subtract a constant `b` from the attention logits at the token
 positions of one sentence, before the softmax, via a 4D additive mask with
 `attn_implementation="eager"`. The relative weight the model gives that sentence
 is multiplied by `e^-b`: at `b`=3 it keeps 5% of it, at `b`=6 a quarter of a
@@ -428,7 +434,7 @@ a plausible substitute → a refusal, and the dose at which that happens differs
 for every item.
 
 **Is any of it just the model?** Every behaviour visible in the answers was
-re-measured with the knob off:
+re-measured at `b = 0`:
 
 | | Qwen3-4B  b=0 → faint | Qwen3.5-4B  b=0 → faint |
 |---|---|---|

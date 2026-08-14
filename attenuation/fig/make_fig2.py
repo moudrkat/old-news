@@ -1,6 +1,6 @@
 """Figure 2 — the same items, one dose at a time.
 
-Rows are items, columns are the strength of the knob. Each cell shows **how much
+Rows are items, columns are the dose b. Each cell shows **how much
 of the true value survives in the answer** — the longest run of characters the
 answer still shares with it. Read a row left to right and you watch the value
 come apart:

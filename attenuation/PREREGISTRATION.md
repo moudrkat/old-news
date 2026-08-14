@@ -23,7 +23,7 @@ entity and trigger refusal.
 
 ---
 
-## The knob
+## The bias
 
 A negative bias `b` on the attention logits at the fact's token positions, via a
 4D additive mask, `attn_implementation="eager"`. `b = 0` is the plain causal
@@ -191,7 +191,7 @@ ignorance admits it reliably when the fact is genuinely absent.
 
 **The gold token.** For numeric values the first token of `" 4417"` is a bare
 space, so "probability of the correct token" was measuring whether a space comes
-next — 0.85 whatever the knob did.
+next — 0.85 whatever the bias did.
 
 **The first probe.** It built `absent` by deleting the sentence, so the two
 classes differed in their text. It scored 6/6 at layer 0 — the embedding layer,
@@ -204,7 +204,7 @@ condition.
 
 Constructed conversations. One manipulation family. Two models after exclusion,
 both 4B. Greedy, one seed. `faint` is a per-item threshold, so it means a
-different `b` for each item. The knob is an idealised version of a state that
+different `b` for each item. The bias is an idealised version of a state that
 occurs in deployment for other reasons — KV cache compression and eviction, KV
 quantisation, long-context dilution, prompt compression. **None of those is
 measured here.**
@@ -222,7 +222,7 @@ rather than dressed up; the write-up phase is being timed.
 | date | clock | what happened | hours |
 |---|---|---|---|
 | 11 Aug | 21:15–21:39 | plan frozen, twice — method-first, then model-first | **~2 h** |
-| 12 Aug | 09:28–09:40 | plan cut to one question; knob written; smoke test on three models | |
+| 12 Aug | 09:28–09:40 | plan cut to one question; bias written; smoke test on three models | |
 | 12 Aug | 10:01–10:21 | read the value not the token; fact-absent control | |
 | 12 Aug | 13:15–13:27 | forced prefix found and removed; result inverted; provenance question | |
 | 12 Aug | 14:26–14:30 | swap control on 100 items, both models | |

@@ -6,7 +6,7 @@ sample generations before any prose and that is the right place for this.
 **Drawn, not chosen.** `random.Random(seed).sample` over every item, refusals
 included, whatever the draw gives.
 
-Each row shows the same item twice — the answer with the knob off, and the
+Each row shows the same item twice — the answer at b = 0, and the
 answer at the dose where the value has gone. An earlier version showed only the
 second, which hid the fact that **b is different for every item**: that is a
 limitation of the design and a figure should not conceal it.
@@ -139,8 +139,8 @@ if(t)document.documentElement.dataset.theme=t;}}</script>
 <p class="sub">{a.n} items drawn at random from {len(rows)} — not chosen.
 <code>random.Random({a.seed}).sample</code>, both models, refusals included.</p>
 <table>
-<tr><th>what the user said</th><th>answer with the knob off</th><th>dose</th>
-<th>answer with the knob on</th><th>“told<br>you?”</th></tr>
+<tr><th>what the user said</th><th>answer at b&nbsp;=&nbsp;0</th><th>dose</th>
+<th>answer at that dose</th><th>“told<br>you?”</th></tr>
 {chr(10).join(trs)}
 </table>
 <figcaption>

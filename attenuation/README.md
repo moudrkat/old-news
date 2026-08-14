@@ -12,6 +12,17 @@ from the weight it gives to that one sentence. Turn the number up and the
 sentence gets quieter. At the settings I use it still has between a twentieth
 and a four-hundredth of its normal weight — it is not gone, it is faint.
 
+Precisely, and this is the whole manipulation: **a constant `b` is subtracted
+from the attention logits at that one sentence's token positions, before the
+softmax.** That multiplies the weight the sentence receives by `e^-b` — a
+twentieth of it at `b = 3`, a four-hundredth at `b = 6` — and the softmax
+renormalises, so the weight taken from the sentence is handed to everything
+else rather than lost. `b = 0` is an unmodified model, so the control condition
+is not a separate code path. `b` is the only quantity varied anywhere in this
+report, and it is called the **dose** throughout.
+
+![How the manipulation works](fig/fig3.png)
+
 **The metric.** I ask the model *"Did I tell you this? Answer only yes or no."*
 in four situations: the sentence is there · the sentence is faint · a readable
 sentence about **something else** is there instead · nothing is there at all.
@@ -27,9 +38,9 @@ And the wrong value is not random. It sits next to the truth. Told `19:40`, it
 answers **19:45**. Told `Brno`, it answers **Prague**. That does not look like a
 hallucination. It looks like a typo, and nothing downstream catches a typo.
 
-![Twenty answers drawn at random](fig/fig0.png)
+![Fourteen answers drawn at random](fig/fig0.png)
 
-**What you are looking at.** Twenty of the 183 answers, drawn with a fixed seed
+**What you are looking at.** Fourteen of the 189 items, drawn with a fixed seed
 — not picked, refusals included. *Left:* the sentence the user put in the
 conversation, fact in bold. *Middle:* what the model answered when asked for
 that fact — the sentence is still there, only harder to read. *Right:* what it
@@ -50,7 +61,7 @@ no."* — in four states of the evidence:
 
 | | |
 |---|---|
-| `present` | the fact is there, knob off |
+| `present` | the fact is there, `b = 0` |
 | `faint` | the fact is there, turned down until the answer is wrong |
 | `swap` | a readable sentence about **something else** in the same slot |
 | `drop` | no such sentence at all |
@@ -110,11 +121,11 @@ like a hallucination. It looks like a typo.
 a plausible substitute → a refusal, and the dose where that happens is different
 for every item. See `fig/fig2.png`.
 
-**Is any of this just the model?** Every behaviour was re-measured with the knob
-off. Only the b = 0 column settles it:
+**Is any of this just the model?** Every behaviour was re-measured at
+`b = 0`. Only the b = 0 column settles it:
 
-**Each cell is: how many answers show that behaviour with the knob off → with
-it on. Qwen3-4B out of 100 items, Qwen3.5-4B out of 89** — the other 11 of
+**Each cell is: how many answers show that behaviour at `b = 0` → under
+the bias. Qwen3-4B out of 100 items, Qwen3.5-4B out of 89** — the other 11 of
 Qwen3.5's 100 still had their value at b = 14, the top of the ladder, so there
 is no dose at which to ask them the question. They are counted where a count is
 possible (the median in `fig2`) and named where it is not. A behaviour that is
@@ -144,7 +155,7 @@ and in 87% of those also says it was told that value.
 
 ## Where the question came from
 
-Not from this knob. From a published method, and from reading its output.
+Not from this manipulation. From a published method, and from reading its output.
 
 The parent repo reimplements **V-Steer** ([Zeng, Lee, Zhao & Hockenmaier, COLM
 2026](https://arxiv.org/abs/2607.26228)), which restores a system prompt's
@@ -168,7 +179,7 @@ That is what made the question worth asking — not *the model got it wrong*, bu
 
 **So this repo is not the first sighting.** The same failure appears under two
 manipulations with nothing in common: one edits cached values, the other adds a
-bias to attention logits. The knob here is the simpler of the two and runs on
+bias to attention logits. The version used here is the simpler of the two and runs on
 any architecture, which is why the measurements are done with it.
 
 ## Why this is the interesting version of the question
@@ -182,7 +193,7 @@ This asks the same about what the model was *told*. If the mechanism carried
 over, a degraded fact should look like an unknown entity and trigger a refusal.
 It doesn't.
 
-## The knob
+## The bias
 
 One number. Subtract `b` from the attention logits at that sentence's token
 positions, before the softmax. The relative weight the model gives that sentence
@@ -230,7 +241,7 @@ Constructed conversations. One manipulation. Two models, both 4B — Qwen2.5-0.5
 **failed the control** (it says "yes, you told me" when nothing was ever said)
 and is excluded rather than averaged in. Greedy, one seed.
 
-The knob is an idealised version of a state that arises in deployment for other
+The bias is an idealised version of a state that arises in deployment for other
 reasons — KV cache compression and eviction, KV quantisation, long-context
 dilution, prompt compression. **None of those is measured here.**
 
@@ -239,7 +250,7 @@ wrong and how it was caught are in [`PREREGISTRATION.md`](PREREGISTRATION.md).
 
 ## What I would do next
 
-**Does this happen under a manipulation nobody chose?** The knob here is
+**Does this happen under a manipulation nobody chose?** The bias here is
 deliberate and dosed. In deployment the same state — a sentence still present
 but read badly — arrives from KV cache compression and eviction, KV
 quantisation, a context long enough to dilute attention, or a summarisation step
