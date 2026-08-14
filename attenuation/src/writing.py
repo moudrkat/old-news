@@ -432,12 +432,42 @@ row that matters.*"""),
 - **Items.** 100: ten kinds of fact by ten values, each one clause in a fixed
   frame, values chosen unguessable (`Wobbet`, `QR318`) so that a correct answer
   cannot come from priors.
-- **Conditions.** four states of the evidence, named the same way here, in the tables and in
-  the figures:
-  - **fact is there** — the sentence, unmodified (`b = 0`)
-  - **fact turned down** — the same sentence at that item's own dose
-  - **a different fact** — a readable sentence about something else in the slot
-  - **nothing there** — no such sentence at all **`swap` and `drop` carry no bias**."""),
+- **The four situations, in full.** Every item is asked the same yes/no question.
+  What changes is what is sitting in the conversation when it is asked, and only
+  the second one carries any bias.
+
+  ```
+  FACT IS THERE                         b = 0, nothing touched
+    user       By the way, my dog is called Bagr.
+    assistant  Noted.
+    user       Did I tell you my dog's name in this conversation?
+               Answer only yes or no.
+    model      yes                                   <- correct
+
+  FACT TURNED DOWN                      b on `Bagr` only, this item's own dose
+    user       By the way, my dog is called Bagr.    <- still there, still legible
+    assistant  Noted.                                   except for `Bagr` itself
+    user       Did I tell you my dog's name in this conversation?
+               Answer only yes or no.
+    model      yes                                   <- the thing under study
+
+  A DIFFERENT FACT                      no bias
+    user       By the way, my order number is 4417.  <- a real sentence,
+    assistant  Noted.                                   about something else
+    user       Did I tell you my dog's name in this conversation?
+               Answer only yes or no.
+    model      no                                    <- 184 of 184
+
+  NOTHING THERE                         no bias
+    user       Did I tell you my dog's name in this conversation?
+               Answer only yes or no.
+    model      no
+  ```
+
+  The comparison that carries the result is the second against the third: both
+  put a readable sentence in the slot, and only in the second is it the one being
+  asked about. In the second the model can also no longer produce `Bagr` — that
+  is what the dose was chosen to do, and it is the setup rather than the finding."""),
 
     ("ready", "r1", "Detailed analysis · The answer", """**Three things I did not expect**, before the number a reader can predict.
 
