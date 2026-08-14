@@ -389,9 +389,10 @@ it, in 72–87%. The near miss replicates; the provenance behaviour does not."""
   identified. This manipulation imposes from outside the kind of change that
   mechanism produces from inside.
 - **Models.** Qwen3.5-4B and Qwen3-4B-Instruct-2507. Qwen2.5-0.5B-Instruct was
-  run and **failed the control condition**, answering "yes, you told me" for 3
-  of 5 items where nothing was ever said, so it is excluded from every claim
-  rather than averaged in.
+  run and **failed the control condition** in the ten-item pilot, answering "yes,
+  you told me" for 3 of 5 items where nothing had been said. It was dropped
+  before the 100-item run rather than averaged in, so that exclusion rests on 5
+  items, not 100.
 - **Architecture.** Every Qwen 3.5 and 3.6 model is `model_type: qwen3_5` with
   `full_attention_interval: 4`, three linear-attention layers for every
   full-attention one. On the 4B the mask therefore reaches 8 layers of 32. A
@@ -469,9 +470,12 @@ manipulation: **100 on Qwen3-4B, 89 on Qwen3.5-4B.**
 | quotes the user back | 14 → 19 *(a habit, not a finding)* | 0 → 4 |
 | declines to answer | **0 → 46** | **0 → 0** |
 
-Hesitation is produced by the manipulation, but only where the wrong answer
-*looks* wrong: on names and room numbers, never on a plausible time or order
-number. Justification is produced too, and only on Qwen3.5-4B, which does not
+Hesitation is produced by the manipulation, and it is not spread evenly: all 16
+instances fall in three of the ten kinds of fact, pet names (11 of 20 on
+Qwen3-4B, 2 of 20 on Qwen3.5-4B) and room numbers (3 of 9 on Qwen3.5-4B). Not
+one appears on a time, an order number, an account number, an error code, a
+city, a flight or an allergy. The model questions its own answer where the wrong
+answer *looks* wrong, and a plausible-looking time does not. Justification is produced too, and only on Qwen3.5-4B, which does not
 merely give a wrong number but builds a case for it: *"You are in **room 302**.
 Here is the breakdown: the number 3…"*, where with no bias the same answer is
 bare.

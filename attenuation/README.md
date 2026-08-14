@@ -51,59 +51,53 @@ generated tokens, which is why some end mid-sentence.
 
 ---
 
-## The question
+## The measurement
 
-> **A model is told something. Make that sentence hard to read, don't delete
-> it. Does the model notice?**
+Ask the model directly: *"Did I tell you my dog's name in this conversation?
+Answer only yes or no."* — in four states of the evidence.
 
-## The metric
-
-Ask it. *"Did I tell you my dog's name in this conversation? Answer only yes or
-no."*, in four states of the evidence:
-
-| | |
+| | what the conversation held |
 |---|---|
 | `present` | the fact is there, `b = 0` |
-| `faint` | the fact is there, turned down until the answer is wrong |
+| `faint` | the same sentence, turned down until the answer is wrong |
 | `swap` | a readable sentence about **something else** in the same slot |
 | `drop` | no such sentence at all |
 
 `swap` is the control the whole thing rests on: it separates *"I have this
 fact"* from *"there is a sentence here"*.
 
-## The answer
+How often each state produced a "yes", out of the items where the value had
+genuinely gone from the answer:
 
-No, it doesn't notice. Two models, 100 items each, says-it-was-told rate:
+| | Qwen3-4B | Qwen3.5-4B |
+|---|---|---|
+| `present` | 96 / 97 | 82 / 86 |
+| **`faint`** | **70 / 97** | **75 / 86** |
+| **`swap`** | **0 / 97** | **0 / 86** |
+| `drop` | 0 / 97 | 0 / 86 |
 
-Rows are the four situations; the numbers are how often the model answered
-"yes" to *did I tell you this*.
-
-| condition | what the conversation held | Qwen3.5-4B | Qwen3-4B |
-|---|---|---|---|
-| `present` | the sentence, readable | 96% | 99% |
-| **`faint`** | **the same sentence, turned down** | **75 / 86 (87%)** | **70 / 97 (72%)** |
-| **`swap`** | **a readable sentence about something else** | **0 / 86 (0%)** | **0 / 97 (0%)** |
-| `drop` | nothing there at all | 0 | 0 |
-
-*(From 100 items each: 11 dropped on Qwen3.5-4B because no `b` removed the
-value, and 3 on each model because the value was there all along: the model
+*(Both models ran 100 items. Qwen3.5-4B lost 11 because no `b` removed the
+value at all, and each model lost 3 more because the value was never gone: it
 answered `04:36` as "4:36 PM" and a substring test called that damage. Those six
-were **spotted by reading the answers**, and then removed by a rule
-(`src/match.py`) so the removal is reproducible rather than hand-picked. Neither
-model ever answered wrong unmanipulated.)*
+were spotted by reading the answers and then removed by a rule, `src/match.py`,
+so the removal is reproducible rather than hand-picked. Neither model ever
+answered wrong with no bias applied.)*
 
-In 145 of 183 items the model claims it was told the fact when it can no longer
-read it. **124 of those give a wrong value; the remaining 21 refuse to answer
-and claim it anyway** — the model says "I don't have access to your flight
-details" and, asked separately, "yes, you told me". A readable sentence about
-something else never produces a "yes", 0 out of 183. So the "yes" tracks the
-fact, not the presence of a sentence, and not whether the model could read it.
+**In 145 of those 183 items the model claims it was told a fact it can no
+longer read.** 124 of them give a wrong value. The other 21 refuse to answer and
+claim it anyway. The model says *"I don't have access to your flight details"*
+and, asked separately, *"yes, you told me"*. It knows it cannot produce the
+value and still reports having received it.
 
-And the wrong value is not random. It is next to the truth:
+A readable sentence about something else never produces a "yes", 0 of 183. So
+the "yes" tracks neither the value nor whether the model could read it, only
+whether a sentence about that fact was ever in the conversation.
+
+### And the wrong value is not random
 
 Left: what the user said. Middle: the answer once that sentence was turned
-down, with the model and the dose it happened at. The two models are not on
-the same scale, so a row is only meaningful with both.
+down, with the model and the dose, because the two models are not on the same
+scale and a row means nothing without both.
 
 | the user said | turned down, it answers | model | dose |
 |---|---|---|---|
@@ -113,14 +107,12 @@ the same scale, so a row is only meaningful with both.
 | `Utrecht` | **`Amsterdam`** | Qwen3.5-4B | `b = 8` |
 | `19:40` | **`19:45`** | Qwen3.5-4B | `b = 6` |
 
-With the fact faint, the model still knows which country you are in: `Utrecht`
-becomes another Dutch city, and `Graz` becomes `Linz`, keeping both Austria and
-the phrase *"the second-largest city"*.
+With the fact faint the model still knows which country you are in: `Utrecht`
+becomes another Dutch city, `Graz` becomes `Linz`.
 
-These rows are chosen, and are the sharpest in the corpus. They are here to
-show what the failure looks like, not to stand as evidence of how often it
-happens, that is the table above, over every item. The unchosen version is the
-figure at the top: fourteen items drawn with a fixed seed, refusals included.
+These five rows are chosen, and are the sharpest in the corpus. They show what
+the failure looks like; they are not evidence of how often it happens, which is
+the table above. The unchosen version is the figure at the top.
 
 **`19:40 → 19:45` passes every check anyone runs downstream.** It does not look
 like a hallucination. It looks like a typo.
@@ -205,78 +197,47 @@ This asks the same about what the model was *told*. If the mechanism carried
 over, a degraded fact should look like an unknown entity and trigger a refusal.
 It doesn't.
 
-## The bias
+## The bias, and the one thing it cannot reach
 
-One number. Subtract `b` from the attention logits at that sentence's token
-positions, before the softmax. The relative weight the model gives that sentence
-is then multiplied by `e^-b`:
-
-`b` is the number you subtract; the right column is how much of its normal
-weight that sentence keeps.
-
-| `b` | weight left on the sentence |
-|---|---|
-| 0 | 100%, the plain causal mask, an unmodified model |
-| 3 | 5% |
-| 6 | 0.25% |
-
-The softmax renormalises, so the lost weight is not discarded. It goes to the
-other positions. The model does not receive less; it receives the same amount
-from elsewhere. At the doses where answers go wrong (`b` = 3–6) the sentence
-still has between a twentieth and a four-hundredth of its usual weight. It is
-not gone. It is quiet.
-
-`b = 0` is the plain causal mask, so the control is not a separate code path.
-Nothing is added to the residual stream, no cache is edited, no hooks.
-
-It does not reach every layer, and on one of these models it reaches a
-quarter. The mask is only seen by layers that run full attention, and
-Qwen3.5-4B is a hybrid: three linear-attention layers for every full one:
+The arithmetic is at the top of this file. What matters here is a limitation of
+it: **the mask is only seen by layers that run full attention.**
 
 | model | layers the mask reaches |
 |---|---|
 | Qwen3-4B-Instruct-2507 | 36 / 36 |
 | **Qwen3.5-4B** | **8 / 32** |
 
-Why it does not reach them. The bias is a mask on the *attention logits*. It adds `-b` to the score matrix before the softmax. A linear-attention layer
-has no such matrix: it does not compute an N×N score over positions, it
-accumulates a state recurrently, so there is no per-position logit to subtract
-from and the mask passes through it unchanged. `Qwen3.5-4B` is
-`model_type: qwen3_5` with `full_attention_interval: 4`, giving 24 linear-attention
-layers and 8 full-attention ones, in the pattern `l l l F`, at depths 3, 7, 11,
-15, 19, 23, 27, 31. `Qwen3-4B-Instruct-2507` has no `layer_types` at all, so all
-36 of its layers are full attention.
+A linear-attention layer computes no N×N score over positions. It accumulates a
+state recurrently, so there is no per-position logit to subtract `b` from and
+the mask passes through unchanged. Qwen3.5-4B is `model_type: qwen3_5` with
+`full_attention_interval: 4`: 24 linear-attention layers and 8 full-attention
+ones, at depths 3, 7, 11 … 31. Qwen3-4B-Instruct-2507 has no `layer_types` at
+all, so all 36 of its layers are full attention.
 
-So the accurate statement is not that the bias is weaker on Qwen3.5-4B. It is
-that the sentence is quiet in 8 layers and at full strength in the other 24,
-and information can travel that parallel path untouched, a path Qwen3-4B does
-not have. That makes the cross-model comparison worse, not better.
+So the sentence is not merely quieter on Qwen3.5-4B. It is **quiet in 8 layers
+and at full strength in the other 24**, and information can travel that parallel
+path untouched, a path the other model does not have. This cuts two ways and
+both are worth stating:
 
-It also cuts the other way, and this part is worth keeping: eight layers, evenly
-spaced through the depth rather than clustered early or late, are enough to take
-the value out of the answer while 24 others still read the sentence in full.
-Which is consistent with what Geva et al. found: pulling an attribute to the
-final position is work done by full-attention heads.
+- **It confounds the one comparison between the two models.** Qwen3.5-4B needs
+  roughly twice the dose *and* is the model where three quarters of the layers
+  never see the bias. Nothing in this report separates "more robust model" from
+  "the bias reached less of it".
+- **Eight layers are enough.** Spread evenly through the depth rather than
+  clustered early or late, they take the value out of the answer while 24 others
+  still read the sentence in full. That is consistent with Geva et al., where
+  pulling an attribute to the final position is work done by full-attention
+  heads, though nothing here measures it.
 
-Read this twice, because it cuts both ways. Reaching a quarter of the layers is
-still enough to take the value out of the answer, that is the manipulation
-being cheap, not weak. But it is also a confound in the one comparison
-between the two models: Qwen3.5-4B needs roughly twice the dose, and it is
-also the model where three quarters of the layers never see the bias. Those two
-facts cannot be separated by anything in this report, and the "different scale"
-claim should be read with that attached.
-
-This is a graded version of a standard tool. Blocking attention from chosen
+**This is a graded version of a standard tool.** Blocking attention from chosen
 positions to test what depends on them is *attention knockout*
-([Geva, Bastings, Filippova & Globerson, 2023](https://arxiv.org/abs/2304.14767)),
-where it is binary, the edge is cut, and the question it answers is *where
-does information flow*. Here it is dosed rather than cut, and the question is
-different: not where the fact travels, but whether the model registers that it
-can no longer read it. The same lineage runs through *Do I Know This Entity?*,
-which finds that the model's own unknown-entity directions work by suppressing
-the attention of the attribute-extraction heads Geva et al. identified, so the
-manipulation used here imposes from the outside the kind of change that
-mechanism produces from the inside.
+([Geva, Bastings, Filippova & Globerson, 2023](https://arxiv.org/abs/2304.14767)):
+binary, the edge cut, asking *where information flows*. Here it is dosed rather
+than cut, and the question is different: not where the fact travels, but whether
+the model registers that it can no longer read it. The same lineage runs through
+*Do I Know This Entity?*, whose unknown-entity directions act by suppressing the
+attention of exactly those attribute-extraction heads. This manipulation imposes
+from outside the kind of change that mechanism produces from inside.
 
 These four produce every number quoted above, in this order:
 
@@ -307,8 +268,10 @@ below.
 
 - Constructed conversations, not real transcripts. One manipulation family.
   Greedy, one seed.
-- Two models, both 4B. Qwen2.5-0.5B **failed the control** (it says "yes, you
-  told me" when nothing was ever said) and is excluded rather than averaged in.
+- Two models, both 4B. Qwen2.5-0.5B **failed the control** in the ten-item pilot,
+  saying "yes, you told me" for 3 of 5 items where nothing had been said. It was
+  dropped before the 100-item run rather than averaged in, so the exclusion
+  rests on 5 items, not 100.
 - The bias reaches 8 of 32 layers on Qwen3.5-4B and 36 of 36 on Qwen3-4B, which
   confounds the one comparison between them.
 - Every threshold is a *first crossing*, not a point of no return: one item is
@@ -338,11 +301,10 @@ took it out: its null returned a perfect separation at the embedding layer,
 where both conditions are literally the same vector, and its shuffled control
 was too noisy to certify anything. The code and that verdict are in the repo.
 
-The damage is not monotone in b, and one item already shows it. `b` in
-this report is the *lowest tested dose at which the answer no longer contains
-the value*, a first crossing. The word "threshold" invites a stronger reading,
-that past that dose the value is gone for good, and `city:Brno` on Qwen3.5-4B
-contradicts it:
+**Is the damage even monotone in `b`?** Every threshold here is the *lowest
+tested dose* at which the answer no longer contains the value. "Threshold"
+invites a stronger reading, that past that dose the value is gone for good, and
+`city:Brno` on Qwen3.5-4B contradicts it:
 
 | dose | answer | run |
 |---|---|---|
@@ -350,19 +312,15 @@ contradicts it:
 | b = 11 | *"You live in **Prague** (or a city in the Czech Republic…"* | pilot |
 | b = 14 | still `Brno` | 100-item |
 
-The two runs are the same experiment: identical item, identical prompt builder,
-identical greedy decoder, `knob.py` and `value.py` unchanged between them, both
-on the same machine the same afternoon. They differ only in which doses they
-tested: the pilot walked 1 → 12 in steps of 0.5 and so is the only run that
-tried 11; the 100-item sweep jumps 10 → 14 and so is the only one that tried
-14. Both results stand, and together they say the value came back.
+The two runs are the same experiment on the same item, differing only in which
+doses they tested: the pilot walked 1 → 12 in half-steps and is the only run
+that tried 11; the 100-item sweep jumps 10 → 14. The value came back.
 
 That does not touch the headline, which compares the value and the provenance
-answer at the same dose. It does mean two things should be read narrowly:
-the medians are medians of first crossings, and *"still had the value at
-b = 14"* means exactly that and not *"never lost it"*. Re-running one item over
-a dense sweep to 20 would map the shape properly, and it is the first thing I
-would run.
+answer **at the same dose**. It does mean the medians are medians of first
+crossings, and that *"still had the value at b = 14"* means exactly that and not
+*"never lost it"*. A dense sweep to 20 on this one item would settle the shape,
+and it is the first thing I would run.
 
 **Where does Qwen3.5's tail actually end?** Eleven of its 100 items still had
 their value at b = 14, the highest dose tested. The median over all 100 is exact
