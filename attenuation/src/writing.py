@@ -461,6 +461,11 @@ Qwen3-4B, 85 on Qwen3.5-4B**.
 | **a readable sentence about something else** | **0 / 99** | **0 / 85** |
 | nothing there at all | 0 / 99 | 0 / 85 |
 
+Row 1 is the ceiling and it is not 100%: with the fact plainly readable, 5 of
+184 still answer "no" (one city on Qwen3-4B, four order numbers on Qwen3.5-4B).
+So the fall is 179 to 147, and 82% of the items the model claims when it can
+read them it still claims when the value has gone.
+
 Row 2 against row 3 is the whole result: both put a sentence in the slot, and
 only in row 2 is it the one being asked about. **In 147 of those 184 items the
 model claims it was told the fact it can no longer read. Not one claims it for a

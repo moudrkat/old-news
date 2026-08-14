@@ -95,6 +95,14 @@ give no value at all and claim it anyway: the model says *"I don't have access
 to your flight details"* and, asked separately, *"yes, you told me"*. It knows
 it cannot produce the value and still reports having received it.
 
+**Read against the right ceiling.** The provenance question is not perfectly
+reliable even when the fact is plainly readable: at `b = 0`, **179 of 184**
+answer "yes", not 184. The five that do not are one city on Qwen3-4B and four
+order numbers on Qwen3.5-4B, all answering a flat "No" to a fact sitting in the
+conversation in full. So the comparison is 179 down to 147: of the items the
+model correctly claims when it can read them, **82% it still claims when the
+value has gone**, and 32 switch to "no".
+
 A readable sentence about something else never produces a "yes", 0 of 184. So
 the "yes" tracks the topic, not the value.
 
