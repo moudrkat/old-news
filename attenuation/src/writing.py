@@ -526,19 +526,27 @@ answer read directly and needs no classifier at all.
 
 **The damage is local.**
 
-| where the mask sits, same item, same dose, same token count | value survives |
-|---|---|
-| **on** the value | 3 / 89 |
-| **beside** it, on the opening words of the same sentence | **89 / 89** |
+| where the mask sits, same item, same dose, same token count | Qwen3.5-4B | Qwen3-4B |
+|---|---|---|
+| **on** the value | 4 / 89 | 2 / 100 |
+| **beside** it, on the opening words of the same sentence | **89 / 89** | **46 / 100** |
 
-The damage follows the mask, not the dose. Two caveats a reader should have.
-The "on" row is close to a tautology: the dose *is* the one at which that item's
-value disappeared, so near-zero survival is how it was chosen, and the three
-survivors are borderline cases. The informative row is the second one. And the
-span it masks is the carrier phrase, which holds no answer, so this shows the
-dose is not globally destructive rather than that the effect is specific to
-meaning-bearing spans. Token counts are matched in code, and items where the
-two spans would overlap are dropped rather than measured.
+On Qwen3.5-4B the damage follows the mask, not the dose: move it one span over
+and the answer is right every time. **On Qwen3-4B it does not**, and the reason
+is worth more than the control: 46 of the 47 failures there are refusals. Mask
+anything on that model at that dose, even a content-free carrier phrase, and it
+declines rather than answers. So the localisation claim holds for one of the two
+models, and for the other the manipulation has a global effect on willingness to
+answer that this design cannot separate from the local one.
+
+Three caveats a reader should have. The "on" row is close to a tautology, since
+the dose *is* the one at which that item's value disappeared. The "beside" span
+is the carrier phrase, which holds no answer, so this shows the dose is not
+globally destructive rather than that the effect is specific to meaning-bearing
+spans. And these counts are the judge's: the code rule scored seven `off_value`
+answers as survivals where the model had merely **quoted the user's original
+value back** before giving a damaged one, e.g. *"You mentioned the error code
+E-88 earlier, so the error code you received is E-8"*.
 
 **It does not flip; it comes apart.** Read a row of the dose grid (figure
 above) from left to right: the answer is correct, then a truncation of the true
@@ -550,15 +558,19 @@ than a single number for the model.
 re-measured with no bias at all. Counts are out of every item that reached the
 manipulation: **100 on Qwen3-4B, 89 on Qwen3.5-4B.**
 
-| behaviour | Qwen3-4B<br>no bias → turned down | Qwen3.5-4B<br>no bias → turned down |
+| behaviour | Qwen3-4B<br>no bias → at the dose | Qwen3.5-4B<br>no bias → at the dose |
 |---|---|---|
-| justifies its answer | 0 → 1 | **3 → 17** |
-| hesitates | **0 → 11** | **0 → 5** |
-| quotes the user back | 14 → 19 *(a habit, not a finding)* | 0 → 4 |
-| declines to answer | **0 → 46** | **0 → 0** |
+| questions its own answer | **0 → 18** | **0 → 14** |
+| argues for the value it gave | 7 → 0 | **0 → 14** |
+| quotes the user back | 14 → 26 | 6 → 5 |
+| gives no value at all | 1 → 45 | 0 → 0 |
 
-Hesitation is produced by the manipulation, and it is not spread evenly: all 16
-instances fall in three of the ten kinds of fact, pet names (11 of 20 on
+*(Labelled by the judge over all 189 answers at both settings, not by keyword
+lists. The keyword rule finds roughly half the hesitation the judge does, 11 and
+5 against 18 and 14, which is why the rule is no longer used for these rows.)*
+
+Hesitation is produced by the manipulation, and it is not spread evenly: it
+falls in three of the ten kinds of fact, pet names (11 of 20 on
 Qwen3-4B, 2 of 20 on Qwen3.5-4B) and room numbers (3 of 9 on Qwen3.5-4B). Not
 one appears on a time, an order number, an account number, an error code, a
 city, a flight or an allergy. The model questions its own answer where the wrong
@@ -569,6 +581,10 @@ bare.
 
 Row 3 retired a claim of mine. "It misquotes the user" looked like a finding
 until the no-bias column showed Qwen3-4B doing it 14 times in 100 anyway.
+
+Row 2 reverses between the models and that is the interesting part: Qwen3.5-4B
+starts arguing for its invented value where it did not before, while Qwen3-4B
+stops, because by then it is refusing instead.
 
 Row 4 is the sharpest difference between the two models, and it runs the wrong
 way: the newer one never declines. It produces a value every single time.
@@ -619,6 +635,14 @@ threshold, so it means a different `b` for each item.
   fact moved the train to the evening. Handing all 189 raw answers to a judge
   and reading its disagreements found them; the meridiem is now checked, and a
   missing diacritic fold cost a third item. Final: 147 of 184.
+- **Generation is capped at 24 tokens, and most answers hit the cap.** 86 of
+  Qwen3-4B's 100 answers and 34 of Qwen3.5-4B's 89 end mid-sentence, so in
+  principle an item could be scored "value gone" when the value was one token
+  away. Checked rather than assumed: only **3 of 184** answers end in a partial
+  spelling of the true value, and in all three the model had already produced a
+  damaged version earlier in the same answer (`E-8` before a truncated quote of
+  `E-88`, `Z-5` before `Z-54`, `Yorick` before `Yor`). The cap does not inflate
+  the headline, but a longer budget would remove the question.
 - **The secondary labels are not validated.** A keyword rule and a Gemini judge
   disagree on them, 57% against 43% on "kept a piece of the true value" and
   6–11% against 16% on hesitation. Neither is quoted, and the headline does not

@@ -175,12 +175,16 @@ possible (the median in `fig2`) and named where it is not. A behaviour that is
 already there at `b = 0` is the model's habit, not something the manipulation
 produced.
 
-| behaviour | Qwen3-4B  off → on | Qwen3.5-4B  off → on |
+| behaviour | Qwen3-4B<br>no bias → at the dose | Qwen3.5-4B<br>no bias → at the dose |
 |---|---|---|
-| justifies its answer | 0 → 1 | **3 → 17** |
-| hesitates, questions its own answer | **0 → 11** | **0 → 5** |
-| quotes the user back | 14 → 19 *(already a habit. Not a finding)* | 0 → 4 |
-| declines to answer at all | **0 → 46** | **0 → 0** |
+| questions its own answer | **0 → 18** | **0 → 14** |
+| argues for the value it gave | 7 → 0 | **0 → 14** |
+| quotes the user back | 14 → 26 | 6 → 5 |
+| gives no value at all | 1 → 45 | 0 → 0 |
+
+*(Labelled by the judge over all 189 answers at both settings, not by keyword
+lists. The keyword rule finds roughly half the hesitation the judge does, 11 and
+5 against 18 and 14, which is why the rule is no longer used for these rows.)*
 
 Hesitation is produced by the manipulation: a clean zero on both models at
 b = 0. Justification is produced too, and is specific to Qwen3.5-4B: it does not
@@ -317,6 +321,12 @@ below.
   confounds the one comparison between them.
 - Every threshold is a *first crossing*, not a point of no return: one item is
   gone at `b = 11` and back at 14.
+- Generation stops at 24 tokens and most answers reach that cap. Only 3 of 184
+  end in a partial spelling of the true value, and all three had already given a
+  damaged version earlier in the same answer, so the cap does not inflate the
+  count. A longer budget would remove the question.
+- The locality control is clean on Qwen3.5-4B (89/89) and not on Qwen3-4B
+  (46/100), where masking anything at that dose makes the model refuse.
 - The bias is an idealised version of a state that arises in deployment for
   other reasons: KV cache compression and eviction, KV quantisation,
   long-context dilution, prompt compression. **None of those is measured

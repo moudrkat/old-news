@@ -5,10 +5,16 @@
 counts as yes, as no, or as neither. The entire headline sits on that function,
 so it gets looked at rather than trusted.
 
+A judge has now read the same 756 replies (`src/recheck.py`) and agrees with the
+parser on every `present`, `faint` and `swap` answer. That does not retire this
+page, because a judge that has not reproduced labels which are not in doubt does
+not get to settle the ones that are. It changes what the page is *for*: the work
+is no longer 756 decisions, it is **the handful the two labellers disagree on,
+plus a sample of the rest**. Those come first and are marked.
+
 The page puts the suspicious answers first — anything the parser called
-*neither*, and anything whose text does not simply begin with "yes" or "no" —
-and the routine ones after, so the work is a couple of minutes of attention and
-then a fast scan, not 756 careful decisions.
+*neither*, anything whose text does not simply begin with "yes" or "no", and now
+anything the judge read differently — and the routine ones after.
 
     python src/verify.py        # writes results/verify.html
 """

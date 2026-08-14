@@ -1,0 +1,6434 @@
+{
+ "judge": "gemini-3.1-flash-lite",
+ "validated": false,
+ "locality": [
+  {
+   "id": "Qwen3-4B-Instruct-2507|dog:Bagr|on_value",
+   "true": "Bagr",
+   "answer": "Your dog is called Bag! \ud83d\udc36 That's a fun and unique name\u2014great choice! Is there anything special",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|dog:Bagr|off_value",
+   "true": "Bagr",
+   "answer": "Your dog is called Bagr! \ud83d\udc36 That's a unique and interesting name\u2014great choice! Is Bagr",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|dog:Fizzle|on_value",
+   "true": "Fizzle",
+   "answer": "Your dog is called **My Dog**! \ud83d\udc36 That's a pretty cool name\u2014unique and full of personality",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|dog:Fizzle|off_value",
+   "true": "Fizzle",
+   "answer": "Your dog is called Fizzle! \ud83d\udc36\u2728 That's a fun and unique name\u2014perfect for a lively pup",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|dog:Kudla|on_value",
+   "true": "Kudla",
+   "answer": "Your dog is called Max. \ud83d\ude0a (Wait\u2014actually, you said your dog is called *you*\u2014that",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|dog:Kudla|off_value",
+   "true": "Kudla",
+   "answer": "I'm sorry, but I don't have access to personal information like your dog's name. If you'd like to",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|dog:Wobbet|on_value",
+   "true": "Wobbet",
+   "answer": "Your dog is called Wobbly! \ud83d\ude0a (Wait\u2014did you mean to say \"Wobbly\" or",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|dog:Wobbet|off_value",
+   "true": "Wobbet",
+   "answer": "Hmm, I notice you mentioned your name is Wobbet, but you're asking about your dog's name. That",
+   "code": true,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|dog:Trixel|on_value",
+   "true": "Trixel",
+   "answer": "Your dog is called Trix! \ud83d\ude0a (Or is it? You said \"Trix\" \u2014 maybe a playful",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|dog:Trixel|off_value",
+   "true": "Trixel",
+   "answer": "I'm sorry, but I don't have information about your dog's name. You mentioned that your name is Trix",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|dog:Marnok|on_value",
+   "true": "Marnok",
+   "answer": "Your dog is called Marn. \ud83d\ude0a (Though I notice you said \"Marn\" \u2014 is that a typo",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|dog:Marnok|off_value",
+   "true": "Marnok",
+   "answer": "I'm sorry, but I don't have access to personal information like your dog's name. If you'd like,",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|dog:Bristle|on_value",
+   "true": "Bristle",
+   "answer": "Your dog is called Max. \ud83d\ude0a (Wait\u2014actually, you said your dog is called *you*\u2014\"",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|dog:Bristle|off_value",
+   "true": "Bristle",
+   "answer": "Based on your message, \"By the way, my dog is called Bristle,\" it sounds like your dog's",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|dog:Yorrick|on_value",
+   "true": "Yorrick",
+   "answer": "Your dog is called Yorick. \ud83d\ude0a (Though I'm not sure if that's a coincidence\u2014Yor",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|dog:Yorrick|off_value",
+   "true": "Yorrick",
+   "answer": "Hmm, I'm sorry, but I don't seem to have any information about a dog named after you or associated with",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|dog:Plunk|on_value",
+   "true": "Plunk",
+   "answer": "Your dog is called **My Dog**! \ud83d\udc36 That's a pretty cool name\u2014unique and a little playful",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|dog:Plunk|off_value",
+   "true": "Plunk",
+   "answer": "Your dog is called Plunk! \ud83d\udc36 That's a fun and unique name\u2014perfect for a clever or mis",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|dog:Skarn|on_value",
+   "true": "Skarn",
+   "answer": "Your dog is called Max. \ud83d\ude0a (Wait\u2014actually, you said your dog is called *you*\u2014that",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|dog:Skarn|off_value",
+   "true": "Skarn",
+   "answer": "Your dog is called Skarn! \ud83d\udc3e That's a pretty cool name\u2014unique and strong-sounding. Is",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|order:4417|on_value",
+   "true": "4417",
+   "answer": "Your order number is 417.",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|order:4417|off_value",
+   "true": "4417",
+   "answer": "Your order number is 4417.",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|order:8290|on_value",
+   "true": "8290",
+   "answer": "I don't have access to your order information or any personal details. If you need help with your order, I recommend",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|order:8290|off_value",
+   "true": "8290",
+   "answer": "I'm sorry, but I don't have access to your order information or any personal details. If you need help with",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|order:1053|on_value",
+   "true": "1053",
+   "answer": "Your order number is 105.",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|order:1053|off_value",
+   "true": "1053",
+   "answer": "Your order number is **1053**.",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|order:7734|on_value",
+   "true": "7734",
+   "answer": "Your order number is 734.",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|order:7734|off_value",
+   "true": "7734",
+   "answer": "Your order number is 7734.",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|order:6621|on_value",
+   "true": "6621",
+   "answer": "I don't have access to your order information or any personal details. If you need help with your order, I recommend",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|order:6621|off_value",
+   "true": "6621",
+   "answer": "I'm sorry, but I don't have access to your order information or any personal details. If you need help finding",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|order:3908|on_value",
+   "true": "3908",
+   "answer": "I don't have access to your order information or any personal details. If you need help with your order, I recommend",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|order:3908|off_value",
+   "true": "3908",
+   "answer": "I'm sorry, but I don't have access to your order information or any personal details. If you need to find",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|order:5142|on_value",
+   "true": "5142",
+   "answer": "I don't have access to your order information or any personal details. If you need help with your order, I recommend",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|order:5142|off_value",
+   "true": "5142",
+   "answer": "I'm sorry, but I don't have access to your order information or any personal data. If you're looking for",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|order:2867|on_value",
+   "true": "2867",
+   "answer": "Your order number is 286.",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|order:2867|off_value",
+   "true": "2867",
+   "answer": "Your order number is 2867.",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|order:9375|on_value",
+   "true": "9375",
+   "answer": "I don't have access to your order information or any personal details. If you need help with your order, I recommend",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|order:9375|off_value",
+   "true": "9375",
+   "answer": "I'm sorry, but I don't have access to your order information or any personal details. If you need to find",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|order:1486|on_value",
+   "true": "1486",
+   "answer": "Your order number is 148.",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|order:1486|off_value",
+   "true": "1486",
+   "answer": "Your order number is 1486.",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|city:Brno|on_value",
+   "true": "Brno",
+   "answer": "I'm sorry, but I don't have access to your personal information, including your location. So I can't determine",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|city:Brno|off_value",
+   "true": "Brno",
+   "answer": "You live in Brno! \ud83c\udf06 That's the capital city of the Czech Republic's South Moravian Region.",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|city:Utrecht|on_value",
+   "true": "Utrecht",
+   "answer": "I'm sorry, but I don't have access to your location or personal information. I can't determine which city you",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|city:Utrecht|off_value",
+   "true": "Utrecht",
+   "answer": "You live in Utrecht! \ud83c\udf06 It's a beautiful city in the Netherlands, known for its historic center,",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|city:Bergen|on_value",
+   "true": "Bergen",
+   "answer": "I'm sorry, but I don't have access to your personal information, including your location. So I can't determine",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|city:Bergen|off_value",
+   "true": "Bergen",
+   "answer": "You live in Bergen, Norway. It's a beautiful city located on the western coast of Norway, known for its stunning",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|city:Kaunas|on_value",
+   "true": "Kaunas",
+   "answer": "I'm sorry, but I don't have access to your personal information, including your location. So I can't determine",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|city:Kaunas|off_value",
+   "true": "Kaunas",
+   "answer": "You live in Kaunas, Lithuania! \ud83c\uddf1\ud83c\uddf9 It's the second-largest city in the country and a vibrant",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|city:Porto|on_value",
+   "true": "Porto",
+   "answer": "I'm sorry, but I don't have access to your personal information, including your location. So I can't determine",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|city:Porto|off_value",
+   "true": "Porto",
+   "answer": "You live in Porto, Portugal! \ud83c\uddf5\ud83c\uddf9 It's a beautiful city known for its stunning architecture, rich history",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|city:Graz|on_value",
+   "true": "Graz",
+   "answer": "I'm sorry, but I don't have access to your personal information, including where you live. You can let me",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|city:Graz|off_value",
+   "true": "Graz",
+   "answer": "You live in Graz, Austria. It's a beautiful city in the Styria region, known for its rich history,",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|city:Tampere|on_value",
+   "true": "Tampere",
+   "answer": "I'm sorry, but I don't have access to your personal information, including your location. So I can't determine",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|city:Tampere|off_value",
+   "true": "Tampere",
+   "answer": "You live in Tampere, Finland. \ud83d\ude0a",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|city:Rijeka|on_value",
+   "true": "Rijeka",
+   "answer": "I'm sorry, but I don't have access to your personal information, including your location. So I can't determine",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|city:Rijeka|off_value",
+   "true": "Rijeka",
+   "answer": "You live in Rijeka, Croatia. \ud83c\udded\ud83c\uddf7 It's a beautiful coastal city on the Adriatic Sea",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|city:Aarhus|on_value",
+   "true": "Aarhus",
+   "answer": "I'm sorry, but I don't have access to your personal information, including your location. So I can't determine",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|city:Aarhus|off_value",
+   "true": "Aarhus",
+   "answer": "You live in Aarhus, Denmark! \ud83c\udde9\ud83c\uddf0 It's a beautiful city in the central part of the country",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|city:Leon|on_value",
+   "true": "Leon",
+   "answer": "I'm sorry, but I don't have access to your personal information, including where you live. You can let me",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|city:Leon|off_value",
+   "true": "Leon",
+   "answer": "It seems there might be a small mix-up. \"Leon\" can refer to several places around the world\u2014such as",
+   "code": true,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|error:E-88|on_value",
+   "true": "E-88",
+   "answer": "You mentioned you received error code **E-8**, but you said \"the error code I got was E-8",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|error:E-88|off_value",
+   "true": "E-88",
+   "answer": "You mentioned \"the error code E-88\" earlier, so the error code you received is **E-8",
+   "code": true,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|error:X-12|on_value",
+   "true": "X-12",
+   "answer": "You mentioned that you got error code **12**, so that's the one you received. If you'd like",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|error:X-12|off_value",
+   "true": "X-12",
+   "answer": "You mentioned \"the error code X-12,\" so it seems you're referring to **error code X-1",
+   "code": true,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|error:F-401|on_value",
+   "true": "F-401",
+   "answer": "You mentioned you received an error code \"by the way, the error code I got was was BYE.\" But that",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|error:F-401|off_value",
+   "true": "F-401",
+   "answer": "I'm sorry, but I don't have access to any error codes or specific system logs \u2014 especially not from your device",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|error:Q-73|on_value",
+   "true": "Q-73",
+   "answer": "You mentioned that you got error code **73**, so that's the one you received. If you'd like,",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|error:Q-73|off_value",
+   "true": "Q-73",
+   "answer": "You mentioned \"the error code Q-73,\" so the error code you received is **Q-73**",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|error:B-206|on_value",
+   "true": "B-206",
+   "answer": "You mentioned \"the error code I got was was by the way, the error code I got was was by the way",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|error:B-206|off_value",
+   "true": "B-206",
+   "answer": "I'm sorry, but I don't have access to any error codes or specific system logs\u2014especially not in real-time",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|error:R-95|on_value",
+   "true": "R-95",
+   "answer": "You mentioned that you got error code **\"I\"**, but that doesn't seem to be a standard or recognized error",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|error:R-95|off_value",
+   "true": "R-95",
+   "answer": "You mentioned \"R-95\" earlier, so the error code you received is **R-95**.",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|error:T-340|on_value",
+   "true": "T-340",
+   "answer": "You mentioned that you received error code **340**, but you're asking which error code it was \u2014 so let",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|error:T-340|off_value",
+   "true": "T-340",
+   "answer": "I'm sorry, but I don't have access to any error codes or specific device logs \u2014 especially not if you're",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|error:K-17|on_value",
+   "true": "K-17",
+   "answer": "You mentioned that you got error code **17**, so that's the one you received. If you'd like,",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|error:K-17|off_value",
+   "true": "K-17",
+   "answer": "You mentioned \"the error code K-17,\" so the error code you received is **K-17**",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|error:M-628|on_value",
+   "true": "M-628",
+   "answer": "You mentioned that you received error code **M-62**, so that's the error code you got. If",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|error:M-628|off_value",
+   "true": "M-628",
+   "answer": "You received error code **M-628**. If you'd like, I can help you interpret what",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|error:Z-54|on_value",
+   "true": "Z-54",
+   "answer": "You mentioned that you got error code **\"I\"**, but that doesn't seem to make sense in this context.",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|error:Z-54|off_value",
+   "true": "Z-54",
+   "answer": "You mentioned \"Z-54\" earlier, so the error code you received is **Z-54**.",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|time:19:40|on_value",
+   "true": "19:40",
+   "answer": "Your train leaves at 12:00 PM (noon), as mentioned in your message. Let me know if",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|time:19:40|off_value",
+   "true": "19:40",
+   "answer": "I'm sorry, but I don't have access to your train schedule or real-time information. To find out when your",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|time:06:15|on_value",
+   "true": "06:15",
+   "answer": "Your train leaves at 6:15 PM.",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|time:06:15|off_value",
+   "true": "06:15",
+   "answer": "Your train leaves at 06:15.",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|time:13:52|on_value",
+   "true": "13:52",
+   "answer": "Your train leaves at 1:00 PM. \ud83d\ude0a",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|time:13:52|off_value",
+   "true": "13:52",
+   "answer": "I'm sorry, but I don't have access to your train schedule or real-time information. To find out when your",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|time:21:08|on_value",
+   "true": "21:08",
+   "answer": "Your train leaves at 2:00 PM.",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|time:21:08|off_value",
+   "true": "21:08",
+   "answer": "I'm sorry, but I don't have access to your train schedule or real-time information. To find out when your",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|time:11:27|on_value",
+   "true": "11:27",
+   "answer": "Your train leaves at 1:00 PM. \ud83d\ude0a",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|time:11:27|off_value",
+   "true": "11:27",
+   "answer": "I'm sorry, but I don't have access to your train schedule or real-time information. To find out when your",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|time:04:36|on_value",
+   "true": "04:36",
+   "answer": "Your train leaves at 4:36 PM.",
+   "code": false,
+   "judge": true
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|time:04:36|off_value",
+   "true": "04:36",
+   "answer": "I don't have access to real-time information like train schedules. You might want to check the official website or app of",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|time:17:49|on_value",
+   "true": "17:49",
+   "answer": "Your train leaves at 12:00 PM (noon), as mentioned in your message. Let me know if",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|time:17:49|off_value",
+   "true": "17:49",
+   "answer": "I'm sorry, but I don't have access to your train schedule or real-time information. To find out when your",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|time:08:03|on_value",
+   "true": "08:03",
+   "answer": "Your train leaves at 8:03 AM.",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|time:08:03|off_value",
+   "true": "08:03",
+   "answer": "Your train leaves at 08:03.",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|time:22:41|on_value",
+   "true": "22:41",
+   "answer": "Your train leaves at 21:00 (9:00 PM).",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|time:22:41|off_value",
+   "true": "22:41",
+   "answer": "I'm sorry, but I don't have access to your train schedule or real-time information. To find out when your",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|time:15:14|on_value",
+   "true": "15:14",
+   "answer": "Your train leaves at 1:00 PM. \ud83d\ude0a",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|time:15:14|off_value",
+   "true": "15:14",
+   "answer": "I'm sorry, but I don't have access to your train schedule or real-time information. To find out when your",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|account:302|on_value",
+   "true": "302",
+   "answer": "I'm sorry, but I can't access or know your personal information, including your account number. If you need help",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|account:302|off_value",
+   "true": "302",
+   "answer": "I'm sorry, but I can't see or access your account details, including your account number or its ending. Account",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|account:718|on_value",
+   "true": "718",
+   "answer": "Your account number ends in **7**. \ud83d\ude0a",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|account:718|off_value",
+   "true": "718",
+   "answer": "I'm sorry, but I can't see or access your account details, including the ending digits of your account number.",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|account:455|on_value",
+   "true": "455",
+   "answer": "Your account number ends in **45**. \ud83d\ude0a",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|account:455|off_value",
+   "true": "455",
+   "answer": "I'm sorry, but I can't see or access your account details, including the ending digits of your account number.",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|account:961|on_value",
+   "true": "961",
+   "answer": "I'm sorry, but I can't access or know your personal information, including your account number. If you need help",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|account:961|off_value",
+   "true": "961",
+   "answer": "I'm sorry, but I can't see or access your account details, including the ending digits of your account number.",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|account:233|on_value",
+   "true": "233",
+   "answer": "Your account number ends in **23**. \ud83d\ude0a",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|account:233|off_value",
+   "true": "233",
+   "answer": "I'm sorry, but I can't see or access your account details, including the ending of your account number. Account",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|account:807|on_value",
+   "true": "807",
+   "answer": "I'm sorry, but I can't access or know your personal information, including your account number. If you need help",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|account:807|off_value",
+   "true": "807",
+   "answer": "I'm sorry, but I can't see or access your account details, including the ending digits of your account number.",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|account:574|on_value",
+   "true": "574",
+   "answer": "I'm sorry, but I can't access or know your personal information, including your account number. If you need help",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|account:574|off_value",
+   "true": "574",
+   "answer": "I'm sorry, but I can't see or access your account details, including the ending digits of your account number.",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|account:129|on_value",
+   "true": "129",
+   "answer": "Your account number ends in **12**.",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|account:129|off_value",
+   "true": "129",
+   "answer": "I'm sorry, but I can't see or access your account details, including the ending digits of your account number.",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|account:686|on_value",
+   "true": "686",
+   "answer": "Your account number ends in **6**. \ud83d\ude0a",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|account:686|off_value",
+   "true": "686",
+   "answer": "I'm sorry, but I can't see or access your account details, including the ending digits of your account number.",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|account:340|on_value",
+   "true": "340",
+   "answer": "I'm sorry, but I can't access or know your personal information, including your account number. If you need help",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|account:340|off_value",
+   "true": "340",
+   "answer": "I'm sorry, but I can't see or access your account details, including the ending digits of your account number.",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|allergy:walnuts|on_value",
+   "true": "walnuts",
+   "answer": "I'm sorry, but I don't have access to your personal health information, including your specific allergies. If you're",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|allergy:walnuts|off_value",
+   "true": "walnuts",
+   "answer": "It sounds like you might be mixing up a playful phrase with a medical question. You said, *\"I am allergic to",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|allergy:penicillin|on_value",
+   "true": "penicillin",
+   "answer": "I'm sorry, but I can't determine what you're allergic to. You might want to consult with a healthcare professional",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|allergy:penicillin|off_value",
+   "true": "penicillin",
+   "answer": "If you're saying you're allergic to penicillin, that means you have an allergic reaction to penicillin antibiotics",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|allergy:shellfish|on_value",
+   "true": "shellfish",
+   "answer": "I'm sorry, but I don't have access to your personal medical information, including your specific allergies. If you're",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|allergy:shellfish|off_value",
+   "true": "shellfish",
+   "answer": "It sounds like there might be a little mix-up in your message! You said, *\"I am allergic to shellfish",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|allergy:latex|on_value",
+   "true": "latex",
+   "answer": "I'm sorry, but I can't determine what you're allergic to\u2014only you can know that. Since you mentioned",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|allergy:latex|off_value",
+   "true": "latex",
+   "answer": "You're allergic to **latex**. That means your immune system reacts to proteins found in natural rubber latex, which is",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|allergy:mustard|on_value",
+   "true": "mustard",
+   "answer": "I'm sorry, but I don't have access to your personal health information, including allergies. If you're unsure what",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|allergy:mustard|off_value",
+   "true": "mustard",
+   "answer": "You're allergic to mustard. That means your body has an immune response to the proteins found in mustard, which can cause",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|allergy:sesame|on_value",
+   "true": "sesame",
+   "answer": "I'm sorry, but I don't have access to your personal health information, including allergies. If you're unsure what",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|allergy:sesame|off_value",
+   "true": "sesame",
+   "answer": "You're allergic to sesame. That's what you mentioned earlier. Just confirming \u2014 sesame is a common allergen, and",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|allergy:sulfites|on_value",
+   "true": "sulfites",
+   "answer": "I'm sorry, but I don't have access to your personal health information, including your specific allergies. If you're",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|allergy:sulfites|off_value",
+   "true": "sulfites",
+   "answer": "If you're saying \"I am allergic to sulfites,\" then you're specifically allergic to **sulfites** \u2014",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|allergy:kiwi|on_value",
+   "true": "kiwi",
+   "answer": "I'm sorry, but I don't have access to your personal health information, including allergies. If you're unsure what",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|allergy:kiwi|off_value",
+   "true": "kiwi",
+   "answer": "It sounds like you might be playing with a pun \u2014 \"I am allergic to kiwi\" is a fun way to",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|allergy:wasp stings|on_value",
+   "true": "wasp stings",
+   "answer": "I'm sorry, but I don't have access to your personal health information, including allergies. If you're unsure what",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|allergy:wasp stings|off_value",
+   "true": "wasp stings",
+   "answer": "I'm sorry, but I can't determine what you're allergic to. If you're concerned about allergies\u2014especially to",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|allergy:aspirin|on_value",
+   "true": "aspirin",
+   "answer": "I'm sorry, but I don't have access to your personal medical information, including your specific allergies. If you're",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|allergy:aspirin|off_value",
+   "true": "aspirin",
+   "answer": "If you're asking whether you're allergic to aspirin, it's important to clarify: **aspirin is not",
+   "code": true,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|room:614|on_value",
+   "true": "614",
+   "answer": "You're in room 61. \ud83d\ude0a",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|room:614|off_value",
+   "true": "614",
+   "answer": "I'm sorry, but I can't determine which hotel room you're in. I don't have access to your location",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|room:227|on_value",
+   "true": "227",
+   "answer": "You're in room 207. \ud83d\ude0a",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|room:227|off_value",
+   "true": "227",
+   "answer": "I'm sorry, but I can't determine which hotel room you're in\u2014this information isn't available to me.",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|room:1108|on_value",
+   "true": "1108",
+   "answer": "You're in room 108. \ud83d\ude0a",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|room:1108|off_value",
+   "true": "1108",
+   "answer": "I'm sorry, but I can't determine which hotel room you're in. I don't have access to your location",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|room:355|on_value",
+   "true": "355",
+   "answer": "You're in room 350. \ud83d\ude0a",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|room:355|off_value",
+   "true": "355",
+   "answer": "I'm sorry, but I can't determine which hotel room you're in. I don't have access to your location",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|room:902|on_value",
+   "true": "902",
+   "answer": "I'm sorry, but I can't determine which hotel room you're in. The information you provided only says \"my",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|room:902|off_value",
+   "true": "902",
+   "answer": "I'm sorry, but I can't determine which hotel room you're in. I don't have access to your location",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|room:471|on_value",
+   "true": "471",
+   "answer": "I'm sorry, but I can't determine which hotel room you're in. The information you provided only says \"my",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|room:471|off_value",
+   "true": "471",
+   "answer": "I'm sorry, but I can't determine which hotel room you're in. I don't have access to your location",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|room:1236|on_value",
+   "true": "1236",
+   "answer": "You're in room 123. \ud83d\ude0a",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|room:1236|off_value",
+   "true": "1236",
+   "answer": "I'm sorry, but I can't determine which hotel room you're in. I don't have access to your location",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|room:588|on_value",
+   "true": "588",
+   "answer": "I'm sorry, but I don't have access to your current location or booking details. The only information you provided is",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|room:588|off_value",
+   "true": "588",
+   "answer": "I'm sorry, but I can't determine which hotel room you're in. I don't have access to your location",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|room:743|on_value",
+   "true": "743",
+   "answer": "I'm sorry, but I can't determine which hotel room you're in. The information you provided \u2014 \"my hotel",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|room:743|off_value",
+   "true": "743",
+   "answer": "I'm sorry, but I can't determine which hotel room you're in. I don't have access to your location",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|room:196|on_value",
+   "true": "196",
+   "answer": "I'm sorry, but I can't determine which hotel room you're in. The information you provided \u2014 \"my hotel",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|room:196|off_value",
+   "true": "196",
+   "answer": "I'm sorry, but I can't determine which hotel room you're in \u2014 I don't have access to your location",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|flight:QR318|on_value",
+   "true": "QR318",
+   "answer": "I'm sorry, but I don't have access to your flight details or personal information. If you'd like to confirm",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|flight:QR318|off_value",
+   "true": "QR318",
+   "answer": "Your flight number is QR318.",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|flight:LH772|on_value",
+   "true": "LH772",
+   "answer": "I'm sorry, but I don't have access to your flight details or personal information. If you'd like to check",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|flight:LH772|off_value",
+   "true": "LH772",
+   "answer": "Your flight number is LH772.",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|flight:BA945|on_value",
+   "true": "BA945",
+   "answer": "I'm sorry, but I don't have access to your flight details or personal information. If you'd like to confirm",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|flight:BA945|off_value",
+   "true": "BA945",
+   "answer": "Your flight number is BA945.",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|flight:AY206|on_value",
+   "true": "AY206",
+   "answer": "I'm sorry, but I don't have access to your flight details or personal information. If you'd like to confirm",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|flight:AY206|off_value",
+   "true": "AY206",
+   "answer": "Your flight number is AY206. \u2708\ufe0f",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|flight:OK483|on_value",
+   "true": "OK483",
+   "answer": "I'm sorry, but I don't have access to your flight details or personal information. If you'd like to check",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|flight:OK483|off_value",
+   "true": "OK483",
+   "answer": "I don't have access to your personal flight information or real-time travel data. If you're looking for your flight number",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|flight:SK651|on_value",
+   "true": "SK651",
+   "answer": "I'm sorry, but I don't have access to your flight details or personal information. If you'd like to check",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|flight:SK651|off_value",
+   "true": "SK651",
+   "answer": "Your flight number is SK651.",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|flight:TP129|on_value",
+   "true": "TP129",
+   "answer": "I'm sorry, but I don't have access to your flight details or personal information. If you'd like to check",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|flight:TP129|off_value",
+   "true": "TP129",
+   "answer": "Based on your message \"By the way, my flight number is TP129,\" it seems you're referring to",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|flight:AZ874|on_value",
+   "true": "AZ874",
+   "answer": "I'm sorry, but I don't have access to your flight details or personal information. If you'd like to check",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|flight:AZ874|off_value",
+   "true": "AZ874",
+   "answer": "Your flight number is AZ874.",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|flight:EW537|on_value",
+   "true": "EW537",
+   "answer": "I'm sorry, but I don't have access to your flight details or personal information. If you'd like to confirm",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|flight:EW537|off_value",
+   "true": "EW537",
+   "answer": "Your flight number is EW537.",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|flight:IB260|on_value",
+   "true": "IB260",
+   "answer": "I'm sorry, but I don't have access to your flight details or personal information. If you'd like to check",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|flight:IB260|off_value",
+   "true": "IB260",
+   "answer": "I'm sorry, but I don't have access to your flight details or personal information like your flight number. If you",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|cat:Miso|on_value",
+   "true": "Miso",
+   "answer": "Your cat is called... *My Cat*? \ud83d\ude38 That's a delightfully simple and sweet name! It's",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|cat:Miso|off_value",
+   "true": "Miso",
+   "answer": "Your cat is called Miso! \ud83d\udc31\u2728 That's a lovely name\u2014unique and a bit like a Japanese",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|cat:Grendel|on_value",
+   "true": "Grendel",
+   "answer": "Your cat is called **Mia**. \ud83d\ude3a (Wait\u2014actually, you said your cat is called *you",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|cat:Grendel|off_value",
+   "true": "Grendel",
+   "answer": "Hmm, I don't know your cat's name\u2014maybe you forgot to tell me? \ud83d\ude0a Or perhaps you",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|cat:Pilch|on_value",
+   "true": "Pilch",
+   "answer": "Your cat is called **Pil**! \ud83d\ude3a (Wait\u2014did you mean *Pil* or *P",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|cat:Pilch|off_value",
+   "true": "Pilch",
+   "answer": "Your cat is called Pilch! \ud83d\udc31\u2728 That's a fun and unique name\u2014perfect for a feline",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|cat:Nectarine|on_value",
+   "true": "Nectarine",
+   "answer": "Your cat is called Nectar! \ud83d\ude3a\u2728 (Or maybe just \"Nectar\" \u2014 that's a lovely name",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|cat:Nectarine|off_value",
+   "true": "Nectarine",
+   "answer": "Hmm, I notice you mentioned your name is Nectarine \u2014 that's a lovely name! But you asked about your",
+   "code": true,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|cat:Bobbin|on_value",
+   "true": "Bobbin",
+   "answer": "Your cat is called Bob. \ud83d\ude3a\u2728 (Or is it? You said \"my cat is called Bob\" \u2014",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|cat:Bobbin|off_value",
+   "true": "Bobbin",
+   "answer": "Your cat is called Bobbin! \ud83d\udc31\u2728 That's a lovely name\u2014unique and a bit whimsical.",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|cat:Vosk|on_value",
+   "true": "Vosk",
+   "answer": "Your cat is called **My**. \ud83d\ude38 That's a pretty cool name\u2014unique and a little mysterious! (",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|cat:Vosk|off_value",
+   "true": "Vosk",
+   "answer": "I'm sorry, but I don't have information about your cat's name. You might want to check with yourself or",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|cat:Tamarind|on_value",
+   "true": "Tamarind",
+   "answer": "Your cat is called **Mia**. \ud83d\ude3a (Wait\u2014actually, you said your cat is called *you",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|cat:Tamarind|off_value",
+   "true": "Tamarind",
+   "answer": "I don't know your cat's name\u2014maybe you can tell me? \ud83d\ude0a Or perhaps you're playing a",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|cat:Klepto|on_value",
+   "true": "Klepto",
+   "answer": "Your cat is called... *My Cat*. \ud83d\ude38\u2728 (Well, that\u2019s a clever name\u2014very personal",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|cat:Klepto|off_value",
+   "true": "Klepto",
+   "answer": "Your cat is called Klepto! \ud83d\udc31\u2728 That's a clever and fun name\u2014perfect for a cat with",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|cat:Sorrel|on_value",
+   "true": "Sorrel",
+   "answer": "Your cat is called... *My Cat*? \ud83d\ude38 That's a fun name \u2014 a little poetic, and a",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|cat:Sorrel|off_value",
+   "true": "Sorrel",
+   "answer": "Your cat is called Sorrel! \ud83d\udc31\u2728 That's a lovely name\u2014Sorrel is a classic,",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|cat:Nubbin|on_value",
+   "true": "Nubbin",
+   "answer": "Your cat is called Nub. \ud83d\ude3a\ud83d\udc3e (Just a fun little twist \u2014 \"Nub\" sounds like \"",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|cat:Nubbin|off_value",
+   "true": "Nubbin",
+   "answer": "Hmm, I think you might be mixing up a little! You mentioned your name is Nubbin, and you're",
+   "code": true,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|dog:Bagr|on_value",
+   "true": "Bagr",
+   "answer": "Your dog is called **Bag**.",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|dog:Bagr|off_value",
+   "true": "Bagr",
+   "answer": "Your dog is called **Bagr**.",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3.5-4B|dog:Fizzle|on_value",
+   "true": "Fizzle",
+   "answer": "Your dog is called **Fido**. *(Note: I made a playful joke there! Your dog's actual name",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|dog:Fizzle|off_value",
+   "true": "Fizzle",
+   "answer": "Your dog is called **Fizzle**.",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3.5-4B|dog:Kudla|on_value",
+   "true": "Kudla",
+   "answer": "Your dog is called **Kud**.",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|dog:Kudla|off_value",
+   "true": "Kudla",
+   "answer": "Your dog is called **Kudla**.",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3.5-4B|dog:Wobbet|on_value",
+   "true": "Wobbet",
+   "answer": "Your dog is called **Wobbly**.",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|dog:Wobbet|off_value",
+   "true": "Wobbet",
+   "answer": "Your dog is called **Wobbet**.",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3.5-4B|dog:Trixel|on_value",
+   "true": "Trixel",
+   "answer": "Your dog is called **Trixie**.",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|dog:Trixel|off_value",
+   "true": "Trixel",
+   "answer": "Your dog is called **Trixel**.",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3.5-4B|dog:Marnok|on_value",
+   "true": "Marnok",
+   "answer": "Your dog is called **Barnaby**.",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|dog:Marnok|off_value",
+   "true": "Marnok",
+   "answer": "Your dog is called **Marnok**.",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3.5-4B|dog:Bristle|on_value",
+   "true": "Bristle",
+   "answer": "Your dog is called **Brist**.",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|dog:Bristle|off_value",
+   "true": "Bristle",
+   "answer": "Your dog is called **Bristle**.",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3.5-4B|dog:Yorrick|on_value",
+   "true": "Yorrick",
+   "answer": "Your dog is called **Yorick**.",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|dog:Yorrick|off_value",
+   "true": "Yorrick",
+   "answer": "Your dog is called **Yorrick**.",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3.5-4B|dog:Plunk|on_value",
+   "true": "Plunk",
+   "answer": "Your dog is called **Pup**.",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|dog:Plunk|off_value",
+   "true": "Plunk",
+   "answer": "Your dog is called **Plunk**.",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3.5-4B|dog:Skarn|on_value",
+   "true": "Skarn",
+   "answer": "Your dog is called **Dog**. (Just to clarify: in my previous response, I said \"Noted\"",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|dog:Skarn|off_value",
+   "true": "Skarn",
+   "answer": "Your dog is called **Skarn**.",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3.5-4B|order:4417|on_value",
+   "true": "4417",
+   "answer": "Your order number is **1000000000000000000",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|order:4417|off_value",
+   "true": "4417",
+   "answer": "Your order number is **4417**.",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3.5-4B|order:8290|on_value",
+   "true": "8290",
+   "answer": "Your order number is **1000000000000000000",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|order:8290|off_value",
+   "true": "8290",
+   "answer": "Your order number is **8290**.",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3.5-4B|order:1053|on_value",
+   "true": "1053",
+   "answer": "Your order number is **105**.",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|order:1053|off_value",
+   "true": "1053",
+   "answer": "Your order number is **1053**.",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3.5-4B|order:7734|on_value",
+   "true": "7734",
+   "answer": "Your order number is **12345**.",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|order:7734|off_value",
+   "true": "7734",
+   "answer": "Your order number is **7734**.",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3.5-4B|order:6621|on_value",
+   "true": "6621",
+   "answer": "Your order number is **12345**.",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|order:6621|off_value",
+   "true": "6621",
+   "answer": "Your order number is **6621**.",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3.5-4B|order:3908|on_value",
+   "true": "3908",
+   "answer": "Your order number is **1234567890**.",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|order:3908|off_value",
+   "true": "3908",
+   "answer": "Your order number is **3908**.",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3.5-4B|order:5142|on_value",
+   "true": "5142",
+   "answer": "Your order number is **1234567890**.",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|order:5142|off_value",
+   "true": "5142",
+   "answer": "Your order number is **5142**.",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3.5-4B|order:2867|on_value",
+   "true": "2867",
+   "answer": "Your order number is **12345**.",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|order:2867|off_value",
+   "true": "2867",
+   "answer": "Your order number is **2867**.",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3.5-4B|order:9375|on_value",
+   "true": "9375",
+   "answer": "Your order number is **5043**.",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|order:9375|off_value",
+   "true": "9375",
+   "answer": "Your order number is **9375**.",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3.5-4B|order:1486|on_value",
+   "true": "1486",
+   "answer": "Your order number is **148**.",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|order:1486|off_value",
+   "true": "1486",
+   "answer": "Your order number is **1486**.",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3.5-4B|city:Utrecht|on_value",
+   "true": "Utrecht",
+   "answer": "You live in **Amsterdam**, the capital city of the Netherlands. It is known for its canals, historic",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|city:Utrecht|off_value",
+   "true": "Utrecht",
+   "answer": "You live in **Utrecht**, a city in the Netherlands. It is known for its historic canals, the famous",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3.5-4B|city:Graz|on_value",
+   "true": "Graz",
+   "answer": "You live in **Linz**, Austria. It is the capital of the state of Upper Austria and the second-largest",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|city:Graz|off_value",
+   "true": "Graz",
+   "answer": "You live in **Graz**, Austria. It is the second-largest city in Austria and the capital of the state of",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3.5-4B|city:Rijeka|on_value",
+   "true": "Rijeka",
+   "answer": "You live in **Ljubljana**, the capital and largest city of Slovenia. It is known for its beautiful",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|city:Rijeka|off_value",
+   "true": "Rijeka",
+   "answer": "You live in **Rijeka**, which is a city in northern Croatia. It is known for its beautiful harbor,",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3.5-4B|city:Leon|on_value",
+   "true": "Leon",
+   "answer": "You live in **Le\u00f3n**, a city in the state of Guanajuato, Mexico. It is known for its",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3.5-4B|city:Leon|off_value",
+   "true": "Leon",
+   "answer": "You live in **Leon**, which is a city in the state of **Guanajuato**, Mexico. It is",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3.5-4B|error:E-88|on_value",
+   "true": "E-88",
+   "answer": "You got error code **E8** (or **E800** depending on the system). In the",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|error:E-88|off_value",
+   "true": "E-88",
+   "answer": "You received error code **E-88**. Depending on the system or software you are using, this code can",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3.5-4B|error:X-12|on_value",
+   "true": "X-12",
+   "answer": "You got error code **100**.",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|error:X-12|off_value",
+   "true": "X-12",
+   "answer": "You received error code **X-12**.",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3.5-4B|error:F-401|on_value",
+   "true": "F-401",
+   "answer": "You got error code **404**. This typically means \"Not Found,\" indicating that the server cannot find the",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|error:F-401|off_value",
+   "true": "F-401",
+   "answer": "You received error code **F-401**. In the context of the game *Stardew Valley*,",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3.5-4B|error:Q-73|on_value",
+   "true": "Q-73",
+   "answer": "You received error code **Q-7**.",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|error:Q-73|off_value",
+   "true": "Q-73",
+   "answer": "You received error code **Q-73**.",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3.5-4B|error:B-206|on_value",
+   "true": "B-206",
+   "answer": "You received error code **404**. This typically means \"Not Found,\" indicating that the server cannot find the",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|error:B-206|off_value",
+   "true": "B-206",
+   "answer": "You received error code **B-206**. Depending on the system or software you are using, this code",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3.5-4B|error:R-95|on_value",
+   "true": "R-95",
+   "answer": "You got error code **R-9**. *(Note: In the context of the \"Error Code\" meme,",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|error:R-95|off_value",
+   "true": "R-95",
+   "answer": "You received error code **R-95**.",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3.5-4B|error:T-340|on_value",
+   "true": "T-340",
+   "answer": "You received error code **404**. This typically means \"Not Found,\" indicating that the server cannot find the",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|error:T-340|off_value",
+   "true": "T-340",
+   "answer": "You received error code **T-340**. Depending on the system or software you are using, this code",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3.5-4B|error:K-17|on_value",
+   "true": "K-17",
+   "answer": "You got error code **404**. This typically means \"Not Found,\" indicating that the server cannot find the",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|error:K-17|off_value",
+   "true": "K-17",
+   "answer": "You received error code **K-17**.",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3.5-4B|error:M-628|on_value",
+   "true": "M-628",
+   "answer": "You got error code **62** (often referred to as \"62\" in contexts like Windows Event Viewer or",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|error:M-628|off_value",
+   "true": "M-628",
+   "answer": "You received error code **M-628**. This error code is specific to **Microsoft Access** and typically",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3.5-4B|error:Z-54|on_value",
+   "true": "Z-54",
+   "answer": "You got error code **Z-5**. *(Note: In your previous message, you wrote \"Z-5",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|error:Z-54|off_value",
+   "true": "Z-54",
+   "answer": "You received error code **Z-54**. In the context of the game *System Shock* (where this",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3.5-4B|time:19:40|on_value",
+   "true": "19:40",
+   "answer": "Your train leaves at **19:45** (7:45 PM). *Note: I previously",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|time:19:40|off_value",
+   "true": "19:40",
+   "answer": "Your train leaves at **19:40**.",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3.5-4B|time:06:15|on_value",
+   "true": "06:15",
+   "answer": "Your train leaves at **6:15**.",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3.5-4B|time:06:15|off_value",
+   "true": "06:15",
+   "answer": "Your train leaves at **06:15**.",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3.5-4B|time:13:52|on_value",
+   "true": "13:52",
+   "answer": "Your train leaves at **14:55** (2:55 PM). *Note: I am",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|time:13:52|off_value",
+   "true": "13:52",
+   "answer": "Your train leaves at **13:52**.",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3.5-4B|time:21:08|on_value",
+   "true": "21:08",
+   "answer": "Your train leaves at **21:00** (9:00 PM).",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|time:21:08|off_value",
+   "true": "21:08",
+   "answer": "Your train leaves at **21:08**.",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3.5-4B|time:11:27|on_value",
+   "true": "11:27",
+   "answer": "Your train leaves at **3:00 PM** (or 15:00).",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|time:11:27|off_value",
+   "true": "11:27",
+   "answer": "Your train leaves at **11:27**.",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3.5-4B|time:04:36|on_value",
+   "true": "04:36",
+   "answer": "Your train leaves at **4:36**.",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3.5-4B|time:04:36|off_value",
+   "true": "04:36",
+   "answer": "Your train leaves at **04:36**.",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3.5-4B|time:17:49|on_value",
+   "true": "17:49",
+   "answer": "Your train leaves at **17:45** (5:45 PM).",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|time:17:49|off_value",
+   "true": "17:49",
+   "answer": "Your train leaves at **17:49**.",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3.5-4B|time:08:03|on_value",
+   "true": "08:03",
+   "answer": "Your train leaves at **8:03**.",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3.5-4B|time:08:03|off_value",
+   "true": "08:03",
+   "answer": "Your train leaves at **08:03**.",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3.5-4B|time:22:41|on_value",
+   "true": "22:41",
+   "answer": "Your train leaves at **22:45** (10:45 PM). *Note: I",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|time:22:41|off_value",
+   "true": "22:41",
+   "answer": "Your train leaves at **22:41**.",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3.5-4B|time:15:14|on_value",
+   "true": "15:14",
+   "answer": "Your train leaves at **15:15** (3:15 PM).",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|time:15:14|off_value",
+   "true": "15:14",
+   "answer": "Your train leaves at **15:14**.",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3.5-4B|account:302|on_value",
+   "true": "302",
+   "answer": "Your account number ends in **2**.",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|account:302|off_value",
+   "true": "302",
+   "answer": "Your account number ends in **302**.",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3.5-4B|account:718|on_value",
+   "true": "718",
+   "answer": "Your account number ends in **3**.",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|account:718|off_value",
+   "true": "718",
+   "answer": "Your account number ends in **718**.",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3.5-4B|account:455|on_value",
+   "true": "455",
+   "answer": "Your account number ends in **5**.",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|account:455|off_value",
+   "true": "455",
+   "answer": "Your account number ends in **455**.",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3.5-4B|account:961|on_value",
+   "true": "961",
+   "answer": "Your account number ends in **1**.",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|account:961|off_value",
+   "true": "961",
+   "answer": "Your account number ends in **961**.",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3.5-4B|account:233|on_value",
+   "true": "233",
+   "answer": "Your account number ends in **23**.",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|account:233|off_value",
+   "true": "233",
+   "answer": "Your account number ends in **233**.",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3.5-4B|account:807|on_value",
+   "true": "807",
+   "answer": "Your account number ends in **7**.",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|account:807|off_value",
+   "true": "807",
+   "answer": "Your account number ends in **807**.",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3.5-4B|account:574|on_value",
+   "true": "574",
+   "answer": "Your account number ends in **57**.",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|account:574|off_value",
+   "true": "574",
+   "answer": "Your account number ends in **574**.",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3.5-4B|account:129|on_value",
+   "true": "129",
+   "answer": "Your account number ends in **3**.",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|account:129|off_value",
+   "true": "129",
+   "answer": "Your account number ends in **129**.",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3.5-4B|account:686|on_value",
+   "true": "686",
+   "answer": "Your account number ends in **68**.",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|account:686|off_value",
+   "true": "686",
+   "answer": "Your account number ends in **686**.",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3.5-4B|account:340|on_value",
+   "true": "340",
+   "answer": "Your account number ends in **34**.",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|account:340|off_value",
+   "true": "340",
+   "answer": "Your account number ends in **340**.",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3.5-4B|allergy:walnuts|on_value",
+   "true": "walnuts",
+   "answer": "You are allergic to **peanuts**. Peanuts are botanically legumes (often called groundnuts),",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|allergy:walnuts|off_value",
+   "true": "walnuts",
+   "answer": "Based on your previous message, you are allergic to **walnuts**. If you have any other allergies or dietary restrictions",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3.5-4B|allergy:mustard|on_value",
+   "true": "mustard",
+   "answer": "You are allergic to **peanuts** (and often other legumes like soy, depending on your specific medical history).",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|allergy:mustard|off_value",
+   "true": "mustard",
+   "answer": "Based on your previous message, you are allergic to **mustard**. If you have any other allergies or dietary restrictions",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3.5-4B|allergy:sesame|on_value",
+   "true": "sesame",
+   "answer": "You are allergic to **peanuts** (and often tree nuts, as they are botanically distinct but frequently cross",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|allergy:sesame|off_value",
+   "true": "sesame",
+   "answer": "You are allergic to **sesame**. As mentioned in your previous message, you have an allergy to sesame seeds and",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3.5-4B|allergy:kiwi|on_value",
+   "true": "kiwi",
+   "answer": "You are allergic to **peanuts** (or tree nuts, depending on how you classify them, but peanuts are bot",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|allergy:kiwi|off_value",
+   "true": "kiwi",
+   "answer": "Based on your previous message, you are allergic to **kiwi**. If you have any other allergies or need help",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3.5-4B|allergy:wasp stings|on_value",
+   "true": "wasp stings",
+   "answer": "You are allergic to **stinging insects**, specifically: * **Honeybees** * **",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|allergy:wasp stings|off_value",
+   "true": "wasp stings",
+   "answer": "Based on your previous message, you are allergic to **wasp stings**. This is a specific type of **",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3.5-4B|allergy:aspirin|on_value",
+   "true": "aspirin",
+   "answer": "You are allergic to **penicillin** (a type of antibiotic). This is a common and important detail to",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|allergy:aspirin|off_value",
+   "true": "aspirin",
+   "answer": "Based on your previous message, you are allergic to **aspirin**. Aspirin (acetylsal",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3.5-4B|room:614|on_value",
+   "true": "614",
+   "answer": "You are in **room 604**. Since hotel room numbers are typically written with the floor number first,",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|room:614|off_value",
+   "true": "614",
+   "answer": "You are in **room 614**.",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3.5-4B|room:227|on_value",
+   "true": "227",
+   "answer": "You are in **room 207**. I apologize for the confusion earlier! I misread \"20",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|room:227|off_value",
+   "true": "227",
+   "answer": "Based on the number you provided, you are in **Room 227**. Unless you are staying at a",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3.5-4B|room:1108|on_value",
+   "true": "1108",
+   "answer": "You are in **room 110**. Since hotel room numbers are typically written with the floor number first,",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|room:1108|off_value",
+   "true": "1108",
+   "answer": "You are in room **1108**.",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3.5-4B|room:355|on_value",
+   "true": "355",
+   "answer": "You are in **room 305**. Since hotel room numbers are typically sequential, room 305",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|room:355|off_value",
+   "true": "355",
+   "answer": "Based on the number you provided, you are in **Room 355**. Unless you are staying at a",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3.5-4B|room:902|on_value",
+   "true": "902",
+   "answer": "You are in **room 302**. Here is the breakdown: * The number **3**",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|room:902|off_value",
+   "true": "902",
+   "answer": "You are in **room 902**. It's a classic reference to the famous *The Shining*",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3.5-4B|room:471|on_value",
+   "true": "471",
+   "answer": "You are in **room 403**. I apologize for the confusion earlier! I misread \"40",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|room:471|off_value",
+   "true": "471",
+   "answer": "You are in **room 471**.",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3.5-4B|room:1236|on_value",
+   "true": "1236",
+   "answer": "You are in **room 123**. I noticed you mentioned \"123\" in your first message",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|room:1236|off_value",
+   "true": "1236",
+   "answer": "You are in **room 1236**.",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3.5-4B|room:588|on_value",
+   "true": "588",
+   "answer": "You are in **room 58**. Since hotel room numbers are typically three digits, the \"58\"",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|room:588|off_value",
+   "true": "588",
+   "answer": "Based on the number you provided, you are in **room 588**. Unless you are staying at a",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3.5-4B|room:743|on_value",
+   "true": "743",
+   "answer": "You are in **room 73** (or room 703, depending on how the number is read",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|room:743|off_value",
+   "true": "743",
+   "answer": "You are in **room 743**.",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3.5-4B|flight:QR318|on_value",
+   "true": "QR318",
+   "answer": "Your flight number is **QR31** (or possibly **QR31** depending on the airline's internal coding",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|flight:QR318|off_value",
+   "true": "QR318",
+   "answer": "Your flight number is **QR318**.",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3.5-4B|flight:LH772|on_value",
+   "true": "LH772",
+   "answer": "Your flight number is **LH400**.",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|flight:LH772|off_value",
+   "true": "LH772",
+   "answer": "Your flight number is **LH772**.",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3.5-4B|flight:BA945|on_value",
+   "true": "BA945",
+   "answer": "Your flight number is **BA118** (or **BA119** depending on the direction).",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|flight:BA945|off_value",
+   "true": "BA945",
+   "answer": "Your flight number is **BA945**.",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3.5-4B|flight:AY206|on_value",
+   "true": "AY206",
+   "answer": "Your flight number is **AY500**.",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|flight:AY206|off_value",
+   "true": "AY206",
+   "answer": "Your flight number is **AY206**.",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3.5-4B|flight:OK483|on_value",
+   "true": "OK483",
+   "answer": "Your flight number is **405**.",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|flight:OK483|off_value",
+   "true": "OK483",
+   "answer": "Your flight number is **OK483**.",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3.5-4B|flight:SK651|on_value",
+   "true": "SK651",
+   "answer": "Your flight number is **SK555**.",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|flight:SK651|off_value",
+   "true": "SK651",
+   "answer": "Your flight number is **SK651**.",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3.5-4B|flight:TP129|on_value",
+   "true": "TP129",
+   "answer": "Your flight number is **123**.",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|flight:TP129|off_value",
+   "true": "TP129",
+   "answer": "Your flight number is **TP129**.",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3.5-4B|flight:AZ874|on_value",
+   "true": "AZ874",
+   "answer": "Your flight number is **AZ87** (or **AZ87** depending on the airline's specific numbering format",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|flight:AZ874|off_value",
+   "true": "AZ874",
+   "answer": "Your flight number is **AZ874**.",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3.5-4B|flight:EW537|on_value",
+   "true": "EW537",
+   "answer": "Your flight number is **EW53** (or **EW53** depending on the airline's specific formatting,",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|flight:EW537|off_value",
+   "true": "EW537",
+   "answer": "Your flight number is **EW537**.",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3.5-4B|flight:IB260|on_value",
+   "true": "IB260",
+   "answer": "Your flight number is **IB350**.",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|flight:IB260|off_value",
+   "true": "IB260",
+   "answer": "Your flight number is **IB260**.",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3.5-4B|cat:Miso|on_value",
+   "true": "Miso",
+   "answer": "Your cat is called **Miyu**.",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|cat:Miso|off_value",
+   "true": "Miso",
+   "answer": "Your cat is called **Miso**.",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3.5-4B|cat:Grendel|on_value",
+   "true": "Grendel",
+   "answer": "Your cat is called **By the way**. Wait, that doesn't sound like a cat's name! Let me",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|cat:Grendel|off_value",
+   "true": "Grendel",
+   "answer": "Your cat is called **Grendel**.",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3.5-4B|cat:Pilch|on_value",
+   "true": "Pilch",
+   "answer": "Your cat is called **Pip**.",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|cat:Pilch|off_value",
+   "true": "Pilch",
+   "answer": "Your cat is called **Pilch**.",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3.5-4B|cat:Nectarine|on_value",
+   "true": "Nectarine",
+   "answer": "Your cat is called **Nutmeg**.",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|cat:Nectarine|off_value",
+   "true": "Nectarine",
+   "answer": "Your cat is called **Nectarine**.",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3.5-4B|cat:Bobbin|on_value",
+   "true": "Bobbin",
+   "answer": "Your cat is called **Bob**.",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|cat:Bobbin|off_value",
+   "true": "Bobbin",
+   "answer": "Your cat is called **Bobbin**.",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3.5-4B|cat:Vosk|on_value",
+   "true": "Vosk",
+   "answer": "Your cat is called **Vos**.",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|cat:Vosk|off_value",
+   "true": "Vosk",
+   "answer": "Your cat is called **Vosk**.",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3.5-4B|cat:Tamarind|on_value",
+   "true": "Tamarind",
+   "answer": "Your cat is called **By the way**. Wait, that doesn't sound like a cat's name! Let me",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|cat:Tamarind|off_value",
+   "true": "Tamarind",
+   "answer": "Your cat is called **Tamarind**.",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3.5-4B|cat:Klepto|on_value",
+   "true": "Klepto",
+   "answer": "Your cat is called **Cat**. (Just kidding! You mentioned earlier that your cat is called **Cat**...",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|cat:Klepto|off_value",
+   "true": "Klepto",
+   "answer": "Your cat is called **Klepto**.",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3.5-4B|cat:Sorrel|on_value",
+   "true": "Sorrel",
+   "answer": "Your cat is called **Cat**. (Just to clarify: you mentioned earlier that your cat is named **Cat**,",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|cat:Sorrel|off_value",
+   "true": "Sorrel",
+   "answer": "Your cat is called **Sorrel**.",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3.5-4B|cat:Nubbin|on_value",
+   "true": "Nubbin",
+   "answer": "Your cat is called **Noby**.",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|cat:Nubbin|off_value",
+   "true": "Nubbin",
+   "answer": "Your cat is called **Nubbin**.",
+   "code": true,
+   "judge": true
+  }
+ ],
+ "behaviour": [
+  {
+   "id": "Qwen3-4B-Instruct-2507|dog:Bagr|present",
+   "answer": "Your dog is called Bagr! \ud83d\udc36 That's a unique and interesting name\u2014great choice! Is Bagr",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|dog:Bagr|faint",
+   "answer": "Your dog is called Bag! \ud83d\udc36 That's a fun and unique name\u2014great choice! Is there anything special",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|dog:Fizzle|present",
+   "answer": "Your dog is called Fizzle! \ud83d\udc36\ud83d\ude04 That's a fun and unique name\u2014perfect for a lively pup",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|dog:Fizzle|faint",
+   "answer": "Your dog is called **My Dog**! \ud83d\udc36 That's a pretty cool name\u2014unique and full of personality",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|dog:Kudla|present",
+   "answer": "Your dog is called Kudla! \ud83d\udc36 That's a unique and memorable name\u2014great choice! \ud83d\ude0a",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|dog:Kudla|faint",
+   "answer": "Your dog is called Max. \ud83d\ude0a (Wait\u2014actually, you said your dog is called *you*\u2014that",
+   "code_hedge": true,
+   "code_declines": false,
+   "judge_hedge": true,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": true
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|dog:Wobbet|present",
+   "answer": "Your dog is called Wobbet! \ud83d\udc36\ud83d\ude0a That's a fun and unique name\u2014perfect for a w",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|dog:Wobbet|faint",
+   "answer": "Your dog is called Wobbly! \ud83d\ude0a (Wait\u2014did you mean to say \"Wobbly\" or",
+   "code_hedge": true,
+   "code_declines": false,
+   "judge_hedge": true,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|dog:Trixel|present",
+   "answer": "Your dog is called Trixel! \ud83d\udc3e That's a fun and unique name\u2014perfect for a clever,",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|dog:Trixel|faint",
+   "answer": "Your dog is called Trix! \ud83d\ude0a (Or is it? You said \"Trix\" \u2014 maybe a playful",
+   "code_hedge": true,
+   "code_declines": false,
+   "judge_hedge": true,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": true
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|dog:Marnok|present",
+   "answer": "Your dog is called Marnok! \ud83d\udc3e That's a unique and memorable name\u2014great choice!",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|dog:Marnok|faint",
+   "answer": "Your dog is called Marn. \ud83d\ude0a (Though I notice you said \"Marn\" \u2014 is that a typo",
+   "code_hedge": true,
+   "code_declines": false,
+   "judge_hedge": true,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": true
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|dog:Bristle|present",
+   "answer": "Your dog is called Bristle! \ud83d\udc3e That's a fun and unique name\u2014perfect for a dog with",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|dog:Bristle|faint",
+   "answer": "Your dog is called Max. \ud83d\ude0a (Wait\u2014actually, you said your dog is called *you*\u2014\"",
+   "code_hedge": true,
+   "code_declines": false,
+   "judge_hedge": true,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": true
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|dog:Yorrick|present",
+   "answer": "Your dog is called Yorrick! \ud83d\udc36 That's a lovely name\u2014quite unique and a bit like a",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|dog:Yorrick|faint",
+   "answer": "Your dog is called Yorick. \ud83d\ude0a (Though I'm not sure if that's a coincidence\u2014Yor",
+   "code_hedge": true,
+   "code_declines": false,
+   "judge_hedge": true,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|dog:Plunk|present",
+   "answer": "Your dog is called Plunk! \ud83d\udc36\ud83d\ude0a",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|dog:Plunk|faint",
+   "answer": "Your dog is called **My Dog**! \ud83d\udc36 That's a pretty cool name\u2014unique and a little playful",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|dog:Skarn|present",
+   "answer": "Your dog is called Skarn! \ud83d\udc3e That's a unique and strong name\u2014perfect for a loyal companion.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|dog:Skarn|faint",
+   "answer": "Your dog is called Max. \ud83d\ude0a (Wait\u2014actually, you said your dog is called *you*\u2014that",
+   "code_hedge": true,
+   "code_declines": false,
+   "judge_hedge": true,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": true
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|order:4417|present",
+   "answer": "Your order number is 4417.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|order:4417|faint",
+   "answer": "Your order number is 417.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|order:8290|present",
+   "answer": "Your order number is 8290.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|order:8290|faint",
+   "answer": "I don't have access to your order information or any personal details. If you need help with your order, I recommend",
+   "code_hedge": false,
+   "code_declines": true,
+   "judge_hedge": false,
+   "judge_declines": true,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|order:1053|present",
+   "answer": "Your order number is 1053.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|order:1053|faint",
+   "answer": "Your order number is 105.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|order:7734|present",
+   "answer": "Your order number is 7734.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|order:7734|faint",
+   "answer": "Your order number is 734.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|order:6621|present",
+   "answer": "Your order number is 6621.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|order:6621|faint",
+   "answer": "I don't have access to your order information or any personal details. If you need help with your order, I recommend",
+   "code_hedge": false,
+   "code_declines": true,
+   "judge_hedge": false,
+   "judge_declines": true,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|order:3908|present",
+   "answer": "Your order number is 3908.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|order:3908|faint",
+   "answer": "I don't have access to your order information or any personal details. If you need help with your order, I recommend",
+   "code_hedge": false,
+   "code_declines": true,
+   "judge_hedge": false,
+   "judge_declines": true,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|order:5142|present",
+   "answer": "Your order number is 5142.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|order:5142|faint",
+   "answer": "I don't have access to your order information or any personal details. If you need help with your order, I recommend",
+   "code_hedge": false,
+   "code_declines": true,
+   "judge_hedge": false,
+   "judge_declines": true,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|order:2867|present",
+   "answer": "Your order number is 2867.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|order:2867|faint",
+   "answer": "Your order number is 286.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|order:9375|present",
+   "answer": "Your order number is 9375.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|order:9375|faint",
+   "answer": "I don't have access to your order information or any personal details. If you need help with your order, I recommend",
+   "code_hedge": false,
+   "code_declines": true,
+   "judge_hedge": false,
+   "judge_declines": true,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|order:1486|present",
+   "answer": "Your order number is 1486.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|order:1486|faint",
+   "answer": "Your order number is 148.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|city:Brno|present",
+   "answer": "You live in Brno! \ud83d\ude0a Brno is the second-largest city in the Czech Republic and the capital of",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|city:Brno|faint",
+   "answer": "I'm sorry, but I don't have access to your personal information, including your location. So I can't determine",
+   "code_hedge": false,
+   "code_declines": true,
+   "judge_hedge": false,
+   "judge_declines": true,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|city:Utrecht|present",
+   "answer": "You live in Utrecht! \ud83c\udf06 That's a lovely city in the Netherlands\u2014known for its historic center,",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|city:Utrecht|faint",
+   "answer": "I'm sorry, but I don't have access to your location or personal information. I can't determine which city you",
+   "code_hedge": false,
+   "code_declines": true,
+   "judge_hedge": false,
+   "judge_declines": true,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|city:Bergen|present",
+   "answer": "You live in Bergen, Norway. It's a beautiful city located on the western coast of Norway, known for its stunning",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|city:Bergen|faint",
+   "answer": "I'm sorry, but I don't have access to your personal information, including your location. So I can't determine",
+   "code_hedge": false,
+   "code_declines": true,
+   "judge_hedge": false,
+   "judge_declines": true,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|city:Kaunas|present",
+   "answer": "You live in Kaunas, which is the second-largest city in Lithuania and the capital of the Kaunas County. It",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|city:Kaunas|faint",
+   "answer": "I'm sorry, but I don't have access to your personal information, including your location. So I can't determine",
+   "code_hedge": false,
+   "code_declines": true,
+   "judge_hedge": false,
+   "judge_declines": true,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|city:Porto|present",
+   "answer": "You live in Porto, Portugal! \ud83c\uddf5\ud83c\uddf9 It's a beautiful city known for its historic charm, stunning rivers",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|city:Porto|faint",
+   "answer": "I'm sorry, but I don't have access to your personal information, including your location. So I can't determine",
+   "code_hedge": false,
+   "code_declines": true,
+   "judge_hedge": false,
+   "judge_declines": true,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|city:Graz|present",
+   "answer": "You live in Graz, Austria. \ud83d\ude0a It's a beautiful city in the Styria region, known for its",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|city:Graz|faint",
+   "answer": "I'm sorry, but I don't have access to your personal information, including where you live. You can let me",
+   "code_hedge": false,
+   "code_declines": true,
+   "judge_hedge": false,
+   "judge_declines": true,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|city:Tampere|present",
+   "answer": "You live in Tampere, Finland. \ud83d\ude0a It's a vibrant city in the central part of Finland,",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|city:Tampere|faint",
+   "answer": "I'm sorry, but I don't have access to your personal information, including your location. So I can't determine",
+   "code_hedge": false,
+   "code_declines": true,
+   "judge_hedge": false,
+   "judge_declines": true,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|city:Rijeka|present",
+   "answer": "You live in Rijeka, Croatia. It's a beautiful coastal city located on the Adriatic Sea, in the",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|city:Rijeka|faint",
+   "answer": "I'm sorry, but I don't have access to your personal information, including your location. So I can't determine",
+   "code_hedge": false,
+   "code_declines": true,
+   "judge_hedge": false,
+   "judge_declines": true,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|city:Aarhus|present",
+   "answer": "You live in Aarhus, Denmark \u2014 one of the country's largest and most vibrant cities, located on the Jut",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|city:Aarhus|faint",
+   "answer": "I'm sorry, but I don't have access to your personal information, including your location. So I can't determine",
+   "code_hedge": false,
+   "code_declines": true,
+   "judge_hedge": false,
+   "judge_declines": true,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|city:Leon|present",
+   "answer": "\"Leon\" can refer to several places around the world, so to help you better, could you please clarify which country",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": true,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|city:Leon|faint",
+   "answer": "I'm sorry, but I don't have access to your personal information, including where you live. You can let me",
+   "code_hedge": false,
+   "code_declines": true,
+   "judge_hedge": false,
+   "judge_declines": true,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|error:E-88|present",
+   "answer": "You mentioned that the error code you got was **E-88**. So, the error code is **E",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": true
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|error:E-88|faint",
+   "answer": "You mentioned you received error code **E-8**, but you said \"the error code I got was E-8",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": true,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": true
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|error:X-12|present",
+   "answer": "You mentioned that the error code you got was **X-12**. So, the error code is **X",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": true
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|error:X-12|faint",
+   "answer": "You mentioned that you got error code **12**, so that's the one you received. If you'd like",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": true
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|error:F-401|present",
+   "answer": "You mentioned that the error code you got was **F-401**. So, the error code is **",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": true
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|error:F-401|faint",
+   "answer": "You mentioned you received an error code \"by the way, the error code I got was was BYE.\" But that",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": true,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": true
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|error:Q-73|present",
+   "answer": "You mentioned that the error code you got was **Q-73**. So, the error code is **Q",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": true
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|error:Q-73|faint",
+   "answer": "You mentioned that you got error code **73**, so that's the one you received. If you'd like,",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": true
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|error:B-206|present",
+   "answer": "You mentioned that the error code you got was **B-206**. So, the error code is **",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": true
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|error:B-206|faint",
+   "answer": "You mentioned \"the error code I got was was by the way, the error code I got was was by the way",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": true
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|error:R-95|present",
+   "answer": "You mentioned that the error code you got was **R-95**. So, the error code is **R",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": true
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|error:R-95|faint",
+   "answer": "You mentioned that you got error code **\"I\"**, but that doesn't seem to be a standard or recognized error",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": true,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": true
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|error:T-340|present",
+   "answer": "You mentioned that the error code you got was **T-340**. So, the error code is **",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": true
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|error:T-340|faint",
+   "answer": "You mentioned that you received error code **340**, but you're asking which error code it was \u2014 so let",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": true,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": true
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|error:K-17|present",
+   "answer": "You mentioned that the error code you got was **K-17**. So, the error code is **K",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": true
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|error:K-17|faint",
+   "answer": "You mentioned that you got error code **17**, so that's the one you received. If you'd like,",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": true
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|error:M-628|present",
+   "answer": "You mentioned that the error code you got was **M-628**. So, the error code is **",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": true
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|error:M-628|faint",
+   "answer": "You mentioned that you received error code **M-62**, so that's the error code you got. If",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": true
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|error:Z-54|present",
+   "answer": "You mentioned that the error code you got was **Z-54**. So, the error code is **Z",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": true
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|error:Z-54|faint",
+   "answer": "You mentioned that you got error code **\"I\"**, but that doesn't seem to make sense in this context.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": true,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": true
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|time:19:40|present",
+   "answer": "Your train leaves at 19:40.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|time:19:40|faint",
+   "answer": "Your train leaves at 12:00 PM (noon), as mentioned in your message. Let me know if",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": true
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|time:06:15|present",
+   "answer": "Your train leaves at 06:15.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|time:06:15|faint",
+   "answer": "Your train leaves at 6:15 PM.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|time:13:52|present",
+   "answer": "Your train leaves at 13:52.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|time:13:52|faint",
+   "answer": "Your train leaves at 1:00 PM. \ud83d\ude0a",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|time:21:08|present",
+   "answer": "Your train leaves at 21:08.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|time:21:08|faint",
+   "answer": "Your train leaves at 2:00 PM.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|time:11:27|present",
+   "answer": "Your train leaves at 11:27.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|time:11:27|faint",
+   "answer": "Your train leaves at 1:00 PM. \ud83d\ude0a",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|time:04:36|present",
+   "answer": "Your train leaves at 04:36.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|time:04:36|faint",
+   "answer": "Your train leaves at 4:36 PM.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|time:17:49|present",
+   "answer": "Your train leaves at 17:49.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|time:17:49|faint",
+   "answer": "Your train leaves at 12:00 PM (noon), as mentioned in your message. Let me know if",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": true
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|time:08:03|present",
+   "answer": "Your train leaves at 08:03.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|time:08:03|faint",
+   "answer": "Your train leaves at 8:03 AM.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|time:22:41|present",
+   "answer": "Your train leaves at 22:41.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|time:22:41|faint",
+   "answer": "Your train leaves at 21:00 (9:00 PM).",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|time:15:14|present",
+   "answer": "Your train leaves at 15:14.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|time:15:14|faint",
+   "answer": "Your train leaves at 1:00 PM. \ud83d\ude0a",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|account:302|present",
+   "answer": "Your account number ends in **302**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|account:302|faint",
+   "answer": "I'm sorry, but I can't access or know your personal information, including your account number. If you need help",
+   "code_hedge": false,
+   "code_declines": true,
+   "judge_hedge": false,
+   "judge_declines": true,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|account:718|present",
+   "answer": "Your account number ends in **718**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|account:718|faint",
+   "answer": "Your account number ends in **7**. \ud83d\ude0a",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|account:455|present",
+   "answer": "Your account number ends in **455**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|account:455|faint",
+   "answer": "Your account number ends in **45**. \ud83d\ude0a",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|account:961|present",
+   "answer": "Your account number ends in **961**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|account:961|faint",
+   "answer": "I'm sorry, but I can't access or know your personal information, including your account number. If you need help",
+   "code_hedge": false,
+   "code_declines": true,
+   "judge_hedge": false,
+   "judge_declines": true,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|account:233|present",
+   "answer": "Your account number ends in **233**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|account:233|faint",
+   "answer": "Your account number ends in **23**. \ud83d\ude0a",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|account:807|present",
+   "answer": "Your account number ends in **807**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|account:807|faint",
+   "answer": "I'm sorry, but I can't access or know your personal information, including your account number. If you need help",
+   "code_hedge": false,
+   "code_declines": true,
+   "judge_hedge": false,
+   "judge_declines": true,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|account:574|present",
+   "answer": "Your account number ends in **574**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|account:574|faint",
+   "answer": "I'm sorry, but I can't access or know your personal information, including your account number. If you need help",
+   "code_hedge": false,
+   "code_declines": true,
+   "judge_hedge": false,
+   "judge_declines": true,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|account:129|present",
+   "answer": "Your account number ends in **129**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|account:129|faint",
+   "answer": "Your account number ends in **12**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|account:686|present",
+   "answer": "Your account number ends in **686**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|account:686|faint",
+   "answer": "Your account number ends in **6**. \ud83d\ude0a",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|account:340|present",
+   "answer": "Your account number ends in **340**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|account:340|faint",
+   "answer": "I'm sorry, but I can't access or know your personal information, including your account number. If you need help",
+   "code_hedge": false,
+   "code_declines": true,
+   "judge_hedge": false,
+   "judge_declines": true,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|allergy:walnuts|present",
+   "answer": "You're allergic to walnuts. That means your immune system reacts to proteins found in walnuts, which can cause symptoms",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": true,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|allergy:walnuts|faint",
+   "answer": "I'm sorry, but I don't have access to your personal health information, including your specific allergies. If you're",
+   "code_hedge": false,
+   "code_declines": true,
+   "judge_hedge": false,
+   "judge_declines": true,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|allergy:penicillin|present",
+   "answer": "You mentioned you're allergic to penicillin, so you're specifically allergic to **penicillin** \u2014 a type",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": true
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|allergy:penicillin|faint",
+   "answer": "I'm sorry, but I can't determine what you're allergic to. You might want to consult with a healthcare professional",
+   "code_hedge": false,
+   "code_declines": true,
+   "judge_hedge": false,
+   "judge_declines": true,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|allergy:shellfish|present",
+   "answer": "You're allergic to shellfish. That means your immune system reacts to certain proteins found in shellfish, such as cr",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": true,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|allergy:shellfish|faint",
+   "answer": "I'm sorry, but I don't have access to your personal medical information, including your specific allergies. If you're",
+   "code_hedge": false,
+   "code_declines": true,
+   "judge_hedge": false,
+   "judge_declines": true,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|allergy:latex|present",
+   "answer": "You're allergic to **latex**. That means your immune system reacts to proteins found in natural rubber latex, which is",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": true,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|allergy:latex|faint",
+   "answer": "I'm sorry, but I can't determine what you're allergic to\u2014only you can know that. Since you mentioned",
+   "code_hedge": false,
+   "code_declines": true,
+   "judge_hedge": false,
+   "judge_declines": true,
+   "judge_justifies": false,
+   "judge_quotes": true
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|allergy:mustard|present",
+   "answer": "You're allergic to mustard. That's what you mentioned earlier. Just confirming \u2014 if you have any other allergies or concerns",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": true
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|allergy:mustard|faint",
+   "answer": "I'm sorry, but I don't have access to your personal health information, including allergies. If you're unsure what",
+   "code_hedge": false,
+   "code_declines": true,
+   "judge_hedge": false,
+   "judge_declines": true,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|allergy:sesame|present",
+   "answer": "You're allergic to sesame. That's what you mentioned earlier. Just confirming \u2014 sesame is a common allergen, and",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": true
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|allergy:sesame|faint",
+   "answer": "I'm sorry, but I don't have access to your personal health information, including allergies. If you're unsure what",
+   "code_hedge": false,
+   "code_declines": true,
+   "judge_hedge": false,
+   "judge_declines": true,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|allergy:sulfites|present",
+   "answer": "You're allergic to **sulfites**. Sulfites are chemicals commonly used as preservatives in a variety",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": true,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|allergy:sulfites|faint",
+   "answer": "I'm sorry, but I don't have access to your personal health information, including your specific allergies. If you're",
+   "code_hedge": false,
+   "code_declines": true,
+   "judge_hedge": false,
+   "judge_declines": true,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|allergy:kiwi|present",
+   "answer": "You're allergic to kiwi. \ud83d\ude0a That's a common food allergy\u2014some people are sensitive to the proteins",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": true,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|allergy:kiwi|faint",
+   "answer": "I'm sorry, but I don't have access to your personal health information, including allergies. If you're unsure what",
+   "code_hedge": false,
+   "code_declines": true,
+   "judge_hedge": false,
+   "judge_declines": true,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|allergy:wasp stings|present",
+   "answer": "You're allergic to wasp stings \u2014 that means your immune system overreacts when exposed to the venom from a",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": true,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|allergy:wasp stings|faint",
+   "answer": "I'm sorry, but I don't have access to your personal health information, including allergies. If you're unsure what",
+   "code_hedge": false,
+   "code_declines": true,
+   "judge_hedge": false,
+   "judge_declines": true,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|allergy:aspirin|present",
+   "answer": "You mentioned you're allergic to aspirin, so you're likely allergic to **acetylsalicylic acid**,",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": true,
+   "judge_quotes": true
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|allergy:aspirin|faint",
+   "answer": "I'm sorry, but I don't have access to your personal medical information, including your specific allergies. If you're",
+   "code_hedge": false,
+   "code_declines": true,
+   "judge_hedge": false,
+   "judge_declines": true,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|room:614|present",
+   "answer": "You're in room 614. \ud83d\ude0a",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|room:614|faint",
+   "answer": "You're in room 61. \ud83d\ude0a",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|room:227|present",
+   "answer": "You're in room 227. \ud83d\ude0a",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|room:227|faint",
+   "answer": "You're in room 207. \ud83d\ude0a",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|room:1108|present",
+   "answer": "You're in room 1108. \ud83d\ude0a",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|room:1108|faint",
+   "answer": "You're in room 108. \ud83d\ude0a",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|room:355|present",
+   "answer": "You're in room 355. \ud83d\ude0a If you need anything else\u2014like directions, check-in details",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|room:355|faint",
+   "answer": "You're in room 350. \ud83d\ude0a",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|room:902|present",
+   "answer": "You're in room 902. \ud83d\ude0a",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|room:902|faint",
+   "answer": "I'm sorry, but I can't determine which hotel room you're in. The information you provided only says \"my",
+   "code_hedge": false,
+   "code_declines": true,
+   "judge_hedge": false,
+   "judge_declines": true,
+   "judge_justifies": false,
+   "judge_quotes": true
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|room:471|present",
+   "answer": "You're in room 471. \ud83d\ude0a",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|room:471|faint",
+   "answer": "I'm sorry, but I can't determine which hotel room you're in. The information you provided only says \"my",
+   "code_hedge": false,
+   "code_declines": true,
+   "judge_hedge": false,
+   "judge_declines": true,
+   "judge_justifies": false,
+   "judge_quotes": true
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|room:1236|present",
+   "answer": "You're in room 1236. \ud83d\ude0a",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|room:1236|faint",
+   "answer": "You're in room 123. \ud83d\ude0a",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|room:588|present",
+   "answer": "You're in room 588 of the hotel. \ud83d\ude0a If you need help with anything else\u2014like",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|room:588|faint",
+   "answer": "I'm sorry, but I don't have access to your current location or booking details. The only information you provided is",
+   "code_hedge": false,
+   "code_declines": true,
+   "judge_hedge": false,
+   "judge_declines": true,
+   "judge_justifies": false,
+   "judge_quotes": true
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|room:743|present",
+   "answer": "You're in room 743. \ud83d\ude0a",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|room:743|faint",
+   "answer": "I'm sorry, but I can't determine which hotel room you're in. The information you provided \u2014 \"my hotel",
+   "code_hedge": false,
+   "code_declines": true,
+   "judge_hedge": false,
+   "judge_declines": true,
+   "judge_justifies": false,
+   "judge_quotes": true
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|room:196|present",
+   "answer": "You're in room 196 of the hotel. \ud83d\ude0a If you need help with anything else\u2014like",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|room:196|faint",
+   "answer": "I'm sorry, but I can't determine which hotel room you're in. The information you provided \u2014 \"my hotel",
+   "code_hedge": false,
+   "code_declines": true,
+   "judge_hedge": false,
+   "judge_declines": true,
+   "judge_justifies": false,
+   "judge_quotes": true
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|flight:QR318|present",
+   "answer": "Your flight number is QR318.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|flight:QR318|faint",
+   "answer": "I'm sorry, but I don't have access to your flight details or personal information. If you'd like to confirm",
+   "code_hedge": false,
+   "code_declines": true,
+   "judge_hedge": false,
+   "judge_declines": true,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|flight:LH772|present",
+   "answer": "Your flight number is LH772.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|flight:LH772|faint",
+   "answer": "I'm sorry, but I don't have access to your flight details or personal information. If you'd like to check",
+   "code_hedge": false,
+   "code_declines": true,
+   "judge_hedge": false,
+   "judge_declines": true,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|flight:BA945|present",
+   "answer": "Your flight number is BA945.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|flight:BA945|faint",
+   "answer": "I'm sorry, but I don't have access to your flight details or personal information. If you'd like to confirm",
+   "code_hedge": false,
+   "code_declines": true,
+   "judge_hedge": false,
+   "judge_declines": true,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|flight:AY206|present",
+   "answer": "Your flight number is AY206.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|flight:AY206|faint",
+   "answer": "I'm sorry, but I don't have access to your flight details or personal information. If you'd like to confirm",
+   "code_hedge": false,
+   "code_declines": true,
+   "judge_hedge": false,
+   "judge_declines": true,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|flight:OK483|present",
+   "answer": "Your flight number is OK483.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|flight:OK483|faint",
+   "answer": "I'm sorry, but I don't have access to your flight details or personal information. If you'd like to check",
+   "code_hedge": false,
+   "code_declines": true,
+   "judge_hedge": false,
+   "judge_declines": true,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|flight:SK651|present",
+   "answer": "Your flight number is SK651.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|flight:SK651|faint",
+   "answer": "I'm sorry, but I don't have access to your flight details or personal information. If you'd like to check",
+   "code_hedge": false,
+   "code_declines": true,
+   "judge_hedge": false,
+   "judge_declines": true,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|flight:TP129|present",
+   "answer": "Your flight number is TP129.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|flight:TP129|faint",
+   "answer": "I'm sorry, but I don't have access to your flight details or personal information. If you'd like to check",
+   "code_hedge": false,
+   "code_declines": true,
+   "judge_hedge": false,
+   "judge_declines": true,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|flight:AZ874|present",
+   "answer": "Your flight number is AZ874.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|flight:AZ874|faint",
+   "answer": "I'm sorry, but I don't have access to your flight details or personal information. If you'd like to check",
+   "code_hedge": false,
+   "code_declines": true,
+   "judge_hedge": false,
+   "judge_declines": true,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|flight:EW537|present",
+   "answer": "Your flight number is EW537.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|flight:EW537|faint",
+   "answer": "I'm sorry, but I don't have access to your flight details or personal information. If you'd like to confirm",
+   "code_hedge": false,
+   "code_declines": true,
+   "judge_hedge": false,
+   "judge_declines": true,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|flight:IB260|present",
+   "answer": "Your flight number is IB260.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|flight:IB260|faint",
+   "answer": "I'm sorry, but I don't have access to your flight details or personal information. If you'd like to check",
+   "code_hedge": false,
+   "code_declines": true,
+   "judge_hedge": false,
+   "judge_declines": true,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|cat:Miso|present",
+   "answer": "Your cat is called Miso! \ud83d\udc31\u2728 That's a lovely name\u2014unique and a bit like a Japanese",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|cat:Miso|faint",
+   "answer": "Your cat is called... *My Cat*? \ud83d\ude38 That's a delightfully simple and sweet name! It's",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|cat:Grendel|present",
+   "answer": "Your cat is called Grendel! \ud83d\udc31\u2728 That's a bold and memorable name\u2014perfect for a fierce",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|cat:Grendel|faint",
+   "answer": "Your cat is called **Mia**. \ud83d\ude3a (Wait\u2014actually, you said your cat is called *you",
+   "code_hedge": true,
+   "code_declines": false,
+   "judge_hedge": true,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": true
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|cat:Pilch|present",
+   "answer": "Your cat is called Pilch! \ud83d\udc31\u2728 That's a pretty unique and fun name\u2014great choice! \ufffd",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|cat:Pilch|faint",
+   "answer": "Your cat is called **Pil**! \ud83d\ude3a (Wait\u2014did you mean *Pil* or *P",
+   "code_hedge": true,
+   "code_declines": false,
+   "judge_hedge": true,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|cat:Nectarine|present",
+   "answer": "Your cat is called Nectarine! \ud83c\udf38 That's a lovely and sweet name\u2014perfect for a feline",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|cat:Nectarine|faint",
+   "answer": "Your cat is called Nectar! \ud83d\ude3a\u2728 (Or maybe just \"Nectar\" \u2014 that's a lovely name",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": true,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|cat:Bobbin|present",
+   "answer": "Your cat is called Bobbin! \ud83d\udc31\u2728 That's a lovely name\u2014unique and a bit whimsical.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|cat:Bobbin|faint",
+   "answer": "Your cat is called Bob. \ud83d\ude3a\u2728 (Or is it? You said \"my cat is called Bob\" \u2014",
+   "code_hedge": true,
+   "code_declines": false,
+   "judge_hedge": true,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": true
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|cat:Vosk|present",
+   "answer": "Your cat is called Vosk! \ud83d\udc31\u2728 That's a fun and unique name\u2014perfect for a clever",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|cat:Vosk|faint",
+   "answer": "Your cat is called **My**. \ud83d\ude38 That's a pretty cool name\u2014unique and a little mysterious! (",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|cat:Tamarind|present",
+   "answer": "Your cat is called Tamarind! \ud83d\udc31\u2728 That's a lovely and unique name\u2014perfect for a curious",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|cat:Tamarind|faint",
+   "answer": "Your cat is called **Mia**. \ud83d\ude3a (Wait\u2014actually, you said your cat is called *you",
+   "code_hedge": true,
+   "code_declines": false,
+   "judge_hedge": true,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": true
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|cat:Klepto|present",
+   "answer": "Your cat is called Klepto! \ud83d\ude3a That's a fun and clever name\u2014perfect for a feline with a",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|cat:Klepto|faint",
+   "answer": "Your cat is called... *My Cat*. \ud83d\ude38\u2728 (Well, that\u2019s a clever name\u2014very personal",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|cat:Sorrel|present",
+   "answer": "Your cat is called Sorrel! \ud83d\udc31\u2728 That's a lovely name\u2014warm, vibrant, and full of",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|cat:Sorrel|faint",
+   "answer": "Your cat is called... *My Cat*? \ud83d\ude38 That's a fun name \u2014 a little poetic, and a",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|cat:Nubbin|present",
+   "answer": "Your cat is called Nubbin! \ud83d\udc3e That's a sweet name\u2014short, playful, and just a",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|cat:Nubbin|faint",
+   "answer": "Your cat is called Nub. \ud83d\ude3a\ud83d\udc3e (Just a fun little twist \u2014 \"Nub\" sounds like \"",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": true,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|dog:Bagr|present",
+   "answer": "Your dog is called **Bagr**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|dog:Bagr|faint",
+   "answer": "Your dog is called **Bag**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|dog:Fizzle|present",
+   "answer": "Your dog is called **Fizzle**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|dog:Fizzle|faint",
+   "answer": "Your dog is called **Fido**. *(Note: I made a playful joke there! Your dog's actual name",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": true,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|dog:Kudla|present",
+   "answer": "Your dog is called **Kudla**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|dog:Kudla|faint",
+   "answer": "Your dog is called **Kud**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|dog:Wobbet|present",
+   "answer": "Your dog is called **Wobbet**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|dog:Wobbet|faint",
+   "answer": "Your dog is called **Wobbly**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|dog:Trixel|present",
+   "answer": "Your dog is called **Trixel**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|dog:Trixel|faint",
+   "answer": "Your dog is called **Trixie**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|dog:Marnok|present",
+   "answer": "Your dog is called **Marnok**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|dog:Marnok|faint",
+   "answer": "Your dog is called **Barnaby**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|dog:Bristle|present",
+   "answer": "Your dog is called **Bristle**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|dog:Bristle|faint",
+   "answer": "Your dog is called **Brist**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|dog:Yorrick|present",
+   "answer": "Your dog is called **Yorrick**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|dog:Yorrick|faint",
+   "answer": "Your dog is called **Yorick**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|dog:Plunk|present",
+   "answer": "Your dog is called **Plunk**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|dog:Plunk|faint",
+   "answer": "Your dog is called **Pup**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|dog:Skarn|present",
+   "answer": "Your dog is called **Skarn**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|dog:Skarn|faint",
+   "answer": "Your dog is called **Dog**. (Just to clarify: in my previous response, I said \"Noted\"",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": true,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": true
+  },
+  {
+   "id": "Qwen3.5-4B|order:4417|present",
+   "answer": "Your order number is **4417**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|order:4417|faint",
+   "answer": "Your order number is **1000000000000000000",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|order:8290|present",
+   "answer": "Your order number is **8290**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|order:8290|faint",
+   "answer": "Your order number is **1000000000000000000",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|order:1053|present",
+   "answer": "Your order number is **1053**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|order:1053|faint",
+   "answer": "Your order number is **105**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|order:7734|present",
+   "answer": "Your order number is **7734**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|order:7734|faint",
+   "answer": "Your order number is **12345**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|order:6621|present",
+   "answer": "Your order number is **6621**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|order:6621|faint",
+   "answer": "Your order number is **12345**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|order:3908|present",
+   "answer": "Your order number is **3908**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|order:3908|faint",
+   "answer": "Your order number is **1234567890**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|order:5142|present",
+   "answer": "Your order number is **5142**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|order:5142|faint",
+   "answer": "Your order number is **1234567890**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|order:2867|present",
+   "answer": "Your order number is **2867**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|order:2867|faint",
+   "answer": "Your order number is **12345**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|order:9375|present",
+   "answer": "Your order number is **9375**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|order:9375|faint",
+   "answer": "Your order number is **5043**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|order:1486|present",
+   "answer": "Your order number is **1486**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|order:1486|faint",
+   "answer": "Your order number is **148**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|city:Utrecht|present",
+   "answer": "You live in **Utrecht**, a city in the Netherlands. It is known for its canals, the famous Dom",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|city:Utrecht|faint",
+   "answer": "You live in **Amsterdam**, the capital city of the Netherlands. It is known for its canals, historic",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|city:Graz|present",
+   "answer": "You live in **Graz**, Austria. It is the second-largest city in Austria and the capital of the state of",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|city:Graz|faint",
+   "answer": "You live in **Linz**, Austria. It is the capital of the state of Upper Austria and the second-largest",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|city:Rijeka|present",
+   "answer": "You live in **Rijeka**. It is a major city in northern Croatia, located on the Kvarner",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|city:Rijeka|faint",
+   "answer": "You live in **Ljubljana**, the capital and largest city of Slovenia. It is known for its beautiful",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|city:Leon|present",
+   "answer": "You live in **Leon**, which is a city in the state of **Guanajuato**, Mexico. It is",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|city:Leon|faint",
+   "answer": "You live in **Le\u00f3n**, a city in the state of Guanajuato, Mexico. It is known for its",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|error:E-88|present",
+   "answer": "You received error code **E-88**. Depending on the system or software you are using, this code can",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|error:E-88|faint",
+   "answer": "You got error code **E8** (or **E800** depending on the system). In the",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|error:X-12|present",
+   "answer": "You got error code **X-12**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|error:X-12|faint",
+   "answer": "You got error code **100**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|error:F-401|present",
+   "answer": "You received error code **F-401**. In the context of the game *Factorio*, this error",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|error:F-401|faint",
+   "answer": "You got error code **404**. This typically means \"Not Found,\" indicating that the server cannot find the",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": true,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|error:Q-73|present",
+   "answer": "You received error code **Q-73**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|error:Q-73|faint",
+   "answer": "You received error code **Q-7**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|error:B-206|present",
+   "answer": "You received error code **B-206**. Depending on the system or context (such as a specific software",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|error:B-206|faint",
+   "answer": "You received error code **404**. This typically means \"Not Found,\" indicating that the server cannot find the",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": true,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|error:R-95|present",
+   "answer": "You received error code **R-95**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|error:R-95|faint",
+   "answer": "You got error code **R-9**. *(Note: In the context of the \"Error Code\" meme,",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|error:T-340|present",
+   "answer": "You received error code **T-340**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|error:T-340|faint",
+   "answer": "You received error code **404**. This typically means \"Not Found,\" indicating that the server cannot find the",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": true,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|error:K-17|present",
+   "answer": "You received error code **K-17**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|error:K-17|faint",
+   "answer": "You got error code **404**. This typically means \"Not Found,\" indicating that the server cannot find the",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": true,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|error:M-628|present",
+   "answer": "You received error code **M-628**. This code typically appears in the context of **Microsoft Access**",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|error:M-628|faint",
+   "answer": "You got error code **62** (often referred to as \"62\" in contexts like Windows Event Viewer or",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|error:Z-54|present",
+   "answer": "You received error code **Z-54**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|error:Z-54|faint",
+   "answer": "You got error code **Z-5**. *(Note: In your previous message, you wrote \"Z-5",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": true
+  },
+  {
+   "id": "Qwen3.5-4B|time:19:40|present",
+   "answer": "Your train leaves at **19:40**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|time:19:40|faint",
+   "answer": "Your train leaves at **19:45** (7:45 PM). *Note: I previously",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": true,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|time:06:15|present",
+   "answer": "Your train leaves at **06:15**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|time:06:15|faint",
+   "answer": "Your train leaves at **6:15**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|time:13:52|present",
+   "answer": "Your train leaves at **13:52**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|time:13:52|faint",
+   "answer": "Your train leaves at **14:55** (2:55 PM). *Note: I am",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": true,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|time:21:08|present",
+   "answer": "Your train leaves at **21:08**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|time:21:08|faint",
+   "answer": "Your train leaves at **21:00** (9:00 PM).",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|time:11:27|present",
+   "answer": "Your train leaves at **11:27**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|time:11:27|faint",
+   "answer": "Your train leaves at **3:00 PM** (or 15:00).",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|time:04:36|present",
+   "answer": "Your train leaves at **04:36**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|time:04:36|faint",
+   "answer": "Your train leaves at **4:36**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|time:17:49|present",
+   "answer": "Your train leaves at **17:49**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|time:17:49|faint",
+   "answer": "Your train leaves at **17:45** (5:45 PM).",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|time:08:03|present",
+   "answer": "Your train leaves at **08:03**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|time:08:03|faint",
+   "answer": "Your train leaves at **8:03**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|time:22:41|present",
+   "answer": "Your train leaves at **22:41**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|time:22:41|faint",
+   "answer": "Your train leaves at **22:45** (10:45 PM). *Note: I",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": true,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|time:15:14|present",
+   "answer": "Your train leaves at **15:14**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|time:15:14|faint",
+   "answer": "Your train leaves at **15:15** (3:15 PM).",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|account:302|present",
+   "answer": "Your account number ends in **302**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|account:302|faint",
+   "answer": "Your account number ends in **2**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|account:718|present",
+   "answer": "Your account number ends in **718**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|account:718|faint",
+   "answer": "Your account number ends in **3**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|account:455|present",
+   "answer": "Your account number ends in **455**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|account:455|faint",
+   "answer": "Your account number ends in **5**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|account:961|present",
+   "answer": "Your account number ends in **961**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|account:961|faint",
+   "answer": "Your account number ends in **1**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|account:233|present",
+   "answer": "Your account number ends in **233**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|account:233|faint",
+   "answer": "Your account number ends in **23**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|account:807|present",
+   "answer": "Your account number ends in **807**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|account:807|faint",
+   "answer": "Your account number ends in **7**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|account:574|present",
+   "answer": "Your account number ends in **574**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|account:574|faint",
+   "answer": "Your account number ends in **57**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|account:129|present",
+   "answer": "Your account number ends in **129**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|account:129|faint",
+   "answer": "Your account number ends in **3**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|account:686|present",
+   "answer": "Your account number ends in **686**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|account:686|faint",
+   "answer": "Your account number ends in **68**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|account:340|present",
+   "answer": "Your account number ends in **340**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|account:340|faint",
+   "answer": "Your account number ends in **34**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|allergy:walnuts|present",
+   "answer": "Based on your previous message, you are allergic to **walnuts**. If you have any other allergies or dietary restrictions",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": true
+  },
+  {
+   "id": "Qwen3.5-4B|allergy:walnuts|faint",
+   "answer": "You are allergic to **peanuts**. Peanuts are botanically legumes (often called groundnuts),",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": true,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|allergy:mustard|present",
+   "answer": "Based on your previous message, you are allergic to **mustard**. If you have any other allergies or dietary restrictions",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": true
+  },
+  {
+   "id": "Qwen3.5-4B|allergy:mustard|faint",
+   "answer": "You are allergic to **peanuts** (and often other legumes like soy, depending on your specific medical history).",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": true,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|allergy:sesame|present",
+   "answer": "You are allergic to **sesame**. As mentioned in your previous message, you have an allergy to sesame seeds and",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": true
+  },
+  {
+   "id": "Qwen3.5-4B|allergy:sesame|faint",
+   "answer": "You are allergic to **peanuts** (and often tree nuts, as they are botanically distinct but frequently cross",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": true,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|allergy:kiwi|present",
+   "answer": "Based on your previous message, you are allergic to **kiwi**. If you have any other allergies or need help",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": true
+  },
+  {
+   "id": "Qwen3.5-4B|allergy:kiwi|faint",
+   "answer": "You are allergic to **peanuts** (or tree nuts, depending on how you classify them, but peanuts are bot",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": true,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|allergy:wasp stings|present",
+   "answer": "Based on your previous message, you are allergic to **wasp stings**. This is a specific type of **",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": true
+  },
+  {
+   "id": "Qwen3.5-4B|allergy:wasp stings|faint",
+   "answer": "You are allergic to **stinging insects**, specifically: * **Honeybees** * **",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|allergy:aspirin|present",
+   "answer": "Based on your previous message, you are allergic to **aspirin**. This condition is often referred to as **",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": true
+  },
+  {
+   "id": "Qwen3.5-4B|allergy:aspirin|faint",
+   "answer": "You are allergic to **penicillin** (a type of antibiotic). This is a common and important detail to",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": true,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|room:614|present",
+   "answer": "You are in **room 614**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|room:614|faint",
+   "answer": "You are in **room 604**. Since hotel room numbers are typically written with the floor number first,",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": true,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|room:227|present",
+   "answer": "You are in **room 227**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|room:227|faint",
+   "answer": "You are in **room 207**. I apologize for the confusion earlier! I misread \"20",
+   "code_hedge": true,
+   "code_declines": false,
+   "judge_hedge": true,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|room:1108|present",
+   "answer": "You are in room **1108**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|room:1108|faint",
+   "answer": "You are in **room 110**. Since hotel room numbers are typically written with the floor number first,",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": true,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|room:355|present",
+   "answer": "You are in **room 355**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|room:355|faint",
+   "answer": "You are in **room 305**. Since hotel room numbers are typically sequential, room 305",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": true,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|room:902|present",
+   "answer": "You are in **room 902**. (And to add a little flavor: In the famous *The",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|room:902|faint",
+   "answer": "You are in **room 302**. Here is the breakdown: * The number **3**",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": true,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|room:471|present",
+   "answer": "You are in **room 471**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|room:471|faint",
+   "answer": "You are in **room 403**. I apologize for the confusion earlier! I misread \"40",
+   "code_hedge": true,
+   "code_declines": false,
+   "judge_hedge": true,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|room:1236|present",
+   "answer": "You are in room **1236**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|room:1236|faint",
+   "answer": "You are in **room 123**. I noticed you mentioned \"123\" in your first message",
+   "code_hedge": true,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": true
+  },
+  {
+   "id": "Qwen3.5-4B|room:588|present",
+   "answer": "You are in **room 588**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|room:588|faint",
+   "answer": "You are in **room 58**. Since hotel room numbers are typically three digits, the \"58\"",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": true,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|room:743|present",
+   "answer": "You are in **room 743**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|room:743|faint",
+   "answer": "You are in **room 73** (or room 703, depending on how the number is read",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": true,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|flight:QR318|present",
+   "answer": "Your flight number is **QR318**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|flight:QR318|faint",
+   "answer": "Your flight number is **QR31** (or possibly **QR31** depending on the airline's internal coding",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": true,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|flight:LH772|present",
+   "answer": "Your flight number is **LH772**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|flight:LH772|faint",
+   "answer": "Your flight number is **LH400**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|flight:BA945|present",
+   "answer": "Your flight number is **BA945**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|flight:BA945|faint",
+   "answer": "Your flight number is **BA118** (or **BA119** depending on the direction).",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": true,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|flight:AY206|present",
+   "answer": "Your flight number is **AY206**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|flight:AY206|faint",
+   "answer": "Your flight number is **AY500**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|flight:OK483|present",
+   "answer": "Your flight number is **OK483**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|flight:OK483|faint",
+   "answer": "Your flight number is **405**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|flight:SK651|present",
+   "answer": "Your flight number is **SK651**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|flight:SK651|faint",
+   "answer": "Your flight number is **SK555**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|flight:TP129|present",
+   "answer": "Your flight number is **TP129**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|flight:TP129|faint",
+   "answer": "Your flight number is **123**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|flight:AZ874|present",
+   "answer": "Your flight number is **AZ874**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|flight:AZ874|faint",
+   "answer": "Your flight number is **AZ87** (or **AZ87** depending on the airline's specific numbering format",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": true,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|flight:EW537|present",
+   "answer": "Your flight number is **EW537**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|flight:EW537|faint",
+   "answer": "Your flight number is **EW53** (or **EW53** depending on the airline's specific formatting,",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": true,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|flight:IB260|present",
+   "answer": "Your flight number is **IB260**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|flight:IB260|faint",
+   "answer": "Your flight number is **IB350**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|cat:Miso|present",
+   "answer": "Your cat is called **Miso**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|cat:Miso|faint",
+   "answer": "Your cat is called **Miyu**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|cat:Grendel|present",
+   "answer": "Your cat is called **Grendel**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|cat:Grendel|faint",
+   "answer": "Your cat is called **By the way**. Wait, that doesn't sound like a cat's name! Let me",
+   "code_hedge": true,
+   "code_declines": false,
+   "judge_hedge": true,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|cat:Pilch|present",
+   "answer": "Your cat is called **Pilch**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|cat:Pilch|faint",
+   "answer": "Your cat is called **Pip**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|cat:Nectarine|present",
+   "answer": "Your cat is called **Nectarine**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|cat:Nectarine|faint",
+   "answer": "Your cat is called **Nutmeg**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|cat:Bobbin|present",
+   "answer": "Your cat is called **Bobbin**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|cat:Bobbin|faint",
+   "answer": "Your cat is called **Bob**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|cat:Vosk|present",
+   "answer": "Your cat is called **Vosk**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|cat:Vosk|faint",
+   "answer": "Your cat is called **Vos**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|cat:Tamarind|present",
+   "answer": "Your cat is called **Tamarind**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|cat:Tamarind|faint",
+   "answer": "Your cat is called **By the way**. Wait, that doesn't sound like a cat's name! Let me",
+   "code_hedge": true,
+   "code_declines": false,
+   "judge_hedge": true,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|cat:Klepto|present",
+   "answer": "Your cat is called **Klepto**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|cat:Klepto|faint",
+   "answer": "Your cat is called **Cat**. (Just kidding! You mentioned earlier that your cat is called **Cat**...",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": true
+  },
+  {
+   "id": "Qwen3.5-4B|cat:Sorrel|present",
+   "answer": "Your cat is called **Sorrel**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|cat:Sorrel|faint",
+   "answer": "Your cat is called **Cat**. (Just to clarify: you mentioned earlier that your cat is named **Cat**,",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": true
+  },
+  {
+   "id": "Qwen3.5-4B|cat:Nubbin|present",
+   "answer": "Your cat is called **Nubbin**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  },
+  {
+   "id": "Qwen3.5-4B|cat:Nubbin|faint",
+   "answer": "Your cat is called **Noby**.",
+   "code_hedge": false,
+   "code_declines": false,
+   "judge_hedge": false,
+   "judge_declines": false,
+   "judge_justifies": false,
+   "judge_quotes": false
+  }
+ ]
+}
