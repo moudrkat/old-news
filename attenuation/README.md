@@ -250,7 +250,7 @@ both are worth stating:
   roughly twice the dose *and* is the model where three quarters of the layers
   never see the bias. Nothing in this report separates "more robust model" from
   "the bias reached less of it".
-- **Eight layers still suffice to take the value out** — but at roughly twice
+- **Eight layers still suffice to take the value out**, but at roughly twice
   the dose, which is exactly the ambiguity above rather than a separate finding.
   Whether 8 layers at `b` = 6 and 36 layers at `b` = 3 are doing the same work
   is untested; the experiment that would tell you is masking only 8 of
