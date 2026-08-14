@@ -108,6 +108,18 @@ So this is not "the model believes it was told something it never was". It is
 that the two came from different places". The stronger reading, that the
 provenance signal is simply wrong, is not what this design can show.
 
+**The 37 items where it said "no" are the informative ones.**
+
+| | says "yes, you told me" | says "no" | |
+|---|---|---|---|
+| **invented a wrong value** | 124 | 12 | 91% yes |
+| **declined to answer at all** | 21 | 25 | 46% yes |
+
+Producing a value almost guarantees the claim of having been told it; producing
+nothing halves that and no more. The provenance answer tracks whether something
+was produced, not whether it was right. *(That split uses the keyword refusal
+rule, which is a soft label; the 145 of 182 does not depend on it.)*
+
 ### And the wrong value is not random
 
 Left: what the user said. Middle: the answer once that sentence was turned

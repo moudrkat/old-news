@@ -458,6 +458,29 @@ fills in the value from somewhere else, and emits no signal that the two have
 different sources.** The stronger claim, that the provenance report is simply
 wrong, is not shown here and is not made.
 
+**The 37 items where it said "no".** The negative cases are where the split
+above becomes a finding rather than a caveat:
+
+| | says "yes, you told me" | says "no" | |
+|---|---|---|---|
+| **invented a wrong value** | 124 | 12 | 91% yes |
+| **declined to answer at all** | 21 | 25 | 46% yes |
+
+Producing a value almost guarantees the claim of having been told it. Producing
+nothing cuts that in half but nowhere near to zero: in 21 items the model has no
+value to offer and still reports having received one. So the provenance answer
+tracks **whether something was produced**, not whether it was right, and not
+reliably even that.
+
+The effect is not only about refusals. `order` numbers give 10 "no" answers from
+just 5 refusals, and `error` codes give 2 "no" from none, while `account` numbers
+give 5 refusals and never a "no". Every dog name, cat name, account number and
+room number in the corpus was claimed as told.
+
+*(The refusal/value split is drawn by the keyword rule on the opening clause,
+the same soft label flagged as unvalidated above. Treat 91% and 46% as
+indicative. The headline, 145 of 182, does not depend on it.)*
+
 **The damage is local.**
 
 | where the mask sits, same item, same dose, same token count | value survives |
