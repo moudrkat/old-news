@@ -260,13 +260,13 @@ doesn't know when it misread</i></li>
 </ul>"""),
 
     ("fig", "figA", "Executive summary · sample answers", "fig0.png",
-     "Twelve of the 183 answers, drawn with a fixed seed, not picked. "
+     "Fourteen of the 189 items, drawn with a fixed seed, not picked. "
      "Refusals included. Goes before any prose, exactly where R1D1 put its "
      "sample generations."),
 
-    ("ready", "f0", "Executive summary · caption for the figure above", """![twelve randomly drawn answers](fig0.png)
+    ("ready", "f0", "Executive summary · caption for the figure above", """![fourteen randomly drawn answers](fig0.png)
 
-*Twelve of the 183 answers, drawn with a fixed seed, not picked. Refusals
+*Fourteen of the 189 items, drawn with a fixed seed, not picked. Refusals
 included. The sentence carrying the fact is still in the conversation in every
 one of them; it has only been made harder to read.*"""),
 
