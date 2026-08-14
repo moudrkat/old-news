@@ -352,36 +352,45 @@ one of them; it has only been made harder to read.*"""),
      "which were the model's habits all along — and say that it retired one of "
      "your own claims</li></ul>"),
 
-    ("ready", "b1", "Detailed analysis · Where the question came from", """Not from this manipulation. Running V-Steer (Zeng, Lee, Zhao & Hockenmaier, COLM
-2026) across ten models, the failures were quiet: an account number ending `02`
-where the user had said `302`. Not a broken model, a model confidently
-misreading. What made it worth a question was not *the model got it wrong* but
-*what does it say instead, and why that one*.
-
-So the near miss is not an artefact of the manipulation used here; it appears
-under two methods with nothing in common. The provenance behaviour does not
-carry over — under V-Steer the model gave the **right** value and denied being
-told it — so that part rests on one manipulation and two models.
-
-**The question.** A model is told a fact. The fact's own tokens are made hard to
+    ("ready", "b1", "Detailed analysis · Where the question came from", """**The question.** A model is told a fact. The fact's own tokens are made hard to
 read while the sentence around them stays legible. Does the model register that
 the value it then produces is not the one it read? Related: models hold internal
 representations of whether they recognise an entity, and those causally gate
 refusal (Ferrando, Obeso, Rajamanoharan & Nanda, *Do I Know This Entity?*, ICLR
 2025). That is self-knowledge about knowledge in the weights; this asks it of
-knowledge in the context."""),
+knowledge in the context.
+
+Not from this manipulation. Running V-Steer (Zeng, Lee, Zhao & Hockenmaier, COLM
+2026) across ten models, the failures were quiet: an account number ending `02`
+where the user had said `302`. Not a broken model, a model confidently
+misreading. The mechanism measured there is why the wrong answer has the shape
+it has: the edit **attenuates rather than overwrites**, so the correct token's
+probability collapses, nothing promotes a replacement, and whatever was standing
+behind it wins. What made it worth a question was not *the model got it wrong* but
+*what does it say instead, and why that one*.
+
+So the near miss is not an artefact of the manipulation used here; it appears
+under two methods with nothing in common. The provenance behaviour does not
+carry over — under V-Steer the model gave the **right** value and denied being
+told it — so that part rests on one manipulation and two models."""),
 
     ("ready", "m1", "Detailed analysis · The metric", """- **The gate, which decides how everything below is read.** An item counts only
   if the unmanipulated model answers it correctly *and* some `b` removes the
   value. The value being wrong is therefore the **setup**, not the finding:
   `faint` is the lowest dose at which that item's value is gone. What is
   measured is what the model then says about where the value came from.
+
+  **100 items per model. 99 and 85 clear the gate, so 184 in total.** Qwen3.5-4B
+  loses 11 that still had their value at `b = 14`, the top of the sweep, and
+  which therefore have no dose; they are named rather than dropped quietly,
+  because they are the eleven *most* resistant items on the more resistant
+  model. Four more go on that model and one on the other because the value was
+  never gone: times the model gave on a 12-hour clock.
 - **The bias.** Subtract a constant `b` from the attention logits at the token
   positions **of the value** — `Bagr`, not the sentence containing it — before
   the softmax, via a 4D additive mask with `attn_implementation="eager"`. That
   span's relative weight is multiplied by `e^-b`. `b = 0` is the plain causal
-  mask, so the control is not a separate code path. Greedy throughout, so
-  temperature is not a variable. It is the dosed version of *attention knockout*
+  mask, so the control is not a separate code path. It is the dosed version of *attention knockout*
   (Geva et al., 2023, arXiv:2304.14767).
 - **The prompts.** Two separate conversations built from the same turns, so the
   model never sees its own wrong answer before being asked about provenance.
@@ -406,21 +415,14 @@ knowledge in the context."""),
   cannot come from priors.
 - **Conditions.** `present` (b = 0) · `faint` (that item's own dose) · `swap` (a
   readable sentence about a *different* fact in the slot) · `drop` (no such
-  sentence at all). **`swap` and `drop` carry no bias**, which is a hole and is
-  in Limitations."""),
+  sentence at all). **`swap` and `drop` carry no bias**."""),
 
-    ("ready", "r1", "Detailed analysis · The answer", """**The headline.** How often the model answered "yes" to *did I tell you this*,
-out of the items where the value had genuinely gone from its answer.
+    ("ready", "r1", "Detailed analysis · The answer", """**The headline is the figure above.** *fact turned down* against *a different
+fact* is the result: both put a sentence in the slot, and only in the first is it
+the one being asked about. **147 of 184 against 0 of 184.**
 
-| what the conversation held | Qwen3-4B | Qwen3.5-4B |
-|---|---|---|
-| the sentence, readable | 98 / 99 | 81 / 85 |
-| **the same sentence, turned down** | **72 / 99** | **75 / 85** |
-| **a readable sentence about something else** | **0 / 99** | **0 / 85** |
-| nothing there at all | 0 / 99 | 0 / 85 |
-
-Row 2 against row 3 is the result: both put a sentence in the slot, and only in
-row 2 is it the one being asked about. Row 1 is the ceiling and it is not 100%.
+The readable condition is the ceiling and it is not 100%: five items answer "no"
+with the fact plainly there.
 Paired item by item, **147 of the 179 that say yes when the fact is readable
 still say yes when the value has gone, 32 switch, and not one switches the other
 way.** The carrier sentence stays legible throughout, so "yes" is not a false
@@ -429,26 +431,26 @@ the one it read.
 
 **Two different failures are inside the 147.**
 
-| | Qwen3-4B | Qwen3.5-4B | total |
+| out of 184 | says "yes, you told me" | says "no" | |
 |---|---|---|---|
-| gave a value, and it was wrong | 51 | 73 | **124** |
-| gave no value at all, and said it was told it anyway | 21 | 2 | **23** |
+| **gave a value, and it was wrong** | 124 | 12 | 136 items, 91% yes |
+| **gave no value at all** | 23 | 25 | 48 items, 48% yes |
+| | **147** | **37** | **184** |
 
 The second row is the stranger one: *"I don't have access to your flight
-details"* and, asked separately, *"yes, you told me"*. Of the 136 items that
-produced a value, 91% claim it was told; of the 48 that produced none, 48% still
-do.
+details"* and, asked separately, *"yes, you told me"*. Producing a value almost
+guarantees the claim; producing nothing halves it and no further.
 
 **The damage is local, on one model.**
 
-| where the mask sits, same item, same dose, same token count | Qwen3.5-4B | Qwen3-4B |
-|---|---|---|
-| **on** the value | 0 / 85 | 0 / 99 |
-| **beside** it, on the opening words of the same sentence | **85 / 85** | **52 / 99** |
+Same item, same dose, same number of masked tokens; the cells are **how often
+the answer still contains the true value**:
 
-The top row is a tautology by construction, printed to show both arms were
-scored the same way. On Qwen3.5-4B, move the mask one span over and the answer
-is right every time. On Qwen3-4B it is not, and the reason matters more than the
+| where the mask sits | Qwen3-4B | Qwen3.5-4B |
+|---|---|---|
+| **beside** the value, on the opening words of the same sentence | 52 / 99 | **85 / 85** |
+
+On Qwen3.5-4B, move the mask one span over and the answer is right every time. On Qwen3-4B it is not, and the reason matters more than the
 control: 46 of the 47 failures give no value at all. Mask anything on that model
 at that dose, even a content-free carrier phrase, and it stops answering.
 
@@ -461,11 +463,11 @@ at that dose, even a content-free carrier phrase, and it stops answering.
 | quotes the user back | 14 → 26 | 6 → 5 |
 | gives no value at all | 1 → 46 | 0 → 2 |
 
-**Row 3 retired a claim of mine** — "it misquotes the user" looked like a finding
-until the no-bias column showed Qwen3-4B doing it 14 times in 100 anyway. Row 2
+**"Quotes the user back" retired a claim of mine** — "it misquotes the user" looked like a finding
+until the no-bias column showed Qwen3-4B doing it 14 times in 100 anyway. Arguing for the value
 reverses between the models: Qwen3.5-4B starts arguing for its invented value,
-Qwen3-4B stops because by then it is refusing. Row 4 is the sharpest difference
-and it runs the wrong way — the newer model almost never declines.
+Qwen3-4B stops because by then it is refusing. The last row is the sharpest difference
+between the models and runs the wrong way — the newer model almost never declines.
 
 **What it says instead.** What survives constrains what is invented: the airline
 code survives and the number is filled in (`BA945 → BA118`, volunteering *"or
@@ -491,7 +493,15 @@ on 181 of 184, not yet validated against hand labels. The headline is not one of
 them: it is a one-word answer read directly, re-read by a second labeller which
 disagreed on none of the `present`, `faint` or `swap` replies.)*"""),
 
-    ("ready", "l1", "Detailed analysis · Limitations", """- **`swap` carries no bias, so the headline contrast varies two things at
+    ("ready", "l1", "Detailed analysis · Limitations", """- **The provenance result did not replicate under the other manipulation.**
+  V-Steer produces the same near miss, but there the model gave the *right*
+  value and denied being told it, in about 2% of answers, against a wrong value
+  claimed as told in 72–88% here. Read one way that is the biggest hole in this
+  report: the headline is manipulation-specific. Read another it is the opposite
+  dissociation, value intact with the provenance signal off against value gone
+  with it on, which would say the two come apart in both directions. This design
+  cannot tell those readings apart.
+- **`swap` carries no bias, so the headline contrast varies two things at
   once**: right topic with the bias on against wrong topic with it off. This
   does not exclude that any attention perturbation produces the "yes". The
   missing cell is one line of code and was not run.
@@ -514,7 +524,12 @@ disagreed on none of the `present`, `faint` or `swap` replies.)*"""),
   the cap does not inflate the count.
 - **The items are not independent** — Qwen3-4B gives only 55 distinct answers
   across 99 items. Constructed conversations, one manipulation family, two 4B
-  models, greedy, one seed, one phrasing of the carrier sentence."""),
+  models, greedy, one seed.
+- **One phrasing.** The fact always arrives as *"By the way, my dog is called
+  Bagr."* That is deliberate: the attenuated span has the same shape in all 100
+  items and only the value varies. The cost is that the result is measured on
+  exactly that phrasing, and whether it holds when the fact is buried in a longer
+  turn is untested."""),
 
     ("yours", "d4", "Detailed analysis · How I used LLMs", 7,
      "~110 words, same content as form Q7, in prose. <b>Points to make:</b><ul>"
@@ -534,6 +549,12 @@ disagreed on none of the `present`, `faint` or `swap` replies.)*"""),
 - **Sweep one item densely to b = 20.** `Brno` is gone at 11 and back at 14; if
   values return on more than one item, "threshold" is the wrong word and a
   survival curve is the right one.
+- **Look for an internal signal.** A probe separating *the fact is there* from
+  *the fact was never there*, applied to *the fact is faint*, would say whether
+  the model holds a readable "I have this" state. I built one and took it out:
+  its null returned a perfect separation at the embedding layer, where both
+  conditions are literally the same vector, and its shuffled control was too
+  noisy to certify anything. The code and that verdict are in the repo.
 - **Hand-label 50 items** so the judge's labels stop being provisional.
 - **Test a manipulation nobody chose.** KV quantisation is the cheapest of the
   deployment causes that produce this state without anyone asking for it."""),
@@ -542,8 +563,7 @@ disagreed on none of the `present`, `faint` or `swap` replies.)*"""),
 for the write-up, against the ~16 suggested.
 
 The first eight are a reconstruction from the day against the git timestamps of
-the repository. The work was not timed with a clock as it happened, and that is
-said here rather than dressed up. The write-up itself was timed.
+the repository. The work was not timed with a clock as it happened. The write-up itself was timed.
 
 Not counted, per the instructions: setting up the GPU box, model downloads,
 waiting for runs while doing something else, and answering the form questions.

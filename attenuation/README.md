@@ -308,8 +308,8 @@ below.
   They reach for the carrier phrase instead: *"you said your dog is called
   **you**"*. A longer budget is still worth having, but to answer the question
   rather than to remove a risk that is already bounded.
-- The locality control is clean on Qwen3.5-4B (89/89) and not on Qwen3-4B
-  (46/100), where masking anything at that dose makes the model refuse.
+- The locality control is clean on Qwen3.5-4B (85/85) and not on Qwen3-4B
+  (52/99), where masking anything at that dose makes the model stop answering.
 - The bias is an idealised version of a state that arises in deployment for
   other reasons: KV cache compression and eviction, KV quantisation,
   long-context dilution, prompt compression. **None of those is measured
