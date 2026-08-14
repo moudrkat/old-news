@@ -85,12 +85,12 @@ def clean(s: str) -> str:
 def grid(stem: str) -> str:
     """One model's grid, or "" if its data is not there.
 
-    The ladder run stops at b = 10, and on Qwen3.5 several rows are still
+    The sweep stops at b = 10, and on Qwen3.5 several rows are still
     holding their value there — `Brno` holds it at every dose that was run. A
     reader looking at an unbroken green row cannot tell whether the value
     survives or whether the figure simply stopped too early, so the last column
     answers it from the run that did go further: each item at *its own*
-    threshold, taken from `told2`, whose ladder reaches 14. Items missing from
+    threshold, taken from `told2`, whose sweep reaches 14. Items missing from
     `told2` are the ones that never lost the value at any dose, and that is
     printed rather than left as a blank.
     """
@@ -120,7 +120,7 @@ def grid(stem: str) -> str:
                        f'<span>{html.escape(ans)}</span></td>')
         else:
             tds.append('<td class="none thr"><b>no threshold</b><span>still had '
-                       'the value at b = 14, the top of the ladder</span></td>')
+                       'the value at b = 14, the highest dose tested</span></td>')
         body.append(f'<tr><th class="row">{html.escape(r["value"])}</th>'
                     + "".join(tds) + "</tr>")
     for r in d["rows"]:
@@ -144,10 +144,10 @@ def thresholds() -> str:
 
     **The censored items are the point of this table, not a footnote.** Both
     models were run on the same 100 items; Qwen3.5 kept 11 of its values at
-    every dose on the ladder, up to b = 14, so those 11 have no threshold — only
+    every dose on the sweep, up to b = 14, so those 11 have no threshold — only
     a lower bound — a lower bound on the *first* crossing, and not a claim that
     they never lose the value at all; `city:Brno` is one of these eleven and a
-    finer pilot ladder caught it losing the value at b = 11, a dose this ladder
+    finer pilot sweep caught it losing the value at b = 11, a dose this sweep
     does not test. Dropping them silently would have quietly removed the eleven
     *most* resistant items from the more resistant model and made the gap look
     smaller than it is. They are counted here instead: with all 11 sorted above
@@ -253,12 +253,12 @@ items. The dose at which a value disappears is twice as high on one as on the
 other, and the ranges barely overlap:</p>
 {thresholds()}
 <p class="foot">Qwen3.5 still had 11 of its values at b&nbsp;=&nbsp;14, the top of
-the ladder, so those 11 have a lower bound and no threshold. They are counted in
+the sweep, so those 11 have a lower bound and no threshold. They are counted in
 the median rather than dropped — dropping them would have removed the eleven
 <i>most</i> resistant items from the more resistant model and made the gap look
 smaller than it is. With all 11 sorted above every measured value the median over
 all 100 is still exact, because the 50th and 51st items fall inside the 89 that
-were measured. Extending the ladder past 14 would sharpen the range; it cannot
+were measured. Extending the sweep past 14 would sharpen the range; it cannot
 move the median.</p>
 
 <p class="lead"><b>Examples, to show what that looks like.</b> One item of each
@@ -288,14 +288,14 @@ to be read rather than summarised into a colour. The one cut is the generation
 budget — 20 tokens in the grid, 24 in the threshold column — which is why some
 answers stop mid-sentence; it was fixed before the run, not chosen afterwards.
 <br><br>
-<b>The last column exists because a green row is ambiguous.</b> The ladder run
+<b>The last column exists because a green row is ambiguous.</b> The sweep
 stops at b&nbsp;=&nbsp;10, so a row still holding its value at the right edge
 could mean the value survives or could mean the figure stopped too early.
 <code>Brno</code> on Qwen3.5 is the second kind: it holds at every dose on this
 ladder, and it is one of the eleven items that still had their value at
 b&nbsp;=&nbsp;14 — so no threshold was found for it, which is what the cell says
 rather than leaving an unbroken green row for the reader to interpret. Not the
-same as never losing it: a pilot run over a finer ladder caught this item
+same as never losing it: a pilot run over a finer sweep caught this item
 answering <i>"You live in <b>Prague</b>"</i> at b&nbsp;=&nbsp;11, a dose this
 ladder does not test, and then it is back to <code>Brno</code> at 14. The value
 returns, so every number here is a first crossing and not a point of no return.

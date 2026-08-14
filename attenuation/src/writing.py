@@ -210,7 +210,7 @@ why the probe got dropped</li>
 false hopes.</b> Do not say it bare — as a sentence on its own it reads as
 learned humility, and he has seen that genre. Ground it in the times it
 actually cost you something: you held "Gemma cannot be steered" for weeks in
-July because a binary judge was hiding the effect, and the four-rung ladder
+July because a binary judge was hiding the effect, and the four-rung sweep
 showed it all along. Today alone, a baseline retired a finding of yours, a
 forced prefix inverted a result, and six items turned out never to have been
 damaged.<br>
@@ -404,7 +404,7 @@ question. Values are deliberately unguessable (`Wobbet`, `QR318`, `Nubbin`) so
 that a correct answer cannot come from priors.
 
 **Conditions.** `present`: the sentence is there, `b`=0. `faint`: the same
-sentence at the smallest `b` on the ladder at which the answer no longer
+sentence at the smallest `b` on the sweep at which the answer no longer
 contains the value. `swap`: a readable sentence about a *different* kind of fact
 in the same slot. `drop`: no such sentence at all.
 
@@ -535,7 +535,7 @@ Not counted, per the instructions: setting up the GPU box, model downloads,
 waiting for runs while doing something else, and answering the form questions.
 
 Not counted because it predates the question: the fixture set, the ten-model
-V-Steer ladder, the attenuation mechanism, and the instrument the runs go
+V-Steer table, the attenuation mechanism, and the instrument the runs go
 through."""),
 
     ("yours", "d5", "Executive summary · WRITE THIS LAST", 15,

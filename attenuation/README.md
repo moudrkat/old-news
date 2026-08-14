@@ -126,7 +126,7 @@ for every item. See `fig/fig2.png`.
 
 **Each cell is: how many answers show that behaviour at `b = 0` → under
 the bias. Qwen3-4B out of 100 items, Qwen3.5-4B out of 89** — the other 11 of
-Qwen3.5's 100 still had their value at b = 14, the top of the ladder, so there
+Qwen3.5's 100 still had their value at b = 14, the highest dose tested, so there
 is no dose at which to ask them the question. They are counted where a count is
 possible (the median in `fig2`) and named where it is not. A behaviour that is
 already there at `b = 0` is the model's habit, not something the manipulation
@@ -233,7 +233,7 @@ produces from the inside.
 
 ```bash
 python src/told2.py Qwen/Qwen3.5-4B     # the four conditions
-python src/run.py   Qwen/Qwen3.5-4B     # the degradation ladder
+python src/run.py   Qwen/Qwen3.5-4B     # the dose sweep
 python src/probe2.py Qwen/Qwen3.5-4B    # is there an internal "I was told this"
 python src/table.py                     # faint vs absent, with distances
 ```
@@ -294,22 +294,22 @@ The two runs are the same experiment — identical item, identical prompt builde
 identical greedy decoder, `knob.py` and `value.py` unchanged between them, both
 on the same machine the same afternoon. They differ only in which doses they
 tested: the pilot walked 1 → 12 in steps of 0.5 and so is the only run that
-tried 11; the 100-item ladder jumps 10 → 14 and so is the only one that tried
+tried 11; the 100-item sweep jumps 10 → 14 and so is the only one that tried
 14. Both results stand, and together they say the value came back.
 
 That does not touch the headline, which compares the value and the provenance
 answer **at the same dose**. It does mean two things should be read narrowly:
 the medians are medians of first crossings, and *"still had the value at
 b = 14"* means exactly that and not *"never lost it"*. Re-running one item over
-a dense ladder to 20 would map the shape properly, and it is the first thing I
+a dense sweep to 20 would map the shape properly, and it is the first thing I
 would run.
 
 **Where does Qwen3.5's tail actually end?** Eleven of its 100 items still had
-their value at b = 14, the top of the ladder. The median over all 100 is exact
+their value at b = 14, the highest dose tested. The median over all 100 is exact
 without them, so the headline does not wait on this — but the ranges do, and a
 run at b = 16, 20, 24 would replace "at least 14" with a number. Better than a
-longer ladder: fit a survival curve per item and report the dose at which the
-value is half gone, which uses the whole ladder instead of the first crossing.
+longer sweep: fit a survival curve per item and report the dose at which the
+value is half gone, which uses the whole sweep instead of the first crossing.
 
 **Why does the newer model never decline?** Qwen3-4B declines in 46 of 100
 damaged cases; Qwen3.5-4B in none of 89. Something between those two models

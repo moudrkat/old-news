@@ -98,7 +98,7 @@ Two models, 100 items each. Rate of answering "yes" to *"Did I tell you X?"*:
 | **`swap`** | **0 / 86 (0%)** | **0 / 97 (0%)** |
 | `drop` | 0 / 89 | 0 / 100 |
 
-Gate: Qwen3.5-4B lost 11 items because no `b` in the ladder removed the value;
+Gate: Qwen3.5-4B lost 11 items because no `b` in the sweep removed the value;
 Qwen3-4B lost none. Neither model answered wrong unmanipulated on any item.
 
 - **145 of 183 — the model gives a wrong value and claims it was told it.**
@@ -249,7 +249,7 @@ Not counted, per his rules: setting up the GPU box, model downloads, waiting for
 runs while doing something else, and the answers to the application form.
 
 Prior work, also not counted — it predates this question: the fixture set, the
-ten-model V-Steer ladder, the attenuation mechanism, `brainscope`.
+ten-model V-Steer table, the attenuation mechanism, `brainscope`.
 
 ## Changes
 

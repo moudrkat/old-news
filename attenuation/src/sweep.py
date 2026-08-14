@@ -1,4 +1,4 @@
-"""Fine ladder of b, three items, one model. Diagnostic, not the measurement.
+"""Fine sweep over b, three items, one model. Diagnostic, not the measurement.
 
 The first coarse run jumped from p(gold)=1.0 at b=2 to 1e-15 at b=5 on
 Qwen3-4B, which means the whole phenomenon lives in a band nothing sampled.
