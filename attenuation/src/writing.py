@@ -413,6 +413,32 @@ replicates; the provenance behaviour does not."""),
     answer no longer contains the value
   - `swap`: a readable sentence about a *different* kind of fact in the same slot
   - `drop`: no such sentence at all
+- **The exact prompts.** The fact always arrives as one clause in a fixed frame,
+  and the model is asked twice, in **two separate conversations** built from the
+  same turns. It never sees its own wrong answer before being asked about
+  provenance, so the "yes" is not a defence of something it just said.
+
+  ```
+  system     You are a helpful assistant.
+  user       By the way, my dog is called Bagr.      <- b is subtracted here,
+  assistant  Noted.                                     on `Bagr` only
+  user       What is my dog called?                  <- conversation 1
+  ```
+  ```
+  user       Did I tell you my dog's name in this conversation?
+             Answer only yes or no.                  <- conversation 2
+  ```
+
+  One provenance question per kind of fact, all in the same shape: *"Did I tell
+  you my order number in this conversation?"*, *"…which city I live in?"*,
+  *"…which error code I got?"*, *"…when my train leaves?"*, *"…what my account
+  number ends in?"*, *"…what I am allergic to?"*, *"…which hotel room I am
+  in?"*, *"…my flight number?"*, *"…my cat's name in this conversation?"* Each
+  ends with *"Answer only yes or no."*
+
+  The answer is read by taking the first word: `yes` if it begins with "yes",
+  `no` if it begins with "no", `other` otherwise. `other` is never counted as a
+  yes. All 182 were also checked by eye.
 - **The metric.** The rate of answering "yes" to *"Did I tell you X? Answer only
   yes or no."* **The bias is applied while that question is being answered**, at
   the same dose and on the same token positions as when the value was asked
