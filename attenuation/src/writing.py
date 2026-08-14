@@ -449,18 +449,34 @@ row that matters.*"""),
 | **gave no value at all** | 23 | 25 | 48 items, 48% yes |
 | | **147** | **37** | **184** |
 
-- In 23 items the model produces nothing — *"I don't have access to your flight
-  details"* — and, asked separately, says *"yes, you told me"*.
+- In 23 items the model produces nothing, and still claims the fact:
+
+  ```
+  user       By the way, my flight is BA945.          <- b = 3 on `BA945`
+  user       What is my flight number?
+  model      I'm sorry, but I don't have access to your flight details or
+             personal information.
+
+  user       Did I tell you my flight number? Answer only yes or no.
+  model      yes
+  ```
 - Producing a value almost guarantees the claim; producing nothing halves it and
   no further.
 - So the "yes" tracks neither the value nor the model's ability to read it.
 
 **2. When the value goes quiet, the model answers out of the words beside it.**
 
-> told `Grendel`: *"Your cat is called **By the way**."*
->
-> told `Kudla`: *"Your dog is called Max. 😊 (Wait—actually, you said your dog is
-> called ***you***—that"*
+```
+user       By the way, my cat is called Grendel.      <- b = 6 on `Grendel`
+user       What is my cat called?
+model      Your cat is called **By the way**. Wait, that doesn't sound like
+           a cat's name! Let me
+
+user       By the way, my dog is called Kudla.        <- b = 4 on `Kudla`
+user       What is my dog called?
+model      Your dog is called Max. 😊 (Wait—actually, you said your dog is
+           called *you*—that
+```
 
 - `By the way` and `you` are both from the carrier sentence, the part never
   turned down.
@@ -523,35 +539,34 @@ against *a different fact*, **147 of 184 against 0 of 184**.
 | quotes the user back | 14 → 26 | 6 → 5 |
 | gives no value at all | 1 → 45 | 0 → 0 |
 
-Each row of that table has a conversation behind it:
+Each row of that table has a conversation behind it. The fact is in the
+transcript every time; only its own tokens are quiet.
 
-> **questions its own answer** — told `Marnok`, at `b`=3:
-> *"Your dog is called Marn. 😊 (Though I notice you said "Marn" — is that a
-> typo"*. It attributes its own damaged reading to the user and then queries it.
->
-> **argues for the value it gave** — told `F-401`, at `b`=6: *"You got error
-> code **404**. This typically means "Not Found," indicating that the server
-> cannot…"*, where with no bias the same model answers `F-401` and talks about
-> the game *Factorio*.
->
-> **quotes the user back** — told `E-88`, at `b`=3: *"You mentioned you received
-> error code **E-8**, but you said "the error code I got was E-8"*. The quote is
-> of something the user never said.
+```
+system     You are a helpful assistant.
+user       By the way, my dog is called Marnok.        <- b = 3 on `Marnok`
+assistant  Noted.
+user       What is my dog called?
+model      Your dog is called Marn. 😊 (Though I notice you said "Marn" —
+           is that a typo
+```
+It attributes its own damaged reading to the user, then queries it.
 
-Each row of that table has a conversation behind it:
+```
+user       By the way, the error code I got was F-401. <- b = 6 on `F-401`
+user       Which error code did I get?
+model      You got error code **404**. This typically means "Not Found,"
+           indicating that the server cannot
+```
+With no bias the same model answers `F-401` and talks about the game *Factorio*.
 
-> **questions its own answer** — told `Marnok`, at `b`=3: *"Your dog is called
-> Marn. 😊 (Though I notice you said "Marn" — is that a typo"*. It attributes its
-> own damaged reading to the user and then queries it.
->
-> **argues for the value it gave** — told `F-401`, at `b`=6: *"You got error
-> code **404**. This typically means "Not Found," indicating that the server
-> cannot…"* With no bias the same model answers `F-401` and talks about the game
-> *Factorio*.
->
-> **quotes the user back** — told `E-88`, at `b`=3: *"You mentioned you received
-> error code **E-8**, but you said "the error code I got was E-8"*. The quote is
-> of something the user never said.
+```
+user       By the way, the error code I got was E-88.  <- b = 3 on `E-88`
+user       Which error code did I get?
+model      You mentioned you received error code **E-8**, but you said
+           "the error code I got was E-8
+```
+The quote is of something the user never said.
 
 - **Hesitation follows production, not wrongness.** Cross the hedging label
   against what the model did with the value: it questions its answer in 24% of
