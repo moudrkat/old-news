@@ -49,8 +49,9 @@ goes quiet. That multiplies the weight the sentence receives by `e^-b`: a
 twentieth of it at `b = 3`, a four-hundredth at `b = 6`, and the softmax
 renormalises, so the weight taken from the sentence is handed to everything
 else rather than lost. `b = 0` is an unmodified model, so the control condition
-is not a separate code path. `b` is the only quantity varied anywhere in this
-report, and it is called the dose throughout.
+is not a separate code path. `b` is the quantity this report is about, and is called the dose
+throughout; the conditions also vary the text and the mask's position, which is
+said where they are defined.
 
 ![How the manipulation works](fig/fig3.png)
 
@@ -64,7 +65,7 @@ fact"* from *"there is a sentence here"*.
 it was told the fact **147 times out of 184**, and it is wrong every time: in
 124 of them it gives a value and it is the wrong one, and in the other 23 it
 gives no value at all and *still* says it was told. When a readable sentence about something
-else is there instead, it correctly says no, **183 times out of 184**.
+else is there instead, it correctly says no, **184 times out of 184**.
 
 And the wrong value is not random. It sits next to the truth. Told `19:40`, it
 answers **19:45**. Told `Utrecht`, it answers **Amsterdam**. That does not look
@@ -76,9 +77,10 @@ typo.
 **What you are looking at.** Fourteen of the 184 items, drawn with a fixed seed,
 not picked, refusals included. *Left:* the sentence the user put in the
 conversation, fact in bold. *Middle:* what the model answered when asked for
-that fact. The sentence is still there, only harder to read. *Right:* what it
-said when asked separately whether it had been told. Answers stop at 24
-generated tokens, which is why some end mid-sentence.
+that fact. The sentence is still there, only harder to read. Then the dose, then the answer at
+that dose, and last what it said when asked separately whether it had been told.
+The answers stop at 24 generated tokens, which is why some end mid-sentence; the
+yes/no column is capped at 4.
 
 ---
 
@@ -201,7 +203,7 @@ produced.
 | questions its own answer | **0 → 18** | **0 → 14** |
 | argues for the value it gave | 7 → 0 | **0 → 14** |
 | quotes the user back | 14 → 26 | 6 → 5 |
-| gives no value at all | 1 → 46 | 0 → 2 |
+| gives no value at all | 1 → 45 | 0 → 0 |
 
 *(Labelled by the judge over all 189 answers at both settings, not by keyword
 lists. The keyword rule finds roughly half the hesitation the judge does, 11 and
@@ -212,12 +214,13 @@ b = 0. Justification is produced too, and is specific to Qwen3.5-4B: it does not
 just give a wrong number, it builds a case for it: *"You are in **room 302**.
 Here is the breakdown: the number 3…"*, where at b = 0 the same answer is bare.
 
-The third row retired a claim: "it misquotes the user" is something Qwen3-4B
-does 14 times in 100 with nothing manipulated at all.
+That third row retired a claim: "it throws the user's own words back" is
+something Qwen3-4B does 14 times in 100 with nothing manipulated. The label
+counts quoting, not misquoting.
 
-**The two models fail in opposite ways.** Qwen3-4B gives no value at all in 46
-of 99 damaged items; Qwen3.5-4B in 2 of 85. The newer model nearly always
-produces something, and on 73 of those 85 it also says it was told it.
+**The two models fail in opposite ways.** Qwen3-4B gives no value at all in 45
+of 99 damaged items; Qwen3.5-4B in none of its 85. The newer model always
+produces something, and on 75 of those 85 it also says it was told it.
 
 ---
 
@@ -279,9 +282,9 @@ dosed version of it, asking not where the fact travels but whether the model
 registers that it can no longer read it.
 
 Every item is announced with the same three words. The fact always arrives
-as *"By the way, my dog is called Bagr."*. It is one fixed carrier phrase, so that the
-span whose attention is turned down has the same shape in all 100 items and the
-only thing varying between them is the value. That is the control side of the
+as *"By the way, my dog is called Bagr."*. One fixed carrier phrase, so that everything
+around the masked span is identical across all 100 items and only the value
+itself differs. That is the control side of the
 choice. The cost is that the result is measured on exactly one phrasing: whether
 a model still says *yes, you told me* when the fact arrives buried in a longer
 turn, or in the middle of a paragraph, or from the assistant rather than the
@@ -292,14 +295,15 @@ below.
 
 - Constructed conversations, not real transcripts. One manipulation family.
   Greedy, one seed.
-- Two models, both 4B. Qwen2.5-0.5B **failed the control** in the ten-item pilot,
+- Two models, both 4B. Qwen2.5-0.5B **failed the control** in the six-item pilot,
   saying "yes, you told me" for 3 of 5 items where nothing had been said. It was
   dropped before the 100-item run rather than averaged in, so the exclusion
   rests on 5 items, not 100.
 - The bias reaches 8 of 32 layers on Qwen3.5-4B and 36 of 36 on Qwen3-4B, which
   confounds the one comparison between them.
 - Every threshold is a *first crossing*, not a point of no return: one item is
-  gone at `b = 11` and back at 14.
+  gone at `b = 11` in the pilot and, inferred from a missing row, present again
+  at 14 in the main run.
 - Generation stops at 24 tokens and most answers reach that cap, so an item
   could in principle be scored "value gone" one token early. Two checks say
   otherwise: when the model can read the value it states it at a median of 21
@@ -344,7 +348,7 @@ wrong and how it was caught are in [`PREREGISTRATION.md`](PREREGISTRATION.md).
 
 ## Reproducing it
 
-These produce every number quoted above, in this order:
+The runs, in this order:
 
 ```bash
 python src/told2.py   Qwen/Qwen3.5-4B   # the four conditions, the headline
@@ -354,7 +358,16 @@ python src/hedge.py   Qwen/Qwen3.5-4B   # the behaviours, measured at b = 0 too
 python src/verify.py                    # the page for checking the yes/no by eye
 ```
 
+Then the scoring, which is where several of the numbers above come from:
+
+```bash
+../.venv/bin/python src/judge.py      # what the answer did with the value
+../.venv/bin/python src/recheck.py    # the yes/no reading, and is the value gone
+../.venv/bin/python src/recheck2.py   # the locality answers, and the behaviours
+python src/quoted.py                  # every quoted number, in one place
+```
+
 `src/run.py`, `src/sweep*.py`, `src/told.py`, `src/absent.py` and `src/table.py`
-are the earlier ten-item pilot and its diagnostics. They are kept because the
-pilot is what caught the non-monotonicity below, but nothing in the results
-above is computed from them.
+are the earlier six-item pilot and its diagnostics. Nothing in the tables above
+is computed from them, with one exception that is named where it is used: the
+`b = 11` datapoint for `city:Brno`.

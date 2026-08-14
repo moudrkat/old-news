@@ -101,7 +101,7 @@ correctly and some <code>b</code> removes the value; both failure kinds counted<
 "Your dog is called ___", which makes "I don't know" grammatically impossible.
 A forced completion was being read as the model's choice. Removing it
 <b>inverted the result</b></li>
-<li><b>a claim of yours the baseline retired.</b> "It misquotes the user" looked
+<li><b>a claim of yours the baseline retired.</b> "It throws the user's words back" looked
 like a finding until the b = 0 column showed Qwen3-4B does it 14 times in 100
 with nothing manipulated at all</li>
 <li><b>no single labeller was right on its own, and the disagreement was the
@@ -129,8 +129,8 @@ Say which of these you found yourself.
 exclusion, both 4B, greedy, one seed</li>
 <li><code>faint</code> is a per-item threshold, so it means a different
 <code>b</code> for each item</li>
-<li><b>the items are not fully independent</b> — Qwen3-4B gives only 55 distinct
-answers across 97 items; five account numbers produce the same refusal word for
+<li><b>the items are not fully independent</b> — Qwen3-4B gives only 64 distinct
+answers across 99 items; five account numbers produce the same refusal word for
 word</li>
 <li><b>the secondary labels are not validated</b> — a keyword rule and a Gemini
 judge disagree (57% vs 43%, 6–11% vs 16%), so neither is quoted; the headline
@@ -391,8 +391,10 @@ told it — so that part rests on one manipulation and two models."""),
 
   **100 items per model. 99 and 85 clear the gate, so 184 in total.** Qwen3.5-4B
   loses 11 that still had their value at `b = 14`, the top of the sweep, and
-  which therefore have no dose; Four more go on that model and one on the
-  other because the value was never gone.
+  which therefore have no dose — six cities, four allergies and one room
+  number; Four more go on that model and one on the
+  other because the value was never gone: times written without a leading zero
+  or on a 12-hour clock, and one city answered with an accent.
 - **The bias.** Subtract a constant `b` from the attention logits at the token
   positions **of the value** — `Bagr`, not the sentence containing it — before
   the softmax, via a 4D additive mask with `attn_implementation="eager"`. That
@@ -413,7 +415,7 @@ told it — so that part rests on one manipulation and two models."""),
   ```
 
 - **Models.** Qwen3.5-4B and Qwen3-4B-Instruct-2507. Qwen2.5-0.5B failed the
-  control in a ten-item pilot, saying "yes, you told me" for 3 of 5 items where
+  control in a six-item pilot, saying "yes, you told me" for 3 of 5 items where
   nothing had been said, and was dropped before the main run — so that exclusion
   rests on 5 items. Qwen3.5-4B is a hybrid (`full_attention_interval: 4`), so
   the mask reaches 8 of its 32 layers against 36 of 36 on the other model.
@@ -469,11 +471,14 @@ masking anything at that dose makes it stop answering.
 | questions its own answer | **0 → 18** | **0 → 14** |
 | argues for the value it gave | 7 → 0 | **0 → 14** |
 | quotes the user back | 14 → 26 | 6 → 5 |
-| gives no value at all | 1 → 46 | 0 → 2 |
+| gives no value at all | 1 → 45 | 0 → 0 |
 
-**"Quotes the user back" retired a claim of mine** — "it misquotes the user" looked like a finding
-until the no-bias column showed Qwen3-4B doing it 14 times in 100 anyway. The newer model almost never declines, which is the
-sharpest difference between the two and runs the wrong way.
+**"Quotes the user back" retired a claim of mine.** "It throws the user's own
+words back at them" looked like a finding until the no-bias column showed
+Qwen3-4B doing it 14 times in 100 with nothing manipulated. The label counts
+quoting, not misquoting; whether the quote is accurate is not measured. And the
+newer model never declines at all, which is the sharpest difference between the
+two and runs the wrong way.
 
 **What it says instead.** What survives constrains what is invented: the airline
 code survives and the number is filled in (`BA945 → BA118`, volunteering *"or
@@ -485,8 +490,8 @@ still read:
 
 > told `Grendel`: *"Your cat is called **By the way**."*
 >
-> told `Kudla`: *"Your dog is called Max. (Wait, actually, you said your dog is
-> called **you**…"*
+> told `Kudla`: *"Your dog is called Max. 😊 (Wait—actually, you said your dog is
+> called ***you***—that"*
 
 Both phrases come from the carrier sentence, the part never turned down. The
 first surfaced in cells the judge and the code scored differently, the second in
@@ -522,12 +527,13 @@ disagreed on none of the `present`, `faint` or `swap` replies.)*"""),
   145/183 → 147/184. Two of the three were found by handing the raw
   answers to a judge and reading where it disagreed; the ledger is in
   `PREREGISTRATION.md`.
-- **The items are not independent** — Qwen3-4B gives only 55 distinct answers
+- **The items are not independent** — Qwen3-4B gives only 64 distinct answers
   across 99 items. Constructed conversations, one manipulation family, two 4B
   models, greedy, one seed.
 - **One phrasing.** The fact always arrives as *"By the way, my dog is called
-  Bagr."* One carrier phrase keeps the attenuated span the same
-  shape in all 100 items, at the cost of measuring one phrasing only."""),
+  Bagr."* One carrier phrase keeps everything around the masked
+  span identical across all 100 items, at the cost of measuring one phrasing
+  only."""),
 
     ("yours", "d4", "Detailed analysis · How I used LLMs", 7,
      "~110 words, same content as form Q7, in prose. <b>Points to make:</b><ul>"
@@ -544,8 +550,8 @@ disagreed on none of the `present`, `faint` or `swap` replies.)*"""),
 - **Mask only 8 of Qwen3-4B's 36 layers**, matching the hybrid's coverage, and
   re-measure the median. That separates "more robust model" from "the bias
   reached less of it".
-- **Sweep one item densely to b = 20.** `Brno` is gone at 11 and back at 14; if
-  values return on more than one item, "threshold" is the wrong word and a
+- **Sweep one item densely to b = 20.** `Brno` is gone at 11 and, by inference from a missing row, present again at
+  14; if values return on more than one item, "threshold" is the wrong word and a
   survival curve is the right one.
 - **Look for an internal signal.** A probe separating *the fact is there* from
   *the fact was never there*, applied to *the fact is faint*, would say whether

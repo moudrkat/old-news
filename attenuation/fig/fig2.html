@@ -58,7 +58,7 @@ and on a different scale for every model.</h2>
 <p class="sub">columns are <b>b</b>, the strength of the bias on that sentence's
 attention · in each cell, what the model actually answered, and above it the
 longest run of characters that answer still shares with the true value ·
-one item of each kind, the first value of each, not a selection &middot; the
+the first six kinds of fact, first value of each, not a selection &middot; the
 last column is that item at <b>its own</b> threshold, from the run whose ladder
 reaches 14</p>
 <p class="lead"><b>The claim, over every item.</b> Both models saw the same 100
@@ -81,8 +81,8 @@ is 8 of 32. So the model that needs twice the dose is also the model where three
 quarters of the layers never see the bias — and nothing in this report separates
 those two explanations.</p>
 
-<p class="lead"><b>Examples, to show what that looks like.</b> One item of each
-kind, the first value of each — a rule fixed in the code, not a selection.
+<p class="lead"><b>Examples, to show what that looks like.</b> The first six kinds of
+fact, first value of each — a rule fixed in the code, not a selection.
 There are prettier rows in the data: items that pass through every stage in
 turn, correct → truncated → substituted → refused. These are not those.</p>
 <h3>Qwen3.5-4B</h3>
@@ -109,8 +109,8 @@ turn, correct → truncated → substituted → refused. These are not those.</p
 <figcaption>
 Nothing is deleted at any column — the sentence is in the conversation
 throughout, only harder to read. <b>The grids are examples, not the evidence.</b> The scale claim rests on the
-table at the top — 100 items each, median 3 against median 6. The ten rows below are
-one item of each kind by a fixed rule, and both models are shown rather than one,
+table at the top — 100 items each, median 3 against median 6. The six rows per model below are
+the first six kinds of fact, by a fixed rule, and both models are shown rather than one,
 so nothing is being chosen for looking better.
 The last category — <i>declines to answer</i> — is the one soft judgement here,
 a keyword match on the opening of the answer; everything else is exact string

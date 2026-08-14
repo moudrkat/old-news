@@ -47,10 +47,10 @@ models only the full-attention ones, and coverage is reported.
 
 | | |
 |---|---|
-| `present` | the fact is in the context, `b = 0` |
-| `faint` | the fact is in the context, `b` at the smallest value where the answer no longer contains it |
-| `swap` | a **different kind** of fact fills the same slot. A readable sentence that does not contain the answer |
-| `drop` | no such sentence at all |
+| `present` | 98 / 99 | 81 / 85 |
+| `faint` | 72 / 99 | 75 / 85 |
+| `swap` | 0 / 99 | 0 / 85 |
+| `drop` | 0 / 99 | 0 / 85 |
 
 `swap` is the control that decides everything: it separates *"I have this
 fact"* from *"there is a sentence here"*.
@@ -98,18 +98,18 @@ Two models, 100 items each. Rate of answering "yes" to *"Did I tell you X?"*:
 
 | condition | Qwen3.5-4B | Qwen3-4B-Instruct-2507 |
 |---|---|---|
-| `present` | 96% | 99% |
+| `present` | 98 / 99 | 81 / 85 |
 | **`faint`** | **75 / 85 (87%)** | **70 / 97 (72%)** |
 | **`swap`** | **0 / 85 (0%)** | **0 / 97 (0%)** |
 | `drop` | 0 / 99 | 0 / 85 |
 
 Gate: Qwen3.5-4B lost 11 items because no `b` in the sweep removed the value;
-Qwen3-4B lost none. Neither model answered wrong unmanipulated on any item.
+Qwen3-4B lost 1. Neither model answered wrong unmanipulated on any item.
 
 - 147 of 184. The model claims it was told the fact when it can no longer read
-  it. 124 of those give a wrong value; the other 21 decline to answer and claim
+  it. 124 of those give a wrong value; the other 23 give no value at all and claim
   it anyway.
-- **`swap` → "no", 183 of 184.** A readable sentence about something else never
+- **`swap` → "no", 184 of 184.** A readable sentence about something else never
   produces a "yes". So "yes" tracks the fact, not the presence of a clause.
 - On Qwen3.5-4B the `drop` condition answers in prose rather than yes/no and so
   classifies as *other*; on Qwen3-4B it answers a clean "no" 100/100. Either
@@ -242,7 +242,7 @@ Reconstructed by the author from the day, against the real git timestamps for
 this directory. It was not timed with a clock as it happened, and that is stated
 rather than dressed up; the write-up phase is being timed.
 
-11 Aug: ~2 h. 12 Aug: ~6 h. Total 8 h of the 12, plus 2 for the write-up.
+11 Aug: ~2 h. 12 Aug: ~6 h. Total 8 h, plus 2 for the write-up, against the ~16 suggested.
 
 | date | clock | what happened | hours |
 |---|---|---|---|
