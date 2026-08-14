@@ -376,6 +376,16 @@ condition is not a separate code path. Nothing enters the residual stream, no
 cache is edited, no hooks. **Decoding is greedy throughout, so temperature is
 not a variable anywhere in this.**
 
+**It is a graded version of a standard tool.** Cutting attention from chosen
+positions to see what depends on them is *attention knockout* (Geva et al.,
+2023, arXiv:2304.14767) — binary, and used to ask *where information flows*.
+Here it is dosed instead of cut, and the question is whether the model registers
+that it can no longer read the sentence. The same lineage runs through *Do I
+Know This Entity?*: the model's own unknown-entity directions act by suppressing
+the attention of the attribute-extraction heads Geva et al. identified, so this
+manipulation imposes from outside the kind of change that mechanism produces
+from inside.
+
 **Models.** Qwen3.5-4B and Qwen3-4B-Instruct-2507. Qwen2.5-0.5B-Instruct was
 run and **failed the control condition** — it answers "yes, you told me" for 3
 of 5 items where nothing was ever said — so it is excluded from every claim

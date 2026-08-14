@@ -25,6 +25,19 @@ entity and trigger refusal.
 
 ## The bias
 
+**This is a graded version of a standard tool.** Blocking attention from chosen
+positions to test what depends on them is *attention knockout*
+([Geva, Bastings, Filippova & Globerson, 2023](https://arxiv.org/abs/2304.14767)),
+where it is binary — the edge is cut — and the question it answers is *where
+does information flow*. Here it is dosed rather than cut, and the question is
+different: not where the fact travels, but whether the model registers that it
+can no longer read it. The same lineage runs through *Do I Know This Entity?*,
+which finds that the model's own unknown-entity directions work by suppressing
+the attention of the attribute-extraction heads Geva et al. identified — so the
+manipulation below imposes from the outside the kind of change that mechanism
+produces from the inside.
+
+
 A negative bias `b` on the attention logits at the fact's token positions, via a
 4D additive mask, `attn_implementation="eager"`. `b = 0` is the plain causal
 mask, so the control is not a separate code path. Nothing enters the residual
