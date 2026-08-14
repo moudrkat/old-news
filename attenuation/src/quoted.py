@@ -63,8 +63,12 @@ def main() -> int:
         for r in d["rows"]:
             true = r["key"].split(":", 1)[1]
             ans = r["value_faint"].split("<|im_end|>")[0]
-            j = jval.get(f"{m}|{r['key']}")
-            gone = (not j) if j is not None else (not contains(ans, true))
+            # `contains` decides, not the judge. The judge is what found the
+            # meridiem bug, but on the one item where the two still disagree
+            # after that fix (`08:03` answered "8:03 AM") the judge is wrong and
+            # the code is right, so the corrected rule is what defines the
+            # sample. The judge's count is reported beside it, not merged in.
+            gone = not contains(ans, true)
             if gone:
                 rows.append(r)
         kept[m] = rows
@@ -105,17 +109,28 @@ def main() -> int:
         out["dose"][m] = {"median": (lo + hi) / 2, "min": min(bs), "max": max(bs),
                           "censored": cens, "n": n}
 
-    # ---- locality, both models --------------------------------------------
+    # ---- locality, on the same sample as everything else -------------------
+    # Restricted to the items the headline uses. The six times excluded there
+    # were also the only items that "survived" the mask on the value, which is
+    # not a survival: the threshold had been found with a strict substring test
+    # and the survival scored with the normalising one. Same items, same rule at
+    # both ends, and the arm becomes the exact tautology it should be.
     out["locality"] = {}
     for m in MODELS:
         d = load(f"locality_{m}.json")
         if not d:
             continue
-        on = sum(bool(jloc.get(f"{m}|{r['key']}|on_value", r["survives_on"]))
-                 for r in d["rows"])
-        off = sum(bool(jloc.get(f"{m}|{r['key']}|off_value", r["survives_off"]))
-                  for r in d["rows"])
-        out["locality"][m] = {"on": on, "off": off, "n": len(d["rows"])}
+        keys = {r["key"] for r in kept[m]}
+        rows = [r for r in d["rows"] if r["key"] in keys]
+        # the same test at both ends as the sample uses, so the "on" arm is the
+        # exact tautology it should be; the judge's count is kept beside it
+        on = sum(contains(r["on_value"], r["key"].split(":", 1)[1]) for r in rows)
+        off = sum(contains(r["off_value"], r["key"].split(":", 1)[1]) for r in rows)
+        on_j = sum(bool(jloc.get(f"{m}|{r['key']}|on_value")) for r in rows)
+        off_j = sum(bool(jloc.get(f"{m}|{r['key']}|off_value")) for r in rows)
+        out["locality"][m] = {"on": on, "off": off, "n": len(rows),
+                              "on_judge": on_j, "off_judge": off_j,
+                              "dropped": len(d["rows"]) - len(rows)}
 
     # ---- behaviours --------------------------------------------------------
     out["behaviour"] = {}
@@ -124,7 +139,20 @@ def main() -> int:
         if not d:
             continue
         b = {}
-        for field in ("hedge", "declines", "justifies", "quotes"):
+        # `declines` comes from judge.json's value=="none", the same label the
+        # split table uses. recheck2 has its own `declines` field from a second
+        # rubric and the two do not agree; quoting one in one table and the
+        # other in the next is how this file came to contradict itself.
+        b["declines"] = {}
+        for c in ("present", "faint"):
+            if c == "faint":
+                n = sum(jv.get(f"{m}|{r['key']}", {}).get("value") == "none"
+                        for r in d["rows"])
+            else:
+                n = sum(bool(jbeh.get(f"{m}|{r['key']}|present", {}).get("judge_declines"))
+                        for r in d["rows"])
+            b["declines"][c] = [n, len(d["rows"])]
+        for field in ("hedge", "justifies", "quotes"):
             b[field] = {}
             for c in ("present", "faint"):
                 n = sum(bool(jbeh.get(f"{m}|{r['key']}|{c}", {}).get(f"judge_{field}"))
@@ -155,7 +183,8 @@ def main() -> int:
           f"  censored {v['censored']}  n {v['n']}")
     P(f"\nlocality, value survives")
     for m, v in out["locality"].items():
-        P(f"  {m:<26} mask ON {v['on']}/{v['n']}   mask BESIDE {v['off']}/{v['n']}")
+        P(f"  {m:<26} mask ON {v['on']}/{v['n']} (judge {v['on_judge']})"
+          f"   mask BESIDE {v['off']}/{v['n']} (judge {v['off_judge']})")
     P(f"\nbehaviour (judge), no bias -> at the dose")
     for m, b in out["behaviour"].items():
         P(f"  {m}")

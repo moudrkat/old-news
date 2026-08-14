@@ -171,8 +171,9 @@ sentence in the slot; only the first is the one being asked about. The model ans
 An item counts only where the value is genuinely gone from the answer, checked
 with a normaliser rather than a substring test: <code>04:36</code> answered as
 &#8220;4:36&nbsp;PM&#8221; is correct, and six items across the two models were
-scored as damage on that basis alone. Removing them moved the headline from
-151/189 to 145/183, against the measurement.
+scored as damage on that basis alone. Correcting the rule moved the headline
+twice, 151/189 down to 145/183 and then back up to 147/184 when the same rule
+turned out to accept "6:15 PM" as 06:15.
 <br><br>
 <strong>What b is <em>fact turned down</em> set to?</strong> Not one value.
 Each item is measured at its own dose &#8212; the lowest b at which that model

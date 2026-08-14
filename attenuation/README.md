@@ -84,7 +84,7 @@ genuinely gone from the answer:
 
 *(Both models ran 100 items. Qwen3.5-4B lost 11 because no `b` removed the
 value at all; Qwen3-4B lost 1 and Qwen3.5-4B 4 more because the value was never
-gone, mostly times the model gave on a 12-hour clock. Those six
+gone, all five of them times the model answered on a 12-hour clock. Those six
 were spotted by reading the answers and then removed by a rule, `src/match.py`,
 so the removal is reproducible rather than hand-picked. Neither model ever
 answered wrong with no bias applied.)*
@@ -99,9 +99,9 @@ it cannot produce the value and still reports having received it.
 reliable even when the fact is plainly readable: at `b = 0`, **179 of 184**
 answer "yes", not 184. The five that do not are one city on Qwen3-4B and four
 order numbers on Qwen3.5-4B, all answering a flat "No" to a fact sitting in the
-conversation in full. So the comparison is 179 down to 147: of the items the
-model correctly claims when it can read them, **82% it still claims when the
-value has gone**, and 32 switch to "no".
+conversation in full. Paired item by item: of the 179 that say yes when
+the fact is readable, **147 still say yes when the value has gone and 32 switch
+to "no"** — and not one of the 5 that said "no" switches the other way.
 
 A readable sentence about something else never produces a "yes", 0 of 184. So
 the "yes" tracks the topic, not the value.
@@ -128,7 +128,7 @@ nothing halves that and no further. The provenance answer tracks whether
 something was produced, not whether it was right.
 
 *(These rows are labelled by `gemini-3.1-flash-lite` against a written rubric,
-not by a keyword rule. The keyword rule agrees on 179 of 184, and all three
+not by a keyword rule. The keyword rule agrees on 181 of 184, and all three
 disagreements are the model answering with the carrier phrase itself: told
 `Grendel`, it says "Your cat is called **By the way**". Those labels are not yet
 validated against hand labels, and the headline of 147 in 184 does not depend on
@@ -184,7 +184,7 @@ produced.
 | questions its own answer | **0 → 18** | **0 → 14** |
 | argues for the value it gave | 7 → 0 | **0 → 14** |
 | quotes the user back | 14 → 26 | 6 → 5 |
-| gives no value at all | 1 → 45 | 0 → 0 |
+| gives no value at all | 1 → 46 | 0 → 2 |
 
 *(Labelled by the judge over all 189 answers at both settings, not by keyword
 lists. The keyword rule finds roughly half the hesitation the judge does, 11 and
@@ -198,9 +198,9 @@ Here is the breakdown: the number 3…"*, where at b = 0 the same answer is bare
 The third row retired a claim: "it misquotes the user" is something Qwen3-4B
 does 14 times in 100 with nothing manipulated at all.
 
-**The two models fail in opposite ways.** Qwen3-4B declines in 46 of 100 damaged
-cases. **Qwen3.5-4B declines in none of 89**. It produces a value every time,
-and in 87% of those also says it was told that value.
+**The two models fail in opposite ways.** Qwen3-4B gives no value at all in 46
+of 99 damaged items; Qwen3.5-4B in 2 of 85. The newer model nearly always
+produces something, and on 73 of those 85 it also says it was told it.
 
 ---
 
@@ -288,7 +288,7 @@ the model registers that it can no longer read it. The same lineage runs through
 attention of exactly those attribute-extraction heads. This manipulation imposes
 from outside the kind of change that mechanism produces from inside.
 
-These four produce every number quoted above, in this order:
+These produce every number quoted above, in this order:
 
 ```bash
 python src/told2.py   Qwen/Qwen3.5-4B   # the four conditions, the headline
@@ -395,7 +395,7 @@ this run all break off mid-thought, and they are the most interesting answers in
 the corpus. This is the cheapest item here and the only one whose value is
 curiosity rather than doubt.
 
-**Why does the newer model never decline?** Qwen3-4B declines in 46 of 100
-damaged cases; Qwen3.5-4B in none of 89. Something between those two models
+**Why does the newer model almost never decline?** Qwen3-4B gives no value in 46 of 99
+damaged items; Qwen3.5-4B in none of 89. Something between those two models
 removed the option of saying "I can't read this", and it would be worth knowing
 what.

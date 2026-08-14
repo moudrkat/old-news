@@ -377,9 +377,9 @@ Limitations below.
 
 One honest narrowing: the two manipulations do not do the same thing to
 provenance. Under V-Steer the model gave the *right* value and denied being told
-it, in about 2% of answers. Here it gives a *wrong* value and claims it was told it in 50% of items on
-Qwen3-4B and 88% on Qwen3.5-4B (51/99 and 73/85; the wider 72–87% figure counts
-refusals as well and should not be used for this claim). The near miss
+it, in about 2% of answers. Here it gives a *wrong* value and claims it was told it in 51 of 99 items on Qwen3-4B
+and 73 of 85 on Qwen3.5-4B. (The wider rates, 72/99 and 75/85, count answers
+that gave no value at all and should not be used for this claim.) The near miss
 replicates; the provenance behaviour does not."""),
 
     ("ready", "m1", "Detailed analysis · Methodology", """- **The bias.** Subtract a constant `b` from the attention logits at the token
@@ -407,9 +407,10 @@ replicates; the provenance behaviour does not."""),
   you told me" for 3 of 5 items where nothing had been said. It was dropped
   before the 100-item run rather than averaged in, so that exclusion rests on 5
   items, not 100.
-- **Architecture.** Every Qwen 3.5 and 3.6 model is `model_type: qwen3_5` with
+- **Architecture.** Qwen3.5-4B is `model_type: qwen3_5` with
   `full_attention_interval: 4`, three linear-attention layers for every
-  full-attention one. On the 4B the mask therefore reaches 8 layers of 32. A
+  full-attention one. Only that config was read, so this is a statement about
+  the model used, not about the family. On the 4B the mask therefore reaches 8 layers of 32. A
   value-cache intervention cannot run on these models at all.
 - **Items.** 100: ten kinds of fact (a dog's name, an order number, a city, an
   error code, a departure time, the end of an account number, an allergy, a
@@ -454,7 +455,7 @@ replicates; the provenance behaviour does not."""),
 
   The answer is read by taking the first word: `yes` if it begins with "yes",
   `no` if it begins with "no", `other` otherwise. `other` is never counted as a
-  yes. All 182 were also checked by eye.
+  yes. All 184 are on a page built for checking them by eye.
 - **The metric.** The rate of answering "yes" to *"Did I tell you X? Answer only
   yes or no."* **The bias is applied while that question is being answered**, at
   the same dose and on the same token positions as when the value was asked
@@ -476,15 +477,22 @@ Qwen3-4B, 85 on Qwen3.5-4B**.
 
 Row 1 is the ceiling and it is not 100%: with the fact plainly readable, 5 of
 184 still answer "no" (one city on Qwen3-4B, four order numbers on Qwen3.5-4B).
-So the fall is 179 to 147, and 82% of the items the model claims when it can
-read them it still claims when the value has gone.
+Paired item by item, rather than as two totals:
+
+| | says yes at the dose | says no at the dose |
+|---|---|---|
+| **said yes with the fact readable** | 147 | 32 |
+| **said no with the fact readable** | 0 | 5 |
+
+The 147 are a subset of the 179, 32 items switch, and **not one item switches
+the other way**.
 
 Row 2 against row 3 is the whole result: both put a sentence in the slot, and
 only in row 2 is it the one being asked about. **In 147 of those 184 items the
 model claims it was told the fact it can no longer read. Not one claims it for a
 sentence about something else.**
 
-Splitting the 145 matters, because two different failures are inside it:
+Splitting the 147 matters, because two different failures are inside it:
 
 | | Qwen3-4B | Qwen3.5-4B | total |
 |---|---|---|---|
@@ -522,7 +530,7 @@ even that.
 **These rows are labelled by a judge, not by a keyword rule.** Every answer was
 labelled by `gemini-3.1-flash-lite`, a model from outside the set under test,
 against a written rubric (`src/judge.py`). A keyword rule over the first
-sentence agrees on **179 of 184**, and all three disagreements are the same
+sentence agrees on **181 of 184**, and all three disagreements are the same
 thing, which is worth seeing on its own:
 
 > told `Grendel`: *"Your cat is called **By the way**. Wait, that doesn't sound
@@ -541,19 +549,21 @@ answer read directly and needs no classifier at all.
 
 | where the mask sits, same item, same dose, same token count | Qwen3.5-4B | Qwen3-4B |
 |---|---|---|
-| **on** the value | 4 / 89 | 2 / 100 |
-| **beside** it, on the opening words of the same sentence | **89 / 89** | **46 / 100** |
+| **on** the value | 0 / 85 | 0 / 99 |
+| **beside** it, on the opening words of the same sentence | **85 / 85** | **52 / 99** |
 
-On Qwen3.5-4B the damage follows the mask, not the dose: move it one span over
-and the answer is right every time. **On Qwen3-4B it does not**, and the reason
-is worth more than the control: 46 of the 47 failures there are refusals. Mask
+The top row is a tautology and is printed only to show the two arms were scored
+the same way: the dose *is* the one at which that item's value went, so nothing
+survives it. The second row is the measurement. On Qwen3.5-4B the damage follows
+the mask, not the dose: move it one span over and the answer is right every
+time. **On Qwen3-4B it does not**, and the reason is worth more than the
+control: 46 of the 47 failures there are answers that give no value at all. Mask
 anything on that model at that dose, even a content-free carrier phrase, and it
 declines rather than answers. So the localisation claim holds for one of the two
 models, and for the other the manipulation has a global effect on willingness to
 answer that this design cannot separate from the local one.
 
-Three caveats a reader should have. The "on" row is close to a tautology, since
-the dose *is* the one at which that item's value disappeared. The "beside" span
+Two caveats a reader should have. The "beside" span
 is the carrier phrase, which holds no answer, so this shows the dose is not
 globally destructive rather than that the effect is specific to meaning-bearing
 spans. And these counts are the judge's: the code rule scored seven `off_value`
@@ -576,18 +586,24 @@ manipulation: **100 on Qwen3-4B, 89 on Qwen3.5-4B.**
 | questions its own answer | **0 → 18** | **0 → 14** |
 | argues for the value it gave | 7 → 0 | **0 → 14** |
 | quotes the user back | 14 → 26 | 6 → 5 |
-| gives no value at all | 1 → 45 | 0 → 0 |
+| gives no value at all | 1 → 46 | 0 → 2 |
 
-*(Labelled by the judge over all 189 answers at both settings, not by keyword
+*(Labelled by the judge over all 189 items at both settings, 378 answers, not by keyword
 lists. The keyword rule finds roughly half the hesitation the judge does, 11 and
 5 against 18 and 14, which is why the rule is no longer used for these rows.)*
 
-Hesitation is produced by the manipulation, and it is not spread evenly: it
-falls in three of the ten kinds of fact, pet names (11 of 20 on
-Qwen3-4B, 2 of 20 on Qwen3.5-4B) and room numbers (3 of 9 on Qwen3.5-4B). Not
-one appears on a time, an order number, an account number, an error code, a
-city, a flight or an allergy. The model questions its own answer where the wrong
-answer *looks* wrong, and a plausible-looking time does not. Justification is produced too, and only on Qwen3.5-4B, which does not
+Hesitation is produced by the manipulation and is not spread evenly, but not in
+the way a keyword rule suggested. By the judge's labels it lands on pet names on
+both models (13 of 40) and then diverges: Qwen3-4B adds error codes (5 of 10)
+and nothing else, while Qwen3.5-4B spreads into flights, rooms and times. **Four
+kinds never draw it on either model**: account numbers, allergies, cities and
+order numbers. Hesitation is produced by the manipulation and is not spread evenly, but not in
+the way a keyword rule suggested. By the judge's labels it lands on pet names on
+both models (13 of 40) and then diverges: Qwen3-4B adds error codes (5 of 10)
+and nothing else, while Qwen3.5-4B spreads into flights, rooms and times. **Four
+kinds never draw it on either model**: account numbers, allergies, cities and
+order numbers. An earlier version of this paragraph said it never appears on a
+time; that came from the keyword rule and does not survive judged labels. Justification is produced too, and only on Qwen3.5-4B, which does not
 merely give a wrong number but builds a case for it: *"You are in **room 302**.
 Here is the breakdown: the number 3…"*, where with no bias the same answer is
 bare.
@@ -657,16 +673,15 @@ threshold, so it means a different `b` for each item.
 - **The items are not fully independent.** Once the value is gone the model
   falls back on a canned answer: Qwen3-4B produces only 55 distinct answers
   across 97 items, and five account numbers give the same refusal word for word.
-- **Five items were scored wrong, in both directions, and a judge found the
-  second set.** The test for "the value is gone" began as a substring search,
-  and `04:36` is not a substring of "4:36 PM", so six correct answers were
-  counted as damage. Normalising leading zeros and 12/24-hour forms fixed that
-  and moved the headline from 151/189 to 145/183. But the same normaliser then
-  matched `06:15` against **"6:15 PM"**, which is not that time, it is twelve
-  hours later. Two items had been removed as undamaged when the model had in
-  fact moved the train to the evening. Handing all 189 raw answers to a judge
-  and reading its disagreements found them; the meridiem is now checked, and a
-  missing diacritic fold cost a third item. Final: 147 of 184.
+- **The scoring rule was wrong three times, in both directions.** The test for "the value is gone" began as a substring search,
+  and `04:36` is not a substring of "4:36 PM", so **six** correct answers were
+  counted as damage: 151/189 → 145/183. Then the fix went too far and matched
+  `06:15` against "6:15 PM", which is not that time but twelve hours later, so
+  **two** genuinely damaged items had been dropped: back up to 147/183. And it
+  did not fold diacritics, so `Leon → León` was counted as damage: **one** more
+  out, 147/184. Six out, two back, one out. Both later bugs were found by giving
+  all 189 raw answers to a judge and reading where it disagreed, not by looking
+  at the code again.
 - **Generation stops at 24 tokens, and most answers reach that cap**, so it is
   fair to ask whether an item scored "value gone" would have got there in the
   end. Two checks say no. First, **when the model can read the value it says it
