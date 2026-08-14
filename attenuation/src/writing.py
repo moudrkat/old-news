@@ -56,6 +56,13 @@ across ten models, failures that were quiet, an account number ending
 <code>02</code> when the user said <code>302</code></li>
 <li>and why that mattered: not <i>the model got it wrong</i>, but <i>what does it
 say instead, and why that one</i></li>
+<li><b>and last, if you want it — the thought that made you keep going.</b>
+Deleting what you know about this programme from your own head: you would
+regret it, and you would never know exactly what you were regretting. That is
+the same shape as the result, on a person instead of a model — the failure is
+not losing the fact, it is having no signal that it is gone. Two sentences at
+most, at the very end of the answer. It works because it is the argument, not
+because it is personal; if it reads as a flourish, cut it.</li>
 </ul>"""),
     ("q3", "What conclusions have you reached about this research problem?  [link the Google Doc here]", 7, """
 <b>Points to make:</b>
@@ -297,6 +304,10 @@ row that matters.*"""),
      "<li>that is self-knowledge about what was <b>learned</b>; you asked the "
      "same about what was <b>told</b></li>"
      "<li>their result predicts a degraded fact should trigger a refusal</li>"
+     "<li><b>if there is room: the thought that made you keep going</b> — erasing "
+     "this programme from your own head, regretting it, and never knowing what "
+     "you were regretting. Same shape as the result, on a person. One sentence "
+     "here, the fuller version in form Q2</li>"
      "<li><b>second paragraph, two sentences:</b> V-Steer across ten models, "
      "quiet failures, <code>302 → 02</code></li>"
      "<li>and the turn: not <i>it got it wrong</i> but <i>what does it say "
