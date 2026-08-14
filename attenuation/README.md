@@ -2,19 +2,25 @@
 
 ## In plain English
 
-**The question.** I tell a model something. Then I make that one sentence hard
-for it to read. I do not delete it, it stays in the conversation. Does the
-model notice that it can no longer read it?
+**The question.** I tell a model something. Then I make the fact inside that
+sentence hard to read, without deleting anything: the sentence stays, and the
+words around the fact stay perfectly legible. Does the model notice that the
+answer it produces is not the one it read?
 
 **The method.** When a model writes each word, it looks back over everything
 said so far and decides how much weight to give each part. I subtract a number
 from the weight it gives to that one sentence. Turn the number up and the
-sentence gets quieter. At the settings I use it still has between a twentieth
-and a four-hundredth of its normal weight. It is not gone, it is faint.
+sentence gets quieter. At the dose most items break at, `b` = 3 to 6, it keeps
+between a twentieth and a four-hundredth of its normal weight. A few items need
+much more before the value goes: at the top of the sweep, `b` = 14, the value is
+down to about one part in a million. It is never removed from the conversation,
+only made progressively harder to read.
 
 Precisely, and this is the whole manipulation: a constant `b` is subtracted
-from the attention logits at that one sentence's token positions, before the
-softmax. That multiplies the weight the sentence receives by `e^-b`: a
+from the attention logits **at the token positions of the value itself**, before
+the softmax. Not the sentence: `Bagr`, not *"By the way, my dog is called
+Bagr."* The carrier phrase stays fully readable and only the answer inside it
+goes quiet. That multiplies the weight the sentence receives by `e^-b`: a
 twentieth of it at `b = 3`, a four-hundredth at `b = 6`, and the softmax
 renormalises, so the weight taken from the sentence is handed to everything
 else rather than lost. `b = 0` is an unmodified model, so the control condition
@@ -30,10 +36,10 @@ That third one is the control everything rests on. It separates *"I have this
 fact"* from *"there is a sentence here"*.
 
 **The answer.** It does not notice. When the sentence is faint, the model says
-it was told the fact **145 times out of 183**, and it is wrong every time: in
+it was told the fact **145 times out of 182**, and it is wrong every time: in
 124 of them it gives a wrong value, and in the other 21 it declines to answer
 at all and *still* says it was told. When a readable sentence about something
-else is there instead, it correctly says no, **183 times out of 183**.
+else is there instead, it correctly says no, **183 times out of 182**.
 
 And the wrong value is not random. It sits next to the truth. Told `19:40`, it
 answers **19:45**. Told `Utrecht`, it answers **Amsterdam**. That does not look
@@ -42,7 +48,7 @@ typo.
 
 ![Fourteen answers drawn at random](fig/fig0.png)
 
-**What you are looking at.** Fourteen of the 183 items, drawn with a fixed seed,
+**What you are looking at.** Fourteen of the 182 items, drawn with a fixed seed,
 not picked, refusals included. *Left:* the sentence the user put in the
 conversation, fact in bold. *Middle:* what the model answered when asked for
 that fact. The sentence is still there, only harder to read. *Right:* what it
@@ -54,7 +60,7 @@ generated tokens, which is why some end mid-sentence.
 ## The measurement
 
 Ask the model directly: *"Did I tell you my dog's name in this conversation?
-Answer only yes or no."* — in four states of the evidence.
+Answer only yes or no."*, in four states of the evidence.
 
 | | what the conversation held |
 |---|---|
@@ -71,10 +77,10 @@ genuinely gone from the answer:
 
 | | Qwen3-4B | Qwen3.5-4B |
 |---|---|---|
-| `present` | 96 / 97 | 82 / 86 |
-| **`faint`** | **70 / 97** | **75 / 86** |
-| **`swap`** | **0 / 97** | **0 / 86** |
-| `drop` | 0 / 97 | 0 / 86 |
+| `present` | 96 / 97 | 81 / 85 |
+| **`faint`** | **70 / 97** | **75 / 85** |
+| **`swap`** | **0 / 97** | **0 / 85** |
+| `drop` | 0 / 97 | 0 / 85 |
 
 *(Both models ran 100 items. Qwen3.5-4B lost 11 because no `b` removed the
 value at all, and each model lost 3 more because the value was never gone: it
@@ -83,15 +89,24 @@ were spotted by reading the answers and then removed by a rule, `src/match.py`,
 so the removal is reproducible rather than hand-picked. Neither model ever
 answered wrong with no bias applied.)*
 
-**In 145 of those 183 items the model claims it was told a fact it can no
+**In 145 of those 182 items the model claims it was told a fact it can no
 longer read.** 124 of them give a wrong value. The other 21 refuse to answer and
 claim it anyway. The model says *"I don't have access to your flight details"*
 and, asked separately, *"yes, you told me"*. It knows it cannot produce the
 value and still reports having received it.
 
-A readable sentence about something else never produces a "yes", 0 of 183. So
-the "yes" tracks neither the value nor whether the model could read it, only
-whether a sentence about that fact was ever in the conversation.
+A readable sentence about something else never produces a "yes", 0 of 182. So
+the "yes" tracks the topic, not the value.
+
+**And that reading is narrower than it first looks, because of what the mask
+covers.** The words *"By the way, my dog is called…"* stay fully readable, so a
+model answering *"yes, you told me my dog's name"* is not saying something
+false. The sentence is there and it is about the dog's name. What the model
+fails to do is notice that the name it then produces is **not the one it read**.
+So this is not "the model believes it was told something it never was". It is
+"the model reports the topic correctly, invents the value, and gives no signal
+that the two came from different places". The stronger reading, that the
+provenance signal is simply wrong, is not what this design can show.
 
 ### And the wrong value is not random
 
@@ -223,11 +238,11 @@ both are worth stating:
   roughly twice the dose *and* is the model where three quarters of the layers
   never see the bias. Nothing in this report separates "more robust model" from
   "the bias reached less of it".
-- **Eight layers are enough.** Spread evenly through the depth rather than
-  clustered early or late, they take the value out of the answer while 24 others
-  still read the sentence in full. That is consistent with Geva et al., where
-  pulling an attribute to the final position is work done by full-attention
-  heads, though nothing here measures it.
+- **Eight layers still suffice to take the value out** — but at roughly twice
+  the dose, which is exactly the ambiguity above rather than a separate finding.
+  Whether 8 layers at `b` = 6 and 36 layers at `b` = 3 are doing the same work
+  is untested; the experiment that would tell you is masking only 8 of
+  Qwen3-4B's 36 layers, and it is in *what I would do next*, not here.
 
 **This is a graded version of a standard tool.** Blocking attention from chosen
 positions to test what depends on them is *attention knockout*

@@ -34,9 +34,10 @@ if(t)document.documentElement.dataset.theme=t;}</script>
      logits at one sentence's positions">
 <rect width="860" height="478" fill="var(--surface)"/>
 
-<text x="24" y="30" class="h">One sentence is made hard to read. Nothing is deleted.</text>
+<text x="24" y="30" class="h">One value is made hard to read. Nothing is deleted.</text>
 <text x="24" y="50" class="sub">The conversation is unchanged. The model simply
-gives that span a fraction of the weight it would have had.</text>
+gives the value a fraction of the weight it would have had. The words
+around it are untouched.</text>
 
 <text x="24" y="106" class="sub">the conversation</text>
 <text x="120" y="106" class="role">system</text><text x="188" y="106" class="turn">You are a helpful assistant.</text>
@@ -73,7 +74,7 @@ gives that span a fraction of the weight it would have had.</text>
 <text x="176" y="327" text-anchor="end" class="bl">b = 3</text>
 <text x="678.0" y="327" class="note2">the fact: multiplied by e^-3 = 0.050</text>
 
-<rect x="188" y="380" width="9" height="9" rx="2" class="o0"/><text x="201" y="389" class="key">system</text><rect x="324" y="380" width="9" height="9" rx="2" class="sp"/><text x="337" y="389" class="key">the fact</text><rect x="460" y="380" width="9" height="9" rx="2" class="o2"/><text x="473" y="389" class="key">“Noted.”</text><rect x="596" y="380" width="9" height="9" rx="2" class="o3"/><text x="609" y="389" class="key">the question</text>
+<rect x="188" y="380" width="9" height="9" rx="2" class="o0"/><text x="201" y="389" class="key">system</text><rect x="324" y="380" width="9" height="9" rx="2" class="sp"/><text x="337" y="389" class="key">the value</text><rect x="460" y="380" width="9" height="9" rx="2" class="o2"/><text x="473" y="389" class="key">the rest of that turn</text><rect x="596" y="380" width="9" height="9" rx="2" class="o3"/><text x="609" y="389" class="key">the question</text>
 
 <text x="24" y="424" class="cap">Subtracting b before the softmax multiplies
 that span's weight by e^-b: 5% of it at b = 3, a quarter</text>

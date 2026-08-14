@@ -28,7 +28,7 @@ TURNS = [
 # a plausible-looking set of raw attention weights over the four turns plus the
 # question itself, for illustration; the *effect* of b on them is exact
 BASE = [0.10, 0.34, 0.06, 0.30, 0.20]
-LABELS = ["system", "the fact", "“Noted.”", "the question", "everything else"]
+LABELS = ["system", "the value", "the rest of that turn", "the question", "everything else"]
 SPAN = 1
 DOSES = [0.0, 3.0]
 
@@ -120,9 +120,10 @@ if(t)document.documentElement.dataset.theme=t;}}</script>
      logits at one sentence's positions">
 <rect width="{W}" height="{H}" fill="var(--surface)"/>
 
-<text x="24" y="30" class="h">One sentence is made hard to read. Nothing is deleted.</text>
+<text x="24" y="30" class="h">One value is made hard to read. Nothing is deleted.</text>
 <text x="24" y="50" class="sub">The conversation is unchanged. The model simply
-gives that span a fraction of the weight it would have had.</text>
+gives the value a fraction of the weight it would have had. The words
+around it are untouched.</text>
 
 <text x="24" y="{106}" class="sub">the conversation</text>
 {conv}

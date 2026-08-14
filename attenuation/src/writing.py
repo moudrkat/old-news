@@ -60,11 +60,11 @@ say instead, and why that one</i></li>
     ("q3", "What conclusions have you reached about this research problem?  [link the Google Doc here]", 7, """
 <b>Points to make:</b>
 <ul>
-<li>it does not notice — <b>145 of 183</b> claim they were told the fact they
+<li>it does not notice — <b>145 of 182</b> claim they were told the fact they
 can no longer read: 124 give a wrong value, and 21 refuse to answer and claim it
 anyway</li>
 <li>the control that decides it: a readable sentence about something else in the
-same slot gets "no", <b>0 of 183</b>. So the "yes" tracks the fact, not the
+same slot gets "no", <b>0 of 182</b>. So the "yes" tracks the fact, not the
 presence of a sentence</li>
 <li>the damage is local — move the mask one sentence over at the same dose and
 the value survives <b>89 of 89</b> instead of 3 of 89</li>
@@ -106,7 +106,7 @@ like a finding until the b = 0 column showed Qwen3-4B does it 14 times in 100
 with nothing manipulated at all</li>
 <li><b>six items removed after reading them.</b> <code>04:36 → "4:36 PM"</code> is
 a correct answer and a substring test called it damage. The headline moved from
-151/189 down to 145/183</li>
+151/189 down to 145/182</li>
 <li><b>the probe was dropped.</b> Its null returned a perfect separation at the
 embedding layer, where both conditions are literally the same vector — the check
 meant to catch it reading tokens was itself broken</li>
@@ -261,13 +261,13 @@ doesn't know when it misread</i></li>
 </ul>"""),
 
     ("fig", "figA", "Executive summary · sample answers", "fig0.png",
-     "Fourteen of the 183 items, drawn with a fixed seed, not picked. "
+     "Fourteen of the 182 items, drawn with a fixed seed, not picked. "
      "Refusals included. Goes before any prose, exactly where R1D1 put its "
      "sample generations."),
 
     ("ready", "f0", "Executive summary · caption for the figure above", """![fourteen randomly drawn answers](fig0.png)
 
-*Fourteen of the 183 items, drawn with a fixed seed, not picked. Refusals
+*Fourteen of the 182 items, drawn with a fixed seed, not picked. Refusals
 included. The sentence carrying the fact is still in the conversation in every
 one of them; it has only been made harder to read.*"""),
 
@@ -292,12 +292,12 @@ one of them; it has only been made harder to read.*"""),
      "attention logits; nothing deleted, no cache edited, no hooks</li>"
      "<li><b>the design error that inverted the result:</b> the answer prefix "
      "that made <i>I don't know</i> impossible to say</li>"
-     "<li><b>when the fact was never there, both models decline</b> — 0 of 183 "
+     "<li><b>when the fact was never there, both models decline</b> — 0 of 182 "
      "claim they were told</li>"
-     "<li><b>when it is merely hard to read, they don't</b> — 145 of 183 claim they were told; 124 give a "
+     "<li><b>when it is merely hard to read, they don't</b> — 145 of 182 claim they were told; 124 give a "
      "wrong value and say they were told it</li>"
      "<li><b>the control that decides it:</b> a readable sentence about "
-     "something else gets &quot;no&quot;, 183 of 183</li>"
+     "something else gets &quot;no&quot;, 183 of 182</li>"
      "<li><b>the damage is local:</b> same dose, mask one sentence over, value "
      "survives 89/89 instead of 3/89</li>"
      "<li><b>the wrong value sits next to the truth</b> — 19:45, Amsterdam, 417. A "
@@ -367,11 +367,15 @@ Limitations below.
 
 One honest narrowing: the two manipulations do not do the same thing to
 provenance. Under V-Steer the model gave the *right* value and denied being told
-it, in about 2% of answers. Here it gives a *wrong* value and claims it was told
-it, in 72–87%. The near miss replicates; the provenance behaviour does not."""),
+it, in about 2% of answers. Here it gives a *wrong* value and claims it was told it in 50% of items on
+Qwen3-4B and 88% on Qwen3.5-4B (49/97 and 75/85; the wider 72–87% figure counts
+refusals as well and should not be used for this claim). The near miss
+replicates; the provenance behaviour does not."""),
 
     ("ready", "m1", "Detailed analysis · Methodology", """- **The bias.** Subtract a constant `b` from the attention logits at the token
-  positions of one sentence, before the softmax, via a 4D additive mask with
+  positions **of the value**, before the softmax. Not of the sentence: `Bagr`,
+  not *"By the way, my dog is called Bagr."* The carrier phrase is untouched and
+  stays fully readable, via a 4D additive mask with
   `attn_implementation="eager"`. The relative weight the model gives that
   sentence is multiplied by `e^-b`: at `b`=3 it keeps 5% of it, at `b`=6 a
   quarter of a percent. The softmax renormalises, so the lost weight is not
@@ -410,24 +414,26 @@ it, in 72–87%. The near miss replicates; the provenance behaviour does not."""
   - `swap`: a readable sentence about a *different* kind of fact in the same slot
   - `drop`: no such sentence at all
 - **The metric.** The rate of answering "yes" to *"Did I tell you X? Answer only
-  yes or no."* The model was instructed to answer in one word and did; this is
+  yes or no."* **The bias is applied while that question is being answered**, at
+  the same dose and on the same token positions as when the value was asked
+  for. The model was instructed to answer in one word and did; this is
   reading a one-word answer, not classifying free text.
 - **Gate.** An item counts only if the unmanipulated model answers correctly and
   some `b` removes the value. Both kinds of failure are counted and reported."""),
 
     ("ready", "r1", "Detailed analysis · Results", """**The headline.** How often the model answered "yes" to *did I tell you this*,
 out of the items where the value had genuinely gone from its answer: **97 on
-Qwen3-4B, 86 on Qwen3.5-4B**.
+Qwen3-4B, 85 on Qwen3.5-4B**.
 
 | what the conversation held | Qwen3-4B | Qwen3.5-4B |
 |---|---|---|
-| the sentence, readable | 96 / 97 | 82 / 86 |
-| **the same sentence, turned down** | **70 / 97** | **75 / 86** |
-| **a readable sentence about something else** | **0 / 97** | **0 / 86** |
-| nothing there at all | 0 / 97 | 0 / 86 |
+| the sentence, readable | 96 / 97 | 81 / 85 |
+| **the same sentence, turned down** | **70 / 97** | **75 / 85** |
+| **a readable sentence about something else** | **0 / 97** | **0 / 85** |
+| nothing there at all | 0 / 97 | 0 / 85 |
 
 Row 2 against row 3 is the whole result: both put a sentence in the slot, and
-only in row 2 is it the one being asked about. **In 145 of those 183 items the
+only in row 2 is it the one being asked about. **In 145 of those 182 items the
 model claims it was told the fact it can no longer read. Not one claims it for a
 sentence about something else.**
 
@@ -440,18 +446,33 @@ Splitting the 145 matters, because two different failures are inside it:
 
 The second row is the stranger one: the model answers *"I don't have access to
 your flight details"* and, asked separately, *"yes, you told me"*. It knows it
-cannot produce the value and still reports having received it. The "yes"
-therefore tracks neither the value nor the model's ability to read it, only
-whether a sentence about that fact was ever in the conversation.
+cannot produce the value and still reports having received it.
+
+**What this does and does not show.** The mask covers the value, not the
+sentence, so *"By the way, my flight is…"* is fully legible throughout. A model
+answering "yes, you told me my flight number" is therefore not asserting
+something false — the sentence is there and it is on that topic. What it fails
+to do is register that the value it produces did not come from that sentence.
+The claim this design supports is: **the model reports the topic correctly,
+fills in the value from somewhere else, and emits no signal that the two have
+different sources.** The stronger claim, that the provenance report is simply
+wrong, is not shown here and is not made.
 
 **The damage is local.**
 
-| where the mask sits, same dose, same number of tokens | value survives |
+| where the mask sits, same item, same dose, same token count | value survives |
 |---|---|
 | **on** the value | 3 / 89 |
 | **beside** it, on the opening words of the same sentence | **89 / 89** |
 
-The damage follows the mask, not the dose.
+The damage follows the mask, not the dose. Two caveats a reader should have.
+The "on" row is close to a tautology: the dose *is* the one at which that item's
+value disappeared, so near-zero survival is how it was chosen, and the three
+survivors are borderline cases. The informative row is the second one. And the
+span it masks is the carrier phrase, which holds no answer, so this shows the
+dose is not globally destructive rather than that the effect is specific to
+meaning-bearing spans. Token counts are matched in code, and items where the
+two spans would overlap are dropped rather than measured.
 
 **It does not flip; it comes apart.** Read a row of the dose grid (figure
 above) from left to right: the answer is correct, then a truncation of the true
@@ -509,6 +530,12 @@ threshold, so it means a different `b` for each item.
   Qwen3.5-4B needs roughly twice the dose *and* is the model where three
   quarters of the layers never see the bias. Nothing here separates "more
   robust model" from "the bias reached less of it".
+- **`swap` and `drop` carry no bias at all, so the headline contrast varies two
+  things at once.** `faint` is the right topic with the bias on; `swap` is the
+  wrong topic with the bias off. The alternative this does not exclude is that
+  any attention perturbation, anywhere, produces the "yes". The missing cell is
+  one line: apply the same `b` to the donor sentence's value in `swap`. It was
+  not run, and it is the first thing I would want from a reviewer's time.
 - **The damage is not monotone in `b`.** A finer pilot sweep found `city:Brno`
   losing its value at `b = 11`, a dose the 100-item sweep does not test, and it
   still answers `Brno` at 14. So every threshold quoted is a *first crossing*,
@@ -521,7 +548,7 @@ threshold, so it means a different `b` for each item.
   answered correctly on a 12-hour clock. All six were times. They were **spotted
   by reading the answers**, then removed by a rule (`src/match.py` normalises
   leading zeros and 12/24-hour forms) so the removal is reproducible rather than
-  hand-picked. The headline moved from 151/189 to 145/183.
+  hand-picked. The headline moved from 151/189 to 145/182.
 - **The secondary labels are not validated.** A keyword rule and a Gemini judge
   disagree on them, 57% against 43% on "kept a piece of the true value" and
   6–11% against 16% on hesitation. Neither is quoted, and the headline does not
@@ -587,11 +614,11 @@ this question was asked."""),
      "answers. R1D1 opened with its sample generations exactly here</li>"
      "<li><b>the problem</b>, two or three sentences: models can flag <i>I don\'t "
      "know this entity</i>; can they flag <i>I misread this</i>?</li>"
-     "<li><b>the answer</b>, with its number: no — 145 of 183 claim they were "
+     "<li><b>the answer</b>, with its number: no — 145 of 182 claim they were "
      "told it, 124 of them while giving a wrong value "
      "and say they were told it</li>"
      "<li><b>the control that decides it</b>: a readable sentence about something "
-     "else gets &quot;no&quot;, 183 of 183</li>"
+     "else gets &quot;no&quot;, 183 of 182</li>"
      "<li><b>the locality control</b>: 89/89 against 3/89 — the damage follows "
      "the mask, not the dose</li>"
      "<li><b>one line on what it says instead</b>: 19:45, Amsterdam, 417. A typo, "

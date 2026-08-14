@@ -19,6 +19,7 @@ count of damaged answers is a lower bound rather than a flattering one.
 from __future__ import annotations
 
 import re
+import unicodedata
 
 TIME = re.compile(r"^(\d{1,2}):(\d{2})$")
 
@@ -41,6 +42,20 @@ def variants(value: str) -> set[str]:
     return {x.lower() for x in out if x}
 
 
+def _fold(s: str) -> str:
+    """Strip accents. `Leon` answered as `León` is the same answer.
+
+    Found by a reviewer reading fig0, not by the code: the earlier version
+    normalised leading zeros and 12/24-hour clocks but not diacritics, so one
+    item in 183 was scored as damage when the model had answered correctly.
+    One, not a dozen: the whole corpus was re-checked against a much looser
+    match (case, accents, punctuation and spacing all ignored) and `city:Leon`
+    is the only disagreement.
+    """
+    return "".join(c for c in unicodedata.normalize("NFKD", s)
+                   if not unicodedata.combining(c))
+
+
 def contains(answer: str, value: str) -> bool:
-    a = " ".join(answer.split()).lower()
-    return any(x in a for x in variants(value))
+    a = _fold(" ".join(answer.split()).lower())
+    return any(_fold(x) in a for x in variants(value))

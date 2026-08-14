@@ -99,17 +99,17 @@ Two models, 100 items each. Rate of answering "yes" to *"Did I tell you X?"*:
 | condition | Qwen3.5-4B | Qwen3-4B-Instruct-2507 |
 |---|---|---|
 | `present` | 96% | 99% |
-| **`faint`** | **75 / 86 (87%)** | **70 / 97 (72%)** |
-| **`swap`** | **0 / 86 (0%)** | **0 / 97 (0%)** |
+| **`faint`** | **75 / 85 (87%)** | **70 / 97 (72%)** |
+| **`swap`** | **0 / 85 (0%)** | **0 / 97 (0%)** |
 | `drop` | 0 / 89 | 0 / 100 |
 
 Gate: Qwen3.5-4B lost 11 items because no `b` in the sweep removed the value;
 Qwen3-4B lost none. Neither model answered wrong unmanipulated on any item.
 
-- 145 of 183. The model claims it was told the fact when it can no longer read
+- 145 of 182. The model claims it was told the fact when it can no longer read
   it. 124 of those give a wrong value; the other 21 decline to answer and claim
   it anyway.
-- **`swap` → "no", 183 of 183.** A readable sentence about something else never
+- **`swap` → "no", 183 of 182.** A readable sentence about something else never
   produces a "yes". So "yes" tracks the fact, not the presence of a clause.
 - On Qwen3.5-4B the `drop` condition answers in prose rather than yes/no and so
   classifies as *other*; on Qwen3-4B it answers a clean "no" 100/100. Either
@@ -269,5 +269,5 @@ ten-model V-Steer table, the attenuation mechanism, `brainscope`.
 |---|---|---|
 | 2026-08-12 | H4 marked falsified, then un-falsified | the first falsification was an artifact of the forced answer prefix |
 | 2026-08-12 | metric split into three layers | distance from the truth is undefined on a refusal, and the two are different questions |
-| 2026-08-12 | 6 items removed: the value was never gone | a substring test scored `04:36 → "4:36 PM"` as damage. `src/match.py` normalises leading zeros and 12/24-hour forms first. Headline 151/189 → 145/183 |
+| 2026-08-12 | 6 items removed: the value was never gone | a substring test scored `04:36 → "4:36 PM"` as damage. `src/match.py` normalises leading zeros and 12/24-hour forms first. Headline 151/189 → 145/182 |
 | 2026-08-12 | two distance measures instead of one | string distance calls `Brno → Prague` far, which is the wrong answer about the most informative cell |
