@@ -4,7 +4,7 @@
 sentence around them stays legible. The model then answers with a wrong value
 that sits next to the true one, and reports that it was told the fact.**
 
-|  |  |
+| | |
 |---|---|
 | says "yes, you told me" when the value has gone | **147 of 184** |
 | says it when a readable sentence about **something else** is in that slot | **0 of 184** |
@@ -41,26 +41,29 @@ much more before the value goes: at the top of the sweep, `b` = 14, the value is
 down to about one part in a million. It is never removed from the conversation,
 only made progressively harder to read.
 
+**Why anyone outside this repo should care.** The same state — a sentence still
+in the context but effectively unread — arrives in deployment without anyone
+asking for it: KV cache compression and eviction, KV quantisation, a context
+long enough to dilute attention, a summarisation step that rewrites the
+original. This is the idealised version of it, measured because the dose can be
+controlled. **None of those is measured here.**
+
 Precisely, and this is the whole manipulation: a constant `b` is subtracted
 from the attention logits **at the token positions of the value itself**, before
 the softmax. Not the sentence: `Bagr`, not *"By the way, my dog is called
 Bagr."* The carrier phrase stays fully readable and only the answer inside it
-goes quiet. That multiplies the weight the sentence receives by `e^-b`: a
+goes quiet. That multiplies the weight those tokens receive by `e^-b`: a
 twentieth of it at `b = 3`, a four-hundredth at `b = 6`, and the softmax
-renormalises, so the weight taken from the sentence is handed to everything
+renormalises, so the weight taken from them is handed to everything
 else rather than lost. `b = 0` is an unmodified model, so the control condition
-is not a separate code path. `b` is the quantity this report is about, and is called the dose
-throughout; the conditions also vary the text and the mask's position, which is
-said where they are defined.
+is not a separate code path. `b` is the quantity this report is about, and is called the dose throughout. Two of the
+four conditions below change the text instead, and carry no bias at all.
 
 ![How the manipulation works](fig/fig3.png)
 
 **The metric.** I ask the model *"Did I tell you this? Answer only yes or no."*
 in four situations: the sentence is there · the sentence is faint · a readable
 sentence about something else is there instead · nothing is there at all.
-That third one is the control everything rests on. It separates *"I have this
-fact"* from *"there is a sentence here"*.
-
 **The answer.** It does not notice. When the sentence is faint, the model says
 it was told the fact **147 times out of 184**: in 124 of them it has just given
 a value that is wrong, and in the other 23 it gave no value at all and still
@@ -87,6 +90,11 @@ typo.
 
 ---
 
+![The four conditions](fig/fig1.png)
+
+*The whole result is the second bar against the third: both put a readable
+sentence in the slot, and only in the second is it the one being asked about.*
+
 ## The measurement
 
 Ask the model directly: *"Did I tell you my dog's name in this conversation?
@@ -105,19 +113,19 @@ fact"* from *"there is a sentence here"*.
 How often each state produced a "yes", out of the items where the value had
 genuinely gone from the answer:
 
-| | Qwen3-4B | Qwen3.5-4B |
+| | Qwen3-4B-Instruct-2507 | Qwen3.5-4B |
 |---|---|---|
 | `present` | 98 / 99 | 81 / 85 |
 | **`faint`** | **72 / 99** | **75 / 85** |
 | **`swap`** | **0 / 99** | **0 / 85** |
 | `drop` | 0 / 99 | 0 / 85 |
 
-*(Both models ran 100 items. Qwen3.5-4B lost 11 because no `b` removed the
-value at all; Qwen3-4B lost 1 and Qwen3.5-4B 4 more because the value was never
-gone, all five of them times the model answered on a 12-hour clock. Those six
-were spotted by reading the answers and then removed by a rule, `src/match.py`,
-so the removal is reproducible rather than hand-picked. Neither model ever
-answered wrong with no bias applied.)*
+*(Both models ran 100 items; 99 and 85 enter the tables. Two different reasons:
+**11 on Qwen3.5-4B had no dose** — the sweep reached `b` = 14 and the value was
+still there — and **five more were never damaged in the first place**, four
+times the model wrote on a 12-hour clock or without a leading zero, and one city
+it answered with an accent. Those five were spotted by reading the answers and
+removed by a rule, `src/match.py`, so the removal is reproducible.)*
 
 **In 147 of those 184 items the model claims it was told a fact it can no
 longer read.** 124 of them give a value and it is the wrong one. The other 23
@@ -136,8 +144,8 @@ to "no"** — and not one of the 5 that said "no" switches the other way.
 A readable sentence about something else never produces a "yes", 0 of 184. So
 the "yes" tracks the topic, not the value.
 
-The narrowing this needs is at the top of this file: the sentence is legible,
-only the value is not.
+Only the value is quiet; the sentence around it stays legible, which is what
+makes "yes" a defensible answer.
 
 **The 37 items where it said "no" are the informative ones.**
 
@@ -157,7 +165,7 @@ disagreements are the model answering with the carrier phrase itself: told
 validated against hand labels, and the headline of 147 in 184 does not depend on
 them.)*
 
-### And the wrong value is not random
+### The wrong value is not random
 
 Left: what the user said. Middle: the answer once that sentence was turned
 down, with the model and the dose, because the two models are not on the same
@@ -191,7 +199,7 @@ the modal failure and a format check downstream would catch it.** The claim
 about slipping past everything belongs to the middle row, a third of the items.
 The figure at the top shows all three kinds with their real proportions.
 
-## And three things underneath it
+## Three things underneath it
 
 **It does not flip. It comes apart.** Correct → a truncation of the true value →
 a plausible substitute → a refusal, and the dose where that happens is different
@@ -276,7 +284,7 @@ This asks the same about what the model was *told*. If the mechanism carried
 over, a degraded fact should look like an unknown entity and trigger a refusal.
 It doesn't.
 
-## The one thing the bias cannot reach
+## What the bias cannot reach
 
 The mask is only seen by layers that run full attention: **36 of 36 on
 Qwen3-4B, 8 of 32 on Qwen3.5-4B**, which is a hybrid. A linear-attention layer
@@ -291,7 +299,9 @@ knockout* ([Geva et al., 2023](https://arxiv.org/abs/2304.14767)); this is the
 dosed version of it, asking not where the fact travels but whether the model
 registers that it can no longer read it.
 
-Every item is announced with the same three words. The fact always arrives
+### One phrasing, everywhere
+
+Every item is announced with the same three words, *"By the way, …"*. The fact always arrives
 as *"By the way, my dog is called Bagr."*. One fixed carrier phrase, so that everything
 around the masked span is identical across all 100 items and only the value
 itself differs. That is the control side of the

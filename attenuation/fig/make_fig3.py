@@ -72,6 +72,9 @@ def main() -> int:
             x += bw + 2
         bars.append(f'<text x="176" y="{by+13}" text-anchor="end" class="bl">'
                     f'b = {b:g}</text>')
+        if not b:
+            bars.append(f'<text x="188" y="{by-6}" class="note2">'
+                        f'illustrative starting weights; the effect of b on them is exact</text>')
         mult = "unchanged" if not b else f"multiplied by e^-{b:g} = {math.exp(-b):.3f}"
         bars.append(f'<text x="{x+10:.1f}" y="{by+13}" class="note2">'
                     f'the fact: {mult}</text>')

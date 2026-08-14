@@ -309,7 +309,7 @@ nothing downstream catches a typo."""),
      "with how often each kind happens. Goes before any prose, exactly where "
      "R1D1 put its sample generations."),
 
-    ("ready", "f0", "Executive summary · caption for the figure above", """*Split by what the model did with the value, then three drawn at random inside
+    ("ready", "f0", "Executive summary · what the figure shows", """*Split by what the model did with the value, then three drawn at random inside
 each group — nothing within a group is chosen. The counts are the whole corpus
 of 184, so the figure shows what each kind looks like and how often it happens.
 A flat draw would have been dominated by truncations and would have hidden the
@@ -401,6 +401,11 @@ row that matters.*"""),
   wrong answer has the shape it has: the edit attenuates rather than overwrites,
   so the correct token's probability collapses, nothing promotes a replacement,
   and whatever was standing behind it wins.
+- **Why it matters outside this repo.** The same state arrives in deployment
+  without anyone choosing it: KV cache compression and eviction, KV
+  quantisation, long-context dilution, a summarisation step. This is the
+  idealised version, measured because the dose can be controlled — and none of
+  those is measured here.
 - **The question.** A model is told a fact. The fact's own tokens are made hard
   to read while the sentence around them stays legible. Does the model register
   that the value it then produces is not the one it read?
@@ -420,7 +425,7 @@ row that matters.*"""),
   **100 items per model. 99 and 85 clear the gate, so 184 in total.** Qwen3.5-4B
   loses 11 that still had their value at `b = 14`, the top of the sweep, and
   which therefore have no dose — six cities, four allergies and one room
-  number; Four more go on that model and one on the
+  number; four more go on that model and one on the
   other because the value was never gone: times written without a leading zero
   or on a 12-hour clock, and one city answered with an accent.
 - **The bias.** Subtract a constant `b` from the attention logits at the token
