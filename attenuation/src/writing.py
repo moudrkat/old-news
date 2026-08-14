@@ -180,6 +180,12 @@ live lens server, and per-request steering inside vLLM at native speed, with
 CUDA graphs intact where every other tool forces eager mode</li>
 <li><b>an independent reimplementation of J-Lens from the paper</b>, MIT, with
 an identity self-test and a documented cross-check against the reference</li>
+<li><b>interpretability being pushed into production at work</b>, which is his
+own <i>Applied Interpretability</i> heading almost word for word — he writes
+that he wants work that picks a problem that actually matters and shows
+interpretability helps. Name what it is, what it is for, and one thing it
+changed. And the talk you are giving on steering in place of a validator, which
+is the same argument made to an audience that has to act on it</li>
 <li><b>a frozen, pre-registered research plan with hypotheses that lost</b> —
 dated deviation notes, falsified invariants, claims withdrawn. Rarer than any
 positive result</li>
@@ -225,6 +231,10 @@ say it to you. Keep it to three sentences and do not flatter him; what makes it
 work is that it names a specific thing you cannot do alone, and that it is the
 same failure your own result is about: <b>the model cannot tell it misread, and
 neither can the person who wrote the theory</b>.</li>
+<li><b>and it is not only taste, it is the same list.</b> His stated interests
+include <i>Applied Interpretability</i> — "choose a problem that actually
+matters and show that interpretability helps" — which is the thing you already
+spend your working week on. One sentence, and let Q8 carry the detail</li>
 <li>his pivot to <i>pragmatic interpretability</i> is the nearest thing in the
 field to how you already work: does the technique actually do anything,
 measured against baselines, on models that matter</li>
