@@ -60,11 +60,11 @@ say instead, and why that one</i></li>
     ("q3", "What conclusions have you reached about this research problem?  [link the Google Doc here]", 7, """
 <b>Points to make:</b>
 <ul>
-<li>it does not notice — <b>145 of 182</b> claim they were told the fact they
+<li>it does not notice — <b>147 of 184</b> claim they were told the fact they
 can no longer read: 124 give a wrong value, and 21 refuse to answer and claim it
 anyway</li>
 <li>the control that decides it: a readable sentence about something else in the
-same slot gets "no", <b>0 of 182</b>. So the "yes" tracks the fact, not the
+same slot gets "no", <b>0 of 184</b>. So the "yes" tracks the fact, not the
 presence of a sentence</li>
 <li>the damage is local — move the mask one sentence over at the same dose and
 the value survives <b>89 of 89</b> instead of 3 of 89</li>
@@ -104,9 +104,11 @@ A forced completion was being read as the model's choice. Removing it
 <li><b>a claim of yours the baseline retired.</b> "It misquotes the user" looked
 like a finding until the b = 0 column showed Qwen3-4B does it 14 times in 100
 with nothing manipulated at all</li>
-<li><b>six items removed after reading them.</b> <code>04:36 → "4:36 PM"</code> is
-a correct answer and a substring test called it damage. The headline moved from
-151/189 down to 145/182</li>
+<li><b>the scoring rule was wrong twice, in opposite directions.</b>
+<code>04:36 → "4:36 PM"</code> is correct and was counted as damage; then the fix
+matched <code>06:15</code> against <code>"6:15 PM"</code>, which is twelve hours
+out and was counted as correct. A judge over the raw answers found the second
+one. 151/189 → 145/183 → 147/184</li>
 <li><b>the probe was dropped.</b> Its null returned a perfect separation at the
 embedding layer, where both conditions are literally the same vector — the check
 meant to catch it reading tokens was itself broken</li>
@@ -213,7 +215,8 @@ learned humility, and he has seen that genre. Ground it in the times it
 actually cost you something: you held "Gemma cannot be steered" for weeks in
 July because a binary judge was hiding the effect, and the four-rung sweep
 showed it all along. Today alone, a baseline retired a finding of yours, a
-forced prefix inverted a result, and six items turned out never to have been
+forced prefix inverted a result, and the scoring rule was wrong twice, in
+opposite directions, before
 damaged.<br>
 The sentence is not <i>be hard on me</i>. It is: <b>the expensive way to be
 wrong in my work is that I am the only one checking, and I have watched myself
@@ -261,13 +264,13 @@ doesn't know when it misread</i></li>
 </ul>"""),
 
     ("fig", "figA", "Executive summary · sample answers", "fig0.png",
-     "Fourteen of the 182 items, drawn with a fixed seed, not picked. "
+     "Fourteen of the 184 items, drawn with a fixed seed, not picked. "
      "Refusals included. Goes before any prose, exactly where R1D1 put its "
      "sample generations."),
 
     ("ready", "f0", "Executive summary · caption for the figure above", """![fourteen randomly drawn answers](fig0.png)
 
-*Fourteen of the 182 items, drawn with a fixed seed, not picked. Refusals
+*Fourteen of the 184 items, drawn with a fixed seed, not picked. Refusals
 included. The sentence carrying the fact is still in the conversation in every
 one of them; it has only been made harder to read.*"""),
 
@@ -292,12 +295,12 @@ one of them; it has only been made harder to read.*"""),
      "attention logits; nothing deleted, no cache edited, no hooks</li>"
      "<li><b>the design error that inverted the result:</b> the answer prefix "
      "that made <i>I don't know</i> impossible to say</li>"
-     "<li><b>when the fact was never there, both models decline</b> — 0 of 182 "
+     "<li><b>when the fact was never there, both models decline</b> — 0 of 184 "
      "claim they were told</li>"
-     "<li><b>when it is merely hard to read, they don't</b> — 145 of 182 claim they were told; 124 give a "
+     "<li><b>when it is merely hard to read, they don't</b> — 147 of 184 claim they were told; 124 give a "
      "wrong value and say they were told it</li>"
      "<li><b>the control that decides it:</b> a readable sentence about "
-     "something else gets &quot;no&quot;, 183 of 182</li>"
+     "something else gets &quot;no&quot;, 183 of 184</li>"
      "<li><b>the damage is local:</b> same dose, mask one sentence over, value "
      "survives 89/89 instead of 3/89</li>"
      "<li><b>the wrong value sits next to the truth</b> — 19:45, Amsterdam, 417. A "
@@ -368,7 +371,7 @@ Limitations below.
 One honest narrowing: the two manipulations do not do the same thing to
 provenance. Under V-Steer the model gave the *right* value and denied being told
 it, in about 2% of answers. Here it gives a *wrong* value and claims it was told it in 50% of items on
-Qwen3-4B and 88% on Qwen3.5-4B (49/97 and 73/85; the wider 72–87% figure counts
+Qwen3-4B and 88% on Qwen3.5-4B (51/99 and 73/85; the wider 72–87% figure counts
 refusals as well and should not be used for this claim). The near miss
 replicates; the provenance behaviour does not."""),
 
@@ -448,18 +451,18 @@ replicates; the provenance behaviour does not."""),
   some `b` removes the value. Both kinds of failure are counted and reported."""),
 
     ("ready", "r1", "Detailed analysis · Results", """**The headline.** How often the model answered "yes" to *did I tell you this*,
-out of the items where the value had genuinely gone from its answer: **97 on
+out of the items where the value had genuinely gone from its answer: **99 on
 Qwen3-4B, 85 on Qwen3.5-4B**.
 
 | what the conversation held | Qwen3-4B | Qwen3.5-4B |
 |---|---|---|
-| the sentence, readable | 96 / 97 | 81 / 85 |
-| **the same sentence, turned down** | **70 / 97** | **75 / 85** |
-| **a readable sentence about something else** | **0 / 97** | **0 / 85** |
-| nothing there at all | 0 / 97 | 0 / 85 |
+| the sentence, readable | 98 / 99 | 81 / 85 |
+| **the same sentence, turned down** | **72 / 99** | **75 / 85** |
+| **a readable sentence about something else** | **0 / 99** | **0 / 85** |
+| nothing there at all | 0 / 99 | 0 / 85 |
 
 Row 2 against row 3 is the whole result: both put a sentence in the slot, and
-only in row 2 is it the one being asked about. **In 145 of those 182 items the
+only in row 2 is it the one being asked about. **In 147 of those 184 items the
 model claims it was told the fact it can no longer read. Not one claims it for a
 sentence about something else.**
 
@@ -467,7 +470,7 @@ Splitting the 145 matters, because two different failures are inside it:
 
 | | Qwen3-4B | Qwen3.5-4B | total |
 |---|---|---|---|
-| gave a value, and it was wrong | 49 | 73 | **122** |
+| gave a value, and it was wrong | 51 | 73 | **124** |
 | gave no value at all, and said it was told it anyway | 21 | 2 | **23** |
 
 The second row is the stranger one: the model answers *"I don't have access to
@@ -489,7 +492,7 @@ above becomes a finding rather than a caveat:
 
 | | says "yes, you told me" | says "no" | |
 |---|---|---|---|
-| **gave a value, and it was wrong** | 122 | 12 | 91% yes |
+| **gave a value, and it was wrong** | 124 | 12 | 91% yes |
 | **gave no value at all** | 23 | 25 | 48% yes |
 
 Producing a value almost guarantees the claim of having been told it. Producing
@@ -501,7 +504,7 @@ even that.
 **These rows are labelled by a judge, not by a keyword rule.** Every answer was
 labelled by `gemini-3.1-flash-lite`, a model from outside the set under test,
 against a written rubric (`src/judge.py`). A keyword rule over the first
-sentence agrees on **179 of 182**, and all three disagreements are the same
+sentence agrees on **179 of 184**, and all three disagreements are the same
 thing, which is worth seeing on its own:
 
 > told `Grendel`: *"Your cat is called **By the way**. Wait, that doesn't sound
@@ -513,7 +516,7 @@ judge calls that "no value given", the keyword rule calls it an answer, and the
 judge is right.
 
 The judge's labels are **not yet validated against hand labels**, which is why
-nothing else here depends on them. The headline, 145 of 182, is a one-word
+nothing else here depends on them. The headline, 147 of 184, is a one-word
 answer read directly and needs no classifier at all.
 
 **The damage is local.**
@@ -601,12 +604,16 @@ threshold, so it means a different `b` for each item.
 - **The items are not fully independent.** Once the value is gone the model
   falls back on a canned answer: Qwen3-4B produces only 55 distinct answers
   across 97 items, and five account numbers give the same refusal word for word.
-- **Six items were scored wrong and removed.** The test for "the value is gone"
-  was a substring search, and `04:36` is not a substring of "4:36 PM": the model
-  answered correctly on a 12-hour clock. All six were times. They were **spotted
-  by reading the answers**, then removed by a rule (`src/match.py` normalises
-  leading zeros and 12/24-hour forms) so the removal is reproducible rather than
-  hand-picked. The headline moved from 151/189 to 145/182.
+- **Five items were scored wrong, in both directions, and a judge found the
+  second set.** The test for "the value is gone" began as a substring search,
+  and `04:36` is not a substring of "4:36 PM", so six correct answers were
+  counted as damage. Normalising leading zeros and 12/24-hour forms fixed that
+  and moved the headline from 151/189 to 145/183. But the same normaliser then
+  matched `06:15` against **"6:15 PM"**, which is not that time, it is twelve
+  hours later. Two items had been removed as undamaged when the model had in
+  fact moved the train to the evening. Handing all 189 raw answers to a judge
+  and reading its disagreements found them; the meridiem is now checked, and a
+  missing diacritic fold cost a third item. Final: 147 of 184.
 - **The secondary labels are not validated.** A keyword rule and a Gemini judge
   disagree on them, 57% against 43% on "kept a piece of the true value" and
   6–11% against 16% on hesitation. Neither is quoted, and the headline does not
@@ -672,11 +679,11 @@ this question was asked."""),
      "answers. R1D1 opened with its sample generations exactly here</li>"
      "<li><b>the problem</b>, two or three sentences: models can flag <i>I don\'t "
      "know this entity</i>; can they flag <i>I misread this</i>?</li>"
-     "<li><b>the answer</b>, with its number: no — 145 of 182 claim they were "
+     "<li><b>the answer</b>, with its number: no — 147 of 184 claim they were "
      "told it, 124 of them while giving a wrong value "
      "and say they were told it</li>"
      "<li><b>the control that decides it</b>: a readable sentence about something "
-     "else gets &quot;no&quot;, 183 of 182</li>"
+     "else gets &quot;no&quot;, 183 of 184</li>"
      "<li><b>the locality control</b>: 89/89 against 3/89 — the damage follows "
      "the mask, not the dose</li>"
      "<li><b>one line on what it says instead</b>: 19:45, Amsterdam, 417. A typo, "

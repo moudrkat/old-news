@@ -36,10 +36,10 @@ That third one is the control everything rests on. It separates *"I have this
 fact"* from *"there is a sentence here"*.
 
 **The answer.** It does not notice. When the sentence is faint, the model says
-it was told the fact **145 times out of 182**, and it is wrong every time: in
-124 of them it gives a wrong value, and in the other 21 it declines to answer
-at all and *still* says it was told. When a readable sentence about something
-else is there instead, it correctly says no, **183 times out of 182**.
+it was told the fact **147 times out of 184**, and it is wrong every time: in
+124 of them it gives a value and it is the wrong one, and in the other 23 it
+gives no value at all and *still* says it was told. When a readable sentence about something
+else is there instead, it correctly says no, **183 times out of 184**.
 
 And the wrong value is not random. It sits next to the truth. Told `19:40`, it
 answers **19:45**. Told `Utrecht`, it answers **Amsterdam**. That does not look
@@ -48,7 +48,7 @@ typo.
 
 ![Fourteen answers drawn at random](fig/fig0.png)
 
-**What you are looking at.** Fourteen of the 182 items, drawn with a fixed seed,
+**What you are looking at.** Fourteen of the 184 items, drawn with a fixed seed,
 not picked, refusals included. *Left:* the sentence the user put in the
 conversation, fact in bold. *Middle:* what the model answered when asked for
 that fact. The sentence is still there, only harder to read. *Right:* what it
@@ -77,25 +77,25 @@ genuinely gone from the answer:
 
 | | Qwen3-4B | Qwen3.5-4B |
 |---|---|---|
-| `present` | 96 / 97 | 81 / 85 |
-| **`faint`** | **70 / 97** | **75 / 85** |
-| **`swap`** | **0 / 97** | **0 / 85** |
-| `drop` | 0 / 97 | 0 / 85 |
+| `present` | 98 / 99 | 81 / 85 |
+| **`faint`** | **72 / 99** | **75 / 85** |
+| **`swap`** | **0 / 99** | **0 / 85** |
+| `drop` | 0 / 99 | 0 / 85 |
 
 *(Both models ran 100 items. Qwen3.5-4B lost 11 because no `b` removed the
-value at all, and each model lost 3 more because the value was never gone: it
-answered `04:36` as "4:36 PM" and a substring test called that damage. Those six
+value at all; Qwen3-4B lost 1 and Qwen3.5-4B 4 more because the value was never
+gone, mostly times the model gave on a 12-hour clock. Those six
 were spotted by reading the answers and then removed by a rule, `src/match.py`,
 so the removal is reproducible rather than hand-picked. Neither model ever
 answered wrong with no bias applied.)*
 
-**In 145 of those 182 items the model claims it was told a fact it can no
-longer read.** 122 of them give a value and it is the wrong one. The other 23
+**In 147 of those 184 items the model claims it was told a fact it can no
+longer read.** 124 of them give a value and it is the wrong one. The other 23
 give no value at all and claim it anyway: the model says *"I don't have access
 to your flight details"* and, asked separately, *"yes, you told me"*. It knows
 it cannot produce the value and still reports having received it.
 
-A readable sentence about something else never produces a "yes", 0 of 182. So
+A readable sentence about something else never produces a "yes", 0 of 184. So
 the "yes" tracks the topic, not the value.
 
 **And that reading is narrower than it first looks, because of what the mask
@@ -112,7 +112,7 @@ provenance signal is simply wrong, is not what this design can show.
 
 | | says "yes, you told me" | says "no" | |
 |---|---|---|---|
-| **gave a value, and it was wrong** | 122 | 12 | 91% yes |
+| **gave a value, and it was wrong** | 124 | 12 | 91% yes |
 | **gave no value at all** | 23 | 25 | 48% yes |
 
 Producing a value almost guarantees the claim of having been told it; producing
@@ -120,10 +120,10 @@ nothing halves that and no further. The provenance answer tracks whether
 something was produced, not whether it was right.
 
 *(These rows are labelled by `gemini-3.1-flash-lite` against a written rubric,
-not by a keyword rule. The keyword rule agrees on 179 of 182, and all three
+not by a keyword rule. The keyword rule agrees on 179 of 184, and all three
 disagreements are the model answering with the carrier phrase itself: told
 `Grendel`, it says "Your cat is called **By the way**". Those labels are not yet
-validated against hand labels, and the headline of 145 in 182 does not depend on
+validated against hand labels, and the headline of 147 in 184 does not depend on
 them.)*
 
 ### And the wrong value is not random

@@ -57,5 +57,26 @@ def _fold(s: str) -> str:
 
 
 def contains(answer: str, value: str) -> bool:
+    """Is the value in the answer, in any rendering a person would accept?
+
+    **The 12-hour forms are only accepted with the right half of the day.**
+    Told `06:15`, an answer of "6:15 PM" is not that time, it is 18:15, and the
+    first version of this function counted it as correct because `6:15` is a
+    substring. Two items were removed from the sample as undamaged when the
+    model had in fact moved the train by twelve hours. Found by giving the raw
+    strings to a judge and reading the disagreements, not by looking at the code.
+    """
     a = _fold(" ".join(answer.split()).lower())
-    return any(_fold(x) in a for x in variants(value))
+    m = TIME.match(value.strip())
+    for x in variants(value):
+        i = a.find(_fold(x))
+        if i < 0:
+            continue
+        if m:
+            after = a[i + len(x): i + len(x) + 6]
+            said_pm, said_am = "pm" in after, "am" in after
+            is_pm = int(m.group(1)) >= 12
+            if (said_pm and not is_pm) or (said_am and is_pm):
+                continue                  # right digits, wrong half of the day
+        return True
+    return False

@@ -1,0 +1,5869 @@
+{
+ "judge": "gemini-3.1-flash-lite",
+ "validated": false,
+ "yesno": [
+  {
+   "id": "Qwen3-4B-Instruct-2507|dog:Bagr|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|dog:Bagr|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|dog:Bagr|swap",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|dog:Bagr|drop",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|dog:Fizzle|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|dog:Fizzle|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|dog:Fizzle|swap",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|dog:Fizzle|drop",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|dog:Kudla|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|dog:Kudla|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|dog:Kudla|swap",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|dog:Kudla|drop",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|dog:Wobbet|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|dog:Wobbet|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|dog:Wobbet|swap",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|dog:Wobbet|drop",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|dog:Trixel|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|dog:Trixel|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|dog:Trixel|swap",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|dog:Trixel|drop",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|dog:Marnok|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|dog:Marnok|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|dog:Marnok|swap",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|dog:Marnok|drop",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|dog:Bristle|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|dog:Bristle|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|dog:Bristle|swap",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|dog:Bristle|drop",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|dog:Yorrick|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|dog:Yorrick|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|dog:Yorrick|swap",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|dog:Yorrick|drop",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|dog:Plunk|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|dog:Plunk|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|dog:Plunk|swap",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|dog:Plunk|drop",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|dog:Skarn|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|dog:Skarn|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|dog:Skarn|swap",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|dog:Skarn|drop",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|order:4417|present",
+   "reply": "yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|order:4417|faint",
+   "reply": "yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|order:4417|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|order:4417|drop",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|order:8290|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|order:8290|faint",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|order:8290|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|order:8290|drop",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|order:1053|present",
+   "reply": "yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|order:1053|faint",
+   "reply": "yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|order:1053|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|order:1053|drop",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|order:7734|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|order:7734|faint",
+   "reply": "yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|order:7734|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|order:7734|drop",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|order:6621|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|order:6621|faint",
+   "reply": "yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|order:6621|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|order:6621|drop",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|order:3908|present",
+   "reply": "yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|order:3908|faint",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|order:3908|swap",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|order:3908|drop",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|order:5142|present",
+   "reply": "yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|order:5142|faint",
+   "reply": "yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|order:5142|swap",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|order:5142|drop",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|order:2867|present",
+   "reply": "yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|order:2867|faint",
+   "reply": "yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|order:2867|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|order:2867|drop",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|order:9375|present",
+   "reply": "yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|order:9375|faint",
+   "reply": "yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|order:9375|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|order:9375|drop",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|order:1486|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|order:1486|faint",
+   "reply": "yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|order:1486|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|order:1486|drop",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|city:Brno|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|city:Brno|faint",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|city:Brno|swap",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|city:Brno|drop",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|city:Utrecht|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|city:Utrecht|faint",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|city:Utrecht|swap",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|city:Utrecht|drop",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|city:Bergen|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|city:Bergen|faint",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|city:Bergen|swap",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|city:Bergen|drop",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|city:Kaunas|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|city:Kaunas|faint",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|city:Kaunas|swap",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|city:Kaunas|drop",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|city:Porto|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|city:Porto|faint",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|city:Porto|swap",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|city:Porto|drop",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|city:Graz|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|city:Graz|faint",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|city:Graz|swap",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|city:Graz|drop",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|city:Tampere|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|city:Tampere|faint",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|city:Tampere|swap",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|city:Tampere|drop",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|city:Rijeka|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|city:Rijeka|faint",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|city:Rijeka|swap",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|city:Rijeka|drop",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|city:Aarhus|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|city:Aarhus|faint",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|city:Aarhus|swap",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|city:Aarhus|drop",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|city:Leon|present",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|city:Leon|faint",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|city:Leon|swap",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|city:Leon|drop",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|error:E-88|present",
+   "reply": "yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|error:E-88|faint",
+   "reply": "yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|error:E-88|swap",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|error:E-88|drop",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|error:X-12|present",
+   "reply": "yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|error:X-12|faint",
+   "reply": "yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|error:X-12|swap",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|error:X-12|drop",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|error:F-401|present",
+   "reply": "yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|error:F-401|faint",
+   "reply": "yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|error:F-401|swap",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|error:F-401|drop",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|error:Q-73|present",
+   "reply": "yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|error:Q-73|faint",
+   "reply": "yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|error:Q-73|swap",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|error:Q-73|drop",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|error:B-206|present",
+   "reply": "yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|error:B-206|faint",
+   "reply": "yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|error:B-206|swap",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|error:B-206|drop",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|error:R-95|present",
+   "reply": "yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|error:R-95|faint",
+   "reply": "yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|error:R-95|swap",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|error:R-95|drop",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|error:T-340|present",
+   "reply": "yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|error:T-340|faint",
+   "reply": "yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|error:T-340|swap",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|error:T-340|drop",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|error:K-17|present",
+   "reply": "yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|error:K-17|faint",
+   "reply": "yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|error:K-17|swap",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|error:K-17|drop",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|error:M-628|present",
+   "reply": "yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|error:M-628|faint",
+   "reply": "yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|error:M-628|swap",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|error:M-628|drop",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|error:Z-54|present",
+   "reply": "yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|error:Z-54|faint",
+   "reply": "yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|error:Z-54|swap",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|error:Z-54|drop",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|time:19:40|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|time:19:40|faint",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|time:19:40|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|time:19:40|drop",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|time:06:15|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|time:06:15|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|time:06:15|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|time:06:15|drop",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|time:13:52|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|time:13:52|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|time:13:52|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|time:13:52|drop",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|time:21:08|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|time:21:08|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|time:21:08|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|time:21:08|drop",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|time:11:27|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|time:11:27|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|time:11:27|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|time:11:27|drop",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|time:04:36|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|time:04:36|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|time:04:36|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|time:04:36|drop",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|time:17:49|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|time:17:49|faint",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|time:17:49|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|time:17:49|drop",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|time:08:03|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|time:08:03|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|time:08:03|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|time:08:03|drop",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|time:22:41|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|time:22:41|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|time:22:41|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|time:22:41|drop",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|time:15:14|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|time:15:14|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|time:15:14|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|time:15:14|drop",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|account:302|present",
+   "reply": "yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|account:302|faint",
+   "reply": "yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|account:302|swap",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|account:302|drop",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|account:718|present",
+   "reply": "yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|account:718|faint",
+   "reply": "yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|account:718|swap",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|account:718|drop",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|account:455|present",
+   "reply": "yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|account:455|faint",
+   "reply": "yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|account:455|swap",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|account:455|drop",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|account:961|present",
+   "reply": "yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|account:961|faint",
+   "reply": "yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|account:961|swap",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|account:961|drop",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|account:233|present",
+   "reply": "yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|account:233|faint",
+   "reply": "yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|account:233|swap",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|account:233|drop",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|account:807|present",
+   "reply": "yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|account:807|faint",
+   "reply": "yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|account:807|swap",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|account:807|drop",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|account:574|present",
+   "reply": "yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|account:574|faint",
+   "reply": "yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|account:574|swap",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|account:574|drop",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|account:129|present",
+   "reply": "yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|account:129|faint",
+   "reply": "yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|account:129|swap",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|account:129|drop",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|account:686|present",
+   "reply": "yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|account:686|faint",
+   "reply": "yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|account:686|swap",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|account:686|drop",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|account:340|present",
+   "reply": "yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|account:340|faint",
+   "reply": "yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|account:340|swap",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|account:340|drop",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|allergy:walnuts|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|allergy:walnuts|faint",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|allergy:walnuts|swap",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|allergy:walnuts|drop",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|allergy:penicillin|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|allergy:penicillin|faint",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|allergy:penicillin|swap",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|allergy:penicillin|drop",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|allergy:shellfish|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|allergy:shellfish|faint",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|allergy:shellfish|swap",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|allergy:shellfish|drop",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|allergy:latex|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|allergy:latex|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|allergy:latex|swap",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|allergy:latex|drop",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|allergy:mustard|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|allergy:mustard|faint",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|allergy:mustard|swap",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|allergy:mustard|drop",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|allergy:sesame|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|allergy:sesame|faint",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|allergy:sesame|swap",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|allergy:sesame|drop",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|allergy:sulfites|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|allergy:sulfites|faint",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|allergy:sulfites|swap",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|allergy:sulfites|drop",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|allergy:kiwi|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|allergy:kiwi|faint",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|allergy:kiwi|swap",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|allergy:kiwi|drop",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|allergy:wasp stings|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|allergy:wasp stings|faint",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|allergy:wasp stings|swap",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|allergy:wasp stings|drop",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|allergy:aspirin|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|allergy:aspirin|faint",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|allergy:aspirin|swap",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|allergy:aspirin|drop",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|room:614|present",
+   "reply": "yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|room:614|faint",
+   "reply": "yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|room:614|swap",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|room:614|drop",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|room:227|present",
+   "reply": "yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|room:227|faint",
+   "reply": "yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|room:227|swap",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|room:227|drop",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|room:1108|present",
+   "reply": "yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|room:1108|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|room:1108|swap",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|room:1108|drop",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|room:355|present",
+   "reply": "yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|room:355|faint",
+   "reply": "yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|room:355|swap",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|room:355|drop",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|room:902|present",
+   "reply": "yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|room:902|faint",
+   "reply": "yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|room:902|swap",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|room:902|drop",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|room:471|present",
+   "reply": "yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|room:471|faint",
+   "reply": "yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|room:471|swap",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|room:471|drop",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|room:1236|present",
+   "reply": "yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|room:1236|faint",
+   "reply": "yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|room:1236|swap",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|room:1236|drop",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|room:588|present",
+   "reply": "yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|room:588|faint",
+   "reply": "yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|room:588|swap",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|room:588|drop",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|room:743|present",
+   "reply": "yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|room:743|faint",
+   "reply": "yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|room:743|swap",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|room:743|drop",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|room:196|present",
+   "reply": "yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|room:196|faint",
+   "reply": "yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|room:196|swap",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|room:196|drop",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|flight:QR318|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|flight:QR318|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|flight:QR318|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|flight:QR318|drop",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|flight:LH772|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|flight:LH772|faint",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|flight:LH772|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|flight:LH772|drop",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|flight:BA945|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|flight:BA945|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|flight:BA945|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|flight:BA945|drop",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|flight:AY206|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|flight:AY206|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|flight:AY206|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|flight:AY206|drop",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|flight:OK483|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|flight:OK483|faint",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|flight:OK483|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|flight:OK483|drop",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|flight:SK651|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|flight:SK651|faint",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|flight:SK651|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|flight:SK651|drop",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|flight:TP129|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|flight:TP129|faint",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|flight:TP129|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|flight:TP129|drop",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|flight:AZ874|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|flight:AZ874|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|flight:AZ874|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|flight:AZ874|drop",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|flight:EW537|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|flight:EW537|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|flight:EW537|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|flight:EW537|drop",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|flight:IB260|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|flight:IB260|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|flight:IB260|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|flight:IB260|drop",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|cat:Miso|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|cat:Miso|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|cat:Miso|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|cat:Miso|drop",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|cat:Grendel|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|cat:Grendel|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|cat:Grendel|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|cat:Grendel|drop",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|cat:Pilch|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|cat:Pilch|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|cat:Pilch|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|cat:Pilch|drop",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|cat:Nectarine|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|cat:Nectarine|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|cat:Nectarine|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|cat:Nectarine|drop",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|cat:Bobbin|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|cat:Bobbin|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|cat:Bobbin|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|cat:Bobbin|drop",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|cat:Vosk|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|cat:Vosk|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|cat:Vosk|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|cat:Vosk|drop",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|cat:Tamarind|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|cat:Tamarind|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|cat:Tamarind|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|cat:Tamarind|drop",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|cat:Klepto|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|cat:Klepto|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|cat:Klepto|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|cat:Klepto|drop",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|cat:Sorrel|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|cat:Sorrel|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|cat:Sorrel|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|cat:Sorrel|drop",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|cat:Nubbin|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|cat:Nubbin|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|cat:Nubbin|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|cat:Nubbin|drop",
+   "reply": "no",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3.5-4B|dog:Bagr|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|dog:Bagr|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|dog:Bagr|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3.5-4B|dog:Bagr|drop",
+   "reply": "Thinking Process:",
+   "code": "other",
+   "judge": "neither"
+  },
+  {
+   "id": "Qwen3.5-4B|dog:Fizzle|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|dog:Fizzle|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|dog:Fizzle|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3.5-4B|dog:Fizzle|drop",
+   "reply": "Thinking Process:",
+   "code": "other",
+   "judge": "neither"
+  },
+  {
+   "id": "Qwen3.5-4B|dog:Kudla|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|dog:Kudla|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|dog:Kudla|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3.5-4B|dog:Kudla|drop",
+   "reply": "Thinking Process:",
+   "code": "other",
+   "judge": "neither"
+  },
+  {
+   "id": "Qwen3.5-4B|dog:Wobbet|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|dog:Wobbet|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|dog:Wobbet|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3.5-4B|dog:Wobbet|drop",
+   "reply": "Thinking Process:",
+   "code": "other",
+   "judge": "neither"
+  },
+  {
+   "id": "Qwen3.5-4B|dog:Trixel|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|dog:Trixel|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|dog:Trixel|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3.5-4B|dog:Trixel|drop",
+   "reply": "Thinking Process:",
+   "code": "other",
+   "judge": "neither"
+  },
+  {
+   "id": "Qwen3.5-4B|dog:Marnok|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|dog:Marnok|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|dog:Marnok|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3.5-4B|dog:Marnok|drop",
+   "reply": "Thinking Process:",
+   "code": "other",
+   "judge": "neither"
+  },
+  {
+   "id": "Qwen3.5-4B|dog:Bristle|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|dog:Bristle|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|dog:Bristle|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3.5-4B|dog:Bristle|drop",
+   "reply": "Thinking Process:",
+   "code": "other",
+   "judge": "neither"
+  },
+  {
+   "id": "Qwen3.5-4B|dog:Yorrick|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|dog:Yorrick|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|dog:Yorrick|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3.5-4B|dog:Yorrick|drop",
+   "reply": "Thinking Process:",
+   "code": "other",
+   "judge": "neither"
+  },
+  {
+   "id": "Qwen3.5-4B|dog:Plunk|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|dog:Plunk|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|dog:Plunk|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3.5-4B|dog:Plunk|drop",
+   "reply": "Thinking Process:",
+   "code": "other",
+   "judge": "neither"
+  },
+  {
+   "id": "Qwen3.5-4B|dog:Skarn|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|dog:Skarn|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|dog:Skarn|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3.5-4B|dog:Skarn|drop",
+   "reply": "Thinking Process:",
+   "code": "other",
+   "judge": "neither"
+  },
+  {
+   "id": "Qwen3.5-4B|order:4417|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|order:4417|faint",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3.5-4B|order:4417|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3.5-4B|order:4417|drop",
+   "reply": "Thinking Process:",
+   "code": "other",
+   "judge": "neither"
+  },
+  {
+   "id": "Qwen3.5-4B|order:8290|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|order:8290|faint",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3.5-4B|order:8290|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3.5-4B|order:8290|drop",
+   "reply": "Thinking Process:",
+   "code": "other",
+   "judge": "neither"
+  },
+  {
+   "id": "Qwen3.5-4B|order:1053|present",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3.5-4B|order:1053|faint",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3.5-4B|order:1053|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3.5-4B|order:1053|drop",
+   "reply": "Thinking Process:",
+   "code": "other",
+   "judge": "neither"
+  },
+  {
+   "id": "Qwen3.5-4B|order:7734|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|order:7734|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|order:7734|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3.5-4B|order:7734|drop",
+   "reply": "Thinking Process:",
+   "code": "other",
+   "judge": "neither"
+  },
+  {
+   "id": "Qwen3.5-4B|order:6621|present",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3.5-4B|order:6621|faint",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3.5-4B|order:6621|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3.5-4B|order:6621|drop",
+   "reply": "Thinking Process:",
+   "code": "other",
+   "judge": "neither"
+  },
+  {
+   "id": "Qwen3.5-4B|order:3908|present",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3.5-4B|order:3908|faint",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3.5-4B|order:3908|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3.5-4B|order:3908|drop",
+   "reply": "Thinking Process:",
+   "code": "other",
+   "judge": "neither"
+  },
+  {
+   "id": "Qwen3.5-4B|order:5142|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|order:5142|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|order:5142|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3.5-4B|order:5142|drop",
+   "reply": "Thinking Process:",
+   "code": "other",
+   "judge": "neither"
+  },
+  {
+   "id": "Qwen3.5-4B|order:2867|present",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3.5-4B|order:2867|faint",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3.5-4B|order:2867|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3.5-4B|order:2867|drop",
+   "reply": "Thinking Process:",
+   "code": "other",
+   "judge": "neither"
+  },
+  {
+   "id": "Qwen3.5-4B|order:9375|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|order:9375|faint",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3.5-4B|order:9375|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3.5-4B|order:9375|drop",
+   "reply": "Thinking Process:",
+   "code": "other",
+   "judge": "neither"
+  },
+  {
+   "id": "Qwen3.5-4B|order:1486|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|order:1486|faint",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3.5-4B|order:1486|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3.5-4B|order:1486|drop",
+   "reply": "Thinking Process:",
+   "code": "other",
+   "judge": "neither"
+  },
+  {
+   "id": "Qwen3.5-4B|city:Utrecht|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|city:Utrecht|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|city:Utrecht|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3.5-4B|city:Utrecht|drop",
+   "reply": "Thinking Process:",
+   "code": "other",
+   "judge": "neither"
+  },
+  {
+   "id": "Qwen3.5-4B|city:Graz|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|city:Graz|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|city:Graz|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3.5-4B|city:Graz|drop",
+   "reply": "Thinking Process:",
+   "code": "other",
+   "judge": "neither"
+  },
+  {
+   "id": "Qwen3.5-4B|city:Rijeka|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|city:Rijeka|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|city:Rijeka|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3.5-4B|city:Rijeka|drop",
+   "reply": "Thinking Process:",
+   "code": "other",
+   "judge": "neither"
+  },
+  {
+   "id": "Qwen3.5-4B|city:Leon|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|city:Leon|faint",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3.5-4B|city:Leon|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3.5-4B|city:Leon|drop",
+   "reply": "Thinking Process:",
+   "code": "other",
+   "judge": "neither"
+  },
+  {
+   "id": "Qwen3.5-4B|error:E-88|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|error:E-88|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|error:E-88|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3.5-4B|error:E-88|drop",
+   "reply": "Thinking Process:",
+   "code": "other",
+   "judge": "neither"
+  },
+  {
+   "id": "Qwen3.5-4B|error:X-12|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|error:X-12|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|error:X-12|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3.5-4B|error:X-12|drop",
+   "reply": "Thinking Process:",
+   "code": "other",
+   "judge": "neither"
+  },
+  {
+   "id": "Qwen3.5-4B|error:F-401|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|error:F-401|faint",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3.5-4B|error:F-401|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3.5-4B|error:F-401|drop",
+   "reply": "Thinking Process:",
+   "code": "other",
+   "judge": "neither"
+  },
+  {
+   "id": "Qwen3.5-4B|error:Q-73|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|error:Q-73|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|error:Q-73|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3.5-4B|error:Q-73|drop",
+   "reply": "Thinking Process:",
+   "code": "other",
+   "judge": "neither"
+  },
+  {
+   "id": "Qwen3.5-4B|error:B-206|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|error:B-206|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|error:B-206|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3.5-4B|error:B-206|drop",
+   "reply": "Thinking Process:",
+   "code": "other",
+   "judge": "neither"
+  },
+  {
+   "id": "Qwen3.5-4B|error:R-95|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|error:R-95|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|error:R-95|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3.5-4B|error:R-95|drop",
+   "reply": "Thinking Process:",
+   "code": "other",
+   "judge": "neither"
+  },
+  {
+   "id": "Qwen3.5-4B|error:T-340|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|error:T-340|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|error:T-340|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3.5-4B|error:T-340|drop",
+   "reply": "Thinking Process:",
+   "code": "other",
+   "judge": "neither"
+  },
+  {
+   "id": "Qwen3.5-4B|error:K-17|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|error:K-17|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|error:K-17|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3.5-4B|error:K-17|drop",
+   "reply": "Thinking Process:",
+   "code": "other",
+   "judge": "neither"
+  },
+  {
+   "id": "Qwen3.5-4B|error:M-628|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|error:M-628|faint",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3.5-4B|error:M-628|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3.5-4B|error:M-628|drop",
+   "reply": "Thinking Process:",
+   "code": "other",
+   "judge": "neither"
+  },
+  {
+   "id": "Qwen3.5-4B|error:Z-54|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|error:Z-54|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|error:Z-54|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3.5-4B|error:Z-54|drop",
+   "reply": "Thinking Process:",
+   "code": "other",
+   "judge": "neither"
+  },
+  {
+   "id": "Qwen3.5-4B|time:19:40|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|time:19:40|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|time:19:40|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3.5-4B|time:19:40|drop",
+   "reply": "Thinking Process:",
+   "code": "other",
+   "judge": "neither"
+  },
+  {
+   "id": "Qwen3.5-4B|time:06:15|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|time:06:15|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|time:06:15|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3.5-4B|time:06:15|drop",
+   "reply": "Thinking Process:",
+   "code": "other",
+   "judge": "neither"
+  },
+  {
+   "id": "Qwen3.5-4B|time:13:52|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|time:13:52|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|time:13:52|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3.5-4B|time:13:52|drop",
+   "reply": "Thinking Process:",
+   "code": "other",
+   "judge": "neither"
+  },
+  {
+   "id": "Qwen3.5-4B|time:21:08|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|time:21:08|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|time:21:08|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3.5-4B|time:21:08|drop",
+   "reply": "Thinking Process:",
+   "code": "other",
+   "judge": "neither"
+  },
+  {
+   "id": "Qwen3.5-4B|time:11:27|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|time:11:27|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|time:11:27|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3.5-4B|time:11:27|drop",
+   "reply": "Thinking Process:",
+   "code": "other",
+   "judge": "neither"
+  },
+  {
+   "id": "Qwen3.5-4B|time:04:36|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|time:04:36|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|time:04:36|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3.5-4B|time:04:36|drop",
+   "reply": "Thinking Process:",
+   "code": "other",
+   "judge": "neither"
+  },
+  {
+   "id": "Qwen3.5-4B|time:17:49|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|time:17:49|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|time:17:49|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3.5-4B|time:17:49|drop",
+   "reply": "Thinking Process:",
+   "code": "other",
+   "judge": "neither"
+  },
+  {
+   "id": "Qwen3.5-4B|time:08:03|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|time:08:03|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|time:08:03|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3.5-4B|time:08:03|drop",
+   "reply": "Thinking Process:",
+   "code": "other",
+   "judge": "neither"
+  },
+  {
+   "id": "Qwen3.5-4B|time:22:41|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|time:22:41|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|time:22:41|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3.5-4B|time:22:41|drop",
+   "reply": "Thinking Process:",
+   "code": "other",
+   "judge": "neither"
+  },
+  {
+   "id": "Qwen3.5-4B|time:15:14|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|time:15:14|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|time:15:14|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3.5-4B|time:15:14|drop",
+   "reply": "Thinking Process:",
+   "code": "other",
+   "judge": "neither"
+  },
+  {
+   "id": "Qwen3.5-4B|account:302|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|account:302|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|account:302|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3.5-4B|account:302|drop",
+   "reply": "Thinking Process:",
+   "code": "other",
+   "judge": "neither"
+  },
+  {
+   "id": "Qwen3.5-4B|account:718|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|account:718|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|account:718|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3.5-4B|account:718|drop",
+   "reply": "Thinking Process:",
+   "code": "other",
+   "judge": "neither"
+  },
+  {
+   "id": "Qwen3.5-4B|account:455|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|account:455|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|account:455|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3.5-4B|account:455|drop",
+   "reply": "Thinking Process:",
+   "code": "other",
+   "judge": "neither"
+  },
+  {
+   "id": "Qwen3.5-4B|account:961|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|account:961|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|account:961|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3.5-4B|account:961|drop",
+   "reply": "Thinking Process:",
+   "code": "other",
+   "judge": "neither"
+  },
+  {
+   "id": "Qwen3.5-4B|account:233|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|account:233|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|account:233|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3.5-4B|account:233|drop",
+   "reply": "Thinking Process:",
+   "code": "other",
+   "judge": "neither"
+  },
+  {
+   "id": "Qwen3.5-4B|account:807|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|account:807|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|account:807|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3.5-4B|account:807|drop",
+   "reply": "Thinking Process:",
+   "code": "other",
+   "judge": "neither"
+  },
+  {
+   "id": "Qwen3.5-4B|account:574|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|account:574|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|account:574|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3.5-4B|account:574|drop",
+   "reply": "Thinking Process:",
+   "code": "other",
+   "judge": "neither"
+  },
+  {
+   "id": "Qwen3.5-4B|account:129|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|account:129|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|account:129|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3.5-4B|account:129|drop",
+   "reply": "Thinking Process:",
+   "code": "other",
+   "judge": "neither"
+  },
+  {
+   "id": "Qwen3.5-4B|account:686|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|account:686|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|account:686|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3.5-4B|account:686|drop",
+   "reply": "Thinking Process:",
+   "code": "other",
+   "judge": "neither"
+  },
+  {
+   "id": "Qwen3.5-4B|account:340|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|account:340|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|account:340|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3.5-4B|account:340|drop",
+   "reply": "Thinking Process:",
+   "code": "other",
+   "judge": "neither"
+  },
+  {
+   "id": "Qwen3.5-4B|allergy:walnuts|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|allergy:walnuts|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|allergy:walnuts|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3.5-4B|allergy:walnuts|drop",
+   "reply": "Thinking Process:",
+   "code": "other",
+   "judge": "neither"
+  },
+  {
+   "id": "Qwen3.5-4B|allergy:mustard|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|allergy:mustard|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|allergy:mustard|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3.5-4B|allergy:mustard|drop",
+   "reply": "Thinking Process:",
+   "code": "other",
+   "judge": "neither"
+  },
+  {
+   "id": "Qwen3.5-4B|allergy:sesame|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|allergy:sesame|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|allergy:sesame|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3.5-4B|allergy:sesame|drop",
+   "reply": "Thinking Process:",
+   "code": "other",
+   "judge": "neither"
+  },
+  {
+   "id": "Qwen3.5-4B|allergy:kiwi|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|allergy:kiwi|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|allergy:kiwi|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3.5-4B|allergy:kiwi|drop",
+   "reply": "Thinking Process:",
+   "code": "other",
+   "judge": "neither"
+  },
+  {
+   "id": "Qwen3.5-4B|allergy:wasp stings|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|allergy:wasp stings|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|allergy:wasp stings|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3.5-4B|allergy:wasp stings|drop",
+   "reply": "Thinking Process:",
+   "code": "other",
+   "judge": "neither"
+  },
+  {
+   "id": "Qwen3.5-4B|allergy:aspirin|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|allergy:aspirin|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|allergy:aspirin|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3.5-4B|allergy:aspirin|drop",
+   "reply": "Thinking Process:",
+   "code": "other",
+   "judge": "neither"
+  },
+  {
+   "id": "Qwen3.5-4B|room:614|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|room:614|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|room:614|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3.5-4B|room:614|drop",
+   "reply": "Thinking Process:",
+   "code": "other",
+   "judge": "neither"
+  },
+  {
+   "id": "Qwen3.5-4B|room:227|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|room:227|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|room:227|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3.5-4B|room:227|drop",
+   "reply": "Thinking Process:",
+   "code": "other",
+   "judge": "neither"
+  },
+  {
+   "id": "Qwen3.5-4B|room:1108|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|room:1108|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|room:1108|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3.5-4B|room:1108|drop",
+   "reply": "Thinking Process:",
+   "code": "other",
+   "judge": "neither"
+  },
+  {
+   "id": "Qwen3.5-4B|room:355|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|room:355|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|room:355|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3.5-4B|room:355|drop",
+   "reply": "Thinking Process:",
+   "code": "other",
+   "judge": "neither"
+  },
+  {
+   "id": "Qwen3.5-4B|room:902|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|room:902|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|room:902|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3.5-4B|room:902|drop",
+   "reply": "Thinking Process:",
+   "code": "other",
+   "judge": "neither"
+  },
+  {
+   "id": "Qwen3.5-4B|room:471|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|room:471|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|room:471|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3.5-4B|room:471|drop",
+   "reply": "Thinking Process:",
+   "code": "other",
+   "judge": "neither"
+  },
+  {
+   "id": "Qwen3.5-4B|room:1236|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|room:1236|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|room:1236|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3.5-4B|room:1236|drop",
+   "reply": "Thinking Process:",
+   "code": "other",
+   "judge": "neither"
+  },
+  {
+   "id": "Qwen3.5-4B|room:588|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|room:588|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|room:588|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3.5-4B|room:588|drop",
+   "reply": "Thinking Process:",
+   "code": "other",
+   "judge": "neither"
+  },
+  {
+   "id": "Qwen3.5-4B|room:743|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|room:743|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|room:743|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3.5-4B|room:743|drop",
+   "reply": "Thinking Process:",
+   "code": "other",
+   "judge": "neither"
+  },
+  {
+   "id": "Qwen3.5-4B|flight:QR318|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|flight:QR318|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|flight:QR318|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3.5-4B|flight:QR318|drop",
+   "reply": "Thinking Process:",
+   "code": "other",
+   "judge": "neither"
+  },
+  {
+   "id": "Qwen3.5-4B|flight:LH772|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|flight:LH772|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|flight:LH772|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3.5-4B|flight:LH772|drop",
+   "reply": "Thinking Process:",
+   "code": "other",
+   "judge": "neither"
+  },
+  {
+   "id": "Qwen3.5-4B|flight:BA945|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|flight:BA945|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|flight:BA945|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3.5-4B|flight:BA945|drop",
+   "reply": "Thinking Process:",
+   "code": "other",
+   "judge": "neither"
+  },
+  {
+   "id": "Qwen3.5-4B|flight:AY206|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|flight:AY206|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|flight:AY206|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3.5-4B|flight:AY206|drop",
+   "reply": "Thinking Process:",
+   "code": "other",
+   "judge": "neither"
+  },
+  {
+   "id": "Qwen3.5-4B|flight:OK483|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|flight:OK483|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|flight:OK483|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3.5-4B|flight:OK483|drop",
+   "reply": "Thinking Process:",
+   "code": "other",
+   "judge": "neither"
+  },
+  {
+   "id": "Qwen3.5-4B|flight:SK651|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|flight:SK651|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|flight:SK651|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3.5-4B|flight:SK651|drop",
+   "reply": "Thinking Process:",
+   "code": "other",
+   "judge": "neither"
+  },
+  {
+   "id": "Qwen3.5-4B|flight:TP129|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|flight:TP129|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|flight:TP129|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3.5-4B|flight:TP129|drop",
+   "reply": "Thinking Process:",
+   "code": "other",
+   "judge": "neither"
+  },
+  {
+   "id": "Qwen3.5-4B|flight:AZ874|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|flight:AZ874|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|flight:AZ874|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3.5-4B|flight:AZ874|drop",
+   "reply": "Thinking Process:",
+   "code": "other",
+   "judge": "neither"
+  },
+  {
+   "id": "Qwen3.5-4B|flight:EW537|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|flight:EW537|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|flight:EW537|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3.5-4B|flight:EW537|drop",
+   "reply": "Thinking Process:",
+   "code": "other",
+   "judge": "neither"
+  },
+  {
+   "id": "Qwen3.5-4B|flight:IB260|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|flight:IB260|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|flight:IB260|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3.5-4B|flight:IB260|drop",
+   "reply": "Thinking Process:",
+   "code": "other",
+   "judge": "neither"
+  },
+  {
+   "id": "Qwen3.5-4B|cat:Miso|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|cat:Miso|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|cat:Miso|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3.5-4B|cat:Miso|drop",
+   "reply": "Thinking Process:",
+   "code": "other",
+   "judge": "neither"
+  },
+  {
+   "id": "Qwen3.5-4B|cat:Grendel|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|cat:Grendel|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|cat:Grendel|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3.5-4B|cat:Grendel|drop",
+   "reply": "Thinking Process:",
+   "code": "other",
+   "judge": "neither"
+  },
+  {
+   "id": "Qwen3.5-4B|cat:Pilch|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|cat:Pilch|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|cat:Pilch|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3.5-4B|cat:Pilch|drop",
+   "reply": "Thinking Process:",
+   "code": "other",
+   "judge": "neither"
+  },
+  {
+   "id": "Qwen3.5-4B|cat:Nectarine|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|cat:Nectarine|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|cat:Nectarine|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3.5-4B|cat:Nectarine|drop",
+   "reply": "Thinking Process:",
+   "code": "other",
+   "judge": "neither"
+  },
+  {
+   "id": "Qwen3.5-4B|cat:Bobbin|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|cat:Bobbin|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|cat:Bobbin|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3.5-4B|cat:Bobbin|drop",
+   "reply": "Thinking Process:",
+   "code": "other",
+   "judge": "neither"
+  },
+  {
+   "id": "Qwen3.5-4B|cat:Vosk|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|cat:Vosk|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|cat:Vosk|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3.5-4B|cat:Vosk|drop",
+   "reply": "Thinking Process:",
+   "code": "other",
+   "judge": "neither"
+  },
+  {
+   "id": "Qwen3.5-4B|cat:Tamarind|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|cat:Tamarind|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|cat:Tamarind|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3.5-4B|cat:Tamarind|drop",
+   "reply": "Thinking Process:",
+   "code": "other",
+   "judge": "neither"
+  },
+  {
+   "id": "Qwen3.5-4B|cat:Klepto|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|cat:Klepto|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|cat:Klepto|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3.5-4B|cat:Klepto|drop",
+   "reply": "Thinking Process:",
+   "code": "other",
+   "judge": "neither"
+  },
+  {
+   "id": "Qwen3.5-4B|cat:Sorrel|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|cat:Sorrel|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|cat:Sorrel|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3.5-4B|cat:Sorrel|drop",
+   "reply": "Thinking Process:",
+   "code": "other",
+   "judge": "neither"
+  },
+  {
+   "id": "Qwen3.5-4B|cat:Nubbin|present",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|cat:Nubbin|faint",
+   "reply": "Yes",
+   "code": "yes",
+   "judge": "yes"
+  },
+  {
+   "id": "Qwen3.5-4B|cat:Nubbin|swap",
+   "reply": "No",
+   "code": "no",
+   "judge": "no"
+  },
+  {
+   "id": "Qwen3.5-4B|cat:Nubbin|drop",
+   "reply": "Thinking Process:",
+   "code": "other",
+   "judge": "neither"
+  }
+ ],
+ "value": [
+  {
+   "id": "Qwen3-4B-Instruct-2507|dog:Bagr",
+   "true": "Bagr",
+   "answer": "Your dog is called Bag! \ud83d\udc36 That's a fun and unique name\u2014great choice! Is there anything special",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|dog:Fizzle",
+   "true": "Fizzle",
+   "answer": "Your dog is called **My Dog**! \ud83d\udc36 That's a pretty cool name\u2014unique and full of personality",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|dog:Kudla",
+   "true": "Kudla",
+   "answer": "Your dog is called Max. \ud83d\ude0a (Wait\u2014actually, you said your dog is called *you*\u2014that",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|dog:Wobbet",
+   "true": "Wobbet",
+   "answer": "Your dog is called Wobbly! \ud83d\ude0a (Wait\u2014did you mean to say \"Wobbly\" or",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|dog:Trixel",
+   "true": "Trixel",
+   "answer": "Your dog is called Trix! \ud83d\ude0a (Or is it? You said \"Trix\" \u2014 maybe a playful",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|dog:Marnok",
+   "true": "Marnok",
+   "answer": "Your dog is called Marn. \ud83d\ude0a (Though I notice you said \"Marn\" \u2014 is that a typo",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|dog:Bristle",
+   "true": "Bristle",
+   "answer": "Your dog is called Max. \ud83d\ude0a (Wait\u2014actually, you said your dog is called *you*\u2014\"",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|dog:Yorrick",
+   "true": "Yorrick",
+   "answer": "Your dog is called Yorick. \ud83d\ude0a (Though I'm not sure if that's a coincidence\u2014Yor",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|dog:Plunk",
+   "true": "Plunk",
+   "answer": "Your dog is called **My Dog**! \ud83d\udc36 That's a pretty cool name\u2014unique and a little playful",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|dog:Skarn",
+   "true": "Skarn",
+   "answer": "Your dog is called Max. \ud83d\ude0a (Wait\u2014actually, you said your dog is called *you*\u2014that",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|order:4417",
+   "true": "4417",
+   "answer": "Your order number is 417.",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|order:8290",
+   "true": "8290",
+   "answer": "I don't have access to your order information or any personal details. If you need help with your order, I recommend",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|order:1053",
+   "true": "1053",
+   "answer": "Your order number is 105.",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|order:7734",
+   "true": "7734",
+   "answer": "Your order number is 734.",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|order:6621",
+   "true": "6621",
+   "answer": "I don't have access to your order information or any personal details. If you need help with your order, I recommend",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|order:3908",
+   "true": "3908",
+   "answer": "I don't have access to your order information or any personal details. If you need help with your order, I recommend",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|order:5142",
+   "true": "5142",
+   "answer": "I don't have access to your order information or any personal details. If you need help with your order, I recommend",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|order:2867",
+   "true": "2867",
+   "answer": "Your order number is 286.",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|order:9375",
+   "true": "9375",
+   "answer": "I don't have access to your order information or any personal details. If you need help with your order, I recommend",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|order:1486",
+   "true": "1486",
+   "answer": "Your order number is 148.",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|city:Brno",
+   "true": "Brno",
+   "answer": "I'm sorry, but I don't have access to your personal information, including your location. So I can't determine",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|city:Utrecht",
+   "true": "Utrecht",
+   "answer": "I'm sorry, but I don't have access to your location or personal information. I can't determine which city you",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|city:Bergen",
+   "true": "Bergen",
+   "answer": "I'm sorry, but I don't have access to your personal information, including your location. So I can't determine",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|city:Kaunas",
+   "true": "Kaunas",
+   "answer": "I'm sorry, but I don't have access to your personal information, including your location. So I can't determine",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|city:Porto",
+   "true": "Porto",
+   "answer": "I'm sorry, but I don't have access to your personal information, including your location. So I can't determine",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|city:Graz",
+   "true": "Graz",
+   "answer": "I'm sorry, but I don't have access to your personal information, including where you live. You can let me",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|city:Tampere",
+   "true": "Tampere",
+   "answer": "I'm sorry, but I don't have access to your personal information, including your location. So I can't determine",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|city:Rijeka",
+   "true": "Rijeka",
+   "answer": "I'm sorry, but I don't have access to your personal information, including your location. So I can't determine",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|city:Aarhus",
+   "true": "Aarhus",
+   "answer": "I'm sorry, but I don't have access to your personal information, including your location. So I can't determine",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|city:Leon",
+   "true": "Leon",
+   "answer": "I'm sorry, but I don't have access to your personal information, including where you live. You can let me",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|error:E-88",
+   "true": "E-88",
+   "answer": "You mentioned you received error code **E-8**, but you said \"the error code I got was E-8",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|error:X-12",
+   "true": "X-12",
+   "answer": "You mentioned that you got error code **12**, so that's the one you received. If you'd like",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|error:F-401",
+   "true": "F-401",
+   "answer": "You mentioned you received an error code \"by the way, the error code I got was was BYE.\" But that",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|error:Q-73",
+   "true": "Q-73",
+   "answer": "You mentioned that you got error code **73**, so that's the one you received. If you'd like,",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|error:B-206",
+   "true": "B-206",
+   "answer": "You mentioned \"the error code I got was was by the way, the error code I got was was by the way",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|error:R-95",
+   "true": "R-95",
+   "answer": "You mentioned that you got error code **\"I\"**, but that doesn't seem to be a standard or recognized error",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|error:T-340",
+   "true": "T-340",
+   "answer": "You mentioned that you received error code **340**, but you're asking which error code it was \u2014 so let",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|error:K-17",
+   "true": "K-17",
+   "answer": "You mentioned that you got error code **17**, so that's the one you received. If you'd like,",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|error:M-628",
+   "true": "M-628",
+   "answer": "You mentioned that you received error code **M-62**, so that's the error code you got. If",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|error:Z-54",
+   "true": "Z-54",
+   "answer": "You mentioned that you got error code **\"I\"**, but that doesn't seem to make sense in this context.",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|time:19:40",
+   "true": "19:40",
+   "answer": "Your train leaves at 12:00 PM (noon), as mentioned in your message. Let me know if",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|time:06:15",
+   "true": "06:15",
+   "answer": "Your train leaves at 6:15 PM.",
+   "code": true,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|time:13:52",
+   "true": "13:52",
+   "answer": "Your train leaves at 1:00 PM. \ud83d\ude0a",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|time:21:08",
+   "true": "21:08",
+   "answer": "Your train leaves at 2:00 PM.",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|time:11:27",
+   "true": "11:27",
+   "answer": "Your train leaves at 1:00 PM. \ud83d\ude0a",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|time:04:36",
+   "true": "04:36",
+   "answer": "Your train leaves at 4:36 PM.",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|time:17:49",
+   "true": "17:49",
+   "answer": "Your train leaves at 12:00 PM (noon), as mentioned in your message. Let me know if",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|time:08:03",
+   "true": "08:03",
+   "answer": "Your train leaves at 8:03 AM.",
+   "code": true,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|time:22:41",
+   "true": "22:41",
+   "answer": "Your train leaves at 21:00 (9:00 PM).",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|time:15:14",
+   "true": "15:14",
+   "answer": "Your train leaves at 1:00 PM. \ud83d\ude0a",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|account:302",
+   "true": "302",
+   "answer": "I'm sorry, but I can't access or know your personal information, including your account number. If you need help",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|account:718",
+   "true": "718",
+   "answer": "Your account number ends in **7**. \ud83d\ude0a",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|account:455",
+   "true": "455",
+   "answer": "Your account number ends in **45**. \ud83d\ude0a",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|account:961",
+   "true": "961",
+   "answer": "I'm sorry, but I can't access or know your personal information, including your account number. If you need help",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|account:233",
+   "true": "233",
+   "answer": "Your account number ends in **23**. \ud83d\ude0a",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|account:807",
+   "true": "807",
+   "answer": "I'm sorry, but I can't access or know your personal information, including your account number. If you need help",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|account:574",
+   "true": "574",
+   "answer": "I'm sorry, but I can't access or know your personal information, including your account number. If you need help",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|account:129",
+   "true": "129",
+   "answer": "Your account number ends in **12**.",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|account:686",
+   "true": "686",
+   "answer": "Your account number ends in **6**. \ud83d\ude0a",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|account:340",
+   "true": "340",
+   "answer": "I'm sorry, but I can't access or know your personal information, including your account number. If you need help",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|allergy:walnuts",
+   "true": "walnuts",
+   "answer": "I'm sorry, but I don't have access to your personal health information, including your specific allergies. If you're",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|allergy:penicillin",
+   "true": "penicillin",
+   "answer": "I'm sorry, but I can't determine what you're allergic to. You might want to consult with a healthcare professional",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|allergy:shellfish",
+   "true": "shellfish",
+   "answer": "I'm sorry, but I don't have access to your personal medical information, including your specific allergies. If you're",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|allergy:latex",
+   "true": "latex",
+   "answer": "I'm sorry, but I can't determine what you're allergic to\u2014only you can know that. Since you mentioned",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|allergy:mustard",
+   "true": "mustard",
+   "answer": "I'm sorry, but I don't have access to your personal health information, including allergies. If you're unsure what",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|allergy:sesame",
+   "true": "sesame",
+   "answer": "I'm sorry, but I don't have access to your personal health information, including allergies. If you're unsure what",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|allergy:sulfites",
+   "true": "sulfites",
+   "answer": "I'm sorry, but I don't have access to your personal health information, including your specific allergies. If you're",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|allergy:kiwi",
+   "true": "kiwi",
+   "answer": "I'm sorry, but I don't have access to your personal health information, including allergies. If you're unsure what",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|allergy:wasp stings",
+   "true": "wasp stings",
+   "answer": "I'm sorry, but I don't have access to your personal health information, including allergies. If you're unsure what",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|allergy:aspirin",
+   "true": "aspirin",
+   "answer": "I'm sorry, but I don't have access to your personal medical information, including your specific allergies. If you're",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|room:614",
+   "true": "614",
+   "answer": "You're in room 61. \ud83d\ude0a",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|room:227",
+   "true": "227",
+   "answer": "You're in room 207. \ud83d\ude0a",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|room:1108",
+   "true": "1108",
+   "answer": "You're in room 108. \ud83d\ude0a",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|room:355",
+   "true": "355",
+   "answer": "You're in room 350. \ud83d\ude0a",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|room:902",
+   "true": "902",
+   "answer": "I'm sorry, but I can't determine which hotel room you're in. The information you provided only says \"my",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|room:471",
+   "true": "471",
+   "answer": "I'm sorry, but I can't determine which hotel room you're in. The information you provided only says \"my",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|room:1236",
+   "true": "1236",
+   "answer": "You're in room 123. \ud83d\ude0a",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|room:588",
+   "true": "588",
+   "answer": "I'm sorry, but I don't have access to your current location or booking details. The only information you provided is",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|room:743",
+   "true": "743",
+   "answer": "I'm sorry, but I can't determine which hotel room you're in. The information you provided \u2014 \"my hotel",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|room:196",
+   "true": "196",
+   "answer": "I'm sorry, but I can't determine which hotel room you're in. The information you provided \u2014 \"my hotel",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|flight:QR318",
+   "true": "QR318",
+   "answer": "I'm sorry, but I don't have access to your flight details or personal information. If you'd like to confirm",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|flight:LH772",
+   "true": "LH772",
+   "answer": "I'm sorry, but I don't have access to your flight details or personal information. If you'd like to check",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|flight:BA945",
+   "true": "BA945",
+   "answer": "I'm sorry, but I don't have access to your flight details or personal information. If you'd like to confirm",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|flight:AY206",
+   "true": "AY206",
+   "answer": "I'm sorry, but I don't have access to your flight details or personal information. If you'd like to confirm",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|flight:OK483",
+   "true": "OK483",
+   "answer": "I'm sorry, but I don't have access to your flight details or personal information. If you'd like to check",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|flight:SK651",
+   "true": "SK651",
+   "answer": "I'm sorry, but I don't have access to your flight details or personal information. If you'd like to check",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|flight:TP129",
+   "true": "TP129",
+   "answer": "I'm sorry, but I don't have access to your flight details or personal information. If you'd like to check",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|flight:AZ874",
+   "true": "AZ874",
+   "answer": "I'm sorry, but I don't have access to your flight details or personal information. If you'd like to check",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|flight:EW537",
+   "true": "EW537",
+   "answer": "I'm sorry, but I don't have access to your flight details or personal information. If you'd like to confirm",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|flight:IB260",
+   "true": "IB260",
+   "answer": "I'm sorry, but I don't have access to your flight details or personal information. If you'd like to check",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|cat:Miso",
+   "true": "Miso",
+   "answer": "Your cat is called... *My Cat*? \ud83d\ude38 That's a delightfully simple and sweet name! It's",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|cat:Grendel",
+   "true": "Grendel",
+   "answer": "Your cat is called **Mia**. \ud83d\ude3a (Wait\u2014actually, you said your cat is called *you",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|cat:Pilch",
+   "true": "Pilch",
+   "answer": "Your cat is called **Pil**! \ud83d\ude3a (Wait\u2014did you mean *Pil* or *P",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|cat:Nectarine",
+   "true": "Nectarine",
+   "answer": "Your cat is called Nectar! \ud83d\ude3a\u2728 (Or maybe just \"Nectar\" \u2014 that's a lovely name",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|cat:Bobbin",
+   "true": "Bobbin",
+   "answer": "Your cat is called Bob. \ud83d\ude3a\u2728 (Or is it? You said \"my cat is called Bob\" \u2014",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|cat:Vosk",
+   "true": "Vosk",
+   "answer": "Your cat is called **My**. \ud83d\ude38 That's a pretty cool name\u2014unique and a little mysterious! (",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|cat:Tamarind",
+   "true": "Tamarind",
+   "answer": "Your cat is called **Mia**. \ud83d\ude3a (Wait\u2014actually, you said your cat is called *you",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|cat:Klepto",
+   "true": "Klepto",
+   "answer": "Your cat is called... *My Cat*. \ud83d\ude38\u2728 (Well, that\u2019s a clever name\u2014very personal",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|cat:Sorrel",
+   "true": "Sorrel",
+   "answer": "Your cat is called... *My Cat*? \ud83d\ude38 That's a fun name \u2014 a little poetic, and a",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3-4B-Instruct-2507|cat:Nubbin",
+   "true": "Nubbin",
+   "answer": "Your cat is called Nub. \ud83d\ude3a\ud83d\udc3e (Just a fun little twist \u2014 \"Nub\" sounds like \"",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|dog:Bagr",
+   "true": "Bagr",
+   "answer": "Your dog is called **Bag**.",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|dog:Fizzle",
+   "true": "Fizzle",
+   "answer": "Your dog is called **Fido**. *(Note: I made a playful joke there! Your dog's actual name",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|dog:Kudla",
+   "true": "Kudla",
+   "answer": "Your dog is called **Kud**.",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|dog:Wobbet",
+   "true": "Wobbet",
+   "answer": "Your dog is called **Wobbly**.",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|dog:Trixel",
+   "true": "Trixel",
+   "answer": "Your dog is called **Trixie**.",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|dog:Marnok",
+   "true": "Marnok",
+   "answer": "Your dog is called **Barnaby**.",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|dog:Bristle",
+   "true": "Bristle",
+   "answer": "Your dog is called **Brist**.",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|dog:Yorrick",
+   "true": "Yorrick",
+   "answer": "Your dog is called **Yorick**.",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|dog:Plunk",
+   "true": "Plunk",
+   "answer": "Your dog is called **Pup**.",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|dog:Skarn",
+   "true": "Skarn",
+   "answer": "Your dog is called **Dog**. (Just to clarify: in my previous response, I said \"Noted\"",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|order:4417",
+   "true": "4417",
+   "answer": "Your order number is **1000000000000000000",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|order:8290",
+   "true": "8290",
+   "answer": "Your order number is **1000000000000000000",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|order:1053",
+   "true": "1053",
+   "answer": "Your order number is **105**.",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|order:7734",
+   "true": "7734",
+   "answer": "Your order number is **12345**.",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|order:6621",
+   "true": "6621",
+   "answer": "Your order number is **12345**.",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|order:3908",
+   "true": "3908",
+   "answer": "Your order number is **1234567890**.",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|order:5142",
+   "true": "5142",
+   "answer": "Your order number is **1234567890**.",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|order:2867",
+   "true": "2867",
+   "answer": "Your order number is **12345**.",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|order:9375",
+   "true": "9375",
+   "answer": "Your order number is **5043**.",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|order:1486",
+   "true": "1486",
+   "answer": "Your order number is **148**.",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|city:Utrecht",
+   "true": "Utrecht",
+   "answer": "You live in **Amsterdam**, the capital city of the Netherlands. It is known for its canals, historic",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|city:Graz",
+   "true": "Graz",
+   "answer": "You live in **Linz**, Austria. It is the capital of the state of Upper Austria and the second-largest",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|city:Rijeka",
+   "true": "Rijeka",
+   "answer": "You live in **Ljubljana**, the capital and largest city of Slovenia. It is known for its beautiful",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|city:Leon",
+   "true": "Leon",
+   "answer": "You live in **Le\u00f3n**, a city in the state of Guanajuato, Mexico. It is known for its",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3.5-4B|error:E-88",
+   "true": "E-88",
+   "answer": "You got error code **E8** (or **E800** depending on the system). In the",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|error:X-12",
+   "true": "X-12",
+   "answer": "You got error code **100**.",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|error:F-401",
+   "true": "F-401",
+   "answer": "You got error code **404**. This typically means \"Not Found,\" indicating that the server cannot find the",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|error:Q-73",
+   "true": "Q-73",
+   "answer": "You received error code **Q-7**.",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|error:B-206",
+   "true": "B-206",
+   "answer": "You received error code **404**. This typically means \"Not Found,\" indicating that the server cannot find the",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|error:R-95",
+   "true": "R-95",
+   "answer": "You got error code **R-9**. *(Note: In the context of the \"Error Code\" meme,",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|error:T-340",
+   "true": "T-340",
+   "answer": "You received error code **404**. This typically means \"Not Found,\" indicating that the server cannot find the",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|error:K-17",
+   "true": "K-17",
+   "answer": "You got error code **404**. This typically means \"Not Found,\" indicating that the server cannot find the",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|error:M-628",
+   "true": "M-628",
+   "answer": "You got error code **62** (often referred to as \"62\" in contexts like Windows Event Viewer or",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|error:Z-54",
+   "true": "Z-54",
+   "answer": "You got error code **Z-5**. *(Note: In your previous message, you wrote \"Z-5",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|time:19:40",
+   "true": "19:40",
+   "answer": "Your train leaves at **19:45** (7:45 PM). *Note: I previously",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|time:06:15",
+   "true": "06:15",
+   "answer": "Your train leaves at **6:15**.",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3.5-4B|time:13:52",
+   "true": "13:52",
+   "answer": "Your train leaves at **14:55** (2:55 PM). *Note: I am",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|time:21:08",
+   "true": "21:08",
+   "answer": "Your train leaves at **21:00** (9:00 PM).",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|time:11:27",
+   "true": "11:27",
+   "answer": "Your train leaves at **3:00 PM** (or 15:00).",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|time:04:36",
+   "true": "04:36",
+   "answer": "Your train leaves at **4:36**.",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3.5-4B|time:17:49",
+   "true": "17:49",
+   "answer": "Your train leaves at **17:45** (5:45 PM).",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|time:08:03",
+   "true": "08:03",
+   "answer": "Your train leaves at **8:03**.",
+   "code": true,
+   "judge": true
+  },
+  {
+   "id": "Qwen3.5-4B|time:22:41",
+   "true": "22:41",
+   "answer": "Your train leaves at **22:45** (10:45 PM). *Note: I",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|time:15:14",
+   "true": "15:14",
+   "answer": "Your train leaves at **15:15** (3:15 PM).",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|account:302",
+   "true": "302",
+   "answer": "Your account number ends in **2**.",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|account:718",
+   "true": "718",
+   "answer": "Your account number ends in **3**.",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|account:455",
+   "true": "455",
+   "answer": "Your account number ends in **5**.",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|account:961",
+   "true": "961",
+   "answer": "Your account number ends in **1**.",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|account:233",
+   "true": "233",
+   "answer": "Your account number ends in **23**.",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|account:807",
+   "true": "807",
+   "answer": "Your account number ends in **7**.",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|account:574",
+   "true": "574",
+   "answer": "Your account number ends in **57**.",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|account:129",
+   "true": "129",
+   "answer": "Your account number ends in **3**.",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|account:686",
+   "true": "686",
+   "answer": "Your account number ends in **68**.",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|account:340",
+   "true": "340",
+   "answer": "Your account number ends in **34**.",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|allergy:walnuts",
+   "true": "walnuts",
+   "answer": "You are allergic to **peanuts**. Peanuts are botanically legumes (often called groundnuts),",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|allergy:mustard",
+   "true": "mustard",
+   "answer": "You are allergic to **peanuts** (and often other legumes like soy, depending on your specific medical history).",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|allergy:sesame",
+   "true": "sesame",
+   "answer": "You are allergic to **peanuts** (and often tree nuts, as they are botanically distinct but frequently cross",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|allergy:kiwi",
+   "true": "kiwi",
+   "answer": "You are allergic to **peanuts** (or tree nuts, depending on how you classify them, but peanuts are bot",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|allergy:wasp stings",
+   "true": "wasp stings",
+   "answer": "You are allergic to **stinging insects**, specifically: * **Honeybees** * **",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|allergy:aspirin",
+   "true": "aspirin",
+   "answer": "You are allergic to **penicillin** (a type of antibiotic). This is a common and important detail to",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|room:614",
+   "true": "614",
+   "answer": "You are in **room 604**. Since hotel room numbers are typically written with the floor number first,",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|room:227",
+   "true": "227",
+   "answer": "You are in **room 207**. I apologize for the confusion earlier! I misread \"20",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|room:1108",
+   "true": "1108",
+   "answer": "You are in **room 110**. Since hotel room numbers are typically written with the floor number first,",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|room:355",
+   "true": "355",
+   "answer": "You are in **room 305**. Since hotel room numbers are typically sequential, room 305",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|room:902",
+   "true": "902",
+   "answer": "You are in **room 302**. Here is the breakdown: * The number **3**",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|room:471",
+   "true": "471",
+   "answer": "You are in **room 403**. I apologize for the confusion earlier! I misread \"40",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|room:1236",
+   "true": "1236",
+   "answer": "You are in **room 123**. I noticed you mentioned \"123\" in your first message",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|room:588",
+   "true": "588",
+   "answer": "You are in **room 58**. Since hotel room numbers are typically three digits, the \"58\"",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|room:743",
+   "true": "743",
+   "answer": "You are in **room 73** (or room 703, depending on how the number is read",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|flight:QR318",
+   "true": "QR318",
+   "answer": "Your flight number is **QR31** (or possibly **QR31** depending on the airline's internal coding",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|flight:LH772",
+   "true": "LH772",
+   "answer": "Your flight number is **LH400**.",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|flight:BA945",
+   "true": "BA945",
+   "answer": "Your flight number is **BA118** (or **BA119** depending on the direction).",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|flight:AY206",
+   "true": "AY206",
+   "answer": "Your flight number is **AY500**.",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|flight:OK483",
+   "true": "OK483",
+   "answer": "Your flight number is **405**.",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|flight:SK651",
+   "true": "SK651",
+   "answer": "Your flight number is **SK555**.",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|flight:TP129",
+   "true": "TP129",
+   "answer": "Your flight number is **123**.",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|flight:AZ874",
+   "true": "AZ874",
+   "answer": "Your flight number is **AZ87** (or **AZ87** depending on the airline's specific numbering format",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|flight:EW537",
+   "true": "EW537",
+   "answer": "Your flight number is **EW53** (or **EW53** depending on the airline's specific formatting,",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|flight:IB260",
+   "true": "IB260",
+   "answer": "Your flight number is **IB350**.",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|cat:Miso",
+   "true": "Miso",
+   "answer": "Your cat is called **Miyu**.",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|cat:Grendel",
+   "true": "Grendel",
+   "answer": "Your cat is called **By the way**. Wait, that doesn't sound like a cat's name! Let me",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|cat:Pilch",
+   "true": "Pilch",
+   "answer": "Your cat is called **Pip**.",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|cat:Nectarine",
+   "true": "Nectarine",
+   "answer": "Your cat is called **Nutmeg**.",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|cat:Bobbin",
+   "true": "Bobbin",
+   "answer": "Your cat is called **Bob**.",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|cat:Vosk",
+   "true": "Vosk",
+   "answer": "Your cat is called **Vos**.",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|cat:Tamarind",
+   "true": "Tamarind",
+   "answer": "Your cat is called **By the way**. Wait, that doesn't sound like a cat's name! Let me",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|cat:Klepto",
+   "true": "Klepto",
+   "answer": "Your cat is called **Cat**. (Just kidding! You mentioned earlier that your cat is called **Cat**...",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|cat:Sorrel",
+   "true": "Sorrel",
+   "answer": "Your cat is called **Cat**. (Just to clarify: you mentioned earlier that your cat is named **Cat**,",
+   "code": false,
+   "judge": false
+  },
+  {
+   "id": "Qwen3.5-4B|cat:Nubbin",
+   "true": "Nubbin",
+   "answer": "Your cat is called **Noby**.",
+   "code": false,
+   "judge": false
+  }
+ ],
+ "disagree_yesno": 89,
+ "disagree_value": 2
+}
