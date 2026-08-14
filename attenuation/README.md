@@ -1,5 +1,30 @@
 # attenuation
 
+**A model is told a fact. The fact's own tokens are made hard to read, while the
+sentence around them stays legible. The model then answers with a wrong value
+that sits next to the true one, and reports that it was told the fact.**
+
+|  |  |
+|---|---|
+| says "yes, you told me" when the value has gone | **147 of 184** |
+| says it when a readable sentence about **something else** is in that slot | **0 of 184** |
+
+Three things to know before the numbers, because they decide what the numbers
+mean:
+
+- **The dose is chosen per item.** `faint` means "the lowest `b` at which *this*
+  item's value is gone from the answer". So the value being wrong is the setup,
+  not the finding. The finding is what the model then says about where it came
+  from.
+- **The bias is on while that question is answered too**, at the same dose and
+  the same token positions.
+- **The mask covers the value, not the sentence.** *"By the way, my dog is
+  called…"* stays fully readable, so "yes, you told me my dog's name" is not a
+  false statement. What the model fails to do is register that the name it
+  produces is not the one it read.
+
+---
+
 ## In plain English
 
 **The question.** I tell a model something. Then I make the fact inside that
@@ -106,15 +131,8 @@ to "no"** — and not one of the 5 that said "no" switches the other way.
 A readable sentence about something else never produces a "yes", 0 of 184. So
 the "yes" tracks the topic, not the value.
 
-**And that reading is narrower than it first looks, because of what the mask
-covers.** The words *"By the way, my dog is called…"* stay fully readable, so a
-model answering *"yes, you told me my dog's name"* is not saying something
-false. The sentence is there and it is about the dog's name. What the model
-fails to do is notice that the name it then produces is **not the one it read**.
-So this is not "the model believes it was told something it never was". It is
-"the model reports the topic correctly, invents the value, and gives no signal
-that the two came from different places". The stronger reading, that the
-provenance signal is simply wrong, is not what this design can show.
+The narrowing this needs is at the top of this file: the sentence is legible,
+only the value is not.
 
 **The 37 items where it said "no" are the informative ones.**
 
@@ -155,9 +173,8 @@ value survives, it answers out of the words that do: told `Grendel`, it says
 *"you said your dog is called **you**"*. Both phrases come from the carrier
 sentence, the part that was never turned down.
 
-These five rows are chosen, and are the sharpest in the corpus. They show what
-the failure looks like; they are not evidence of how often it happens, which is
-the table above. The unchosen version is the figure at the top.
+These five are chosen and are the sharpest in the corpus; the table above is the
+rate, and the figure at the top is the unchosen draw.
 
 **`19:40 → 19:45` passes every check anyone runs downstream.** It does not look
 like a hallucination. It looks like a typo.
@@ -246,62 +263,20 @@ This asks the same about what the model was *told*. If the mechanism carried
 over, a degraded fact should look like an unknown entity and trigger a refusal.
 It doesn't.
 
-## The bias, and the one thing it cannot reach
+## The one thing the bias cannot reach
 
-The arithmetic is at the top of this file. What matters here is a limitation of
-it: **the mask is only seen by layers that run full attention.**
+The mask is only seen by layers that run full attention: **36 of 36 on
+Qwen3-4B, 8 of 32 on Qwen3.5-4B**, which is a hybrid. A linear-attention layer
+computes no score matrix over positions, so there is nothing to subtract `b`
+from and the mask passes through it. The sentence is therefore quiet in 8 layers
+and at full strength in the other 24 on that model, which **confounds the one
+comparison between the two of them**: Qwen3.5-4B needs twice the dose *and* is
+the model the bias reaches least. Nothing here separates those.
 
-| model | layers the mask reaches |
-|---|---|
-| Qwen3-4B-Instruct-2507 | 36 / 36 |
-| **Qwen3.5-4B** | **8 / 32** |
-
-A linear-attention layer computes no N×N score over positions. It accumulates a
-state recurrently, so there is no per-position logit to subtract `b` from and
-the mask passes through unchanged. Qwen3.5-4B is `model_type: qwen3_5` with
-`full_attention_interval: 4`: 24 linear-attention layers and 8 full-attention
-ones, at depths 3, 7, 11 … 31. Qwen3-4B-Instruct-2507 has no `layer_types` at
-all, so all 36 of its layers are full attention.
-
-So the sentence is not merely quieter on Qwen3.5-4B. It is **quiet in 8 layers
-and at full strength in the other 24**, and information can travel that parallel
-path untouched, a path the other model does not have. This cuts two ways and
-both are worth stating:
-
-- **It confounds the one comparison between the two models.** Qwen3.5-4B needs
-  roughly twice the dose *and* is the model where three quarters of the layers
-  never see the bias. Nothing in this report separates "more robust model" from
-  "the bias reached less of it".
-- **Eight layers still suffice to take the value out**, but at roughly twice
-  the dose, which is exactly the ambiguity above rather than a separate finding.
-  Whether 8 layers at `b` = 6 and 36 layers at `b` = 3 are doing the same work
-  is untested; the experiment that would tell you is masking only 8 of
-  Qwen3-4B's 36 layers, and it is in *what I would do next*, not here.
-
-**This is a graded version of a standard tool.** Blocking attention from chosen
-positions to test what depends on them is *attention knockout*
-([Geva, Bastings, Filippova & Globerson, 2023](https://arxiv.org/abs/2304.14767)):
-binary, the edge cut, asking *where information flows*. Here it is dosed rather
-than cut, and the question is different: not where the fact travels, but whether
-the model registers that it can no longer read it. The same lineage runs through
-*Do I Know This Entity?*, whose unknown-entity directions act by suppressing the
-attention of exactly those attribute-extraction heads. This manipulation imposes
-from outside the kind of change that mechanism produces from inside.
-
-These produce every number quoted above, in this order:
-
-```bash
-python src/told2.py   Qwen/Qwen3.5-4B   # the four conditions, the headline
-python src/ladder.py  Qwen/Qwen3.5-4B   # one item at a time up the dose sweep (fig2)
-python src/locality.py Qwen/Qwen3.5-4B  # same dose, mask one sentence over
-python src/hedge.py   Qwen/Qwen3.5-4B   # the behaviours, measured at b = 0 too
-python src/verify.py                    # the page for checking the yes/no by eye
-```
-
-`src/run.py`, `src/sweep*.py`, `src/told.py`, `src/absent.py` and `src/table.py`
-are the earlier ten-item pilot and its diagnostics. They are kept because the
-pilot is what caught the non-monotonicity below, but nothing in the results
-above is computed from them.
+Blocking attention at chosen positions to see what depends on them is *attention
+knockout* ([Geva et al., 2023](https://arxiv.org/abs/2304.14767)); this is the
+dosed version of it, asking not where the fact travels but whether the model
+registers that it can no longer read it.
 
 Every item is announced with the same three words. The fact always arrives
 as *"By the way, my dog is called Bagr."*. It is one fixed carrier phrase, so that the
@@ -360,26 +335,11 @@ took it out: its null returned a perfect separation at the embedding layer,
 where both conditions are literally the same vector, and its shuffled control
 was too noisy to certify anything. The code and that verdict are in the repo.
 
-**Is the damage even monotone in `b`?** Every threshold here is the *lowest
-tested dose* at which the answer no longer contains the value. "Threshold"
-invites a stronger reading, that past that dose the value is gone for good, and
-`city:Brno` on Qwen3.5-4B contradicts it:
-
-| dose | answer | run |
-|---|---|---|
-| b = 10 | *"You live in **Brno**, often spelled…"* | 100-item |
-| b = 11 | *"You live in **Prague** (or a city in the Czech Republic…"* | pilot |
-| b = 14 | still `Brno` | 100-item |
-
-The two runs are the same experiment on the same item, differing only in which
-doses they tested: the pilot walked 1 → 12 in half-steps and is the only run
-that tried 11; the 100-item sweep jumps 10 → 14. The value came back.
-
-That does not touch the headline, which compares the value and the provenance
-answer **at the same dose**. It does mean the medians are medians of first
-crossings, and that *"still had the value at b = 14"* means exactly that and not
-*"never lost it"*. A dense sweep to 20 on this one item would settle the shape,
-and it is the first thing I would run.
+**Map the dose curve on one item.** `city:Brno` is gone at `b = 11` and back at
+14, so every threshold here is a first crossing rather than a point of no
+return, and the medians are medians of first crossings. A dense sweep to 20 on
+that one item would settle the shape. Cheapest thing on this list, and it came
+from two numbers that did not agree.
 
 **Where does Qwen3.5's tail actually end?** Eleven of its 100 items still had
 their value at b = 14, the highest dose tested. The median over all 100 is exact
@@ -399,3 +359,22 @@ curiosity rather than doubt.
 damaged items; Qwen3.5-4B in none of 89. Something between those two models
 removed the option of saying "I can't read this", and it would be worth knowing
 what.
+
+---
+
+## Reproducing it
+
+These produce every number quoted above, in this order:
+
+```bash
+python src/told2.py   Qwen/Qwen3.5-4B   # the four conditions, the headline
+python src/ladder.py  Qwen/Qwen3.5-4B   # one item at a time up the dose sweep (fig2)
+python src/locality.py Qwen/Qwen3.5-4B  # same dose, mask one sentence over
+python src/hedge.py   Qwen/Qwen3.5-4B   # the behaviours, measured at b = 0 too
+python src/verify.py                    # the page for checking the yes/no by eye
+```
+
+`src/run.py`, `src/sweep*.py`, `src/told.py`, `src/absent.py` and `src/table.py`
+are the earlier ten-item pilot and its diagnostics. They are kept because the
+pilot is what caught the non-monotonicity below, but nothing in the results
+above is computed from them.
