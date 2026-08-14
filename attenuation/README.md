@@ -149,7 +149,11 @@ scale and a row means nothing without both.
 | `19:40` | **`19:45`** | Qwen3.5-4B | `b = 6` |
 
 With the fact faint the model still knows which country you are in: `Utrecht`
-becomes another Dutch city, `Graz` becomes `Linz`.
+becomes another Dutch city, `Graz` becomes `Linz`. And where nothing about the
+value survives, it answers out of the words that do: told `Grendel`, it says
+*"Your cat is called **By the way**"*, and correcting itself on `Kudla` it says
+*"you said your dog is called **you**"*. Both phrases come from the carrier
+sentence, the part that was never turned down.
 
 These five rows are chosen, and are the sharpest in the corpus. They show what
 the failure looks like; they are not evidence of how often it happens, which is
@@ -327,7 +331,8 @@ below.
   characters and never past 54, well before the cap; and of the nine answers
   that visibly correct themselves mid-sentence, **not one recovers the value**.
   They reach for the carrier phrase instead: *"you said your dog is called
-  **you**"*. A longer budget would settle this rather than bound it.
+  **you**"*. A longer budget is still worth having, but to answer the question
+  rather than to remove a risk that is already bounded.
 - The locality control is clean on Qwen3.5-4B (89/89) and not on Qwen3-4B
   (46/100), where masking anything at that dose makes the model refuse.
 - The bias is an idealised version of a state that arises in deployment for
@@ -382,6 +387,13 @@ without them, so the headline does not wait on this, but the ranges do, and a
 run at b = 16, 20, 24 would replace "at least 14" with a number. Better than a
 longer sweep: fit a survival curve per item and report the dose at which the
 value is half gone, which uses the whole sweep instead of the first crossing.
+
+**Run it again with room to finish the sentence.** 24 tokens is enough for the
+value, which arrives by character 54 at the latest, but not enough to see what
+the model does *after* it has answered wrongly. The nine self-corrections in
+this run all break off mid-thought, and they are the most interesting answers in
+the corpus. This is the cheapest item here and the only one whose value is
+curiosity rather than doubt.
 
 **Why does the newer model never decline?** Qwen3-4B declines in 46 of 100
 damaged cases; Qwen3.5-4B in none of 89. Something between those two models

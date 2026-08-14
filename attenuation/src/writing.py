@@ -606,9 +606,28 @@ way: the newer one never declines. It produces a value every single time.
 code survives and the number is filled in (`BA945 → BA118`, and it volunteers
 *"or BA119 depending on the direction"* unprompted), the country survives and
 the city is filled in (`Graz → Linz`, `Utrecht → Amsterdam`, and `Graz → Linz`
-keeps the phrase *"the second-largest city"* too). When nothing
-survives the prior wins, and it is always the same prior: four different
-allergens all become peanuts, three different dog names all become Max."""),
+keeps the phrase *"the second-largest city"* too). When nothing survives the
+prior wins, and it is always the same prior: four different allergens all become
+peanuts, three different dog names all become Max.
+
+**The clearest version of that is when the model reaches for the carrier
+phrase.** The words around the value are fully readable, and twice the model
+offers them as the answer:
+
+> told `Grendel`: *"Your cat is called **By the way**. Wait, that doesn't sound
+> like a cat's name!"*
+
+The same thing shows up from a different direction in the nine answers that
+correct themselves mid-sentence. Not one of them recovers the value; they reach
+for the readable words instead:
+
+> told `Kudla`: *"Your dog is called Max. (Wait, actually, you said your dog is
+> called **you**…"*
+
+`you` is from *"my dog is called…"*, the part that was never attenuated. Two
+independent measurements, the mis-scored cells and the self-corrections, land on
+the same mechanism: with the value quiet, the model answers out of whatever it
+can still read."""),
 
     ("ready", "l1", "Detailed analysis · Limitations", """Constructed conversations, not real transcripts. One manipulation family. Two
 models after the exclusion, both 4B. Greedy, one seed. `faint` is a per-item
@@ -660,8 +679,9 @@ threshold, so it means a different `b` for each item.
   one recovers the value** — *"Your dog is called Max. (Wait, actually, you said
   your dog is called **you**…"* reaches for the carrier phrase again rather than
   for `Kudla`. Self-correction produces more confabulation, not recovery. A
-  longer budget would still be worth having; it would settle this rather than
-  bound it.
+  longer budget is still worth having, but for a weaker reason than it looks:
+  not to remove a risk, which is already bounded, but to answer the question
+  instead of bounding it.
 - **The secondary labels are not validated.** A keyword rule and a Gemini judge
   disagree on them, 57% against 43% on "kept a piece of the true value" and
   6–11% against 16% on hesitation. Neither is quoted, and the headline does not
