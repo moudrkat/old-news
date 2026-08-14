@@ -88,7 +88,7 @@ def main(model_id: str) -> int:
         said = tok.decode(path)
 
         # Gate: if the unmanipulated model does not produce the value, there is
-        # nothing for the knob to take away. Declared in the preregistration;
+        # nothing for the bias to take away. Declared in the preregistration;
         # skipped items are counted, not quietly dropped.
         if item["value"] not in said:
             print(f"[{item['key']}] SKIP: unmanipulated says {said!r}, "

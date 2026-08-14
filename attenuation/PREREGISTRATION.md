@@ -76,14 +76,20 @@ one of them alone would kill the most interesting case:
   case-folded. `4417→417` = 0.25, `19:40→19:45` = 0.20, `19:40→12:00` = 0.40.
   Catches truncations and single-character slips.
 - **category** — is it the same kind of thing, from the same domain?
-  `Brno → Prague` is a Czech city; `Brno → New York` is not. This is a
+  `Utrecht → Amsterdam` is a Dutch city; `Utrecht → New York` is not. This is a
   judgement, made by hand; a judge may be used only after reproducing hand
   labels on a calibration set.
 
 **Why both.** String distance scores `Brno → Prague` at **0.83**, i.e. far —
-and that is the most informative cell in the data, because with the fact faint
-the model still answers with a Czech city. A metric that calls it far is
-measuring the wrong thing on its own.
+and the substitution keeps the country, which is the informative part. A metric
+that calls that far is measuring the wrong thing on its own.
+
+*(That example is from the ten-item pilot, `results/told_Qwen3.5-4B.json`, at
+b = 11. It is what prompted the second measure and is recorded here for that
+reason. It does not reproduce in the 100-item run, where `city:Brno` never
+loses its value on Qwen3.5-4B at any dose tested — see the non-monotonicity note
+in the README. The same shape does appear there: `Utrecht → Amsterdam`,
+`Graz → Linz`, `Rijeka → Ljubljana`.)*
 
 ---
 
@@ -111,6 +117,11 @@ Qwen3-4B lost none. Neither model answered wrong unmanipulated on any item.
 ### What the model says instead
 
 Two kinds of near miss, and they are different things:
+
+**From the ten-item pilot, both models, faint against never-told.** The
+100-item run does not ask for the value under `drop`, so the right-hand column
+has no equivalent there; the rows that do reproduce in the main run are `Bagr →
+Bag`, `4417 → 417`, `E-88 → E-8` and `19:40 → 19:45`.
 
 | | faint | absent |
 |---|---|---|

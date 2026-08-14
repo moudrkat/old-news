@@ -6,7 +6,7 @@ tool there is.
 
 Train a linear probe to separate two states where the ground truth is known:
 
-    present  the fact is in the context, knob off
+    present  the fact is in the context, b = 0
     absent   the fact was never in the context
 
 then apply it to the state where the model gets it wrong:

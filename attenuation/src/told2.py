@@ -9,7 +9,7 @@ without knowing anything.
 
 Four conditions, one question each, on 100 items:
 
-    present   the fact is there, knob off          -> should be yes
+    present   the fact is there, b = 0          -> should be yes
     faint     the fact is there, knob on           -> the question
     swap      a *different* fact fills the slot    -> THE CONTROL: a sentence is
                                                      there, readable, and does

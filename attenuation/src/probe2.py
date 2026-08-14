@@ -3,8 +3,8 @@ fact has been made unreadable?
 
 100 items, 10 kinds of fact. Three states per item, all with the same frame:
 
-    present   the fact is in the context, knob off
-    absent    a *different* kind of fact sits in the same slot, knob off
+    present   the fact is in the context, b = 0
+    absent    a *different* kind of fact sits in the same slot, b = 0
     faint     the fact is in the context, knob at the dose where the answer is
               already wrong
 

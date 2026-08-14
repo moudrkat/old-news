@@ -68,7 +68,7 @@ presence of a sentence</li>
 <li>the damage is local — move the mask one sentence over at the same dose and
 the value survives <b>89 of 89</b> instead of 3 of 89</li>
 <li>the wrong value sits next to the truth: <code>19:40 → 19:45</code>,
-<code>Brno → Prague</code>. It looks like a typo, not a hallucination, and
+<code>Utrecht → Amsterdam</code>. It looks like a typo, not a hallucination, and
 nothing downstream catches a typo</li>
 <li>the two models fail in opposite ways: one declines in 46 of 100, the other
 in <b>none of 89</b></li>
@@ -299,7 +299,7 @@ one of them; it has only been made harder to read.*"""),
      "something else gets &quot;no&quot;, 183 of 183</li>"
      "<li><b>the damage is local:</b> same dose, mask one sentence over, value "
      "survives 89/89 instead of 3/89</li>"
-     "<li><b>the wrong value sits next to the truth</b> — 19:45, Prague, 417. A "
+     "<li><b>the wrong value sits next to the truth</b> — 19:45, Amsterdam, 417. A "
      "typo, not a hallucination, and nothing downstream catches a typo</li>"
      "<li><b>it flags its own answer only when the answer looks strange</b> — "
      "never on a plausible time or order number</li>"
@@ -468,14 +468,22 @@ damaged cases. Qwen3.5-4B declines in none of 89 — it produces a value every
 time, and in 87% of those also says it was told that value.
 
 **What it says instead.** What survives constrains what is invented: the airline
-code survives and the number is filled in (`BA945 → BA118`, a real flight, with
-a volunteered detail about the direction), the country survives and the city is
-filled in (`Graz → Linz`, `Utrecht → Amsterdam`, `Brno → Prague`). When nothing
+code survives and the number is filled in (`BA945 → BA118`, and it volunteers
+*"or BA119 depending on the direction"* unprompted), the country survives and
+the city is filled in (`Graz → Linz`, `Utrecht → Amsterdam` — and `Graz → Linz`
+keeps the phrase *"the second-largest city"* too). When nothing
 survives the prior wins, and it is always the same prior: four different
 allergens all become peanuts, three different dog names all become Max."""),
 
     ("ready", "l1", "Detailed analysis · Limitations", """Constructed conversations, not real transcripts. One manipulation family. Two
-models after the exclusion, both 4B. Greedy, one seed. `faint` is a per-item
+models after the exclusion, both 4B. Greedy, one seed.
+
+**The bias does not reach every layer, and the one cross-model comparison is
+confounded by it.** Only full-attention layers see the mask: 36 of 36 on
+Qwen3-4B, but 8 of 32 on Qwen3.5-4B, which is a hybrid with three
+linear-attention layers for every full one. Qwen3.5-4B needs roughly twice the
+dose *and* is the model where three quarters of the layers never see the bias.
+Nothing here separates "more robust model" from "the bias reached less of it". `faint` is a per-item
 threshold, so it means a different `b` for each item.
 
 **The items are not fully independent.** Once the value is gone the model falls
@@ -553,7 +561,7 @@ through."""),
      "else gets &quot;no&quot;, 183 of 183</li>"
      "<li><b>the locality control</b>: 89/89 against 3/89 — the damage follows "
      "the mask, not the dose</li>"
-     "<li><b>one line on what it says instead</b>: 19:45, Prague, 417. A typo, "
+     "<li><b>one line on what it says instead</b>: 19:45, Amsterdam, 417. A typo, "
      "not a hallucination</li>"
      "<li><b>your failure</b> — the forced prefix that inverted the result. R1D1 "
      "put its failure in the second bullet of the summary</li>"

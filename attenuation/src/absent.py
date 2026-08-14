@@ -2,8 +2,8 @@
 
 Same model, same question, three states of the evidence:
 
-  present  the fact is in the conversation, knob off
-  faint    the fact is in the conversation, knob at the level where the model
+  present  the fact is in the conversation, b = 0
+  faint    the fact is in the conversation, the bias at the level where the model
            stops saying it
   absent   the fact was never in the conversation at all
 

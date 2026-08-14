@@ -1,4 +1,4 @@
-"""The same items, one dose of the knob at a time.
+"""The same items, one dose at a time.
 
 The first exhibit showed each item at *its own* threshold, which hides the thing
 worth seeing: the answer does not flip from right to wrong, it comes apart in

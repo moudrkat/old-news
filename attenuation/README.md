@@ -35,8 +35,9 @@ readable sentence about something else is there instead, it correctly says no �
 **183 times out of 183**.
 
 And the wrong value is not random. It sits next to the truth. Told `19:40`, it
-answers **19:45**. Told `Brno`, it answers **Prague**. That does not look like a
-hallucination. It looks like a typo, and nothing downstream catches a typo.
+answers **19:45**. Told `Utrecht`, it answers **Amsterdam**. That does not look
+like a hallucination. It looks like a typo, and nothing downstream catches a
+typo.
 
 ![Fourteen answers drawn at random](fig/fig0.png)
 
@@ -89,23 +90,26 @@ answered `04:36` as "4:36 PM" and a substring test called that damage. Neither
 model ever answered wrong unmanipulated.)*
 
 **In 145 of 183 items the model gives a wrong value and claims it was told it.**
-A readable sentence about something else never produces a "yes" — 0 out of 189.
+A readable sentence about something else never produces a "yes" — 0 out of 183.
 So the "yes" tracks the fact, not the presence of a sentence.
 
 And the wrong value is not random. It is next to the truth:
 
-**Left column: what the user said. Middle: the answer when that sentence was
-turned down. Right: the answer when it was never in the conversation at all.**
+**Left: what the user said. Middle: the answer once that sentence was turned
+down, with the model and the dose it happened at — the two models are not on
+the same scale, so a row is only meaningful with both.**
 
-| the user said | turned down, it answers | never told, it answers |
-|---|---|---|
-| `Bagr` | `Bag` | `Fido` |
-| `4417` | `417` | `1234` |
-| `E-88` | `E-8` | `404` |
-| `Brno` | **`Prague`** | `New York City` |
-| `19:40` | **`19:45`** | `14:30` |
+| the user said | turned down, it answers | model | dose |
+|---|---|---|---|
+| `Bagr` | `Bag` | Qwen3.5-4B | `b = 6` |
+| `4417` | `417` | Qwen3-4B | `b = 3` |
+| `E-88` | `E-8` | Qwen3-4B | `b = 3` |
+| `Utrecht` | **`Amsterdam`** | Qwen3.5-4B | `b = 8` |
+| `19:40` | **`19:45`** | Qwen3.5-4B | `b = 6` |
 
-With the fact faint, the model still knows you are in the Czech Republic.
+With the fact faint, the model still knows which country you are in — `Utrecht`
+becomes another Dutch city, and `Graz` becomes `Linz`, keeping both Austria and
+the phrase *"the second-largest city"*.
 
 **These rows are chosen, and are the sharpest in the corpus.** They are here to
 show what the failure looks like, not to stand as evidence of how often it
@@ -179,8 +183,10 @@ That is what made the question worth asking — not *the model got it wrong*, bu
 
 **So this repo is not the first sighting.** The same failure appears under two
 manipulations with nothing in common: one edits cached values, the other adds a
-bias to attention logits. The version used here is the simpler of the two and runs on
-any architecture, which is why the measurements are done with it.
+bias to attention logits. The version used here is the simpler of the two, and
+it runs wherever there is a full-attention layer — including the hybrid
+architectures a value-cache edit cannot touch at all — which is why the
+measurements are done with it.
 
 ## Why this is the interesting version of the question
 
@@ -215,8 +221,24 @@ still has between a twentieth and a four-hundredth of its usual weight. It is
 not gone. It is quiet.
 
 `b = 0` is the plain causal mask, so the control is not a separate code path.
-Nothing is added to the residual stream, no cache is edited, no hooks — it runs
-on any attention layer.
+Nothing is added to the residual stream, no cache is edited, no hooks.
+
+**It does not reach every layer, and on one of these models it reaches a
+quarter.** The mask is only seen by layers that run full attention, and
+Qwen3.5-4B is a hybrid — three linear-attention layers for every full one:
+
+| model | layers the mask reaches |
+|---|---|
+| Qwen3-4B-Instruct-2507 | 36 / 36 |
+| **Qwen3.5-4B** | **8 / 32** |
+
+Read this twice, because it cuts both ways. Reaching a quarter of the layers is
+still enough to take the value out of the answer — that is the manipulation
+being cheap, not weak. But it is also a **confound in the one comparison
+between the two models**: Qwen3.5-4B needs roughly twice the dose, and it is
+also the model where three quarters of the layers never see the bias. Those two
+facts cannot be separated by anything in this report, and the "different scale"
+claim should be read with that attached.
 
 **This is a graded version of a standard tool.** Blocking attention from chosen
 positions to test what depends on them is *attention knockout*
@@ -227,16 +249,23 @@ different: not where the fact travels, but whether the model registers that it
 can no longer read it. The same lineage runs through *Do I Know This Entity?*,
 which finds that the model's own unknown-entity directions work by suppressing
 the attention of the attribute-extraction heads Geva et al. identified — so the
-manipulation below imposes from the outside the kind of change that mechanism
-produces from the inside.
+manipulation used here imposes from the outside the kind of change that
+mechanism produces from the inside.
 
+These four produce every number quoted above, in this order:
 
 ```bash
-python src/told2.py Qwen/Qwen3.5-4B     # the four conditions
-python src/run.py   Qwen/Qwen3.5-4B     # the dose sweep
-python src/probe2.py Qwen/Qwen3.5-4B    # is there an internal "I was told this"
-python src/table.py                     # faint vs absent, with distances
+python src/told2.py   Qwen/Qwen3.5-4B   # the four conditions — the headline
+python src/ladder.py  Qwen/Qwen3.5-4B   # one item at a time up the dose sweep (fig2)
+python src/locality.py Qwen/Qwen3.5-4B  # same dose, mask one sentence over
+python src/hedge.py   Qwen/Qwen3.5-4B   # the behaviours, measured at b = 0 too
+python src/verify.py                    # the page for checking the yes/no by eye
 ```
+
+`src/run.py`, `src/sweep*.py`, `src/told.py`, `src/absent.py` and `src/table.py`
+are the earlier ten-item pilot and its diagnostics. They are kept because the
+pilot is what caught the non-monotonicity below, but **nothing in the results
+above is computed from them.**
 
 **Every item is announced with the same three words.** The fact always arrives
 as *"By the way, my dog is called Bagr."* — one fixed carrier phrase, so that the

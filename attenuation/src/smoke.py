@@ -1,4 +1,4 @@
-"""Smoke test: does the knob land on this model at all?
+"""Smoke test: does the bias land on this model at all?
 
 One item, one read position, a ladder of b. Prints the gold token's probability
 and what wins instead. Answers exactly one question — is the instrument alive on
@@ -74,7 +74,7 @@ def main(model_id: str) -> int:
         print("STOP: the distribution did not move between b=0 and b=max. "
               "The 4D mask is being ignored on this model.")
         return 1
-    print("knob is alive.")
+    print("bias is alive.")
     return 0
 
 

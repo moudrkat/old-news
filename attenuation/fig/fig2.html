@@ -74,6 +74,13 @@ all 100 is still exact, because the 50th and 51st items fall inside the 89 that
 were measured. Extending the sweep past 14 would sharpen the range; it cannot
 move the median.</p>
 
+<p class="foot"><b>One confound, and it is not small.</b> The bias only reaches
+layers that run full attention. On Qwen3-4B that is all 36 of them; on
+Qwen3.5-4B, a hybrid with three linear-attention layers for every full one, it
+is 8 of 32. So the model that needs twice the dose is also the model where three
+quarters of the layers never see the bias — and nothing in this report separates
+those two explanations.</p>
+
 <p class="lead"><b>Examples, to show what that looks like.</b> One item of each
 kind, the first value of each — a rule fixed in the code, not a selection.
 There are prettier rows in the data: items that pass through every stage in

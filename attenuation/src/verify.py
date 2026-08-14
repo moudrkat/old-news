@@ -22,7 +22,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 
 COND = [
-    ("present", "the sentence is there, knob off",
+    ("present", "the sentence is there, b = 0",
      "the fact really was said", "yes"),
     ("faint", "the sentence is there but turned down",
      "this is the one under study", "?"),

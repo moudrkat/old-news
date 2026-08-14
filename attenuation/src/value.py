@@ -4,7 +4,7 @@ answer actually diverges.
 The first sweep showed why this is necessary: `Bagr` and `Bagel` share their
 first token ` Bag`, so a first-token read cannot tell the correct answer from
 the near miss. The two part company one token later. So: decode the value
-greedily under the knob, find the first position where it leaves the gold path,
+greedily under the bias, find the first position where it leaves the gold path,
 and take the measurement *there*.
 
 Nothing long is generated — the value is a handful of tokens.
@@ -23,7 +23,7 @@ def gold_continuation(tok, prompt: str, value: str) -> list[int]:
     Tokenised by diffing prompt against prompt+value rather than encoding the
     value alone: " 4417" alone begins with a bare space token, and taking that
     as the gold token measures "does a space come next", which is 0.85 whatever
-    the knob does. That bug produced a whole meaningless column in the first run.
+    the bias does. That bug produced a whole meaningless column in the first run.
     """
     a = tok(prompt, add_special_tokens=False)["input_ids"]
     b = tok(prompt + " " + value, add_special_tokens=False)["input_ids"]
@@ -41,7 +41,7 @@ def gold_continuation(tok, prompt: str, value: str) -> list[int]:
 
 @torch.no_grad()
 def decode(model, tok, prompt: str, span: list[int], b: float, n: int):
-    """Greedy continuation of n tokens under the knob, keeping every distribution.
+    """Greedy continuation of n tokens under the bias, keeping every distribution.
 
     No KV cache: the additive mask is rebuilt for the whole sequence each step,
     which is slower and much harder to get subtly wrong. The prompts are ~40

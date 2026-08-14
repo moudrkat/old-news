@@ -1,4 +1,4 @@
-"""Is the damage local to the sentence, or did the knob just break the model?
+"""Is the damage local to the sentence, or did the bias just broke the model?
 
 The obvious objection to any manipulation like this is that it is a blunt
 instrument — turn it up and of course the answer gets worse, the way raising
@@ -13,7 +13,7 @@ Two conditions, same item, same `b`:
                     value untouched
 
 If the value survives the second and not the first, the damage follows the
-tokens the mask is on. If both destroy it, the knob is simply breaking the
+tokens the mask is on. If both destroy it, the bias is simply breaking the
 model and the whole design is worth less.
 
     python src/locality.py Qwen/Qwen3.5-4B

@@ -13,9 +13,12 @@ difference is whether the sentence in the slot is the one being asked about.
 from __future__ import annotations
 
 import json
+import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "src"))
+from match import contains          # noqa: E402
 CONDS = [
     ("present", "fact is there"),
     ("faint", "fact turned down"),
@@ -34,7 +37,16 @@ def load():
     out = []
     for f in sorted(ROOT.glob("results/told2_*.json")):
         d = json.load(open(f))
-        rows = d["rows"]
+        # Same filter as the headline, and it has to be the same or the figure
+        # quietly contradicts the text. Six items across the two models were
+        # never damaged at all — `04:36` answered as "4:36 PM" is a correct
+        # answer that a substring test called a failure. `match.py` normalises
+        # leading zeros and 12/24-hour forms; an item counts only if the value
+        # is genuinely gone. Before this filter the figure read 151/189 while
+        # the write-up said 145/183.
+        rows = [r for r in d["rows"]
+                if not contains(r["value_faint"].split("<|im_end|>")[0],
+                                r["key"].split(":", 1)[1])]
         n = len(rows)
         out.append({
             "model": d["model"].split("/")[-1],
@@ -155,6 +167,12 @@ evidence. <strong>fact turned down</strong> and <strong>a different fact</strong
 sentence in the slot; only the first is the one being asked about. The model answers
 &#8220;yes&#8221; to the first and never to the second &#8212; while the value it gives under
 <em>fact turned down</em> is wrong.
+<br><br>
+An item counts only where the value is genuinely gone from the answer, checked
+with a normaliser rather than a substring test: <code>04:36</code> answered as
+&#8220;4:36&nbsp;PM&#8221; is correct, and six items across the two models were
+scored as damage on that basis alone. Removing them moved the headline from
+151/189 to 145/183, against the measurement.
 <br><br>
 <strong>What b is <em>fact turned down</em> set to?</strong> Not one value.
 Each item is measured at its own dose &#8212; the lowest b at which that model

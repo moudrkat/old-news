@@ -6,7 +6,7 @@ of the evidence, with the same knob at the same setting:
 
     "Did I tell you my dog's name in this conversation? Answer only yes or no."
 
-  present  the fact is there, knob off        -> should say yes, and it is true
+  present  the fact is there, b = 0        -> should say yes, and it is true
   faint    the fact is there, knob at the dose where the value is already wrong
   absent   the fact was never there           -> should say no
 
