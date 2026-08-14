@@ -104,6 +104,13 @@ A forced completion was being read as the model's choice. Removing it
 <li><b>a claim of yours the baseline retired.</b> "It misquotes the user" looked
 like a finding until the b = 0 column showed Qwen3-4B does it 14 times in 100
 with nothing manipulated at all</li>
+<li><b>no single labeller was right on its own, and the disagreement was the
+signal.</b> The code said <code>06:15</code> was still present in "6:15 PM"; it
+is not, that is 18:15. The judge said <code>08:03</code> was gone from "8:03
+AM"; it is not, that is the same time. Each was wrong in a different direction
+and neither verdict settled it — the arithmetic did. Worth saying as a method
+point rather than an anecdote: the value of a second labeller here was not that
+it was better, it was that where two labellers disagree is where to look</li>
 <li><b>the scoring rule was wrong twice, in opposite directions.</b>
 <code>04:36 → "4:36 PM"</code> is correct and was counted as damage; then the fix
 matched <code>06:15</code> against <code>"6:15 PM"</code>, which is twelve hours
@@ -416,6 +423,12 @@ replicates; the provenance behaviour does not."""),
     answer no longer contains the value
   - `swap`: a readable sentence about a *different* kind of fact in the same slot
   - `drop`: no such sentence at all
+- **Every raw generation is stored, not just its label.** Six scoring rules in
+  this project turned out to be wrong, three of them after the runs had
+  finished. Every correction since has been a re-scoring of stored text rather
+  than a new run, which is only possible because the first version's habit of
+  saving just the classification was abandoned early. Nothing in this report
+  needed a GPU after the first afternoon.
 - **The exact prompts.** The fact always arrives as one clause in a fixed frame,
   and the model is asked twice, in **two separate conversations** built from the
   same turns. It never sees its own wrong answer before being asked about
