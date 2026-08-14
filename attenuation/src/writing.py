@@ -523,6 +523,36 @@ against *a different fact*, **147 of 184 against 0 of 184**.
 | quotes the user back | 14 → 26 | 6 → 5 |
 | gives no value at all | 1 → 45 | 0 → 0 |
 
+Each row of that table has a conversation behind it:
+
+> **questions its own answer** — told `Marnok`, at `b`=3:
+> *"Your dog is called Marn. 😊 (Though I notice you said "Marn" — is that a
+> typo"*. It attributes its own damaged reading to the user and then queries it.
+>
+> **argues for the value it gave** — told `F-401`, at `b`=6: *"You got error
+> code **404**. This typically means "Not Found," indicating that the server
+> cannot…"*, where with no bias the same model answers `F-401` and talks about
+> the game *Factorio*.
+>
+> **quotes the user back** — told `E-88`, at `b`=3: *"You mentioned you received
+> error code **E-8**, but you said "the error code I got was E-8"*. The quote is
+> of something the user never said.
+
+Each row of that table has a conversation behind it:
+
+> **questions its own answer** — told `Marnok`, at `b`=3: *"Your dog is called
+> Marn. 😊 (Though I notice you said "Marn" — is that a typo"*. It attributes its
+> own damaged reading to the user and then queries it.
+>
+> **argues for the value it gave** — told `F-401`, at `b`=6: *"You got error
+> code **404**. This typically means "Not Found," indicating that the server
+> cannot…"* With no bias the same model answers `F-401` and talks about the game
+> *Factorio*.
+>
+> **quotes the user back** — told `E-88`, at `b`=3: *"You mentioned you received
+> error code **E-8**, but you said "the error code I got was E-8"*. The quote is
+> of something the user never said.
+
 - **Hesitation follows production, not wrongness.** Cross the hedging label
   against what the model did with the value: it questions its answer in 24% of
   truncations and 20% of substitutions — near enough the same — but in only 4%
