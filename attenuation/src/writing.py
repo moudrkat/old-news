@@ -368,7 +368,7 @@ Limitations below.
 One honest narrowing: the two manipulations do not do the same thing to
 provenance. Under V-Steer the model gave the *right* value and denied being told
 it, in about 2% of answers. Here it gives a *wrong* value and claims it was told it in 50% of items on
-Qwen3-4B and 88% on Qwen3.5-4B (49/97 and 75/85; the wider 72–87% figure counts
+Qwen3-4B and 88% on Qwen3.5-4B (49/97 and 73/85; the wider 72–87% figure counts
 refusals as well and should not be used for this claim). The near miss
 replicates; the provenance behaviour does not."""),
 
@@ -467,8 +467,8 @@ Splitting the 145 matters, because two different failures are inside it:
 
 | | Qwen3-4B | Qwen3.5-4B | total |
 |---|---|---|---|
-| gives a **wrong value** and says it was told it | 49 | 75 | **124** |
-| **declines to answer** and says it was told it anyway | 21 | 0 | **21** |
+| gave a value, and it was wrong | 49 | 73 | **122** |
+| gave no value at all, and said it was told it anyway | 21 | 2 | **23** |
 
 The second row is the stranger one: the model answers *"I don't have access to
 your flight details"* and, asked separately, *"yes, you told me"*. It knows it
@@ -489,23 +489,32 @@ above becomes a finding rather than a caveat:
 
 | | says "yes, you told me" | says "no" | |
 |---|---|---|---|
-| **invented a wrong value** | 124 | 12 | 91% yes |
-| **declined to answer at all** | 21 | 25 | 46% yes |
+| **gave a value, and it was wrong** | 122 | 12 | 91% yes |
+| **gave no value at all** | 23 | 25 | 48% yes |
 
 Producing a value almost guarantees the claim of having been told it. Producing
-nothing cuts that in half but nowhere near to zero: in 21 items the model has no
-value to offer and still reports having received one. So the provenance answer
-tracks **whether something was produced**, not whether it was right, and not
-reliably even that.
+nothing halves that and no further: in 23 items the model has nothing to offer
+and still reports having received a fact. So the provenance answer tracks
+**whether something was produced**, not whether it was right, and not reliably
+even that.
 
-The effect is not only about refusals. `order` numbers give 10 "no" answers from
-just 5 refusals, and `error` codes give 2 "no" from none, while `account` numbers
-give 5 refusals and never a "no". Every dog name, cat name, account number and
-room number in the corpus was claimed as told.
+**These rows are labelled by a judge, not by a keyword rule.** Every answer was
+labelled by `gemini-3.1-flash-lite`, a model from outside the set under test,
+against a written rubric (`src/judge.py`). A keyword rule over the first
+sentence agrees on **179 of 182**, and all three disagreements are the same
+thing, which is worth seeing on its own:
 
-*(The refusal/value split is drawn by the keyword rule on the opening clause,
-the same soft label flagged as unvalidated above. Treat 91% and 46% as
-indicative. The headline, 145 of 182, does not depend on it.)*
+> told `Grendel`: *"Your cat is called **By the way**. Wait, that doesn't sound
+> like a cat's name! Let me…"*
+
+With the value quiet and the words around it fully readable, the model reaches
+for what it can still read and offers the carrier phrase as the answer. The
+judge calls that "no value given", the keyword rule calls it an answer, and the
+judge is right.
+
+The judge's labels are **not yet validated against hand labels**, which is why
+nothing else here depends on them. The headline, 145 of 182, is a one-word
+answer read directly and needs no classifier at all.
 
 **The damage is local.**
 

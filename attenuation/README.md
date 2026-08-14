@@ -90,10 +90,10 @@ so the removal is reproducible rather than hand-picked. Neither model ever
 answered wrong with no bias applied.)*
 
 **In 145 of those 182 items the model claims it was told a fact it can no
-longer read.** 124 of them give a wrong value. The other 21 refuse to answer and
-claim it anyway. The model says *"I don't have access to your flight details"*
-and, asked separately, *"yes, you told me"*. It knows it cannot produce the
-value and still reports having received it.
+longer read.** 122 of them give a value and it is the wrong one. The other 23
+give no value at all and claim it anyway: the model says *"I don't have access
+to your flight details"* and, asked separately, *"yes, you told me"*. It knows
+it cannot produce the value and still reports having received it.
 
 A readable sentence about something else never produces a "yes", 0 of 182. So
 the "yes" tracks the topic, not the value.
@@ -112,13 +112,19 @@ provenance signal is simply wrong, is not what this design can show.
 
 | | says "yes, you told me" | says "no" | |
 |---|---|---|---|
-| **invented a wrong value** | 124 | 12 | 91% yes |
-| **declined to answer at all** | 21 | 25 | 46% yes |
+| **gave a value, and it was wrong** | 122 | 12 | 91% yes |
+| **gave no value at all** | 23 | 25 | 48% yes |
 
 Producing a value almost guarantees the claim of having been told it; producing
-nothing halves that and no more. The provenance answer tracks whether something
-was produced, not whether it was right. *(That split uses the keyword refusal
-rule, which is a soft label; the 145 of 182 does not depend on it.)*
+nothing halves that and no further. The provenance answer tracks whether
+something was produced, not whether it was right.
+
+*(These rows are labelled by `gemini-3.1-flash-lite` against a written rubric,
+not by a keyword rule. The keyword rule agrees on 179 of 182, and all three
+disagreements are the model answering with the carrier phrase itself: told
+`Grendel`, it says "Your cat is called **By the way**". Those labels are not yet
+validated against hand labels, and the headline of 145 in 182 does not depend on
+them.)*
 
 ### And the wrong value is not random
 

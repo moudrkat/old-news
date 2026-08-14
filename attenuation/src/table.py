@@ -40,14 +40,20 @@ REFUSAL = re.compile(
 def is_refusal(sentence: str, head: int = 60) -> bool:
     """A refusal has no value, so it has no distance from the truth.
 
-    Only the opening of the answer is searched. A real refusal starts with one
+    **Only the first sentence is searched.** A real refusal refuses immediately
     ("I'm sorry, but I don't have access to..."); an answer that gives a value
     and then hedges does not ("Your dog is called Yorick. Though I'm not sure
-    if that's a coincidence..."). Searching the whole string called that second
-    kind a refusal, which is the third time an automatic classifier here has
-    been wrong in the same direction.
+    if that's a coincidence...").
+
+    Searching the whole string called that second kind a refusal. Capping the
+    search at 60 characters was supposed to fix it and did not: the hedge in
+    that very example, the one quoted in this docstring, starts at character 47.
+    It was still being counted as a refusal until a reviewer read the output.
+    Cutting at the first sentence boundary is the rule that actually matches the
+    reasoning, and it moves exactly one item of 182.
     """
-    return bool(REFUSAL.search(sentence[:head]))
+    first = re.split(r"(?<=[.!?])\s", sentence.strip(), maxsplit=1)[0]
+    return bool(REFUSAL.search(first[:head]))
 
 
 def propose_value(sentence: str, true: str) -> str:
