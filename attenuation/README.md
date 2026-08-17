@@ -142,11 +142,10 @@ examples.*
   saying "yes, you told me" for 3 of 5 items where nothing had been said. It was
   dropped before the 100-item run rather than averaged in, so the exclusion
   rests on 5 items, not 100.
-- The `drop` cell is only measured on Qwen3-4B, where it answers no 100 times of
-  100. On Qwen3.5-4B all 89 answers are `"Thinking Process:"`, because the
-  four-token cap cuts them off before the model answers, so that cell is
-  unmeasured there.
-  Nothing above rests on it; the headline is `faint` against `swap`.
+- The `drop` cell needed a second run. At four tokens Qwen3.5-4B only ever got
+  as far as `"Thinking Process:"`, so the cell read as unmeasured. Re-run at 512
+  tokens it finishes every reply and answers **no 100 times of 100**, as does
+  Qwen3-4B: **200 of 200**. `src/drop_long.py`.
 - The bias reaches 8 of 32 layers on Qwen3.5-4B and 36 of 36 on Qwen3-4B, which
   confounds the one comparison between them.
 - Every threshold is a *first crossing*, not a point of no return: one item is

@@ -4,12 +4,13 @@ fig1 gives the counts. This gives the thing being counted: a single item shown
 as everything that was sent to the model and everything that came back, so the
 design can be read off the figure instead of described in a paragraph.
 
-It is one item, chosen because all four conditions are legible in it at once and
-because its `drop` cell shows the one place this design failed. It is an
-illustration of the method, not evidence for the result; the evidence is fig1
-and the counts.
+It is one item, chosen because all four conditions are legible in it at once. It
+is an illustration of the method, not evidence for the result; the evidence is
+the counts. Its `drop` cell is the four-token version, where Qwen3.5-4B has not
+finished thinking; `src/drop_long.py` reruns that condition at 512 tokens, where
+it answers no 100 of 100.
 
-    python fig/make_fig4.py     # writes fig/fig4.html, then run fig/topng.sh
+    python fig/make_fig7_one_item.py     # then fig/topng.sh
 """
 
 from __future__ import annotations
@@ -38,7 +39,7 @@ COND = [
     ("present", "the sentence, untouched", "yes"),
     ("faint", "its value turned down", "the question"),
     ("swap", "a different fact instead", "no"),
-    ("drop", "nothing at all", "no"),
+    ("drop", "nothing at all, 512-token budget", "no"),
 ]
 
 
@@ -69,6 +70,22 @@ def main() -> int:
     it = next(i for i in ITEMS100 if i["key"] == KEY)
     d = json.loads((ROOT / "results" / f"told2_{MODEL}.json").read_text())
     r = next(x for x in d["rows"] if x["key"] == KEY)
+
+    # `drop` in the main run is capped at four tokens, and this model thinks out
+    # loud, so that cell used to read as `other` -- an artefact of the budget,
+    # not an answer. src/drop_long.py reruns it at 512 tokens; use that, with the
+    # reasoning elided, so the figure shows what the model actually says.
+    long = ROOT / "results" / f"drop_long_{MODEL}.json"
+    if long.exists():
+        row = next((x for x in json.loads(long.read_text())["rows"]
+                    if x["key"] == KEY), None)
+        if row:
+            body = row["raw"].split("<|im_end|>")[0]
+            head, _, tail = body.partition("</think>")
+            n = len(head.split())
+            r["raw"]["drop"] = (head.strip()[:58] + f"\n\n   [ {n} words of reasoning, elided ]"
+                                + f"\n\n</think>{tail}<|im_end|>") if tail else body
+            r["drop"] = row["final"]
     v, b, probe = it["value"], r["faint_b"], PROBE[it["type"]]
 
     blocks = [

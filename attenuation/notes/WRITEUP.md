@@ -153,8 +153,10 @@ separates **I have this fact** from **there is a sentence here**.
 ![Figure 6 · the four conditions](../fig/fig6_conditions.png)
 
 **Figure 6 · the four conditions.** *The sentence is turned down in none of the
-four: in `faint` only the value inside it is. Each item at its own dose, and the
-same yes/no question in all four.*
+four: in `faint` only the value inside it is. Each item at its own dose, same
+yes/no question in all four. The bars are the rate of answering* yes*; `drop` is
+0 on both models here at the four-token budget, and re-run at 512 tokens it
+answers* no *100 of 100 on both.*
 
 **The controls are also simple, but strict. Three main controls:**
 
@@ -480,8 +482,10 @@ measured.**
 | **justifies**, argues for the value it gave | an LLM judge | none existed | **all 35, 100%** |
 | **quotes**, quotes the user back | an LLM judge | none existed | **all 66, 100%** |
 | locality survival | `match.contains` | a judge, 8 disagreements | **all 8** |
+| `drop` at 512 tokens | the text after `</think>`, deterministic | none | **all 200, no disagreement** |
 
-**298 items hand-labelled, on top of the 756 yes/no answers.** *justifies* and
+**298 items hand-labelled, on top of the 756 yes/no answers and the 200 from the
+`drop` re-run.** *justifies* and
 *quotes* had no second labeller of any kind, so my reading is the only check they
 have ever had. Where I disagree with the judge it is systematic and always the
 same direction, stricter: 7 items out of *damaged value*, and 6 of the 18
@@ -516,13 +520,17 @@ sane; and possibly a random visitor to my repo.
   near miss, but there the model gave the *right* value and denied being told
   it, in about 2% of answers, against a wrong value claimed as told in 72–88%
   here. It may be the opposite dissociation, and this design cannot tell.
-- **The generation budget is load-bearing and I found out late.** 24 tokens, no
-  early stop: 18 answers are cut off mid-self-correction, 38 of the 47 locality
-  failures on Qwen3-4B end mid-sentence, and `drop` on Qwen3.5-4B is unmeasured
-  entirely, because four tokens is not enough for a model that opens with
-  `Thinking Process:`. None of this touches the headline, which is one word in
-  its own conversation. All of it touches how confidently I can describe what the
-  model was doing.
+- **The generation budget is load-bearing and I found out late.** 24 tokens for
+  the value, 4 for the yes/no, no early stop: 18 answers are cut off
+  mid-self-correction and 38 of the 47 locality failures on Qwen3-4B end
+  mid-sentence. It also made `drop` look unmeasured on Qwen3.5-4B, which thinks
+  out loud and never reached an answer inside four tokens; re-run at 512 it
+  finishes every reply and says **no 100 times of 100**, matching Qwen3-4B, so
+  that control now holds on both models. I read all 200 replies by hand and
+  agreed with the parser on every one (`src/drop_long.py`,
+  `results/drop512.html`). None of this
+  touches the headline, which is one word in its own conversation. All of it
+  touches how confidently I can describe what the model was doing.
 - **The scaling claim has a confound.** The bias reaches 8 of 32 layers on
   Qwen3.5-4B and 36 of 36 on Qwen3-4B, so "the newer model needs twice the dose"
   cannot be separated from "the bias reached less of it".
