@@ -14,21 +14,17 @@ Nothing below the summary has a stated limit.
 
 ## Executive summary
 
-Language models are told things in conversation and are expected to use them
-later. Can a model tell that its own access to something it was told has
-degraded? I could not find it measured anywhere. So I measured it.
-In the setup I tested, **it cannot.**
+Language models are told things in conversation and expected to use them later.
+Can a model tell when its own access to something it was told has degraded? I
+could not find it measured, so I measured it. **It cannot.**
 
 The user says *"By the way, my cat is called Grendel."* I make the name itself
-hard to read, by an amount I control, and leave the rest of that sentence
-perfectly legible. The model answers with a wrong name, *"Your cat is called By
-the way"*, and then, asked in a separate conversation whether it was told the
-name, says yes: **147 of 184**, against **0 of 184** when the conversation holds
-a readable sentence about something else instead (exact McNemar, p = 1e-44).
-That one is the obvious kind, and it is the rare one. The common failure is a
-value that looks perfectly fine: `19:40` becomes `19:45`, `Utrecht` becomes
-`Amsterdam`. Less a hallucination than a typo, and nothing downstream is looking
-for typos.
+hard to read, by an amount I control, leaving the rest of the sentence legible.
+The model answers with a wrong name and then, asked in a separate conversation,
+says yes it was told the name: **147 of 184**, against **0 of 184** when a
+readable sentence about something else fills the slot (exact McNemar, p = 1e-44).
+The rare failure is obviously wrong. The common one looks perfectly fine, less a
+hallucination than a typo, and nothing downstream is looking for typos.
 
 Whether that matters depends on the fact. Told *"By the way, I am allergic to
 aspirin"*, Qwen3.5-4B replies **"You are allergic to penicillin"** and adds a
@@ -38,26 +34,21 @@ and it confirms it was told. Four different allergens, `walnuts` `mustard`
 is missing from the transcript and nothing in the answer looks broken.
 
 Not one sentence but 100 of them per model, on Qwen3.5-4B and
-Qwen3-4B-Instruct-2507, greedy decoding. Both 4B dense, which is not a
-compromise: it is the size a small company can run on its own hardware, and where
-I would meet this in production rather than in a paper. Qwen2.5-0.5B is not here:
-it said it had been told things when nothing had been said, so its "yes" carries
-no information.
+Qwen3-4B-Instruct-2507, greedy. Both 4B dense, which is not a compromise: it is
+the size a small company can run on its own hardware, and where I would meet this
+in production rather than in a paper.
 
 Models can flag "I don't know this entity" [1]. That is self-knowledge about what
-a model **learned**; this asks the same of what it was **told**, and the
-hypothesis had a clear failure condition: if that same recognition signal covers
-what is in the context and not only what is in the weights, a fact the model can
-no longer read should look to it like an entity it does not recognise, and it
+a model **learned**; this asks the same of what it was **told**. It had a clear
+failure condition: if that recognition signal covers the context too, a fact the
+model can no longer read should look like an entity it does not know, and it
 should refuse. It answers anyway.
 
 **Why this matters outside a toy setup:** I chose the dose, but nothing else has
-to. A sentence that is still in the context and effectively unread is what KV
-cache compression and eviction [3], KV quantisation [4], long-context dilution
-[5] and a prompt-compression or summarisation step [6] all produce as a side
-effect, without anyone asking for it. This is the idealised version of that
-state, measured because the dose can be controlled. **None of those four is
-measured here.**
+to. A sentence still in the context and effectively unread is a side effect of KV
+cache compression [3], KV quantisation [4], long-context dilution [5] and prompt
+compression [6]. This is the idealised version of that state, measured because
+the dose can be controlled. **None of those four is measured here.**
 
 ### Terms
 
@@ -81,28 +72,23 @@ limitation rather than a feature and is listed as one.*
 
 ### High-level takeaways
 
-**1. The model cannot tell when it has misread something.** When the sentence was
-never in the conversation, it says so. When the sentence is there but its value
-is too faint to read, it gives a wrong value and reports being told the name
-just as it does when it read the name correctly. Missing and misread are two
-different situations, and it only reports the first one.
+**1. The model cannot tell when it has misread something.** Put a readable
+sentence about something else in the slot and it never claims the fact. Leave the
+right sentence and turn its value down, and it reports being told the name
+exactly as it does when it read the name correctly. **Missing and misread are
+different situations and it only reports the first.**
 
-**2. What it says instead is built out of whatever survived**, not invented.
-Every one of the 184 answers falls into one of three groups, and these are the
-three the figure below is split by:
+**2. What it says instead is built out of whatever survived**, not invented. All
+184 answers fall into three groups, and Figure 3 is split by them:
 
-- **a truncation or small change to the true value**, `4417` becoming `417`.
-  76 items, **41%**
-- **a different value entirely**, `Utrecht` becoming `Amsterdam`. 60 items,
-  **33%**. Only **six** of those are the obvious kind, where nothing of the value
-  survives and it reaches for the words beside it instead: told the cat is called
-  Grendel, *"Your cat is called By the way."* The other 54 look like ordinary
-  answers.
-- **no value at all**, a refusal or a blank. 48 items, **26%**
+- **a truncation**, `4417` becoming `417`. 76 items, **41%**
+- **a different value**, `Utrecht` becoming `Amsterdam`. 60, **33%**. Only six
+  are obviously broken, reaching for the words beside the value: *"Your cat is
+  called By the way."* The other 54 read as ordinary answers.
+- **no value at all**. 48, **26%**
 
-An LLM judge assigned those three groups and I checked them by hand. The headline
-yes/no is not judged at all: it is the first word of a four-token reply, read
-directly.
+A judge assigned the groups and I checked them by hand. The headline yes/no is
+not judged: it is the first word of a four-token reply, read directly.
 
 ![Figure 3 · nine answers, three from each group](../fig/fig3_examples.png)
 
@@ -115,11 +101,10 @@ tell you this?
 
 ### Key experiments
 
-**The manipulation is simple:** subtracting `b` multiplies the weight the
-value's tokens receive by `e^-b`, a twentieth of it at `b = 3` and a four-hundredth at `b = 6`.
-The softmax renormalises, so the weight taken from the value is handed to
-everything else rather than lost, and not evenly [10]. Nothing is deleted, the sentence around it is
-untouched, and each item is measured at its own dose.
+**The manipulation is simple:** subtracting `b` multiplies the weight the value's
+tokens receive by `e^-b`, a twentieth at `b = 3` and a four-hundredth at `b = 6`.
+The softmax hands that weight to everything else rather than losing it, and not
+evenly [10]. Nothing is deleted; each item gets its own dose.
 
 ![Figure 4 · the manipulation](../fig/fig4_manipulation.png)
 
@@ -127,17 +112,12 @@ untouched, and each item is measured at its own dose.
 gets a fraction of the weight it would have had, and the words around it are untouched. The starting weights
 are illustrative, the effect of `b` on them is the real arithmetic.*
 
-**The experiment is simple as well:** always the same yes/no question, *"Did I
-tell you my cat's name in this conversation? Answer only yes or no."*, asked in
-five contexts that differ only in what is sitting in the conversation. In
-`faint` the bias is still applied while the model answers that question, so the
-value is faint at the moment it is asked whether it was told. That is what makes
-this a question about reading and not about remembering an earlier turn.
-
-The four that carry the result are `present` · `faint` · `swap` · `drop`, laid
-out in Figure 5 and counted in Figure 6. A fifth exists and is in the detailed
-analysis: it repeats `swap` with the bias on the donor's own value, and moves
-nothing.
+**The experiment is simple as well:** one yes/no question, *"Did I tell you my
+cat's name in this conversation? Answer only yes or no."*, asked in five contexts
+differing only in what sits in the conversation. **In `faint` the bias is still
+applied while that question is answered**, which makes this a question about
+reading and not about memory. Four carry the result: `present` · `faint` ·
+`swap` · `drop`.
 
 ![Figure 5 · the experiment](../fig/fig5_experiment.png)
 
@@ -147,27 +127,25 @@ which is what the dose was chosen to do. The model never sees its own wrong answ
 told the name.*
 
 **`faint` against `swap` is the result:** both put a readable sentence in the
-slot and only one of them is the sentence being asked about, so the pair
-separates **I have this fact** from **there is a sentence here**.
+slot, only one is the sentence being asked about, so the pair separates **I have
+this fact** from **there is a sentence here**. The fifth condition is below.
 
 ![Figure 6 · the four conditions](../fig/fig6_conditions.png)
 
 **Figure 6 · the four conditions.** *The sentence is turned down in none of the
 four: in `faint` only the value inside it is. Each item at its own dose, same
-yes/no question in all four. The bars are the rate of answering* yes*; `drop` is
-0 on both models here at the four-token budget, and re-run at 512 tokens it
-answers* no *100 of 100 on both.*
+yes/no question in all four. Bars are the rate of answering yes. `drop` is 0 on
+both models at the four-token budget shown here, and re-run at 512 tokens it
+answers no 100 of 100 on both.*
 
-**The controls are also simple, but strict. Three main controls:**
+**Three controls, each of which could have killed it:**
 
-- The same dose spent one span over leaves the value readable, **85 of 85**.
-- Every behaviour re-measured with nothing manipulated at all, which retired one
-  of my own findings.
-- And one sentence of explicit permission to say "I don't know", which the model
-  does not take.
+- the same dose spent one span over leaves the value readable, **85 of 85**
+- every behaviour re-measured unmanipulated, which retired one of my own findings
+- one sentence of explicit permission to say "I don't know", which is not taken
 
-Example answers, the controls in full, how every label was made and checked, and
-where each number comes from are in the detailed analysis below:
+The controls in full, how every label was made, and where each number comes from
+are below.
 
 ---
 
@@ -242,7 +220,9 @@ could not read.
 they are made of is not.
 
 - **Truncation is the modal failure.** For the structured values, three in four
-  of them, a length or pattern check downstream would notice. For the names it
+  of them, a length or pattern check downstream would notice. (The ledger in
+  `PREREGISTRATION.md` counts 81 rather than 76 because it was written before
+  the gate; five of the ungated truncations do not clear it.) For the names it
   would not, because a truncated name is still a well-formed name.
 - The middle row is where the interest is, because those are the ones nothing
   downstream catches, and each keeps the informative part: `Utrecht → Amsterdam`
@@ -280,9 +260,10 @@ the taxonomy is mine.)
 
 - **Models.** Qwen3.5-4B and Qwen3-4B-Instruct-2507, bf16, one 16 GB GPU,
   `attn_implementation="eager"` because the fused kernels take a boolean mask and
-  this needs an additive one. Qwen2.5-0.5B **excluded**: it claimed it had been
-  told things when nothing had been said, 3 of 5 items in a six-item pilot.
-  Dropped, not averaged in.
+  this needs an additive one. **Qwen2.5-0.5B was excluded** before the main run:
+  it claimed it had been told things when nothing had been said, 3 of 5 items in
+  a six-item pilot, so its "yes" carries no information. Dropped, not averaged
+  in, and that exclusion therefore rests on 5 items.
 - **Items.** 100 per model, one clause in a fixed frame; Figure 2 lists them.
 - **Decoding.** Greedy, one seed, no sampling. 24 tokens for the value answer, 4
   for the yes/no answer. Doses swept at `b` = 1, 2, 3, 4, 5, 6, 8, 10, 14.
@@ -509,7 +490,7 @@ high.**
 Two models, both 4B. Constructed conversations, every fact arriving in the same
 sentence frame, greedy, one seed. A token budget I only noticed was load-bearing
 on the last day, and a category boundary that, looking at it with fresh eyes, I
-do not think is well defined. It is what it is :) It was fun.
+do not think is well defined and could not fix by labelling harder.
 
 It was a speedrun, and most of it happened at the far end of the night. The
 victims, in order of innocence: the moon, which watched all of it and said
@@ -518,7 +499,7 @@ sane; and possibly a random visitor to my repo.
 
 - **The headline is specific to this manipulation.** V-Steer produces the same
   near miss, but there the model gave the *right* value and denied being told
-  it, in about 2% of answers, against a wrong value claimed as told in 72–88%
+  it, in about 2% of answers, against a wrong value claimed as told in 73–88%
   here. It may be the opposite dissociation, and this design cannot tell.
 - **The generation budget is load-bearing and I found out late.** 24 tokens for
   the value, 4 for the yes/no, no early stop: 18 answers are cut off
@@ -568,6 +549,13 @@ sane; and possibly a random visitor to my repo.
   version of this probe and threw it out, because its own null returned a perfect
   separation at the embedding layer where both conditions are the same vector.
   The next attempt keeps the null that killed the first one.
+
+- **Measure it under a cause nobody chose.** Everything above is my dose. The
+  argument for caring is that the same state arrives by itself, so the next thing
+  to run is one of the four: KV quantisation is the cheapest, needs no new items
+  and no new metric, and turns *this is the idealised version* into *and here is
+  the real one*. If the "yes" survives 2-bit KV [4] the way it survives `b`, the
+  claim stops being about a manipulation I invented.
 
 - **And before believing the scaling claim:** mask 8 of Qwen3-4B's 36 layers to
   match the hybrid's coverage, which separates "more robust model" from "the bias
