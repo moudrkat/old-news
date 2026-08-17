@@ -18,13 +18,13 @@ Language models are told things in conversation and expected to use them later.
 Can a model tell when its own access to something it was told has degraded? I
 could not find it measured, so I measured it. **It cannot.**
 
-The user says *"By the way, my cat is called Grendel."* I make the name itself
-hard to read, by an amount I control, leaving the rest of the sentence legible.
-The model answers with a wrong name and then, asked in a separate conversation,
+Lets say the user says *"By the way, my cat is called Grendel."* I make the name itself
+hard to read, by an amount I control. I leave the rest of the sentence intact.
+The model answers with a wrong name. Then, asked in a separate conversation,
 says yes it was told the name: **147 of 184**, against **0 of 184** when a
 readable sentence about something else fills the slot (exact McNemar, p = 1e-44).
-The rare failure is obviously wrong. The common one looks perfectly fine, less a
-hallucination than a typo, and nothing downstream is looking for typos.
+The rare failure is obviously wrong. The common one looks perfectly fine. Not like a
+hallucination. Like a typo. In production apps there is no eval, no validator, looking for typos.
 
 Whether that matters depends on the fact. Told *"By the way, I am allergic to
 aspirin"*, Qwen3.5-4B replies **"You are allergic to penicillin"** and adds a
@@ -44,31 +44,27 @@ failure condition: if that recognition signal covers the context too, a fact the
 model can no longer read should look like an entity it does not know, and it
 should refuse. It answers anyway.
 
-**Why this matters outside a toy setup:** I chose the dose, but nothing else has
-to. A sentence still in the context and effectively unread is a side effect of KV
+**Why this matters outside a toy setup:** I chose the dose. But in the real production mess
+the dose is not chosen. A sentence still in the context and effectively unread is a side effect of KV
 cache compression [3], KV quantisation [4], long-context dilution [5] and prompt
 compression [6]. This is the idealised version of that state, measured because
-the dose can be controlled. **None of those four is measured here.**
+the dose can be controlled.
 
 ### Terms
 
-Each of these is used in exactly one sense throughout.
+First, lets define terms used in this work properly. Each of them is used in exactly one sense throughout.
 
 ![Figure 1 · the terms, marked on one sentence](../fig/fig1_terms.png)
 
-**Figure 1 · the terms.** *The bias touches the value and never the sentence
-around it. That is why "yes, you told me my cat's name" is a true answer rather
-than a lie, and why the finding is about the model not noticing rather than
-about it lying.*
+**Figure 1 · the terms.** 
 
 ### Dataset
-
+Now lets look at the dataset structure. 
 ![Figure 2 · all 100 items](../fig/fig2_items.png)
 
 **Figure 2 · the dataset.** *Ten kinds of fact by ten values, 100 items per
 model. The values are deliberately unguessable, so a correct answer cannot come
-from priors. Every one of them opens "By the way," in the same frame, which is a
-limitation rather than a feature and is listed as one.*
+from priors. Every one of them opens "By the way," in the same frame.*
 
 ### High-level takeaways
 
@@ -78,7 +74,7 @@ right sentence and turn its value down, and it reports being told the name
 exactly as it does when it read the name correctly. **Missing and misread are
 different situations and it only reports the first.**
 
-**2. What it says instead is built out of whatever survived**, not invented. All
+**2. What the model says instead of the true value is built out of whatever survived**, not invented. All
 184 answers fall into three groups, and Figure 3 is split by them:
 
 - **a truncation**, `4417` becoming `417`. 76 items, **41%**
@@ -87,17 +83,11 @@ different situations and it only reports the first.**
   called By the way."* The other 54 read as ordinary answers.
 - **no value at all**. 48, **26%**
 
-A judge assigned the groups and I checked them by hand. The headline yes/no is
-not judged: it is the first word of a four-token reply, read directly.
+A judge assigned the groups and I checked them by hand. The headline yes/no is the first word of a four-token reply, read directly.
 
 ![Figure 3 · nine answers, three from each group](../fig/fig3_examples.png)
 
-**Figure 3 · nine answers, three from each group.** *Not chosen: three drawn at
-random from each of the three groups above, with a fixed seed, and nothing inside
-a group picked by hand. The proportions on the right are the whole corpus of
-184. Columns: what the user said, the answer with no bias, the dose and model,
-the answer at that dose, and what the same model answered separately to* did I
-tell you this?
+**Figure 3 · nine answers, three from each group.**
 
 ### Key experiments
 
@@ -138,22 +128,21 @@ yes/no question in all four. Bars are the rate of answering yes. `drop` is 0 on
 both models at the four-token budget shown here, and re-run at 512 tokens it
 answers no 100 of 100 on both.*
 
-**Three controls, each of which could have killed it:**
+**Three main controls:**
 
 - the same dose spent one span over leaves the value readable, **85 of 85**
 - every behaviour re-measured unmanipulated, which retired one of my own findings
 - one sentence of explicit permission to say "I don't know", which is not taken
 
 The controls in full, how every label was made, and where each number comes from
-are below.
+are in the detailed analysis below.
 
 ---
 
 ## Detailed analysis
 
-*The summary says what I did and what came out. This part adds the detail: how
-exactly, and why that way rather than another. It does not restate the numbers
-above.*
+*The summary said what I did and what came out. This part adds the detail: how
+exactly, and why that way rather than another.*
 
 ### Where the question came from
 
@@ -166,14 +155,13 @@ multiplicative, a scaling of the cached value vectors, so by construction it tur
 a span down rather than replacing it: nothing is promoted to take the true value's
 place, and whatever was standing behind it wins by default. That is a property of
 how the method is defined, not a result they report. Their analysis is
-primary-constraint accuracy, head selection and cost, and the word *attenuation*
-does not appear in the paper at all. Nobody had looked at what comes out instead.
+primary-constraint accuracy, head selection and cost. Nobody had looked at what comes out instead.
 That turned my question from *did it get it wrong* into *what does it say instead,
 and does it know that it did*.
 
 ### The answer
 
-**One design decision first, because it inverted the result.** The first version
+**One design decision first, because it inverted the result.** The first version I drafted with Claude
 pinned the model's answer with a prefix, *"Your cat is called ___"*, so that the
 value would land in a known position and be easy to score. That makes *"I don't
 know"* a grammatically impossible continuation. I was reading a forced completion
@@ -194,8 +182,7 @@ model      Your cat is called **By the way**. Wait, that doesn't sound like
 
 `By the way` is lifted from the sentence around it, the part I never turned down.
 The model is not inventing freely; it is reaching for whatever is still readable
-and putting that in the slot. Told `Kudla`, it does the same thing with the word
-`you`.
+and putting that in the slot.
 
 **Then look at what it does next.** It hears itself, decides that is not a cat's
 name, and starts over. Nine answers correct themselves like this and run to the
@@ -220,9 +207,7 @@ could not read.
 they are made of is not.
 
 - **Truncation is the modal failure.** For the structured values, three in four
-  of them, a length or pattern check downstream would notice. (The ledger in
-  `PREREGISTRATION.md` counts 81 rather than 76 because it was written before
-  the gate; five of the ungated truncations do not clear it.) For the names it
+  of them, a length or pattern check downstream would notice. For the names it
   would not, because a truncated name is still a well-formed name.
 - The middle row is where the interest is, because those are the ones nothing
   downstream catches, and each keeps the informative part: `Utrecht → Amsterdam`
@@ -485,18 +470,17 @@ high.**
 
 ### Limitations
 
-**Where this stands.**
-
-Two models, both 4B. Constructed conversations, every fact arriving in the same
-sentence frame, greedy, one seed. A token budget I only noticed was load-bearing
-on the last day, and a category boundary that, looking at it with fresh eyes, I
-do not think is well defined and could not fix by labelling harder.
-
 It was a speedrun, and most of it happened at the far end of the night. The
 victims, in order of innocence: the moon, which watched all of it and said
 nothing; my GPU; Claude, which was made to check its own work more often than is
 sane; and possibly a random visitor to my repo.
 
+- **Scope.** Constructed conversations, one sentence frame, one manipulation
+  family, two 4B models after excluding a third that failed its own control,
+  greedy, one seed. The size was chosen rather than settled for, for the reason
+  under **Why models this small**, but nothing here says the result survives at
+  70B or at frontier scale. The items are not independent either: Qwen3-4B gives
+  only 64 distinct answers across 99 items.
 - **The headline is specific to this manipulation.** V-Steer produces the same
   near miss, but there the model gave the *right* value and denied being told
   it, in about 2% of answers, against a wrong value claimed as told in 73–88%
@@ -507,36 +491,27 @@ sane; and possibly a random visitor to my repo.
   mid-sentence. It also made `drop` look unmeasured on Qwen3.5-4B, which thinks
   out loud and never reached an answer inside four tokens; re-run at 512 it
   finishes every reply and says **no 100 times of 100**, matching Qwen3-4B, so
-  that control now holds on both models. I read all 200 replies by hand and
-  agreed with the parser on every one (`src/drop_long.py`,
-  `results/drop512.html`). None of this
-  touches the headline, which is one word in its own conversation. All of it
-  touches how confidently I can describe what the model was doing.
+  that control now holds on both models, and I read all 200 replies by hand
+  (`src/drop_long.py`, `results/drop512.html`). None of this touches the
+  headline, which is one word in its own conversation. All of it touches how
+  confidently I can describe what the model was doing.
 - **The scaling claim has a confound.** The bias reaches 8 of 32 layers on
   Qwen3.5-4B and 36 of 36 on Qwen3-4B, so "the newer model needs twice the dose"
   cannot be separated from "the bias reached less of it".
-- **The categories are softer than the counts look.** *Damaged* against
-  *different* is not a property of the string: room 227 answered as 207 is one
-  digit and a different room; 19:40 answered as 19:45 is five minutes and a
-  missed train. I labelled 166 of these myself and was not confident on any.
-  Thresholds are first crossings, not points of no return: `city:Brno` is gone
-  at `b = 11` and back at 14, and the sweep stored only the crossing point, so
-  the full curve exists for ten items and no others.
-- **What is checked and what is not.** All 756 yes/no answers read by hand, no
-  disagreements. The value split hand-checked on 166 of 184 at 95.8%. Every item
-  the labellers disagreed on, plus every positive of the two labels that had no
-  second labeller, 298 in total. Not hand-checked: the agreed majority of the
-  behaviour table, where a judge and a keyword rule both said no and I took their
-  word. So the hedging rate rests on two automatic labellers agreeing, with the
-  disputed tail settled by hand.
-- **Scope.** Constructed conversations, one sentence frame, one manipulation
-  family, two 4B models after excluding a third that failed its own control,
-  greedy, one seed. The size was chosen rather than settled for, for the reason
-  in **Why models this small**, but nothing here says the result survives at
-  70B or at frontier scale. The items are not independent: Qwen3-4B gives only 64
-  distinct answers across 99 items. And the scoring rule was wrong three times in
-  both directions, 151/189 → 145/183 → 147/184, with the ledger in
-  `PREREGISTRATION.md`.
+- **Thresholds are first crossings, not points of no return.** `city:Brno` is
+  gone at `b = 11` and readable again at 14. The sweep stored only the crossing
+  point, so the full curve exists for ten items and no others.
+- **The category boundary is not a labelling problem.** Whether a wrong value is
+  damaged or different depends on what the value is for, and the transcript never
+  says; the argument is under **The answer**. Better labelling would not fix it,
+  and the taxonomy is mine.
+- **What is *not* hand-checked**, since the table under **Why I did not trust my
+  own labels** says what is: the agreed majority of the behaviour table, where a
+  judge and a keyword rule both said no and I took their word. So the hedging
+  rate rests on two automatic labellers agreeing, with the disputed tail settled
+  by hand.
+- **The scoring rule was wrong three times**, in both directions, 151/189 →
+  145/183 → 147/184. The ledger is in `PREREGISTRATION.md`.
 
 ### What I would do next
 
