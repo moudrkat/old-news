@@ -46,7 +46,7 @@ Cross the hedging label
 
 **2 of 89 against 46 of 100.** It hands
   over a wrong value where the older one refuses to answer. So the failure that
-  survives everything downstream, a confident value that looks like a typo, is
+  survives everything downstream, a confident value that looks perfectly fine, is
   the more common one on the *more capable* model, not the less. This is the
   sharpest difference between the two and it runs the wrong way.
   **Two rubrics label this row and they do not quite agree:** the one quoted here

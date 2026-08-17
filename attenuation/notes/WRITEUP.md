@@ -23,8 +23,11 @@ hard to read, by an amount I control. I leave the rest of the sentence intact.
 The model answers with a wrong name. Then, asked in a separate conversation,
 says yes it was told the name: **147 of 184**, against **0 of 184** when a
 readable sentence about something else fills the slot (exact McNemar, p = 1e-44).
-The rare failure is obviously wrong. The common one looks perfectly fine. Not like a
-hallucination. Like a typo. In production apps there is no eval, no validator, looking for typos.
+The rare failure is obviously wrong. The common one looks perfectly fine, in two
+different ways: a small dent in the truth, `19:40` becoming `19:45`, or a
+confident substitute out of the model's own prior, `Utrecht` becoming
+`Amsterdam`. Neither reads as a hallucination. In production apps there is no
+eval and no validator looking for either.
 
 Whether that matters depends on the fact. Told *"By the way, I am allergic to
 aspirin"*, Qwen3.5-4B replies **"You are allergic to penicillin"** and adds a
@@ -481,10 +484,12 @@ sane; and possibly a random visitor to my repo.
   under **Why models this small**, but nothing here says the result survives at
   70B or at frontier scale. The items are not independent either: Qwen3-4B gives
   only 64 distinct answers across 99 items.
-- **The headline is specific to this manipulation.** V-Steer produces the same
-  near miss, but there the model gave the *right* value and denied being told
-  it, in about 2% of answers, against a wrong value claimed as told in 73–88%
-  here. It may be the opposite dissociation, and this design cannot tell.
+- **The headline may be specific to this manipulation.** The near miss is what
+  I first saw under V-Steer, on ten models, which is where the question came
+  from. **I never measured provenance there** — I only ever asked *did I tell
+  you this* under my own bias. So I cannot say whether the "yes" is about
+  knowledge-awareness or about this particular knob, and the cheapest way to
+  find out is to ask the same question under a manipulation I did not design.
 - **The generation budget is load-bearing and I found out late.** 24 tokens for
   the value, 4 for the yes/no, no early stop: 18 answers are cut off
   mid-self-correction and 38 of the 47 locality failures on Qwen3-4B end

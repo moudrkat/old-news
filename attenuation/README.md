@@ -1,9 +1,8 @@
 # attenuation
 
 **A model is told a fact. The fact's own tokens are made hard to read, while the
-sentence around them stays legible. The model then answers with a wrong value,
-and a third of the time it sits next to the true one, and reports that it was told the
-fact.**
+sentence around them stays legible. The model then answers with a wrong value
+that looks perfectly plausible, and reports that it was told that fact.**
 
 | | |
 |---|---|
@@ -78,11 +77,11 @@ it runs on hybrid architectures, where editing the KV cache is not possible at
 all.
 
 **The metric.** I ask the model *"Did I tell you this? Answer only yes or no."*
-in five situations. Four change what is in the conversation: the sentence is
-there · the sentence is faint · a readable sentence about something else is there
-instead · nothing is there at all. **The third of those is the control the claim
-rests on**, because it separates *"I have this fact"* from *"there is a sentence
-here"*.
+in five situations. Four change what is in the conversation: `present`, the
+sentence untouched · `faint`, its value turned down · `swap`, a readable sentence
+about something else instead · `drop`, nothing at all. **`swap` is the control
+the claim rests on**, because it separates *"I have this fact"* from *"there is a
+sentence here"*.
 
 The fifth exists because those four vary two things at once: `swap` changes the
 topic and switches the bias off together. So it is run again with the bias on the
@@ -103,11 +102,12 @@ a value that is wrong, and in the other 23 it gave no value at all and still
 says it was told. When a readable sentence about something
 else is there instead, it says yes **0 times out of 184**.
 
-And a third of the time the wrong value is not random: it sits next to the
-truth. Told `19:40`, it answers **19:45**. Told `Utrecht`, it answers
-**Amsterdam**. That does not look
-like a hallucination. It looks like a typo, and nothing downstream catches a
-typo.
+The wrong value is not random, and it fails in two different ways. **41% are a
+dent in the truth**: told `19:40`, it answers **19:45**. **33% are the model's
+prior filling the hole** with something plausible: told `Utrecht`, it answers
+**Amsterdam**; told `aspirin`, **penicillin**. The remaining 26% give no value at
+all. Neither kind of wrong answer looks like a hallucination, and nothing
+downstream catches either.
 
 ![Nine answers, three drawn at random from each kind of failure](fig/fig3_examples.png)
 
@@ -125,8 +125,8 @@ typo.
 
 ![The four conditions](fig/fig6_conditions.png)
 
-*The whole result is the second bar against the third: both put a readable
-sentence in the slot, and only in the second is it the one being asked about.*
+*The result is `faint` against `swap`: both put a readable sentence in the slot,
+and only in `faint` is it the sentence being asked about.*
 
 ![The dose grid](fig/fig8_dose_grid.png)
 
@@ -164,6 +164,11 @@ examples.*
   model where the control does not hold is also the one whose answers most often
   had not finished. Qwen3.5-4B has no failures in that arm, so its 85/85 does not
   depend on the budget.
+- **The provenance question was only ever asked under this manipulation.** The
+  near miss is what first showed up under V-Steer, which is where the question
+  came from, but I never asked *did I tell you this* there. So nothing here
+  separates "the model has no signal about what it was told" from "this one knob
+  produces this one answer". It is the biggest hole in the project.
 - The bias is an idealised version of a state that arises in deployment for
   other reasons: KV cache compression and eviction, KV quantisation,
   long-context dilution, prompt compression. **None of those is measured
@@ -178,12 +183,13 @@ it was caught are in [`PREREGISTRATION.md`](PREREGISTRATION.md).
 The runs, in this order:
 
 ```bash
-python src/told2.py   Qwen/Qwen3.5-4B   # the four conditions, the headline
-python src/swap_biased.py Qwen/Qwen3.5-4B # the fifth: swap with the bias on
-python src/ladder.py  Qwen/Qwen3.5-4B   # one item at a time up the dose sweep (fig2)
-python src/locality.py Qwen/Qwen3.5-4B  # same dose, mask one sentence over
-python src/hedge.py   Qwen/Qwen3.5-4B   # the behaviours, measured at b = 0 too
-python src/verify.py                    # the page for checking the yes/no by eye
+python src/told2.py       Qwen/Qwen3.5-4B  # the four conditions, the headline
+python src/swap_biased.py Qwen/Qwen3.5-4B  # the fifth: swap with the bias on
+python src/ladder.py      Qwen/Qwen3.5-4B  # one item at a time up the dose sweep
+python src/locality.py    Qwen/Qwen3.5-4B  # control 1: same dose, one span over
+python src/hedge.py       Qwen/Qwen3.5-4B  # control 2: every behaviour at b = 0
+python src/permission.py  Qwen/Qwen3.5-4B  # control 3: "say so if you are unsure"
+python src/drop_long.py   Qwen/Qwen3.5-4B --ntok 512   # drop, given room to answer
 ```
 
 Then the scoring, which is where several of the numbers above come from:
@@ -192,7 +198,11 @@ Then the scoring, which is where several of the numbers above come from:
 ../.venv/bin/python src/judge.py      # what the answer did with the value
 ../.venv/bin/python src/recheck.py    # the yes/no reading, and is the value gone
 ../.venv/bin/python src/recheck2.py   # the locality answers, and the behaviours
+../.venv/bin/python src/recheck_permission.py   # the permission control
 python src/quoted.py                  # every quoted number, in one place
+python src/everything.py              # every conversation and answer, one page
+python src/verify.py                  # the page for checking the yes/no by eye
+python src/adjudicate.py              # the page for labelling the value split
 ```
 
 `src/run.py`, `src/sweep*.py`, `src/told.py`, `src/absent.py` and `src/table.py`
