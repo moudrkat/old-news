@@ -23,8 +23,8 @@ mean:
   from.
 - **The bias is on while that question is answered too**, at the same dose and
   the same token positions.
-- **The mask covers the value, not the sentence.** *"By the way, my dog is
-  called…"* stays fully readable, so "yes, you told me my dog's name" is not a
+- **The mask covers the value, not the sentence.** *"By the way, my cat is
+  called…"* stays fully readable, so "yes, you told me my cat's name" is not a
   false statement. What the model fails to do is register that the name it
   produces is not the one it read.
 
@@ -55,8 +55,8 @@ controlled. **None of those is measured here.**
 
 Precisely, and this is the whole manipulation: a constant `b` is subtracted
 from the attention logits **at the token positions of the value itself**, before
-the softmax. Not the sentence: `Bagr`, not *"By the way, my dog is called
-Bagr."* The carrier phrase stays fully readable and only the answer inside it
+the softmax. Not the sentence: `Grendel`, not *"By the way, my cat is called
+Grendel."* The rest of the sentence stays fully readable and only the answer inside it
 goes quiet. That multiplies the weight those tokens receive by `e^-b`: a
 twentieth of it at `b = 3`, a four-hundredth at `b = 6`, and the softmax
 renormalises, so the weight taken from them is handed to everything
