@@ -1,0 +1,42 @@
+<!doctype html><meta charset="utf-8">
+<title>Figure 5 — every item</title>
+<style>
+:root { --surface:#fcfcfb; --ink:#0b0b0b; --ink2:#52514e; --muted:#6f6e6a;
+  --rule:#e6e5e1; --sp:#eb6834; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme=light]) {
+  --surface:#1a1a19; --ink:#fff; --ink2:#c3c2b7; --muted:#96958c;
+  --rule:#2e2e2c; --sp:#d95926; } }
+body { margin:0; background:var(--surface); color:var(--ink);
+  font:14px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; }
+figure { margin:20px; max-width:900px; }
+svg { display:block; width:100%; height:auto; }
+.h { font-size:15px; font-weight:600; fill:var(--ink); }
+.sub { font-size:12px; fill:var(--muted); }
+.kind { font:600 11.5px ui-monospace,monospace; fill:var(--muted); }
+.told { font-size:12.5px; fill:var(--ink2); }
+.slot { fill:var(--sp); }
+.vals { font:11px ui-monospace,monospace; fill:var(--sp); }
+</style>
+<script>{const t=new URLSearchParams(location.search).get("theme");
+if(t)document.documentElement.dataset.theme=t;}</script>
+<figure>
+<svg viewBox="0 0 900 350" role="img"
+     aria-label="All 100 items: 10 kinds of fact, ten values each">
+<rect width="900" height="350" fill="var(--surface)"/>
+<text x="24" y="30" class="h">All 100 items: 10 kinds of fact, ten values each.</text>
+<text x="24" y="50" class="sub">Every one of them opens
+&#8220;By the way,&#8221;. The orange values are the only thing the bias ever
+touches.</text>
+<line x1="24" y1="73" x2="876" y2="73" stroke="var(--rule)"/>
+<text x="24" y="92" class="kind">dog</text><text x="92" y="92" class="told">my dog is called <tspan class="slot">&#9679;</tspan>.</text><text x="336" y="92" class="vals">Bagr  Fizzle  Kudla  Wobbet  Trixel  Marnok  Bristle  Yorrick  Plunk  Skarn</text>
+<text x="24" y="117" class="kind">order</text><text x="92" y="117" class="told">my order number is <tspan class="slot">&#9679;</tspan>.</text><text x="336" y="117" class="vals">4417  8290  1053  7734  6621  3908  5142  2867  9375  1486</text>
+<text x="24" y="142" class="kind">city</text><text x="92" y="142" class="told">I live in <tspan class="slot">&#9679;</tspan>.</text><text x="336" y="142" class="vals">Brno  Utrecht  Bergen  Kaunas  Porto  Graz  Tampere  Rijeka  Aarhus  Leon</text>
+<text x="24" y="167" class="kind">error</text><text x="92" y="167" class="told">the error code I got was <tspan class="slot">&#9679;</tspan>.</text><text x="336" y="167" class="vals">E-88  X-12  F-401  Q-73  B-206  R-95  T-340  K-17  M-628  Z-54</text>
+<text x="24" y="192" class="kind">time</text><text x="92" y="192" class="told">my train leaves at <tspan class="slot">&#9679;</tspan>.</text><text x="336" y="192" class="vals">19:40  06:15  13:52  21:08  11:27  04:36  17:49  08:03  22:41  15:14</text>
+<text x="24" y="217" class="kind">account</text><text x="92" y="217" class="told">my account number ends in <tspan class="slot">&#9679;</tspan>.</text><text x="336" y="217" class="vals">302  718  455  961  233  807  574  129  686  340</text>
+<text x="24" y="242" class="kind">allergy</text><text x="92" y="242" class="told">I am allergic to <tspan class="slot">&#9679;</tspan>.</text><text x="336" y="242" class="vals">walnuts  penicillin  shellfish  latex  mustard  sesame  sulfites  kiwi  wasp stings  aspirin</text>
+<text x="24" y="267" class="kind">room</text><text x="92" y="267" class="told">my hotel room is <tspan class="slot">&#9679;</tspan>.</text><text x="336" y="267" class="vals">614  227  1108  355  902  471  1236  588  743  196</text>
+<text x="24" y="292" class="kind">flight</text><text x="92" y="292" class="told">my flight is <tspan class="slot">&#9679;</tspan>.</text><text x="336" y="292" class="vals">QR318  LH772  BA945  AY206  OK483  SK651  TP129  AZ874  EW537  IB260</text>
+<text x="24" y="317" class="kind">cat</text><text x="92" y="317" class="told">my cat is called <tspan class="slot">&#9679;</tspan>.</text><text x="336" y="317" class="vals">Miso  Grendel  Pilch  Nectarine  Bobbin  Vosk  Tamarind  Klepto  Sorrel  Nubbin</text>
+</svg>
+</figure>

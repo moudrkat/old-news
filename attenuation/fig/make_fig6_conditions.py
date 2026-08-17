@@ -19,17 +19,20 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 from match import contains          # noqa: E402
+# the same words the write-up uses, so the figure and the prose cannot drift
 CONDS = [
-    ("present", "fact is there"),
-    ("faint", "fact turned down"),
-    ("swap", "a different fact"),
-    ("drop", "nothing there"),
+    ("present", "the sentence, untouched"),
+    ("faint", "its value turned down"),
+    ("swap", "a different fact instead"),
+    ("drop", "nothing at all"),
 ]
-SERIES = ["#2a78d6", "#eb6834"]        # validated categorical slots 1 and 2
-SERIES_DARK = ["#3987e5", "#d95926"]
+# Okabe-Ito blue and reddish purple. Orange is reserved for the value in every
+# other figure, so it cannot also mean "one of the two models" here.
+SERIES = ["#0072B2", "#CC79A7"]
+SERIES_DARK = ["#3a9ad9", "#df9ec4"]
 
-W, H = 720, 380
-PAD_L, PAD_R, PAD_T, PAD_B = 62, 18, 52, 74
+W, H = 720, 432
+PAD_L, PAD_R, PAD_T, PAD_B = 62, 18, 52, 108
 PW, PH = W - PAD_L - PAD_R, H - PAD_T - PAD_B
 
 
@@ -121,6 +124,11 @@ def svg(models) -> str:
 
     g.append(f'<text x="{PAD_L}" y="20" class="title">'
              f'answers &#8220;yes, you told me&#8221;</text>')
+    # axis titles: a reader should not have to infer either axis from the caption
+    g.append(f'<text transform="translate(16,{PAD_T + PH / 2:.0f}) rotate(-90)" '
+             f'text-anchor="middle" class="axlab">items answering yes</text>')
+    g.append(f'<text x="{PAD_L + PW / 2:.0f}" y="{PAD_T + PH + 58:.0f}" '
+             f'text-anchor="middle" class="axlab">what was in the conversation</text>')
     return "\n".join(g)
 
 
@@ -150,6 +158,7 @@ figure {{ margin:24px; max-width:{W}px; }}
 svg {{ display:block; width:100%; height:auto; }}
 .title {{ font-size:15px; font-weight:600; fill:var(--text-primary); }}
 .tick, .xcode {{ font-size:11px; fill:var(--muted); }}
+.axlab {{ font-size:11.5px; font-weight:600; fill:var(--muted); }}
 .xlab {{ font-size:12.5px; fill:var(--text-secondary); }}
 .val {{ font-size:11.5px; font-weight:600; fill:var(--text-secondary); }}
 .leg {{ font-size:12px; fill:var(--text-secondary); }}
@@ -161,29 +170,9 @@ figcaption {{ margin-top:10px; color:var(--text-secondary); font-size:13px; max-
      aria-label="Rate of answering yes to 'did I tell you', by condition and model">
 {svg(models)}
 </svg>
-<figcaption>
-Asked <em>&#8220;Did I tell you X? Answer only yes or no.&#8221;</em> in four states of the
-evidence. <strong>fact turned down</strong> and <strong>a different fact</strong> both put a
-sentence in the slot; only the first is the one being asked about. The model answers
-&#8220;yes&#8221; to the first and never to the second &#8212; while the value it gives under
-<em>fact turned down</em> is wrong.
-<br><br>
-An item counts only where the value is genuinely gone from the answer, judged by
-a rule that treats <code>04:36</code> and &#8220;4:36&nbsp;AM&#8221; as the same
-time and &#8220;4:36&nbsp;PM&#8221; as a different one.
-<br><br>
-<strong>What b is <em>fact turned down</em> set to?</strong> Not one value.
-Each item is measured at its own dose &#8212; the lowest b at which that model
-stops reproducing that item's value, which is what makes the bar mean
-&#8220;the value is gone&#8221; for every item rather than
-&#8220;b happened to be 4&#8221;. Those doses have a median of {med} and run
-{rng}. The other three conditions carry no bias at all: <em>fact is there</em>
-is b&#8239;=&#8239;0, and <em>a different fact</em> and <em>nothing there</em>
-change the text instead of the attention.
-</figcaption>
 </figure>
 """
-    out = ROOT / "fig" / "fig1.html"
+    out = ROOT / "fig" / "fig6_conditions.html"
     out.write_text(html)
     for m in models:
         print(f'{m["model"]:<26} n={m["n"]:<5} ' +

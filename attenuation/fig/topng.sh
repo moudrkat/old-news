@@ -44,7 +44,11 @@ PY
 }
 
 echo "wrote:"
-shot fig0 1290
-shot fig1 900
-shot fig2 1400
-shot fig3 900
+shot fig1_terms 960
+shot fig2_items 960
+shot fig3_examples 1290
+shot fig4_manipulation 900
+shot fig5_experiment 900
+shot fig6_conditions 900
+shot fig7_one_item 900
+shot fig8_dose_grid 1400

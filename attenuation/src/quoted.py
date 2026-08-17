@@ -40,6 +40,24 @@ def load(name):
     return json.load(open(f)) if f.exists() else None
 
 
+
+def mcnemar(rows, a: str, b: str) -> dict:
+    """Exact two-sided McNemar on the paired yes/no answers.
+
+    The four conditions are asked of the *same* items, so the comparison is
+    paired and an unpaired test would be the wrong one. (It has been the wrong
+    one before in this project, which is why this is computed here rather than
+    by hand.) With one cell empty the exact binomial is 2 * 0.5^discordant.
+    """
+    from math import comb
+    b10 = sum(1 for r in rows if r[a] == "yes" and r[b] != "yes")
+    b01 = sum(1 for r in rows if r[b] == "yes" and r[a] != "yes")
+    d = b10 + b01
+    p = 2 * sum(comb(d, k) for k in range(min(b01, b10) + 1)) / 2 ** d if d else 1.0
+    return {"a": a, "b": b, f"{a}_only": b10, f"{b}_only": b01,
+            "discordant": d, "p": min(p, 1.0)}
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--json", action="store_true")
@@ -181,6 +199,15 @@ def main() -> int:
     for m, v in out["dose"].items():
         P(f"  {m:<26} median {v['median']:g}  range {v['min']:g}-{v['max']:g}"
           f"  censored {v['censored']}  n {v['n']}")
+    out["paired"] = []
+    for a, b in (("faint", "swap"), ("present", "faint")):
+        allrows = [r for m in MODELS for r in kept[m]]
+        out["paired"].append(mcnemar(allrows, a, b))
+    P("\npaired tests, exact McNemar, two-sided (the conditions share items)")
+    for s in out["paired"]:
+        P(f'  {s["a"]:<8} vs {s["b"]:<6} '
+          f'{s[s["a"] + "_only"]:>3} one way, {s[s["b"] + "_only"]:>3} the other'
+          f'   p = {s["p"]:.3g}')
     P(f"\nlocality, value survives")
     for m, v in out["locality"].items():
         P(f"  {m:<26} mask ON {v['on']}/{v['n']} (judge {v['on_judge']})"

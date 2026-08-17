@@ -1,0 +1,75 @@
+<!doctype html><meta charset="utf-8">
+<title>Figure 1 — the terms</title>
+<style>
+:root { --surface:#fcfcfb; --ink:#0b0b0b; --ink2:#52514e; --muted:#6f6e6a;
+  --rule:#e6e5e1; --sp:#eb6834; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme=light]) {
+  --surface:#1a1a19; --ink:#fff; --ink2:#c3c2b7; --muted:#96958c;
+  --rule:#2e2e2c; --sp:#d95926; } }
+body { margin:0; background:var(--surface); color:var(--ink);
+  font:14px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; }
+figure { margin:20px; max-width:980px; }
+svg { display:block; width:100%; height:auto; }
+.line { font:15px ui-monospace,SFMono-Regular,Menlo,monospace; fill:var(--ink); }
+.hl { fill:var(--sp); font-weight:700; }
+.lbl { font:600 12.5px -apple-system,sans-serif; fill:var(--ink2); }
+.lbl.sp { fill:var(--sp); }
+.note { font-size:12px; fill:var(--muted); }
+.q { font-size:12.5px; fill:var(--ink2); font-style:italic; }
+.em { fill:var(--ink2); font-weight:600; }
+.mono { font-family:ui-monospace,monospace; }
+.br { fill:none; stroke:var(--rule); stroke-width:1.2; }
+</style>
+<script>{const t=new URLSearchParams(location.search).get("theme");
+if(t)document.documentElement.dataset.theme=t;}</script>
+<figure>
+<svg viewBox="0 0 980 366" role="img"
+     aria-label="The terms marked on one sentence: the sentence, the value
+     inside it, the fact, the question, an item, and b">
+<rect width="980" height="366" fill="var(--surface)"/>
+
+<text x="44" y="44" class="lbl">the sentence</text>
+<text x="392" y="44" class="note">what the user said. Stays fully
+readable in every condition.</text>
+<path d="M44.0,58.0 L44.0,54.0 L378.1,54.0 L378.1,58.0" class="br"/>
+
+<text x="44" y="88" class="line">By the way, my cat is called <tspan class="hl">Grendel</tspan>.</text>
+
+<path d="M305.9,96.0 L305.9,100.0 L369.1,100.0 L369.1,96.0" class="br"/>
+<text x="306" y="120" class="lbl sp">the value</text>
+<text x="383" y="120" class="note">the answer inside it. <tspan
+class="em">The only thing the bias ever touches.</tspan></text>
+
+<line x1="44" y1="150" x2="956" y2="150" stroke="var(--rule)"/>
+
+<text x="44" y="178" class="lbl">the fact</text>
+<text x="152" y="178" class="note">the two together: what the user
+actually told the model, and the fact in question when it is asked whether it
+was told.</text>
+
+<text x="44" y="212" class="lbl">the question</text>
+<text x="152" y="212" class="q">&#8220;Did I tell you my cat&#x27;s name in this conversation? Answer only yes or no.&#8221;</text>
+
+<text x="44" y="246" class="lbl">an item</text>
+<text x="152" y="246" class="note">one sentence, one value, one question.
+Ten kinds of fact by ten values, 100 per model.</text>
+
+<text x="44" y="280" class="lbl">b, the bias</text>
+<text x="152" y="280" class="note">the number subtracted at every one of
+the value's token positions, before the softmax. <tspan class="mono">b =
+0</tspan> is an unmodified model; called <tspan class="em">the dose</tspan> when
+its size matters.</text>
+
+<text x="44" y="314" class="lbl">faint</text>
+<text x="152" y="314" class="note">that item's own dose: the lowest <tspan
+class="mono">b</tspan> at which its value is gone from the answer. So a wrong
+value is the setup, not the finding.</text>
+
+<text x="44" y="348" class="lbl">the gate</text>
+<text x="152" y="348" class="note">an item counts only if the unmanipulated
+model answers it correctly <tspan class="em">and</tspan> some <tspan
+class="mono">b</tspan> removes the value. <tspan class="em">184 of the 200 clear
+it.</tspan></text>
+
+</svg>
+</figure>

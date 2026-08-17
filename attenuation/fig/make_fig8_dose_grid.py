@@ -189,10 +189,10 @@ def main(_stem: str = "") -> int:
 <title>Figure 2 — the value coming apart</title>
 <style>
 :root {{ --surface:#fcfcfb; --ink:#0b0b0b; --ink2:#52514e; --muted:#6f6e6a;
-  --rule:#e6e5e1; --full:#1baf7a; --piece:#eda100; --other:#eb6834; }}
+  --rule:#e6e5e1; --full:#1b6f9c; --piece:#8fb8d0; --other:#eb6834; }}
 @media (prefers-color-scheme: dark) {{ :root:not([data-theme=light]) {{
   --surface:#1a1a19; --ink:#fff; --ink2:#c3c2b7; --muted:#96958c;
-  --rule:#2e2e2c; --full:#199e70; --piece:#c98500; --other:#d95926; }} }}
+  --rule:#2e2e2c; --full:#3d8cb8; --piece:#6f93a8; --other:#d95926; }} }}
 body {{ margin:0; background:var(--surface); color:var(--ink);
   font:14px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; }}
 figure {{ margin:20px; max-width:1330px; }}
@@ -279,39 +279,9 @@ turn, correct → truncated → substituted → refused. These are not those.</p
 <i style="background:var(--other)"></i>a different value
 <i style="box-shadow:inset 0 0 0 1px var(--rule)"></i>declines to answer
 </p>
-<figcaption>
-Nothing is deleted at any column — the sentence is in the conversation
-throughout, only harder to read. <b>The grids are examples, not the evidence.</b> The scale claim rests on the
-table at the top — 100 items each, median 3 against median 6. The six rows per model below are
-the first six kinds of fact, by a fixed rule, and both models are shown rather than one,
-so nothing is being chosen for looking better.
-The last category — <i>declines to answer</i> — is the one soft judgement here,
-a keyword match on the opening of the answer; everything else is exact string
-matching.
-<br><br>
-<b>Every answer is shown whole.</b> Nothing in a cell is shortened for display,
-so the hedges, the self-corrections and the invented explanations are all here
-to be read rather than summarised into a colour. The one cut is the generation
-budget — 20 tokens in the grid, 24 in the threshold column — which is why some
-answers stop mid-sentence; it was fixed before the run, not chosen afterwards.
-<br><br>
-<b>The last column exists because a green row is ambiguous.</b> The sweep
-stops at b&nbsp;=&nbsp;10, so a row still holding its value at the right edge
-could mean the value survives or could mean the figure stopped too early.
-<code>Brno</code> on Qwen3.5 is the second kind: it holds at every dose on this
-ladder, and it is one of the eleven items that still had their value at
-b&nbsp;=&nbsp;14 — so no threshold was found for it, which is what the cell says
-rather than leaving an unbroken green row for the reader to interpret. Not the
-same as never losing it: a pilot run over a finer sweep caught this item
-answering <i>"You live in <b>Prague</b>"</i> at b&nbsp;=&nbsp;11, a dose this
-ladder does not test, and then it is back to <code>Brno</code> at 14. The value
-returns, so every number here is a first crossing and not a point of no return.
-On the other model the same item goes at b&nbsp;=&nbsp;3, and it goes to a
-refusal, not to another city.
-</figcaption>
 </figure>
 """
-    out = ROOT / "fig" / "fig2.html"
+    out = ROOT / "fig" / "fig8_dose_grid.html"
     out.write_text(doc)
     print("\nwrote", out)
     return 0

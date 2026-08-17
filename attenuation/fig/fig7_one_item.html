@@ -1,0 +1,52 @@
+<!doctype html><meta charset="utf-8">
+<title>One item, whole</title>
+<style>
+:root { --surface:#fcfcfb; --ink:#0b0b0b; --ink2:#52514e; --muted:#6f6e6a;
+  --rule:#e6e5e1; --sp:#eb6834; --yes:#c2410c; --no:#6f6e6a; --tail:#b3b2ac; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme=light]) {
+  --surface:#1a1a19; --ink:#fff; --ink2:#c3c2b7; --muted:#96958c;
+  --rule:#2e2e2c; --sp:#d95926; --tail:#6a6963; } }
+body { margin:0; background:var(--surface); color:var(--ink);
+  font:14px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; }
+figure { margin:20px; max-width:900px; }
+h2 { font-size:15px; margin:0 0 3px; }
+.sub { font-size:12.5px; color:var(--muted); margin:0 0 14px; }
+h3 { font-size:11px; text-transform:uppercase; letter-spacing:.05em;
+  color:var(--muted); margin:15px 0 5px; font-weight:600; }
+.dose { color:var(--sp); font-weight:600; text-transform:none;
+  letter-spacing:0; font-size:11.5px; }
+.conv { border-left:2px solid var(--rule); padding-left:11px; }
+.t { display:flex; gap:11px; padding:1.5px 0; }
+.role { flex:0 0 66px; font:600 11px ui-monospace,monospace; color:var(--muted); }
+.turn { font-size:13px; color:var(--ink2); }
+.hl { color:var(--sp); text-decoration:underline wavy var(--sp) 1px; }
+.a { font:12.5px/1.5 ui-monospace,SFMono-Regular,monospace; white-space:pre-wrap;
+  background:rgba(127,127,127,.075); border-radius:5px; padding:7px 9px;
+  margin-top:5px; }
+.keep { color:var(--ink); } .tail { color:var(--tail); }
+.cond { border-top:1px dashed var(--rule); padding-top:8px; margin-top:9px; }
+.ch { display:flex; gap:9px; align-items:baseline; flex-wrap:wrap;
+  margin-bottom:3px; }
+.cn { font-size:13px; }
+.what { font-size:11.5px; color:var(--muted); }
+.lab { font:600 11.5px ui-monospace,monospace; }
+.lab.yes { color:var(--yes); } .lab.no { color:var(--no); }
+.lab.other { color:var(--muted); }
+figcaption { margin-top:13px; color:var(--ink2); font-size:12.5px;
+  border-top:1px solid var(--rule); padding-top:10px; }
+code { font-size:.94em; }
+</style>
+<script>{const t=new URLSearchParams(location.search).get("theme");
+if(t)document.documentElement.dataset.theme=t;}</script>
+<figure>
+<h2>One item, whole: everything sent and everything returned</h2>
+<p class="sub"><code>allergy:aspirin</code> on Qwen3.5-4B, at its own dose of 8.0. The
+<b style="color:var(--sp)">marked span</b> is the only thing the bias touches;
+the sentence around it is untouched and stays fully readable.</p>
+<h3>the value question <span class="dose">bias 8.0 subtracted at the token positions of <code>aspirin</code></span></h3><div class="conv"><div class="t"><span class="role">system</span><span class="turn">You are a helpful assistant.</span></div><div class="t"><span class="role">user</span><span class="turn">By the way, I am allergic to <b class="hl">aspirin</b>.</span></div><div class="t"><span class="role">assistant</span><span class="turn">Noted.</span></div><div class="t"><span class="role">user</span><span class="turn">What am I allergic to?</span></div></div><div class="a"><span class="keep">You are allergic to **penicillin** (a type of antibiotic).
+
+This is a common and important detail to</span></div><h3>the provenance question, a separate conversation each time</h3><div class="cond"><div class="ch"><b class="cn">present</b><span class="what">the sentence, untouched</span><span class="lab yes">read as yes</span><span class="what">should be yes</span></div><div class="conv"><div class="t"><span class="role">system</span><span class="turn">You are a helpful assistant.</span></div><div class="t"><span class="role">user</span><span class="turn">By the way, I am allergic to aspirin.</span></div><div class="t"><span class="role">assistant</span><span class="turn">Noted.</span></div><div class="t"><span class="role">user</span><span class="turn">Did I tell you what I am allergic to? Answer only yes or no.</span></div></div><div class="a"><span class="keep">Yes</span><span class="tail">&lt;|im_end|&gt;
+&lt;|endoftext|&gt;</span></div></div><div class="cond"><div class="ch"><b class="cn">faint</b><span class="what">its value turned down</span><span class="lab yes">read as yes</span><span class="what">should be the question</span></div><div class="conv"><div class="t"><span class="role">system</span><span class="turn">You are a helpful assistant.</span></div><div class="t"><span class="role">user</span><span class="turn">By the way, I am allergic to <b class="hl">aspirin</b>.</span></div><div class="t"><span class="role">assistant</span><span class="turn">Noted.</span></div><div class="t"><span class="role">user</span><span class="turn">Did I tell you what I am allergic to? Answer only yes or no.</span></div></div><div class="a"><span class="keep">Yes</span><span class="tail">&lt;|im_end|&gt;
+&lt;|endoftext|&gt;</span></div></div><div class="cond"><div class="ch"><b class="cn">swap</b><span class="what">a different fact instead</span><span class="lab no">read as no</span><span class="what">should be no</span></div><div class="conv"><div class="t"><span class="role">system</span><span class="turn">You are a helpful assistant.</span></div><div class="t"><span class="role">user</span><span class="turn">By the way, my hotel room is 196.</span></div><div class="t"><span class="role">assistant</span><span class="turn">Noted.</span></div><div class="t"><span class="role">user</span><span class="turn">Did I tell you what I am allergic to? Answer only yes or no.</span></div></div><div class="a"><span class="keep">No</span><span class="tail">&lt;|im_end|&gt;
+&lt;|endoftext|&gt;</span></div></div><div class="cond"><div class="ch"><b class="cn">drop</b><span class="what">nothing at all</span><span class="lab other">read as other</span><span class="what">should be no</span></div><div class="conv"><div class="t"><span class="role">system</span><span class="turn">You are a helpful assistant.</span></div><div class="t"><span class="role">user</span><span class="turn">Did I tell you what I am allergic to? Answer only yes or no.</span></div></div><div class="a"><span class="keep">Thinking Process:</span></div></div>
+</figure>

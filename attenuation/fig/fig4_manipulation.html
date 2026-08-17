@@ -1,0 +1,78 @@
+<!doctype html><meta charset="utf-8">
+<title>Figure 3 — the method</title>
+<style>
+:root { --surface:#fcfcfb; --ink:#0b0b0b; --ink2:#52514e; --muted:#6f6e6a;
+  --rule:#e6e5e1; --sp:#eb6834; --ot:#9fb3c8; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme=light]) {
+  --surface:#1a1a19; --ink:#fff; --ink2:#c3c2b7; --muted:#96958c;
+  --rule:#2e2e2c; --sp:#d95926; --ot:#5b6b7c; } }
+body { margin:0; background:var(--surface); color:var(--ink);
+  font:14px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; }
+figure { margin:20px; max-width:940px; }
+svg { display:block; width:100%; height:auto; }
+.h { font-size:15px; font-weight:600; fill:var(--ink); }
+.sub { font-size:12px; fill:var(--muted); }
+.role { font:600 11px ui-monospace,monospace; fill:var(--muted); }
+.turn { font-size:13px; fill:var(--ink2); }
+.hl { fill:var(--sp); font-weight:700; }
+.sp { fill:var(--sp); } .ot { fill:var(--ot); }
+.o0 { fill:#c7d3de; } .o2 { fill:#9fb3c8; } .o3 { fill:#7b93ab; }
+.o4 { fill:#5f788f; }
+.pc { font:600 10px ui-monospace,monospace; fill:#fff; }
+.bl { font:600 11.5px ui-monospace,monospace; fill:var(--ink2); }
+.note2 { font-size:11.5px; fill:var(--muted); }
+.key { font-size:11px; fill:var(--ink2); }
+.key.sp { fill:var(--sp); font-weight:700; }
+.form { font:13px ui-monospace,monospace; fill:var(--ink); }
+.cap { font-size:12px; fill:var(--muted); }
+figcaption { margin-top:10px; color:var(--ink2); font-size:12.5px; }
+</style>
+<script>{const t=new URLSearchParams(location.search).get("theme");
+if(t)document.documentElement.dataset.theme=t;}</script>
+<figure>
+<svg viewBox="0 46 940 336" role="img"
+     aria-label="How the manipulation works: subtract b from the attention
+     logits at one sentence's positions">
+<rect y="46" width="940" height="336" fill="var(--surface)"/>
+
+
+<text x="24" y="82" class="sub">the conversation</text>
+<text x="120" y="82" class="role">system</text><text x="188" y="82" class="turn">You are a helpful assistant.</text>
+<text x="120" y="107" class="role">user</text><text x="188" y="107" class="turn"><tspan>By the way, my cat is called </tspan><tspan class="hl">Grendel</tspan><tspan>.</tspan></text>
+<text x="120" y="132" class="role">assistant</text><text x="188" y="132" class="turn">Noted.</text>
+<text x="120" y="157" class="role">user</text><text x="188" y="157" class="turn">What is my cat called?</text>
+
+<line x1="24" y1="188" x2="916" y2="188" stroke="var(--rule)"/>
+<text x="24" y="214" class="sub">what the model does</text>
+<text x="188" y="214" class="form">attention logit at those positions  −  b</text>
+<text x="24" y="257" class="sub">weight</text>
+
+<rect x="188.0" y="244" width="47.0" height="17" rx="3" class="o0"/>
+<text x="211.5" y="256.5" text-anchor="middle" class="pc">10%</text>
+<rect x="237.0" y="244" width="159.8" height="17" rx="3" class="sp"/>
+<text x="316.9" y="256.5" text-anchor="middle" class="pc">34%</text>
+<rect x="398.8" y="244" width="28.2" height="17" rx="3" class="o2"/>
+<text x="412.9" y="256.5" text-anchor="middle" class="pc">6%</text>
+<rect x="429.0" y="244" width="141.0" height="17" rx="3" class="o3"/>
+<text x="499.5" y="256.5" text-anchor="middle" class="pc">30%</text>
+<rect x="572.0" y="244" width="94.0" height="17" rx="3" class="o4"/>
+<text x="619.0" y="256.5" text-anchor="middle" class="pc">20%</text>
+<text x="176" y="257" text-anchor="end" class="bl">b = 0</text>
+<text x="188" y="238" class="note2">illustrative starting weights; the effect of b on them is exact</text>
+<text x="678.0" y="257" class="note2">the value: unchanged</text>
+<rect x="188.0" y="290" width="69.4" height="17" rx="3" class="o0"/>
+<text x="222.7" y="302.5" text-anchor="middle" class="pc">15%</text>
+<rect x="259.4" y="290" width="11.8" height="17" rx="3" class="sp"/>
+<rect x="273.2" y="290" width="41.7" height="17" rx="3" class="o2"/>
+<text x="294.0" y="302.5" text-anchor="middle" class="pc">9%</text>
+<rect x="316.8" y="290" width="208.3" height="17" rx="3" class="o3"/>
+<text x="421.0" y="302.5" text-anchor="middle" class="pc">44%</text>
+<rect x="527.1" y="290" width="138.9" height="17" rx="3" class="o4"/>
+<text x="596.6" y="302.5" text-anchor="middle" class="pc">30%</text>
+<text x="176" y="303" text-anchor="end" class="bl">b = 3</text>
+<text x="678.0" y="303" class="note2">the value: multiplied by e^-3 = 0.050</text>
+
+<rect x="188" y="352" width="9" height="9" rx="2" class="o0"/><text x="201" y="361" class="key">system</text><rect x="324" y="352" width="9" height="9" rx="2" class="sp"/><text x="337" y="361" class="key sp">the value</text><rect x="460" y="352" width="9" height="9" rx="2" class="o2"/><text x="473" y="361" class="key">the rest of that turn</text><rect x="596" y="352" width="9" height="9" rx="2" class="o3"/><text x="609" y="361" class="key">the question</text>
+
+</svg>
+</figure>

@@ -137,10 +137,10 @@ def main() -> int:
 <title>Randomly drawn examples</title>
 <style>
 :root {{ --surface:#fcfcfb; --ink:#0b0b0b; --ink2:#52514e; --muted:#6f6e6a;
-  --rule:#e6e5e1; --yes:#eb6834; --no:#1baf7a; --ok:#1baf7a; }}
+  --rule:#e6e5e1; --yes:#eb6834; --no:#6f6e6a; --ok:#6f6e6a; }}
 @media (prefers-color-scheme: dark) {{ :root:not([data-theme="light"]) {{
   --surface:#1a1a19; --ink:#fff; --ink2:#c3c2b7; --muted:#96958c;
-  --rule:#2e2e2c; --yes:#d95926; --no:#199e70; --ok:#199e70; }} }}
+  --rule:#2e2e2c; --yes:#d95926; --no:#96958c; --ok:#96958c; }} }}
 body {{ margin:0; background:var(--surface); color:var(--ink);
   font:14px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; }}
 figure {{ margin:20px; max-width:1240px; }}
@@ -186,24 +186,9 @@ kind looks like <i>and</i> how often it happens.</p>
 <th>answer at that dose</th><th>“told<br>you?”</th></tr>
 {chr(10).join(trs)}
 </table>
-<figcaption>
-<b>How to read a row.</b> The sentence carrying the fact is in the conversation
-in every column — including the last two. Only the weight the model gives it
-changes. <b>b is different for every item, and the two models are not on the same
-scale:</b> each dose is the lowest at which <i>that model's</i> answer no longer
-contains the value, so rows are not comparable to one another and are not meant
-to be — which is why the model is printed under every dose. The final column is what the
-same model answered, separately, to “did I tell you this? answer only yes or
-no”.<br><br>
-{n_yes} of these {len(pick)} say <b>yes</b>. Every answer is printed in full. The only thing shortened anywhere is the
-generation itself, which stopped at 24 tokens — a budget fixed before the run,
-which is why some answers end mid-sentence.<br><br>
-<b>Drawn, not chosen.</b> The seed is printed so the same draw can be
-reproduced.
-</figcaption>
 </figure>
 """
-    out = ROOT / "fig" / "fig0.html"
+    out = ROOT / "fig" / "fig3_examples.html"
     out.write_text(doc)
     print(f"drew {len(pick)} of {len(rows)}, seed {a.seed}, {n_yes} said yes")
     for r in pick:

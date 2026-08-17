@@ -236,32 +236,10 @@ measured here.
 
 ---
 
-## Hours
+## Prior work
 
-Reconstructed by the author from the day, against the real git timestamps for
-this directory. It was not timed with a clock as it happened, and that is stated
-rather than dressed up; the write-up phase is being timed.
-
-11 Aug: ~2 h. 12 Aug: ~6 h. Total 8 h, plus 2 for the write-up, against the ~16 suggested.
-
-| date | clock | what happened | hours |
-|---|---|---|---|
-| 11 Aug | 21:15–21:39 | plan frozen, twice. Method-first, then model-first | **~2 h** |
-| 12 Aug | 09:28–09:40 | plan cut to one question; bias written; smoke test on three models | |
-| 12 Aug | 10:01–10:21 | read the value not the token; fact-absent control | |
-| 12 Aug | 13:15–13:27 | forced prefix found and removed; result inverted; provenance question | |
-| 12 Aug | 14:26–14:30 | swap control on 100 items, both models | |
-| 12 Aug | 14:44–15:04 | figures 0 and 1 | |
-| 12 Aug | 15:20–15:41 | hesitation baseline; judge; dose grid | |
-| 12 Aug | 15:49–15:51 | read all 189; b = 0 control; six items corrected out | |
-| 12 Aug | (the above) | | **~6 h** |
-| | | **total** | **8 h** |
-
-Not counted, per his rules: setting up the GPU box, model downloads, waiting for
-runs while doing something else, and the answers to the application form.
-
-Prior work, also not counted. It predates this question: the fixture set, the
-ten-model V-Steer table, the attenuation mechanism, `brainscope`.
+Not part of this task. It predates the question: the fixture set, the ten-model
+V-Steer table, the attenuation mechanism, `brainscope`.
 
 ## Changes
 
@@ -272,4 +250,8 @@ ten-model V-Steer table, the attenuation mechanism, `brainscope`.
 | 2026-08-12 | 6 items removed: the value was never gone | a substring test scored `04:36 → "4:36 PM"` as damage. `src/match.py` normalises leading zeros and 12/24-hour forms first. Headline 151/189 → 147/184 |
 | 2026-08-12 | two distance measures instead of one | string distance calls `Brno → Prague` far, which is the wrong answer about the most informative cell |
 | 2026-08-14 | scoring rule corrected twice more | the 12/24-hour normaliser matched `06:15` against "6:15 PM", twelve hours out, so two genuinely damaged items had been removed; and it did not fold diacritics, so `Leon → León` was counted as damage. Both found by giving all 189 raw answers to a judge and reading the disagreements (`src/recheck.py`). Headline 145/183 → 147/184 |
+| 2026-08-17 | a fifth condition added | `swap` carries no bias, so on its own the headline contrast varied the topic and the perturbation together. The missing cell was run: the same donor sentence at each item's own dose, with the bias on the donor's own value. **0 of 189 on both models, not one item moves.** `swap` remains the control the claim rests on, and it is no longer the only one |
+| 2026-08-17 | the format-check claim narrowed | "a truncation would be caught by a format check downstream" was written without counting. 59 of 81 damaged values are structured, where a length or pattern check would notice; the other 22 are names, where a truncation is still a well-formed name. The example used to illustrate the claim, `Bagr → Bag`, was one of the 22 |
+| 2026-08-16 | yes/no reading checked by hand | all 756 stored replies read by the author against the parser's label, via `src/verify.py` → `results/verify.html`: the 89 that the parser or the judge had marked doubtful one at a time, the rest scanned. **No disagreement with the parser anywhere.** The headline is now hand-checked rather than parsed |
+| 2026-08-15 | hours table removed | it was reconstructed rather than timed, and the author tracks the hours herself. Removing it beats carrying a number that was never measured. The prior-work disclosure it sat next to is kept, as its own section |
 | 2026-08-14 | yes/no reading checked by a judge | `gemini-3.1-flash-lite` re-read all 756 stored replies against a written rubric. It agrees with the code on every `present`, `faint` and `swap` answer; all 89 disagreements are in `drop`, where the code says `other` and the judge says `neither` for the same non-answers. The headline does not move. |

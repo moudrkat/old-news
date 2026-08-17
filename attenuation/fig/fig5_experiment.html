@@ -1,0 +1,68 @@
+<!doctype html><meta charset="utf-8">
+<title>Figure 3 — the design</title>
+<style>
+:root { --surface:#fcfcfb; --ink:#0b0b0b; --ink2:#52514e; --muted:#6f6e6a;
+  --rule:#e6e5e1; --sp:#eb6834; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme=light]) {
+  --surface:#1a1a19; --ink:#fff; --ink2:#c3c2b7; --muted:#96958c;
+  --rule:#2e2e2c; --sp:#d95926; } }
+body { margin:0; background:var(--surface); color:var(--ink);
+  font:14px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; }
+figure { margin:20px; max-width:880px; }
+svg { display:block; width:100%; height:auto; }
+.h { font-size:15px; font-weight:600; fill:var(--ink); }
+.sub { font-size:12px; fill:var(--muted); }
+.lbl { font-size:11px; font-weight:600; fill:var(--muted);
+  text-transform:uppercase; letter-spacing:.05em; }
+.role { font:600 11px ui-monospace,monospace; fill:var(--muted); }
+.turn { font-size:13px; fill:var(--ink2); }
+.turn.none { font-style:italic; fill:var(--muted); }
+.hl { fill:var(--sp); font-weight:700; }
+.ans { font:12.5px ui-monospace,monospace; fill:var(--ink); }
+.cn { font:600 12.5px ui-monospace,monospace; fill:var(--ink2); }
+.cn.on { fill:var(--sp); }
+.dose { font:11.5px ui-monospace,monospace; fill:var(--muted); }
+.what { font-size:11.5px; fill:var(--muted); }
+.note { font-size:11.5px; fill:var(--muted); }
+figcaption { margin-top:10px; color:var(--ink2); font-size:12.5px; }
+</style>
+<script>{const t=new URLSearchParams(location.search).get("theme");
+if(t)document.documentElement.dataset.theme=t;}</script>
+<figure>
+<svg viewBox="0 52 880 335" role="img"
+     aria-label="The design: one fact, two separate conversations, and the five
+     contexts the yes/no question is asked in">
+<rect y="52" width="880" height="335" fill="var(--surface)"/>
+
+
+<text x="24" y="86" class="lbl">1 &#183; what is the value</text>
+<text x="462" y="86" class="lbl">2 &#183; were you told it</text>
+<text x="856" y="86" class="note" text-anchor="end">same b, same positions, in both</text>
+<line x1="444" y1="72" x2="444" y2="228" stroke="var(--rule)"/>
+
+<text x="24" y="114" class="role">user</text><text x="86" y="114" class="turn"><tspan>By the way, my cat is called </tspan><tspan class="hl">Grendel</tspan><tspan>.</tspan></text>
+<text x="24" y="136" class="role">assistant</text><text x="86" y="136" class="turn">Noted.</text>
+<text x="462" y="114" class="role">user</text><text x="524" y="114" class="turn"><tspan>By the way, my cat is called </tspan><tspan class="hl">Grendel</tspan><tspan>.</tspan></text>
+<text x="462" y="136" class="role">assistant</text><text x="524" y="136" class="turn">Noted.</text>
+<text x="24" y="158" class="role">user</text><text x="86" y="158" class="turn">What is my cat called?</text>
+<text x="462" y="158" class="role">user</text><text x="524" y="158" class="turn">Did I tell you my cat&#8217;s name?</text>
+<text x="524" y="176" class="turn">Answer only yes or no.</text>
+
+<line x1="24" y1="196" x2="418" y2="196" stroke="var(--rule)" stroke-dasharray="3 3"/>
+<line x1="462" y1="196" x2="856" y2="196" stroke="var(--rule)" stroke-dasharray="3 3"/>
+<text x="24" y="220" class="role">model</text>
+<text x="86" y="220" class="ans">Your cat is called <tspan class="hl">By the way</tspan>.</text>
+<text x="462" y="220" class="role">model</text>
+<text x="524" y="220" class="ans">yes</text>
+<text x="558" y="220" class="note">&#8592; the measurement</text>
+
+
+<line x1="24" y1="252" x2="856" y2="252" stroke="var(--rule)"/>
+<text x="24" y="276" class="lbl">the four contexts &#183; only the first user turn changes</text>
+
+<text x="24" y="294" class="cn">present</text><text x="108" y="294" class="turn">By the way, my cat is called Grendel.</text><text x="560" y="294" class="what">the sentence, untouched</text><text x="856" y="294" class="dose" text-anchor="end">b = 0</text>
+<text x="24" y="319" class="cn on">faint</text><text x="108" y="319" class="turn"><tspan>By the way, my cat is called </tspan><tspan class="hl">Grendel</tspan><tspan>.</tspan></text><text x="560" y="319" class="what">its value turned down</text><text x="856" y="319" class="dose" text-anchor="end">b = its own dose</text>
+<text x="24" y="344" class="cn">swap</text><text x="108" y="344" class="turn">By the way, my order number is 4417.</text><text x="560" y="344" class="what">a different fact instead</text><text x="856" y="344" class="dose" text-anchor="end">b = 0</text>
+<text x="24" y="369" class="cn">drop</text><text x="108" y="369" class="turn">—</text><text x="560" y="369" class="what">nothing at all</text><text x="856" y="369" class="dose" text-anchor="end">b = 0</text>
+</svg>
+</figure>

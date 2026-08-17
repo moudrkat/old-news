@@ -1,0 +1,809 @@
+{
+ "model": "Qwen/Qwen3.5-4B",
+ "n": 89,
+ "skipped": 0,
+ "yes": 0,
+ "rows": [
+  {
+   "key": "dog:Bagr",
+   "b": 6.0,
+   "donor": "By the way, my order number is 4417.",
+   "donor_value": "4417",
+   "raw": "No<|im_end|>\n<|endoftext|>",
+   "label": "no",
+   "swap_nobias": "no"
+  },
+  {
+   "key": "dog:Fizzle",
+   "b": 8.0,
+   "donor": "By the way, my order number is 8290.",
+   "donor_value": "8290",
+   "raw": "No<|im_end|>\n<|endoftext|>",
+   "label": "no",
+   "swap_nobias": "no"
+  },
+  {
+   "key": "dog:Kudla",
+   "b": 6.0,
+   "donor": "By the way, my order number is 1053.",
+   "donor_value": "1053",
+   "raw": "No<|im_end|>\n<|endoftext|>",
+   "label": "no",
+   "swap_nobias": "no"
+  },
+  {
+   "key": "dog:Wobbet",
+   "b": 5.0,
+   "donor": "By the way, my order number is 7734.",
+   "donor_value": "7734",
+   "raw": "No<|im_end|>\n<|endoftext|>",
+   "label": "no",
+   "swap_nobias": "no"
+  },
+  {
+   "key": "dog:Trixel",
+   "b": 5.0,
+   "donor": "By the way, my order number is 6621.",
+   "donor_value": "6621",
+   "raw": "No<|im_end|>\n<|endoftext|>",
+   "label": "no",
+   "swap_nobias": "no"
+  },
+  {
+   "key": "dog:Marnok",
+   "b": 8.0,
+   "donor": "By the way, my order number is 3908.",
+   "donor_value": "3908",
+   "raw": "No<|im_end|>\n<|endoftext|>",
+   "label": "no",
+   "swap_nobias": "no"
+  },
+  {
+   "key": "dog:Bristle",
+   "b": 6.0,
+   "donor": "By the way, my order number is 5142.",
+   "donor_value": "5142",
+   "raw": "No<|im_end|>\n<|endoftext|>",
+   "label": "no",
+   "swap_nobias": "no"
+  },
+  {
+   "key": "dog:Yorrick",
+   "b": 3.0,
+   "donor": "By the way, my order number is 2867.",
+   "donor_value": "2867",
+   "raw": "No<|im_end|>\n<|endoftext|>",
+   "label": "no",
+   "swap_nobias": "no"
+  },
+  {
+   "key": "dog:Plunk",
+   "b": 6.0,
+   "donor": "By the way, my order number is 9375.",
+   "donor_value": "9375",
+   "raw": "No<|im_end|>\n<|endoftext|>",
+   "label": "no",
+   "swap_nobias": "no"
+  },
+  {
+   "key": "dog:Skarn",
+   "b": 8.0,
+   "donor": "By the way, my order number is 1486.",
+   "donor_value": "1486",
+   "raw": "No<|im_end|>\n<|endoftext|>",
+   "label": "no",
+   "swap_nobias": "no"
+  },
+  {
+   "key": "order:4417",
+   "b": 6.0,
+   "donor": "By the way, I live in Brno.",
+   "donor_value": "Brno",
+   "raw": "No<|im_end|>\n<|endoftext|>",
+   "label": "no",
+   "swap_nobias": "no"
+  },
+  {
+   "key": "order:8290",
+   "b": 8.0,
+   "donor": "By the way, I live in Utrecht.",
+   "donor_value": "Utrecht",
+   "raw": "No<|im_end|>\n<|endoftext|>",
+   "label": "no",
+   "swap_nobias": "no"
+  },
+  {
+   "key": "order:1053",
+   "b": 8.0,
+   "donor": "By the way, I live in Bergen.",
+   "donor_value": "Bergen",
+   "raw": "No<|im_end|>\n<|endoftext|>",
+   "label": "no",
+   "swap_nobias": "no"
+  },
+  {
+   "key": "order:7734",
+   "b": 8.0,
+   "donor": "By the way, I live in Kaunas.",
+   "donor_value": "Kaunas",
+   "raw": "No<|im_end|>\n<|endoftext|>",
+   "label": "no",
+   "swap_nobias": "no"
+  },
+  {
+   "key": "order:6621",
+   "b": 8.0,
+   "donor": "By the way, I live in Porto.",
+   "donor_value": "Porto",
+   "raw": "No<|im_end|>\n<|endoftext|>",
+   "label": "no",
+   "swap_nobias": "no"
+  },
+  {
+   "key": "order:3908",
+   "b": 8.0,
+   "donor": "By the way, I live in Graz.",
+   "donor_value": "Graz",
+   "raw": "No<|im_end|>\n<|endoftext|>",
+   "label": "no",
+   "swap_nobias": "no"
+  },
+  {
+   "key": "order:5142",
+   "b": 8.0,
+   "donor": "By the way, I live in Tampere.",
+   "donor_value": "Tampere",
+   "raw": "No<|im_end|>\n<|endoftext|>",
+   "label": "no",
+   "swap_nobias": "no"
+  },
+  {
+   "key": "order:2867",
+   "b": 8.0,
+   "donor": "By the way, I live in Rijeka.",
+   "donor_value": "Rijeka",
+   "raw": "No<|im_end|>\n<|endoftext|>",
+   "label": "no",
+   "swap_nobias": "no"
+  },
+  {
+   "key": "order:9375",
+   "b": 6.0,
+   "donor": "By the way, I live in Aarhus.",
+   "donor_value": "Aarhus",
+   "raw": "No<|im_end|>\n<|endoftext|>",
+   "label": "no",
+   "swap_nobias": "no"
+  },
+  {
+   "key": "order:1486",
+   "b": 5.0,
+   "donor": "By the way, I live in Leon.",
+   "donor_value": "Leon",
+   "raw": "No<|im_end|>\n<|endoftext|>",
+   "label": "no",
+   "swap_nobias": "no"
+  },
+  {
+   "key": "city:Utrecht",
+   "b": 8.0,
+   "donor": "By the way, the error code I got was X-12.",
+   "donor_value": "X-12",
+   "raw": "No<|im_end|>\n<|endoftext|>",
+   "label": "no",
+   "swap_nobias": "no"
+  },
+  {
+   "key": "city:Graz",
+   "b": 14.0,
+   "donor": "By the way, the error code I got was R-95.",
+   "donor_value": "R-95",
+   "raw": "No<|im_end|>\n<|endoftext|>",
+   "label": "no",
+   "swap_nobias": "no"
+  },
+  {
+   "key": "city:Rijeka",
+   "b": 8.0,
+   "donor": "By the way, the error code I got was K-17.",
+   "donor_value": "K-17",
+   "raw": "No<|im_end|>\n<|endoftext|>",
+   "label": "no",
+   "swap_nobias": "no"
+  },
+  {
+   "key": "city:Leon",
+   "b": 4.0,
+   "donor": "By the way, the error code I got was Z-54.",
+   "donor_value": "Z-54",
+   "raw": "No<|im_end|>\n<|endoftext|>",
+   "label": "no",
+   "swap_nobias": "no"
+  },
+  {
+   "key": "error:E-88",
+   "b": 6.0,
+   "donor": "By the way, my train leaves at 19:40.",
+   "donor_value": "19:40",
+   "raw": "No<|im_end|>\n<|endoftext|>",
+   "label": "no",
+   "swap_nobias": "no"
+  },
+  {
+   "key": "error:X-12",
+   "b": 6.0,
+   "donor": "By the way, my train leaves at 06:15.",
+   "donor_value": "06:15",
+   "raw": "No<|im_end|>\n<|endoftext|>",
+   "label": "no",
+   "swap_nobias": "no"
+  },
+  {
+   "key": "error:F-401",
+   "b": 6.0,
+   "donor": "By the way, my train leaves at 13:52.",
+   "donor_value": "13:52",
+   "raw": "No<|im_end|>\n<|endoftext|>",
+   "label": "no",
+   "swap_nobias": "no"
+  },
+  {
+   "key": "error:Q-73",
+   "b": 4.0,
+   "donor": "By the way, my train leaves at 21:08.",
+   "donor_value": "21:08",
+   "raw": "No<|im_end|>\n<|endoftext|>",
+   "label": "no",
+   "swap_nobias": "no"
+  },
+  {
+   "key": "error:B-206",
+   "b": 6.0,
+   "donor": "By the way, my train leaves at 11:27.",
+   "donor_value": "11:27",
+   "raw": "No<|im_end|>\n<|endoftext|>",
+   "label": "no",
+   "swap_nobias": "no"
+  },
+  {
+   "key": "error:R-95",
+   "b": 6.0,
+   "donor": "By the way, my train leaves at 04:36.",
+   "donor_value": "04:36",
+   "raw": "No<|im_end|>\n<|endoftext|>",
+   "label": "no",
+   "swap_nobias": "no"
+  },
+  {
+   "key": "error:T-340",
+   "b": 6.0,
+   "donor": "By the way, my train leaves at 17:49.",
+   "donor_value": "17:49",
+   "raw": "No<|im_end|>\n<|endoftext|>",
+   "label": "no",
+   "swap_nobias": "no"
+  },
+  {
+   "key": "error:K-17",
+   "b": 6.0,
+   "donor": "By the way, my train leaves at 08:03.",
+   "donor_value": "08:03",
+   "raw": "No<|im_end|>\n<|endoftext|>",
+   "label": "no",
+   "swap_nobias": "no"
+  },
+  {
+   "key": "error:M-628",
+   "b": 6.0,
+   "donor": "By the way, my train leaves at 22:41.",
+   "donor_value": "22:41",
+   "raw": "No<|im_end|>\n<|endoftext|>",
+   "label": "no",
+   "swap_nobias": "no"
+  },
+  {
+   "key": "error:Z-54",
+   "b": 4.0,
+   "donor": "By the way, my train leaves at 15:14.",
+   "donor_value": "15:14",
+   "raw": "No<|im_end|>\n<|endoftext|>",
+   "label": "no",
+   "swap_nobias": "no"
+  },
+  {
+   "key": "time:19:40",
+   "b": 6.0,
+   "donor": "By the way, my account number ends in 302.",
+   "donor_value": "302",
+   "raw": "No<|im_end|>\n<|endoftext|>",
+   "label": "no",
+   "swap_nobias": "no"
+  },
+  {
+   "key": "time:06:15",
+   "b": 4.0,
+   "donor": "By the way, my account number ends in 718.",
+   "donor_value": "718",
+   "raw": "No<|im_end|>\n<|endoftext|>",
+   "label": "no",
+   "swap_nobias": "no"
+  },
+  {
+   "key": "time:13:52",
+   "b": 6.0,
+   "donor": "By the way, my account number ends in 455.",
+   "donor_value": "455",
+   "raw": "No<|im_end|>\n<|endoftext|>",
+   "label": "no",
+   "swap_nobias": "no"
+  },
+  {
+   "key": "time:21:08",
+   "b": 6.0,
+   "donor": "By the way, my account number ends in 961.",
+   "donor_value": "961",
+   "raw": "No<|im_end|>\n<|endoftext|>",
+   "label": "no",
+   "swap_nobias": "no"
+  },
+  {
+   "key": "time:11:27",
+   "b": 8.0,
+   "donor": "By the way, my account number ends in 233.",
+   "donor_value": "233",
+   "raw": "No<|im_end|>\n<|endoftext|>",
+   "label": "no",
+   "swap_nobias": "no"
+  },
+  {
+   "key": "time:04:36",
+   "b": 4.0,
+   "donor": "By the way, my account number ends in 807.",
+   "donor_value": "807",
+   "raw": "No<|im_end|>\n<|endoftext|>",
+   "label": "no",
+   "swap_nobias": "no"
+  },
+  {
+   "key": "time:17:49",
+   "b": 5.0,
+   "donor": "By the way, my account number ends in 574.",
+   "donor_value": "574",
+   "raw": "No<|im_end|>\n<|endoftext|>",
+   "label": "no",
+   "swap_nobias": "no"
+  },
+  {
+   "key": "time:08:03",
+   "b": 4.0,
+   "donor": "By the way, my account number ends in 129.",
+   "donor_value": "129",
+   "raw": "No<|im_end|>\n<|endoftext|>",
+   "label": "no",
+   "swap_nobias": "no"
+  },
+  {
+   "key": "time:22:41",
+   "b": 5.0,
+   "donor": "By the way, my account number ends in 686.",
+   "donor_value": "686",
+   "raw": "No<|im_end|>\n<|endoftext|>",
+   "label": "no",
+   "swap_nobias": "no"
+  },
+  {
+   "key": "time:15:14",
+   "b": 6.0,
+   "donor": "By the way, my account number ends in 340.",
+   "donor_value": "340",
+   "raw": "No<|im_end|>\n<|endoftext|>",
+   "label": "no",
+   "swap_nobias": "no"
+  },
+  {
+   "key": "account:302",
+   "b": 6.0,
+   "donor": "By the way, I am allergic to walnuts.",
+   "donor_value": "walnuts",
+   "raw": "No<|im_end|>\n<|endoftext|>",
+   "label": "no",
+   "swap_nobias": "no"
+  },
+  {
+   "key": "account:718",
+   "b": 8.0,
+   "donor": "By the way, I am allergic to penicillin.",
+   "donor_value": "penicillin",
+   "raw": "No<|im_end|>\n<|endoftext|>",
+   "label": "no",
+   "swap_nobias": "no"
+  },
+  {
+   "key": "account:455",
+   "b": 6.0,
+   "donor": "By the way, I am allergic to shellfish.",
+   "donor_value": "shellfish",
+   "raw": "No<|im_end|>\n<|endoftext|>",
+   "label": "no",
+   "swap_nobias": "no"
+  },
+  {
+   "key": "account:961",
+   "b": 6.0,
+   "donor": "By the way, I am allergic to latex.",
+   "donor_value": "latex",
+   "raw": "No<|im_end|>\n<|endoftext|>",
+   "label": "no",
+   "swap_nobias": "no"
+  },
+  {
+   "key": "account:233",
+   "b": 5.0,
+   "donor": "By the way, I am allergic to mustard.",
+   "donor_value": "mustard",
+   "raw": "No<|im_end|>\n<|endoftext|>",
+   "label": "no",
+   "swap_nobias": "no"
+  },
+  {
+   "key": "account:807",
+   "b": 6.0,
+   "donor": "By the way, I am allergic to sesame.",
+   "donor_value": "sesame",
+   "raw": "No<|im_end|>\n<|endoftext|>",
+   "label": "no",
+   "swap_nobias": "no"
+  },
+  {
+   "key": "account:574",
+   "b": 6.0,
+   "donor": "By the way, I am allergic to sulfites.",
+   "donor_value": "sulfites",
+   "raw": "No<|im_end|>\n<|endoftext|>",
+   "label": "no",
+   "swap_nobias": "no"
+  },
+  {
+   "key": "account:129",
+   "b": 8.0,
+   "donor": "By the way, I am allergic to kiwi.",
+   "donor_value": "kiwi",
+   "raw": "No<|im_end|>\n<|endoftext|>",
+   "label": "no",
+   "swap_nobias": "no"
+  },
+  {
+   "key": "account:686",
+   "b": 6.0,
+   "donor": "By the way, I am allergic to wasp stings.",
+   "donor_value": "wasp stings",
+   "raw": "No<|im_end|>\n<|endoftext|>",
+   "label": "no",
+   "swap_nobias": "no"
+  },
+  {
+   "key": "account:340",
+   "b": 5.0,
+   "donor": "By the way, I am allergic to aspirin.",
+   "donor_value": "aspirin",
+   "raw": "No<|im_end|>\n<|endoftext|>",
+   "label": "no",
+   "swap_nobias": "no"
+  },
+  {
+   "key": "allergy:walnuts",
+   "b": 8.0,
+   "donor": "By the way, my hotel room is 614.",
+   "donor_value": "614",
+   "raw": "No<|im_end|>\n<|endoftext|>",
+   "label": "no",
+   "swap_nobias": "no"
+  },
+  {
+   "key": "allergy:mustard",
+   "b": 10.0,
+   "donor": "By the way, my hotel room is 902.",
+   "donor_value": "902",
+   "raw": "No<|im_end|>\n<|endoftext|>",
+   "label": "no",
+   "swap_nobias": "no"
+  },
+  {
+   "key": "allergy:sesame",
+   "b": 6.0,
+   "donor": "By the way, my hotel room is 471.",
+   "donor_value": "471",
+   "raw": "No<|im_end|>\n<|endoftext|>",
+   "label": "no",
+   "swap_nobias": "no"
+  },
+  {
+   "key": "allergy:kiwi",
+   "b": 8.0,
+   "donor": "By the way, my hotel room is 588.",
+   "donor_value": "588",
+   "raw": "No<|im_end|>\n<|endoftext|>",
+   "label": "no",
+   "swap_nobias": "no"
+  },
+  {
+   "key": "allergy:wasp stings",
+   "b": 5.0,
+   "donor": "By the way, my hotel room is 743.",
+   "donor_value": "743",
+   "raw": "No<|im_end|>\n<|endoftext|>",
+   "label": "no",
+   "swap_nobias": "no"
+  },
+  {
+   "key": "allergy:aspirin",
+   "b": 8.0,
+   "donor": "By the way, my hotel room is 196.",
+   "donor_value": "196",
+   "raw": "No<|im_end|>\n<|endoftext|>",
+   "label": "no",
+   "swap_nobias": "no"
+  },
+  {
+   "key": "room:614",
+   "b": 6.0,
+   "donor": "By the way, my flight is QR318.",
+   "donor_value": "QR318",
+   "raw": "No<|im_end|>\n<|endoftext|>",
+   "label": "no",
+   "swap_nobias": "no"
+  },
+  {
+   "key": "room:227",
+   "b": 8.0,
+   "donor": "By the way, my flight is LH772.",
+   "donor_value": "LH772",
+   "raw": "No<|im_end|>\n<|endoftext|>",
+   "label": "no",
+   "swap_nobias": "no"
+  },
+  {
+   "key": "room:1108",
+   "b": 4.0,
+   "donor": "By the way, my flight is BA945.",
+   "donor_value": "BA945",
+   "raw": "No<|im_end|>\n<|endoftext|>",
+   "label": "no",
+   "swap_nobias": "no"
+  },
+  {
+   "key": "room:355",
+   "b": 6.0,
+   "donor": "By the way, my flight is AY206.",
+   "donor_value": "AY206",
+   "raw": "No<|im_end|>\n<|endoftext|>",
+   "label": "no",
+   "swap_nobias": "no"
+  },
+  {
+   "key": "room:902",
+   "b": 8.0,
+   "donor": "By the way, my flight is OK483.",
+   "donor_value": "OK483",
+   "raw": "No<|im_end|>\n<|endoftext|>",
+   "label": "no",
+   "swap_nobias": "no"
+  },
+  {
+   "key": "room:471",
+   "b": 10.0,
+   "donor": "By the way, my flight is SK651.",
+   "donor_value": "SK651",
+   "raw": "No<|im_end|>\n<|endoftext|>",
+   "label": "no",
+   "swap_nobias": "no"
+  },
+  {
+   "key": "room:1236",
+   "b": 5.0,
+   "donor": "By the way, my flight is TP129.",
+   "donor_value": "TP129",
+   "raw": "No<|im_end|>\n<|endoftext|>",
+   "label": "no",
+   "swap_nobias": "no"
+  },
+  {
+   "key": "room:588",
+   "b": 5.0,
+   "donor": "By the way, my flight is AZ874.",
+   "donor_value": "AZ874",
+   "raw": "No<|im_end|>\n<|endoftext|>",
+   "label": "no",
+   "swap_nobias": "no"
+  },
+  {
+   "key": "room:743",
+   "b": 6.0,
+   "donor": "By the way, my flight is EW537.",
+   "donor_value": "EW537",
+   "raw": "No<|im_end|>\n<|endoftext|>",
+   "label": "no",
+   "swap_nobias": "no"
+  },
+  {
+   "key": "flight:QR318",
+   "b": 6.0,
+   "donor": "By the way, my cat is called Miso.",
+   "donor_value": "Miso",
+   "raw": "No<|im_end|>\n<|endoftext|>",
+   "label": "no",
+   "swap_nobias": "no"
+  },
+  {
+   "key": "flight:LH772",
+   "b": 6.0,
+   "donor": "By the way, my cat is called Grendel.",
+   "donor_value": "Grendel",
+   "raw": "No<|im_end|>\n<|endoftext|>",
+   "label": "no",
+   "swap_nobias": "no"
+  },
+  {
+   "key": "flight:BA945",
+   "b": 6.0,
+   "donor": "By the way, my cat is called Pilch.",
+   "donor_value": "Pilch",
+   "raw": "No<|im_end|>\n<|endoftext|>",
+   "label": "no",
+   "swap_nobias": "no"
+  },
+  {
+   "key": "flight:AY206",
+   "b": 8.0,
+   "donor": "By the way, my cat is called Nectarine.",
+   "donor_value": "Nectarine",
+   "raw": "No<|im_end|>\n<|endoftext|>",
+   "label": "no",
+   "swap_nobias": "no"
+  },
+  {
+   "key": "flight:OK483",
+   "b": 5.0,
+   "donor": "By the way, my cat is called Bobbin.",
+   "donor_value": "Bobbin",
+   "raw": "No<|im_end|>\n<|endoftext|>",
+   "label": "no",
+   "swap_nobias": "no"
+  },
+  {
+   "key": "flight:SK651",
+   "b": 6.0,
+   "donor": "By the way, my cat is called Vosk.",
+   "donor_value": "Vosk",
+   "raw": "No<|im_end|>\n<|endoftext|>",
+   "label": "no",
+   "swap_nobias": "no"
+  },
+  {
+   "key": "flight:TP129",
+   "b": 6.0,
+   "donor": "By the way, my cat is called Tamarind.",
+   "donor_value": "Tamarind",
+   "raw": "No<|im_end|>\n<|endoftext|>",
+   "label": "no",
+   "swap_nobias": "no"
+  },
+  {
+   "key": "flight:AZ874",
+   "b": 5.0,
+   "donor": "By the way, my cat is called Klepto.",
+   "donor_value": "Klepto",
+   "raw": "No<|im_end|>\n<|endoftext|>",
+   "label": "no",
+   "swap_nobias": "no"
+  },
+  {
+   "key": "flight:EW537",
+   "b": 5.0,
+   "donor": "By the way, my cat is called Sorrel.",
+   "donor_value": "Sorrel",
+   "raw": "No<|im_end|>\n<|endoftext|>",
+   "label": "no",
+   "swap_nobias": "no"
+  },
+  {
+   "key": "flight:IB260",
+   "b": 6.0,
+   "donor": "By the way, my cat is called Nubbin.",
+   "donor_value": "Nubbin",
+   "raw": "No<|im_end|>\n<|endoftext|>",
+   "label": "no",
+   "swap_nobias": "no"
+  },
+  {
+   "key": "cat:Miso",
+   "b": 10.0,
+   "donor": "By the way, my dog is called Bagr.",
+   "donor_value": "Bagr",
+   "raw": "No<|im_end|>\n<|endoftext|>",
+   "label": "no",
+   "swap_nobias": "no"
+  },
+  {
+   "key": "cat:Grendel",
+   "b": 6.0,
+   "donor": "By the way, my dog is called Fizzle.",
+   "donor_value": "Fizzle",
+   "raw": "No<|im_end|>\n<|endoftext|>",
+   "label": "no",
+   "swap_nobias": "no"
+  },
+  {
+   "key": "cat:Pilch",
+   "b": 8.0,
+   "donor": "By the way, my dog is called Kudla.",
+   "donor_value": "Kudla",
+   "raw": "No<|im_end|>\n<|endoftext|>",
+   "label": "no",
+   "swap_nobias": "no"
+  },
+  {
+   "key": "cat:Nectarine",
+   "b": 8.0,
+   "donor": "By the way, my dog is called Wobbet.",
+   "donor_value": "Wobbet",
+   "raw": "No<|im_end|>\n<|endoftext|>",
+   "label": "no",
+   "swap_nobias": "no"
+  },
+  {
+   "key": "cat:Bobbin",
+   "b": 6.0,
+   "donor": "By the way, my dog is called Trixel.",
+   "donor_value": "Trixel",
+   "raw": "No<|im_end|>\n<|endoftext|>",
+   "label": "no",
+   "swap_nobias": "no"
+  },
+  {
+   "key": "cat:Vosk",
+   "b": 6.0,
+   "donor": "By the way, my dog is called Marnok.",
+   "donor_value": "Marnok",
+   "raw": "No<|im_end|>\n<|endoftext|>",
+   "label": "no",
+   "swap_nobias": "no"
+  },
+  {
+   "key": "cat:Tamarind",
+   "b": 8.0,
+   "donor": "By the way, my dog is called Bristle.",
+   "donor_value": "Bristle",
+   "raw": "No<|im_end|>\n<|endoftext|>",
+   "label": "no",
+   "swap_nobias": "no"
+  },
+  {
+   "key": "cat:Klepto",
+   "b": 6.0,
+   "donor": "By the way, my dog is called Yorrick.",
+   "donor_value": "Yorrick",
+   "raw": "No<|im_end|>\n<|endoftext|>",
+   "label": "no",
+   "swap_nobias": "no"
+  },
+  {
+   "key": "cat:Sorrel",
+   "b": 8.0,
+   "donor": "By the way, my dog is called Plunk.",
+   "donor_value": "Plunk",
+   "raw": "No<|im_end|>\n<|endoftext|>",
+   "label": "no",
+   "swap_nobias": "no"
+  },
+  {
+   "key": "cat:Nubbin",
+   "b": 8.0,
+   "donor": "By the way, my dog is called Skarn.",
+   "donor_value": "Skarn",
+   "raw": "No<|im_end|>\n<|endoftext|>",
+   "label": "no",
+   "swap_nobias": "no"
+  }
+ ]
+}
