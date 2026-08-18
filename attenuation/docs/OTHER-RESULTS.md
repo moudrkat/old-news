@@ -79,5 +79,5 @@ judge's lower count.
 
 ---
 
-*Written alongside `notes/WRITEUP.md`, which is the document that argues. This
+*Written alongside `WRITEUP.md`, which is the document that argues. This
 one only records.*
