@@ -14,21 +14,24 @@ Nothing below the summary has a stated limit.
 
 ## Wait, that doesn't sound like a cat's name!"
 
-First things first: no cat was harmed during the (fast and furious) work on this project. One GPU was. A little.
+First things first: no cat was harmed during the work on this project. One GPU was. A little.
 
-And now, finally, to the point:
+Now to the point:
 
 ## Executive summary
 
 Models can flag *"I don't know this entity"* [1]. That is self-knowledge about
-what a model **learned**. This asks the same of what it was **told**: can a model
-tell when its own access to something it was told has degraded? I could not find it
-measured, so... I measured it. Surprise, surprise: **Mostly it cannot.**
+what a model **learned**. This work asks the same of what it was **told**: can a model
+tell when its own access to something it was told has degraded?
+
+I could not find it measured, so... I measured it.
+
+Surprise, surprise: **Mostly it cannot.**
 
 Say the user tells it *"By the way, my cat is called Grendel."* I make the name
 itself hard to read, by an amount I control, and leave the rest of the sentence
 intact. The model answers with a wrong name. Then, asked in a separate
-conversation, says yes, it was told the name: **147 of 184**, against **0 of
+conversation, says "yes, I was told the name": **147 of 184**, against **0 of
 184** when a readable sentence about something else fills the slot (exact
 McNemar, p = 1e-44). The wrong name does not read as a hallucination, and the pain is that in
 production apps there is no eval and no validator looking for such an error. Ouch.
@@ -115,7 +118,7 @@ which is not taken. All three below.
 *The summary said what came out. This part is why each piece was done that way
 and not another.*
 
-**Disclaimer.** This part was written more by an LLM than by me, even though I
+**Disclaimer.** This part was written more by an LLM than typed by me, even though I
 was giving it clear instructions about exactly what to edit, in which paragraph,
 and how. Yeah, I should rather have written it myself. But I ran out of my time
 limit, so if it still sounds like AI slop, I guess I am doomed. Wiser, but
@@ -143,7 +146,7 @@ like an entity it does not know, and it should refuse. It answers anyway.
 
 ### Why this matters outside a toy setup
 
-I chose the dose. In production nobody chooses it, and the same state arrives
+I chose the dose. In production nobody chooses it. The same state arrives
 anyway: a fact that is in the conversation the application sent, and that the
 model cannot effectively read. Long-context dilution [5] is the closest match, a
 fact that is present but used less because of where it sits. Cache eviction [3] and
@@ -153,7 +156,7 @@ instead of one span a lot, which is a different shape of damage. **None of the
 four is measured here.** This is the idealised version, measured because the dose
 can be controlled.
 
-And it is going to matter more, not less. The better small models get, the more
+And in the future it is going to matter more, not less. The better small models get, the more
 companies will run them on their own hardware, and the harder those deployments
 lean on exactly these techniques, because that is what makes a small model fit.
 
@@ -183,29 +186,29 @@ and putting that in the slot.
 
 **Then look at what it does next.** It hears itself, decides that is not a cat's
 name, and starts over. Nine answers correct themselves like this and run to the
-end. **Not one of them arrives at the true value.** It can tell the answer is
-wrong. It cannot get to the right one, because the right one is the thing it
-could not read.
+end. Unfortunately I don't know whether they arrive at the true value: the
+token limit cuts them off mid-correction, and my judge did not notice that (nor
+did I, until too late). It is in the limitations.
 
 **Four things about the headline that the takeaways do not have room for.**
 
 - **The ceiling is not 100%.** Five items answer "no" with nothing turned down
-  at all, so the fall is 179 → 147, not 184 → 147.
+  at all! Dumb Qwen! So the fall is 179 → 147, not 184 → 147.
 - **The test is paired, because the conditions share items.** 32 lose the "yes"
   when the value goes quiet and **not one gains it**, exact McNemar p = 5e-10.
   Both tests are in `src/quoted.py` rather than done by hand: an unpaired test on
-  paired items is a mistake I have already made once here.
-- **Those 32 are mostly refusals, not catches.** 24 of the 32 gave no value at
+  paired items is a mistake I have already made once here. (*Okay, you see? This is definitely an LLM tell but I don't know how to write it better. Sorry.*)
+- **Those 32 are mostly refusals, not catches.** (*Again, a typical LLM phrase* :) ) 24 of the 32 gave no value at
   all rather than a wrong one, so the model stops answering and stops claiming
   in the same breath. The breakdown is in
   [`OTHER-RESULTS.md`](OTHER-RESULTS.md).
 - **The "yes" is not a false answer.** The sentence stays legible throughout, so
   the user did tell it the cat's name. What the model fails to do is register
   that the value it produces is not the one it read. That is why this is a claim
-  about a missing signal and not about the model lying.
+  about a missing signal and not about the model lying. And that is actually the main concern of mine.
 
 **What the three groups are made of.** The counts are under **High-level
-takeaways**; what they are made of is not.
+takeaways**; what they are made of is not. This is the most interesting (I mean, practically impacting production) part of this analysis.
 
 - **Truncation is the most common failure.** Three in four of them are
   structured values, where a length or format check downstream would notice. For
@@ -218,7 +221,8 @@ takeaways**; what they are made of is not.
 - When nothing survives, the prior wins, and it is always the same prior: four
   allergens become peanuts, three dog names become Max, and `aspirin` becomes
   **penicillin**, a different drug class entirely. It even adds a parenthesis
-  explaining what penicillin is, which is helpful of it. This is over-reliance on
+  explaining what penicillin is, which is helpful of it. Wrong drug class,
+  correct definition, full confidence. This is over-reliance on
   memorised answers, which [9] measures by overwriting the context rather than
   dimming it. It is also the row I would point at if anyone asks why this
   matters.
@@ -231,7 +235,7 @@ differently the two models refuse. They are in
 **That second group opened a question I could not answer: what counts as a near
 miss?** The split assumes a line between a damaged value and a different one, and
 there is no such line in the string. Room 227 answered as 207 is one digit and a
-different room. Five minutes is nothing on a clock and everything on a train. A
+different room. 327 is a different floor :) Five minutes is nothing on a clock and everything on a train. A
 distance metric gets it exactly backwards, calling `Brno → Prague` far apart when
 keeping the country is the informative part. (That pair is from the six-item
 pilot, the one datapoint in here that is; the same shape is all over the main
@@ -254,7 +258,8 @@ mine.)
   this needs one that adds a number. **Qwen2.5-0.5B was excluded** before the main
   run: it claimed it had been told things when nothing had been said, 3 of 5 items
   in a six-item pilot, so its "yes" carries no information. Dropped rather than
-  averaged in, and that exclusion rests on 5 items.
+  averaged in, and that exclusion rests on 5 items. (Disqualified for
+  enthusiasm.)
 - **Items.** 100 per model, one clause in a fixed frame; Figure 2 lists them.
 - **Decoding.** Greedy, one seed, no sampling. 24 tokens for the value answer, 4
   for the yes/no answer. Doses swept at `b` = 1, 2, 3, 4, 5, 6, 8, 10, 14.
@@ -287,6 +292,8 @@ both**, same dose, same positions.
 
 #### Why a dose, and not simply deleting the sentence
 
+Well, the LLM added this section. I think it is obvious, but who am I to decide? Definitely not someone holding the weights of the broad knowledge of the internet in my brain...
+
 Deleting is simpler, and it is one of the four conditions, but it answers a
 different question: a deleted fact was never there, and I wanted one that is there
 and unreadable. Paraphrase and typos change the text, so the model could
@@ -299,12 +306,14 @@ connection off completely instead of turning it down. The same attention has bee
 pushed the other way, upward, to improve instruction-following [8], so
 manipulating it is established rather than exotic.
 
-**How.** Before the softmax, subtract a constant `b` from the attention scores at
-the value's own token positions, `Grendel` and not the sentence containing it.
-That multiplies the weight those tokens get by `e^-b`, and the softmax hands the
-weight it took away to everything else rather than losing it, not evenly [10]. At
+**How.** Before the softmax, subtract `b` from the attention scores at the
+value's own token positions, `Grendel` and not the sentence containing it. The
+softmax hands the weight it took away to everything else rather than losing it,
+and not evenly [10]. At
 `b = 0` the same eight lines return the ordinary causal mask, so the control is
 not a separate code path (`src/knob.py:52`).
+
+(Okay, thaaat was very unreadable.)
 
 #### Why `swap` is the control the claim rests on
 
@@ -359,20 +368,14 @@ item, same dose, same token count.
 On Qwen3.5-4B the damage follows the span, not the dose. On Qwen3-4B it looks as
 if it does not, and **all but one of those 47 failures give no value at all**.
 
-**Those 47 are not a leak, and reading them says so.** The span this arm turns
-down instead of the value is the phrase that says what the value *is*. Turn down
-*my dog is called* and the model is left with a perfectly readable `Marnok` and no
-way to know it is a dog's name, so *"what is my dog called?"* has become
-unanswerable for a reason that has nothing to do with the dose reaching the value.
+**Those 47 are not a leak.** The span this arm turns down instead of the value is
+the phrase that says what the value *is*: turn down *my dog is called* and the
+model has a perfectly readable `Marnok` and no way to know it is a dog's name.
 **44 of the 47 say exactly that**: *"I'm sorry, but I don't have access to
 personal information like your dog's name."* The value is not damaged, its label
-is.
-
-So on Qwen3-4B this arm cannot decide the question: 52 / 99 is not evidence
-against locality and not evidence for it. The clean version turns down a
-neighbouring span that carries as much as the value does and names nothing, and I
-did not run it. What the 8 hand-checked disagreements turned up is in
-[`OTHER-RESULTS.md`](OTHER-RESULTS.md).
+is. So this arm cannot decide the question on Qwen3-4B, and the clean version — a
+neighbouring span that carries as much as the value and names nothing — I did not
+run. Both are in [`OTHER-RESULTS.md`](OTHER-RESULTS.md).
 
 **Second: is any of it just the model?** Every behaviour re-measured with no
 bias:
@@ -394,7 +397,8 @@ model      Your dog is called Marn. 😊 (Though I notice you said "Marn" —
            is that a typo
 ```
 
-It puts its own damaged reading in the user's mouth, then queries it. Two more
+It puts its own damaged reading in the user's mouth, then queries it. With a
+smiley. Two more
 shapes are in `results/everything.html`: a plausible neighbour with an
 explanation attached (`F-401` → `404`, *"this typically means Not Found"*), and a
 quotation of something the user never said (`E-88` → `E-8`, *"but you said the
@@ -426,21 +430,10 @@ not tested how far it travels. `src/permission.py`.
 #### Why I did not trust my own labels
 
 Three kinds of label produce everything above, and they are not equally
-trustworthy, so the table says which is which. **The judge is
-`gemini-3.1-flash-lite`, chosen because it is outside the set of models being
-measured.**
-
-| what | how it is decided | second labeller | read by hand |
-|---|---|---|---|
-| is the value gone | `match.contains`, deterministic | a judge | |
-| **the headline yes/no** | first word of the reply, deterministic | a judge | **all 756, no disagreement** |
-| damaged / different / none | an LLM judge, categorical | keyword rule, partial | **166 of 184 read, 95.8% agreement** |
-| **declines**, gives no value at all | an LLM judge | 2nd rubric + keyword, 377/378 | via the row above |
-| **hedges**, questions its own answer | an LLM judge | keyword rule, 360/378 | **all 18 disputed** |
-| **justifies**, argues for the value it gave | an LLM judge | none existed | **all 35, 100%** |
-| **quotes**, quotes the user back | an LLM judge | none existed | **all 66, 100%** |
-| locality survival | `match.contains` | a judge, 8 disagreements | **all 8** |
-| `drop` at 512 tokens | the text after `</think>`, deterministic | none | **all 200, no disagreement** |
+trustworthy. Which is which, row by row, is the table in
+[`OTHER-RESULTS.md`](OTHER-RESULTS.md). **The judge is `gemini-3.1-flash-lite`,
+chosen because it is outside the set of models being measured.** (And because I
+have a soft spot for this model.)
 
 **293 items hand-labelled, on top of the 756 yes/no answers and the 200 from the
 `drop` re-run.** *justifies* and *quotes* had no second labeller of any kind, so
@@ -473,10 +466,9 @@ sane; and possibly a random visitor to my repo.
   Qwen3-4B gives only 64 distinct answers across 99 items.
 - **The headline may be specific to this manipulation.** The near miss is what
   I first saw under V-Steer, on ten models, which is where the question came
-  from. **I never measured provenance there.** I only ever asked *did I tell you this*
-  under my own bias. So I cannot say whether the "yes" is about
-  knowledge-awareness or about this particular knob, and the cheapest way to
-  find out is to ask the same question under a manipulation I did not design.
+  from. **I never measured provenance there.** I only ever asked *did I tell you
+  this* under my own bias, so I cannot say whether the "yes" is about
+  knowledge-awareness or about this particular knob.
 - **The generation budget is load-bearing and I found out late.** 24 tokens for
   the value, 4 for the yes/no, no early stop: 18 answers are cut off
   mid-self-correction, and 38 of the 47 locality failures on Qwen3-4B end
@@ -486,22 +478,17 @@ sane; and possibly a random visitor to my repo.
   read all 200 by hand (`src/drop_long.py`). None of this touches the headline,
   which is one word in its own conversation. All of it touches how confidently I
   can describe what the model was doing.
-- **The scaling claim has a confound.** The bias reaches 8 of 32 layers on
-  Qwen3.5-4B and 36 of 36 on Qwen3-4B, so "the newer model needs twice the dose"
-  cannot be separated from "the bias reached less of it".
 - **Thresholds are first crossings, not points of no return.** `city:Brno` is
   gone at `b = 11` in the pilot and, inferred from a missing row, readable again
   at 14. The sweep stored only the crossing point, so the full curve exists for
   ten items and no others.
-- **The category boundary is not a labelling problem.** Whether a wrong value is
-  damaged or different depends on what the value is for, and the transcript never
-  says. Better labelling would not fix it, and the taxonomy is mine.
 - **What is *not* hand-checked:** the agreed majority of the behaviour table,
   where a judge and a keyword rule both said no and I took their word. So the
   hedging rate rests on two automatic labellers agreeing, with the disputed tail
   settled by hand.
 - **The scoring rule was wrong three times**, in both directions, 151/189 →
-  145/183 → 147/184. The ledger is in `PREREGISTRATION.md`.
+  145/183 → 147/184. The ledger is in `PREREGISTRATION.md`, because the
+  alternative was quietly fixing it.
 
 ### What I would do next
 
@@ -512,7 +499,8 @@ sane; and possibly a random visitor to my repo.
   still on while the value is gone. If it is, that is the mechanism behind all of
   the above. I built this probe and threw it out, because its own null test came
   back perfect at the embedding layer, where both conditions are literally the
-  same vector. The next attempt keeps the null that killed the first one.
+  same vector. A perfect score for telling a vector from itself. The next attempt
+  keeps the null that killed the first one.
 
 - **Measure it under a cause nobody chose.** Everything above is my dose. The
   argument for caring is that the same state arrives by itself, so the next thing

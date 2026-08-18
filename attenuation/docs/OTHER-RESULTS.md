@@ -77,6 +77,25 @@ run it. I hand-checked all 8 items where the two labellers split and sided with
 the deterministic rule on 7, so the numbers above are `contains()` and not the
 judge's lower count.
 
+## How every label above was produced
+
+Three kinds of label produce the numbers in `WRITEUP.md`, and they are not
+equally trustworthy, so this table says which is which. The judge is
+`gemini-3.1-flash-lite`, chosen because it is outside the set of models being
+measured.
+
+| what | how it is decided | second labeller | read by hand |
+|---|---|---|---|
+| is the value gone | `match.contains`, deterministic | a judge | |
+| **the headline yes/no** | first word of the reply, deterministic | a judge | **all 756, no disagreement** |
+| damaged / different / none | an LLM judge, categorical | keyword rule, partial | **166 of 184 read, 95.8% agreement** |
+| **declines**, gives no value at all | an LLM judge | 2nd rubric + keyword, 377/378 | via the row above |
+| **hedges**, questions its own answer | an LLM judge | keyword rule, 360/378 | **all 18 disputed** |
+| **justifies**, argues for the value it gave | an LLM judge | none existed | **all 35, 100%** |
+| **quotes**, quotes the user back | an LLM judge | none existed | **all 66, 100%** |
+| locality survival | `match.contains` | a judge, 8 disagreements | **all 8** |
+| `drop` at 512 tokens | the text after `</think>`, deterministic | none | **all 200, no disagreement** |
+
 ---
 
 *Written alongside `WRITEUP.md`, which is the document that argues. This
