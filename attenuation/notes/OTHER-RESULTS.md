@@ -32,6 +32,16 @@ It claims the fact even when it has no value to offer.
 - Producing a value almost guarantees the claim; producing nothing halves it and
   no further.
 - So the "yes" tracks neither the value nor the model's ability to read it.
+- **Read the same table by column.** Of the 37 "no" answers, 25 are items where
+  the model produced no value at all, and 24 of those said "yes" with the
+  sentence readable. So when it does stop claiming, it has almost always stopped
+  answering too. 26 of those 32 are Qwen3-4B-Instruct-2507, where "no value"
+  means the refusal above: *"I'm sorry, but I don't have access to your
+  location"*. That model refuses on 46 of 100 at the dose against **1 of 100
+  with no bias**, so the refusal is the manipulation and not its usual caution.
+  It does not force the "no", though: 23 items give no value and still answer
+  "yes". Whether the remaining "no" is the model noticing or only the model
+  having nothing to say, I did not chase.
 
 ## Hesitation follows production, not wrongness
 

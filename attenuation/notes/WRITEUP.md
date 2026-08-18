@@ -14,163 +14,96 @@ Nothing below the summary has a stated limit.
 
 ## Executive summary
 
-Language models are told things in conversation and expected to use them later.
-Can a model tell when its own access to something it was told has degraded? I
-could not find it measured, so I measured it. **It cannot.**
+Models can flag *"I don't know this entity"* [1]. That is self-knowledge about
+what a model **learned**. This asks the same of what it was **told**: can a model
+tell when its own access to something it was told has degraded? I could not find it
+measured, so I measured it. **Mostly it cannot.**
 
 Say the user tells it *"By the way, my cat is called Grendel."* I make the name
 itself hard to read, by an amount I control, and leave the rest of the sentence
-intact. The model answers with a wrong name. Then, asked in a separate
-conversation, it says yes, it was told the name: **147 of 184**, against **0 of
+intact. The model answers with a wrong name, then, asked in a separate
+conversation, says yes, it was told the name: **147 of 184**, against **0 of
 184** when a readable sentence about something else fills the slot (exact
-McNemar, p = 1e-44).
-The rare failure is obviously wrong. The common one looks perfectly fine, in two
-different ways: a small dent in the truth, `19:40` becoming `19:45`, or a
-confident substitute out of the model's own prior, `Utrecht` becoming
-`Amsterdam`. Neither reads as a hallucination. In production apps there is no
-eval and no validator looking for either.
-
-Whether that matters depends on the fact. Told *"By the way, I am allergic to
-aspirin"*, Qwen3.5-4B replies **"You are allergic to penicillin"** and adds a
-parenthesis explaining what penicillin is, which is helpful of it. Ask separately
-and it confirms it was told. Four different allergens, `walnuts` `mustard`
-`sesame` `kiwi`, all come back as **peanuts**; every dog is called Max. Nothing
-is missing from the transcript and nothing in the answer looks broken.
-
-Not one sentence but 100 of them per model, on Qwen3.5-4B and
-Qwen3-4B-Instruct-2507, greedy. Both 4B dense, which is not a compromise: it is
-the size a small company can run on its own hardware, and where I would meet this
-in production rather than in a paper.
-
-Models can flag "I don't know this entity" [1]. That is self-knowledge about what
-a model **learned**; this asks the same of what it was **told**. It had a clear
-failure condition: if that recognition signal covers the context too, a fact the
-model can no longer read should look like an entity it does not know, and it
-should refuse. It answers anyway.
-
-**Why this matters outside a toy setup:** I chose the dose. In production nobody
-chooses it, and the same end state arrives anyway: a fact that is in the
-conversation the application sent, and that the model cannot effectively read.
-Long-context dilution [5] is the closest match, information present and used less
-for where it sits. KV cache eviction [3] and prompt compression [6] get there by
-dropping tokens outright, so the application still believes it sent the fact.
-KV quantisation [4] degrades everything a little rather than one span a lot,
-which is a different shape of damage. **None of the four is measured here**, and
-this is the idealised version, measured because the dose can be controlled.
-
-And it is going to matter more, not less. The better small models get, the more
-companies will run them on their own hardware, and the harder those deployments
-lean on exactly these techniques, because that is what makes a small model fit.
-
+McNemar, p = 1e-44). The wrong name does not read as a hallucination, and in
+production apps there is no eval and no validator looking for one.
 
 ### Terms
-
-First, let me define the terms properly. Each of them is used in exactly one sense throughout.
 
 ![Figure 1 · the terms, marked on one sentence](../fig/fig1_terms.png)
 
 **Figure 1 · the terms.** *The bias touches the value and never the sentence
 around it. That is why "yes, you told me my cat's name" is a true answer rather
-than a lie, and why the finding is about the model not noticing rather than
-about it lying.*
+than a lie.*
 
 ### Dataset
-
-Now the dataset.
 
 ![Figure 2 · all 100 items](../fig/fig2_items.png)
 
 **Figure 2 · the dataset.** *Ten kinds of fact by ten values, 100 items per
-model. The values are deliberately unguessable, so a correct answer cannot come
-from priors. Every one of them opens "By the way," in the same frame.*
+model. The values are unguessable, so a correct answer cannot come from priors.*
 
 ### High-level takeaways
 
-**1. The model cannot tell when it has misread something.** Put a readable
-sentence about something else in the slot and it never claims the fact. Leave the
-right sentence and turn its value down, and it reports being told the name
-exactly as it does when it read the name correctly. **Missing and misread are
-different situations and it only reports the first.**
+**1. The model cannot tell when it has misread something.** Missing and misread
+are different situations, and it only reports the first.
 
-**2. What the model says instead of the true value is built out of whatever
-survived**, not invented. All 184 answers fall into three groups, and Figure 3 is
-split by them:
+**2. What it says instead is built out of whatever survived**, not invented. All
+184 answers fall into three groups:
 
 - **a truncation**, `4417` becoming `417`. 76 items, **41%**
-- **a different value**, `Utrecht` becoming `Amsterdam`. 60, **33%**. Only six
-  are obviously broken, reaching for the words beside the value: *"Your cat is
-  called By the way."* The other 54 read as ordinary answers.
+- **a different value**, `Utrecht` becoming `Amsterdam`. 60, **33%**
 - **no value at all**. 48, **26%**
-
-A judge assigned the groups and I checked them by hand. The headline yes/no is
-not judged at all: it is the first word of a four-token reply, read directly.
 
 ![Figure 3 · nine answers, three from each group](../fig/fig3_examples.png)
 
 **Figure 3 · nine answers, three from each group.** *Not chosen: three drawn at
-random from each of the three groups above, with a fixed seed, and nothing inside
-a group picked by hand. The proportions on the right are the whole corpus of 184.
-Columns: what the user said, the answer with no bias, the dose and model, the
-answer at that dose, and what the same model answered separately to* did I tell
-you this?
+random from each group, fixed seed, nothing picked by hand. The last column is
+what the same model answered separately to* did I tell you this?
 
 ### Key experiments
 
 **The manipulation is simple:** subtracting `b` multiplies the weight the value's
 tokens receive by `e^-b`, a twentieth at `b = 3` and a four-hundredth at `b = 6`.
-The softmax hands that weight to everything else rather than losing it, and not
-evenly [10]. Nothing is deleted; each item gets its own dose.
+Nothing is deleted; each item gets its own dose.
 
 ![Figure 4 · the manipulation](../fig/fig4_manipulation.png)
 
 **Figure 4 · the manipulation.** *The conversation is unchanged; the value simply
-gets a fraction of the weight it would have had, and the words around it are untouched. The starting weights
-are illustrative, the effect of `b` on them is the real arithmetic.*
+gets a fraction of the weight it would have had. The starting weights are
+illustrative, the effect of `b` is the real arithmetic.*
 
 **The experiment is simple as well:** one yes/no question, *"Did I tell you my
-cat's name in this conversation? Answer only yes or no."*, asked in five contexts
-differing only in what sits in the conversation. **In `faint` the bias is still
-applied while that question is answered**, which makes this a question about
-reading and not about memory. Four carry the result: `present` · `faint` ·
-`swap` · `drop`.
+cat's name in this conversation? Answer only yes or no."*, asked in five contexts. **In `faint` the
+bias is still applied while that question is answered**, which makes this about
+reading, not memory.
 
 ![Figure 5 · the experiment](../fig/fig5_experiment.png)
 
-**Figure 5 · the experiment.** *Conversation 2 is the whole measurement: one
-word, read directly. Conversation 1 only establishes that the value is gone,
-which is what the dose was chosen to do. The model never sees its own wrong answer before it is asked whether it was
-told the name.*
+**Figure 5 · the experiment.** *Conversation 2 is the whole measurement. The
+model never sees its own wrong answer before it is asked whether it was told the
+name.*
 
 **`faint` against `swap` is the result:** both put a readable sentence in the
 slot, only one is the sentence being asked about, so the pair separates **I have
-this fact** from **there is a sentence here**. The fifth repeats `swap` with the
-bias on the donor's own value, and **moves nothing, 0 of 189 on both models**, so
-the "yes" tracks the fact rather than the manipulation. It is in the detailed
-analysis.
+this fact** from **there is a sentence here**.
 
 ![Figure 6 · the four conditions](../fig/fig6_conditions.png)
 
-**Figure 6 · the four conditions.** *The sentence is turned down in none of the
-four: in `faint` only the value inside it is. Each item at its own dose, same
-yes/no question in all four. Bars are the rate of answering yes, so `drop` at 0
-means it never falsely claims the fact; given a longer budget to finish its
-answer it says* no *100 of 100 on both models.*
+**Figure 6 · the four conditions.** *Each item at its own dose, the same yes/no
+question in all four. Bars are the rate of answering yes. Only `faint` carries
+any bias, and `drop` at 0 means the model never falsely claims the fact.*
 
-**Three main controls:**
-
-- the same dose spent one span over leaves the value readable, **85 of 85**
-- every behaviour re-measured unmanipulated, which retired one of my own findings
-- one sentence of explicit permission to say "I don't know", which is not taken
-
-The controls in full, how every label was made, and where each number comes from
-are in the detailed analysis below.
+**Three main controls:** the same dose one span over leaves the value readable,
+**85 of 85**; every behaviour re-measured unmanipulated, which retired a finding
+of mine; one sentence of permission to say "I don't know", which is not taken.
 
 ---
 
 ## Detailed analysis
 
-*The summary said what I did and what came out. This part adds the detail: how
-exactly, and why that way rather than another.*
+*The summary said what I did and what came out. This part is the rest: the
+terms, the dataset, every experiment and control, and why each was done that way
+rather than another.*
 
 ### Where the question came from
 
@@ -187,6 +120,33 @@ primary-constraint accuracy, head selection and cost. Nobody had looked at what 
 That turned my question from *did it get it wrong* into *what does it say instead,
 and does it know that it did*.
 
+**It had a clear failure condition.** If the recognition signal in [1] covers the
+context too, a fact the model can no longer read should look like an entity it
+does not know, and it should refuse. It answers anyway.
+
+**And when it answers, the wrong value takes two shapes.** A small dent in the
+truth, `19:40` becoming `19:45`, or a confident substitute out of the model's own
+prior, `Utrecht` becoming `Amsterdam`. Told *"By the way, I am allergic to
+aspirin"*, Qwen3.5-4B replies **"You are allergic to penicillin"** and adds a
+parenthesis explaining what penicillin is, which is helpful of it. Neither reads
+as a hallucination.
+
+### Why this matters outside a toy setup
+
+I chose the dose. In production nobody chooses it, and the same end state arrives
+anyway: a fact that is in the conversation the application sent, and that the
+model cannot effectively read.
+Long-context dilution [5] is the closest match, information present and used less
+for where it sits. KV cache eviction [3] and prompt compression [6] get there by
+dropping tokens outright, so the application still believes it sent the fact.
+KV quantisation [4] degrades everything a little rather than one span a lot,
+which is a different shape of damage. **None of the four is measured here**, and
+this is the idealised version, measured because the dose can be controlled.
+
+And it is going to matter more, not less. The better small models get, the more
+companies will run them on their own hardware, and the harder those deployments
+lean on exactly these techniques, because that is what makes a small model fit.
+
 ### The answer
 
 **One design decision first, because it inverted the result.** The first version I drafted with Claude
@@ -198,7 +158,7 @@ never to admit ignorance. Removing the prefix inverted it. With the fact
 genuinely absent the model refuses reliably, which is what makes the *faint*
 condition mean anything at all.
 
-**The mechanism behind takeaway 2, which the summary only asserts.** When the
+**The mechanism behind takeaway 2, which the takeaway only asserts.** When the
 value goes quiet, the model answers out of the words beside it.
 
 ```
@@ -218,7 +178,7 @@ end. **Not one of them arrives at the true value.** It can tell the answer is
 wrong. It cannot get to the right one, because the right one is the thing it
 could not read.
 
-**Three things about the headline that the summary does not have room for.**
+**Four things about the headline that the takeaways do not have room for.**
 
 - **The ceiling is not 100%.** Five items answer "no" with nothing turned down
   at all, so the fall is 179 → 147, not 184 → 147.
@@ -226,19 +186,25 @@ could not read.
   when the value goes quiet and **not one gains it**, exact McNemar p = 5e-10.
   Both tests are in `src/quoted.py` rather than done by hand: an unpaired test on
   paired items is a mistake I have already made once in this project.
+- **Those 32 are mostly refusals, not catches.** 24 of the 32 gave no value at
+  all rather than a wrong one, so the model stops answering and stops claiming
+  in the same breath. The breakdown is in
+  [`OTHER-RESULTS.md`](OTHER-RESULTS.md).
 - **The "yes" is not a false answer.** The sentence stays legible throughout, so
   the user did tell it the cat's name. What the model fails to do is register
   that the value it produces is not the one it read. That is why this is a claim
   about a missing signal and not about the model lying.
 
-**What the three groups are made of.** The counts are in the summary; what
-they are made of is not.
+**What the three groups are made of.** The counts are under **High-level
+takeaways**; what they are made of is not.
 
 - **Truncation is the modal failure.** For the structured values, three in four
   of them, a length or pattern check downstream would notice. For the names it
   would not, because a truncated name is still a well-formed name.
 - The middle row is where the interest is, because those are the ones nothing
-  downstream catches, and each keeps the informative part: `Utrecht → Amsterdam`
+  downstream catches. Only six of the 60 are obviously broken, reaching for the
+  words beside the value, *"Your cat is called By the way."* The other 54 read as
+  ordinary answers, and each keeps the informative part: `Utrecht → Amsterdam`
   keeps the country, `19:40 → 19:45` keeps the hour.
 - When nothing survives, the prior wins, and it is always the same prior: four
   allergens become peanuts, three dog names become Max, and `aspirin` becomes
@@ -256,8 +222,10 @@ and when it does not, and how differently the two models refuse. They are in
 miss?** The split assumes a line between a damaged value and a different one, and
 there is no such line in the string. Room 227 answered as 207 is one digit and a
 different room. Five minutes is nothing on a clock and everything on a train. A
-distance metric orders them exactly wrong, scoring Brno against Prague as far
-apart when keeping the country is the informative part.
+distance metric orders them exactly wrong, scoring `Brno` against `Prague` as far
+apart when keeping the country is the informative part. (That pair is from the
+six-item pilot, the one datapoint in here that is; the same shape is all over the
+main run, `Utrecht → Amsterdam`, `Graz → Linz`, `Rijeka → Ljubljana`.)
 
 The boundary is not in the answer, it is in what the value is for, and nothing in
 the transcript says which. Triaging these in production would want one rule for a
@@ -382,6 +350,15 @@ evidencing the result.*
   the grounds that I already knew what it would say. I did not, until I ran it.)
   `src/swap_biased.py`.
 
+**What `swap` still cannot separate, and I did not run it.** In `swap` the subject
+is never raised at all: there is no cat anywhere in that conversation, so "no" is
+an easy answer. The sharper version keeps the subject readable and simply never
+gives the value, *"By the way, I have a cat."*, and then asks for the name.
+Subject present, value genuinely absent, correct answer still no. If the "yes"
+were tracking *the topic came up* rather than *I have this fact*, that condition
+is where it would show, and `swap` cannot show it. It is the second thing I would
+run.
+
 #### Why these three controls, and what each would have killed
 
 **First: is it the dose, or the value?** If a dose that size damages the answer
@@ -393,18 +370,22 @@ dose, same token count.
 |---|---|---|
 | value survives when the mask sits **beside** it | 52 / 99 | **85 / 85** |
 
-On Qwen3.5-4B the damage follows the mask, not the dose. On Qwen3-4B it does not,
-and **all but one of those 47 failures give no value at all**: mask anything at
-that dose and it stops answering. So the control holds on one model of two, and
-on the other this design cannot separate a local effect from a global loss of
-willingness.
+On Qwen3.5-4B the damage follows the mask, not the dose. On Qwen3-4B it looks as
+if it does not, and **all but one of those 47 failures give no value at all**.
 
-Two things it does not show. The label is only *does the true value still appear*, and
-for that the control does its job. And the two arms mask the same number of
-tokens but not the same kind: one hides the value, the other hides the phrase
-saying what the value is for, so **this says nothing about position as such**.
-The clean version masks a span carrying as much as the value does, and I did
-not run it. What the 8 hand-checked disagreements turned up is in
+**Those 47 are not a leak, and reading them says so.** The span this arm masks
+instead of the value is the phrase that says what the value *is*. Mask *my dog is
+called* and the model is left with a perfectly readable `Marnok` and no way to
+know it is a dog's name, so *"what is my dog called?"* has become unanswerable
+for a reason that has nothing to do with the dose reaching the value. **44 of the
+47 say exactly that**: *"I'm sorry, but I don't have access to personal
+information like your dog's name."* The value is not damaged, its label is.
+
+So the label here is only *does the true value still appear in the answer*, and in
+this arm that question is not well posed on Qwen3-4B: 52 / 99 is not evidence
+against locality, and it is not evidence for it either. The clean version masks a
+neighbouring span that carries as much as the value does and names nothing, and I
+did not run it. What the 8 hand-checked disagreements turned up is in
 [`OTHER-RESULTS.md`](OTHER-RESULTS.md).
 
   **Is any of it just the model?** Every behaviour re-measured with no bias:
@@ -471,7 +452,7 @@ measured.**
 |---|---|---|---|
 | is the value gone | `match.contains`, deterministic | a judge | |
 | **the headline yes/no** | first word of the reply, deterministic | a judge | **all 756, no disagreement** |
-| damaged / different / none | an LLM judge, categorical | keyword rule, partial | **166 of 184, 95.8%** |
+| damaged / different / none | an LLM judge, categorical | keyword rule, partial | **166 of 184 read, 95.8% agreement** |
 | **declines**, gives no value at all | an LLM judge | 2nd rubric + keyword, 377/378 | via the row above |
 | **hedges**, questions its own answer | an LLM judge | keyword rule, 360/378 | **all 18 disputed** |
 | **justifies**, argues for the value it gave | an LLM judge | none existed | **all 35, 100%** |
@@ -505,15 +486,15 @@ nothing; my GPU; Claude, which was made to check its own work more often than is
 sane; and possibly a random visitor to my repo.
 
 - **Scope.** Constructed conversations, one sentence frame, one manipulation
-  family, two 4B models after excluding a third that failed its own control,
-  greedy, one seed. The size was chosen rather than settled for, for the reason
-  under **Why models this small**, but nothing here says the result survives at
+  family, two 4B models after excluding a third that failed its own control, both
+  Qwen and therefore one lineage, greedy, one seed. The size was chosen rather
+  than settled for, for the reason under **Why models this small**, but nothing here says the result survives at
   70B or at frontier scale. The items are not independent either: Qwen3-4B gives
   only 64 distinct answers across 99 items.
 - **The headline may be specific to this manipulation.** The near miss is what
   I first saw under V-Steer, on ten models, which is where the question came
-  from. **I never measured provenance there** — I only ever asked *did I tell
-  you this* under my own bias. So I cannot say whether the "yes" is about
+  from. **I never measured provenance there.** I only ever asked *did I tell you this*
+  under my own bias. So I cannot say whether the "yes" is about
   knowledge-awareness or about this particular knob, and the cheapest way to
   find out is to ask the same question under a manipulation I did not design.
 - **The generation budget is load-bearing and I found out late.** 24 tokens for
@@ -530,8 +511,9 @@ sane; and possibly a random visitor to my repo.
   Qwen3.5-4B and 36 of 36 on Qwen3-4B, so "the newer model needs twice the dose"
   cannot be separated from "the bias reached less of it".
 - **Thresholds are first crossings, not points of no return.** `city:Brno` is
-  gone at `b = 11` and readable again at 14. The sweep stored only the crossing
-  point, so the full curve exists for ten items and no others.
+  gone at `b = 11` in the pilot and, inferred from a missing row, readable again
+  at 14. The sweep stored only the crossing point, so the full curve exists for
+  ten items and no others.
 - **The category boundary is not a labelling problem.** Whether a wrong value is
   damaged or different depends on what the value is for, and the transcript never
   says; the argument is under **The answer**. Better labelling would not fix it,
@@ -558,8 +540,9 @@ sane; and possibly a random visitor to my repo.
 
 - **Measure it under a cause nobody chose.** Everything above is my dose. The
   argument for caring is that the same state arrives by itself, so the next thing
-  to run is one of the four: KV quantisation is the cheapest, needs no new items
-  and no new metric, and turns *this is the idealised version* into *and here is
+  to run is the provenance question under V-Steer, where the near miss came from
+  in the first place, and after that one of the four: KV quantisation is the
+  cheapest, needs no new items and no new metric, and turns *this is the idealised version* into *and here is
   the real one*. If the "yes" survives 2-bit KV [4] the way it survives `b`, the
   claim stops being about a manipulation I invented.
 
@@ -645,3 +628,5 @@ LLM judges at all.
 17 Aug: about 4 hours, running some simple additional experiments to cover some caveats
 and making the writeup more clear by adding better figures and trying to make the writing really finally clear
 (here I was on 20 hours, glad I had the extra 2 allowed for the write-up)
+18 Aug: about 10 minutes, cutting the executive summary down to the word limit
+and marking two numbers that came from the pilot.
