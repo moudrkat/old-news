@@ -18,11 +18,12 @@ Language models are told things in conversation and expected to use them later.
 Can a model tell when its own access to something it was told has degraded? I
 could not find it measured, so I measured it. **It cannot.**
 
-Lets say the user says *"By the way, my cat is called Grendel."* I make the name itself
-hard to read, by an amount I control. I leave the rest of the sentence intact.
-The model answers with a wrong name. Then, asked in a separate conversation,
-says yes it was told the name: **147 of 184**, against **0 of 184** when a
-readable sentence about something else fills the slot (exact McNemar, p = 1e-44).
+Say the user tells it *"By the way, my cat is called Grendel."* I make the name
+itself hard to read, by an amount I control, and leave the rest of the sentence
+intact. The model answers with a wrong name. Then, asked in a separate
+conversation, it says yes, it was told the name: **147 of 184**, against **0 of
+184** when a readable sentence about something else fills the slot (exact
+McNemar, p = 1e-44).
 The rare failure is obviously wrong. The common one looks perfectly fine, in two
 different ways: a small dent in the truth, `19:40` becoming `19:45`, or a
 confident substitute out of the model's own prior, `Utrecht` becoming
@@ -91,8 +92,9 @@ right sentence and turn its value down, and it reports being told the name
 exactly as it does when it read the name correctly. **Missing and misread are
 different situations and it only reports the first.**
 
-**2. What the model says instead of the true value is built out of whatever survived**, not invented. All
-184 answers fall into three groups, and Figure 3 is split by them:
+**2. What the model says instead of the true value is built out of whatever
+survived**, not invented. All 184 answers fall into three groups, and Figure 3 is
+split by them:
 
 - **a truncation**, `4417` becoming `417`. 76 items, **41%**
 - **a different value**, `Utrecht` becoming `Amsterdam`. 60, **33%**. Only six
@@ -100,11 +102,17 @@ different situations and it only reports the first.**
   called By the way."* The other 54 read as ordinary answers.
 - **no value at all**. 48, **26%**
 
-A judge assigned the groups and I checked them by hand. The headline yes/no is the first word of a four-token reply, read directly.
+A judge assigned the groups and I checked them by hand. The headline yes/no is
+not judged at all: it is the first word of a four-token reply, read directly.
 
 ![Figure 3 · nine answers, three from each group](../fig/fig3_examples.png)
 
-**Figure 3 · nine answers, three from each group.**
+**Figure 3 · nine answers, three from each group.** *Not chosen: three drawn at
+random from each of the three groups above, with a fixed seed, and nothing inside
+a group picked by hand. The proportions on the right are the whole corpus of 184.
+Columns: what the user said, the answer with no bias, the dose and model, the
+answer at that dose, and what the same model answered separately to* did I tell
+you this?
 
 ### Key experiments
 
@@ -135,15 +143,18 @@ told the name.*
 
 **`faint` against `swap` is the result:** both put a readable sentence in the
 slot, only one is the sentence being asked about, so the pair separates **I have
-this fact** from **there is a sentence here**. The fifth condition is below.
+this fact** from **there is a sentence here**. The fifth repeats `swap` with the
+bias on the donor's own value, and **moves nothing, 0 of 189 on both models**, so
+the "yes" tracks the fact rather than the manipulation. It is in the detailed
+analysis.
 
 ![Figure 6 · the four conditions](../fig/fig6_conditions.png)
 
 **Figure 6 · the four conditions.** *The sentence is turned down in none of the
 four: in `faint` only the value inside it is. Each item at its own dose, same
-yes/no question in all four. Bars are the rate of answering yes. `drop` is 0 on
-both models at the four-token budget shown here, and re-run at 512 tokens it
-answers no 100 of 100 on both.*
+yes/no question in all four. Bars are the rate of answering yes, so `drop` at 0
+means it never falsely claims the fact; given a longer budget to finish its
+answer it says* no *100 of 100 on both models.*
 
 **Three main controls:**
 
