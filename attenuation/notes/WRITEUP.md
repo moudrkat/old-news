@@ -255,8 +255,9 @@ the taxonomy is mine.)
 - **Items.** 100 per model, one clause in a fixed frame; Figure 2 lists them.
 - **Decoding.** Greedy, one seed, no sampling. 24 tokens for the value answer, 4
   for the yes/no answer. Doses swept at `b` = 1, 2, 3, 4, 5, 6, 8, 10, 14.
-- **The gate.** 99 items on one model and 85 on the other clear it, **184 in
-  total**.
+- **What counts.** An item is only used if the unmanipulated model answers it
+  correctly *and* some `b` removes the value. 99 items on one model and 85 on
+  the other clear that, **184 in total**.
 
 #### Why models this small
 
@@ -443,7 +444,7 @@ measured.**
 
 | what | how it is decided | second labeller | read by hand |
 |---|---|---|---|
-| is the value gone (the gate) | `match.contains`, deterministic | a judge | |
+| is the value gone | `match.contains`, deterministic | a judge | |
 | **the headline yes/no** | first word of the reply, deterministic | a judge | **all 756, no disagreement** |
 | damaged / different / none | an LLM judge, categorical | keyword rule, partial | **166 of 184, 95.8%** |
 | **declines**, gives no value at all | an LLM judge | 2nd rubric + keyword, 377/378 | via the row above |

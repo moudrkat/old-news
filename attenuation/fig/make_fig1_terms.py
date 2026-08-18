@@ -23,7 +23,7 @@ TOLD = "By the way, my cat is called Grendel."
 VALUE = "Grendel"
 ASK = "Did I tell you my cat's name in this conversation?"
 
-W, H = 980, 366
+W, H = 980, 332
 X0, CW = 44, 9.03          # left margin, and the advance of the mono face at 15px
 
 
@@ -87,11 +87,6 @@ its size matters.</text>
 class="mono">b</tspan> at which its value is gone from the answer. So a wrong
 value is the setup, not the finding.</text>
 
-<text x="{X0}" y="348" class="lbl">the gate</text>
-<text x="{X0 + 108}" y="348" class="note">an item counts only if the unmanipulated
-model answers it correctly <tspan class="em">and</tspan> some <tspan
-class="mono">b</tspan> removes the value. <tspan class="em">184 of the 200 clear
-it.</tspan></text>
 """
     out = ROOT / "fig" / "fig1_terms.html"
     out.write_text(PAGE.format(W=W, H=H, body=body))
