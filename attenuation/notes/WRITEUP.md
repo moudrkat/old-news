@@ -47,22 +47,36 @@ failure condition: if that recognition signal covers the context too, a fact the
 model can no longer read should look like an entity it does not know, and it
 should refuse. It answers anyway.
 
-**Why this matters outside a toy setup:** I chose the dose. But in the real production mess
-the dose is not chosen. A sentence still in the context and effectively unread is a side effect of KV
-cache compression [3], KV quantisation [4], long-context dilution [5] and prompt
-compression [6]. This is the idealised version of that state, measured because
-the dose can be controlled.
+**Why this matters outside a toy setup:** I chose the dose. In production nobody
+chooses it, and the same end state arrives anyway: a fact that is in the
+conversation the application sent, and that the model cannot effectively read.
+Long-context dilution [5] is the closest match, information present and used less
+for where it sits. KV cache eviction [3] and prompt compression [6] get there by
+dropping tokens outright, so the application still believes it sent the fact.
+KV quantisation [4] degrades everything a little rather than one span a lot,
+which is a different shape of damage. **None of the four is measured here**, and
+this is the idealised version, measured because the dose can be controlled.
+
+And it is going to matter more, not less. The better small models get, the more
+companies will run them on their own hardware, and the harder those deployments
+lean on exactly these techniques, because that is what makes a small model fit.
+
 
 ### Terms
 
-First, lets define terms used in this work properly. Each of them is used in exactly one sense throughout.
+First, let me define the terms properly. Each of them is used in exactly one sense throughout.
 
 ![Figure 1 · the terms, marked on one sentence](../fig/fig1_terms.png)
 
-**Figure 1 · the terms.** 
+**Figure 1 · the terms.** *The bias touches the value and never the sentence
+around it. That is why "yes, you told me my cat's name" is a true answer rather
+than a lie, and why the finding is about the model not noticing rather than
+about it lying.*
 
 ### Dataset
-Now lets look at the dataset structure. 
+
+Now the dataset.
+
 ![Figure 2 · all 100 items](../fig/fig2_items.png)
 
 **Figure 2 · the dataset.** *Ten kinds of fact by ten values, 100 items per
