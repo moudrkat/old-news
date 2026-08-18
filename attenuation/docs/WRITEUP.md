@@ -10,24 +10,32 @@ Two constraints from his admissions doc, both verbatim:
 Nothing below the summary has a stated limit.
 -->
 
-# "Your cat is called **By the way**. Wait, that doesn't sound like a cat's name!"
+# "Your cat is called **By the way**.
+
+## Wait, that doesn't sound like a cat's name!"
+
+First things first: no cat was harmed during the (fast and furious) work on this project. One GPU was. A little.
+
+And now, finally, to the point:
 
 ## Executive summary
 
 Models can flag *"I don't know this entity"* [1]. That is self-knowledge about
 what a model **learned**. This asks the same of what it was **told**: can a model
 tell when its own access to something it was told has degraded? I could not find it
-measured, so I measured it. **Mostly it cannot.**
+measured, so... I measured it. Surprise, surprise: **Mostly it cannot.**
 
 Say the user tells it *"By the way, my cat is called Grendel."* I make the name
 itself hard to read, by an amount I control, and leave the rest of the sentence
-intact. The model answers with a wrong name, then, asked in a separate
+intact. The model answers with a wrong name. Then, asked in a separate
 conversation, says yes, it was told the name: **147 of 184**, against **0 of
 184** when a readable sentence about something else fills the slot (exact
-McNemar, p = 1e-44). The wrong name does not read as a hallucination, and in
-production apps there is no eval and no validator looking for one.
+McNemar, p = 1e-44). The wrong name does not read as a hallucination, and the pain is that in
+production apps there is no eval and no validator looking for such an error. Ouch.
 
 ### Terms
+
+Let's define the important terms first:
 
 ![Figure 1 · the terms, marked on one sentence](../fig/fig1_terms.png)
 
@@ -43,6 +51,8 @@ than a lie.*
 model. The values are unguessable, so a correct answer cannot come from priors.*
 
 ### High-level takeaways
+
+Two takeaways for takeaway (I could even pack them into a small box):
 
 **1. The model cannot tell when it has misread something.** Missing and misread
 are different situations, and it only reports the first.
@@ -95,7 +105,7 @@ all four. Bars are the rate of answering yes. Only `faint` carries any bias;
 
 **Three main controls:** the same dose one span over, clean on one model and
 undecidable on the other; every behaviour re-measured unmanipulated, which
-retired a finding of mine; one sentence of permission to say "I don't know",
+retired a finding of mine (*I liked that finding*); one sentence of permission to say "I don't know",
 which is not taken. All three below.
 
 ---
@@ -104,6 +114,12 @@ which is not taken. All three below.
 
 *The summary said what came out. This part is why each piece was done that way
 and not another.*
+
+**Disclaimer.** This part was written more by an LLM than by me, even though I
+was giving it clear instructions about exactly what to edit, in which paragraph,
+and how. Yeah, I should rather have written it myself. But I ran out of my time
+limit, so if it still sounds like AI slop, I guess I am doomed. Wiser, but
+doomed.
 
 ### Where the question came from
 
@@ -115,9 +131,11 @@ That paper never asks why the wrong answer has that shape. By construction its
 edit turns a span down rather than replacing it: nothing is put in the true
 value's place, so whatever was standing behind it wins by default. What they
 measure is whether the model follows the right instruction, which attention heads
-to edit, and what it costs. Nobody had looked at what comes out instead. So my question
-turned from *did it get it wrong* into *what does it say instead, and does it
-know that it did*.
+to edit, and what it costs. Nobody had looked at what comes out instead.
+
+So my question turned from *did it get it wrong* into *what does it say instead, and does it
+know that it did*. I somehow could not sleep because of this question, but luckily I stumbled upon this
+MATS application, did this project, and now I will definitely never sleep again.
 
 **The experiment had a clear failure condition.** If the recognition signal in
 [1] covers the context too, then a fact the model can no longer read should look
