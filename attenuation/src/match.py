@@ -4,12 +4,15 @@ The whole measurement turns on one test — has the value gone from the answer �
 and the first version of that test was a case-insensitive substring search. On
 times it is wrong:
 
-    told 04:36  ->  "Your train leaves at 4:36 PM."
+    told 08:03  ->  "Your train leaves at 8:03."
 
-The substring `04:36` is not in that string, so the item was scored as damaged.
-The model answered correctly and dropped a leading zero. Six of 189 items are
-wrong in this direction, all of them times, all of them scored as failures they
-are not.
+The substring `08:03` is not in that string, so the item was scored as damaged.
+The model answered correctly and dropped a leading zero. Five items in the
+corpus are rescued by normalising like this: four times, and `León` for `Leon`.
+
+The example above uses a bare 8:03 on purpose. A stated half of the day is what
+decides these, so "4:36 PM" against 04:36 is not rescued but rejected, twelve
+hours out, and `contains` below is where that happens.
 
 So the test normalises before comparing. It is deliberately generous: anything
 a person would read as the same value counts as the value being present, so the
