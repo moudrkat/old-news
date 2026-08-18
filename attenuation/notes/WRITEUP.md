@@ -124,13 +124,6 @@ and does it know that it did*.
 context too, a fact the model can no longer read should look like an entity it
 does not know, and it should refuse. It answers anyway.
 
-**And when it answers, the wrong value takes two shapes.** A small dent in the
-truth, `19:40` becoming `19:45`, or a confident substitute out of the model's own
-prior, `Utrecht` becoming `Amsterdam`. Told *"By the way, I am allergic to
-aspirin"*, Qwen3.5-4B replies **"You are allergic to penicillin"** and adds a
-parenthesis explaining what penicillin is, which is helpful of it. Neither reads
-as a hallucination.
-
 ### Why this matters outside a toy setup
 
 I chose the dose. In production nobody chooses it, and the same end state arrives
@@ -208,7 +201,8 @@ takeaways**; what they are made of is not.
   keeps the country, `19:40 → 19:45` keeps the hour.
 - When nothing survives, the prior wins, and it is always the same prior: four
   allergens become peanuts, three dog names become Max, and `aspirin` becomes
-  **penicillin**, a different drug class entirely. This is over-reliance on
+  **penicillin**, a different drug class entirely, with a parenthesis explaining
+  what penicillin is, which is helpful of it. This is over-reliance on
   memorised answers, which [9] measures by overwriting the context rather than
   dimming it. It is also the row I would point at if anyone asks why this
   matters.
@@ -317,11 +311,9 @@ causal mask and nothing else in the run changes.
 
 **The four situations, in full.** Figure 5 lays them out. What changes between
 them is the first user turn and nothing else: the question is identical, the
-`Noted.` is identical, and only `faint` carries any bias. The comparison that
-carries the result is `faint` against `swap`, because both leave a readable
-sentence in the slot and only `faint` leaves the one being asked about. In
-`faint` the model can also no longer produce `Grendel`, which is what the dose
-was chosen to do, so that part is the setup rather than the finding.
+`Noted.` is identical, and only `faint` carries any bias. In `faint` the model
+can also no longer produce `Grendel`, which is what the dose was chosen to do, so
+that part is the setup rather than the finding.
 
 ![Figure 7 · one item, all five conversations, verbatim](../fig/fig7_one_item.png)
 
@@ -388,7 +380,8 @@ neighbouring span that carries as much as the value does and names nothing, and 
 did not run it. What the 8 hand-checked disagreements turned up is in
 [`OTHER-RESULTS.md`](OTHER-RESULTS.md).
 
-  **Is any of it just the model?** Every behaviour re-measured with no bias:
+**Second: is any of it just the model?** Every behaviour re-measured with no
+bias:
 
 | behaviour | Qwen3-4B<br>no bias → at the dose | Qwen3.5-4B<br>no bias → at the dose |
 |---|---|---|
