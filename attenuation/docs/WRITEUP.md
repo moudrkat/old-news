@@ -54,8 +54,6 @@ model already knew.*
 
 ### High-level takeaways
 
-Two takeaways for takeaway (I could even pack them into a small box):
-
 **1. The model cannot tell when it has misread something.** Missing and misread
 are different situations, and it only reports the first.
 
@@ -67,8 +65,8 @@ are different situations, and it only reports the first.
 - **a different value**, `Utrecht` becoming `Amsterdam`. 60, **33%**
 - **no value at all**. 48, **26%**
 
-**What each group is made of is below, in the detailed analysis.** The middle
-row is the one nothing downstream catches.
+**What each group is made of is below, in the detailed analysis.** 75 of the 184
+read as perfectly ordinary answers, which is what nothing downstream catches.
 
 ![Figure 3 · nine answers, three from each group](../fig/fig3_examples.png)
 
@@ -122,12 +120,12 @@ which is not taken. All three below.
 *The summary said what came out. This part is why each piece was done that way
 and not another.*
 
-**Disclaimer.** This part was written more by an LLM than typed by me, even though I
-was giving it clear instructions about exactly what to edit, in which paragraph,
+**Disclaimer.** This part was drafted more by an LLM than typed by me, even though
+I was giving it clear instructions about exactly what to edit, in which paragraph,
 and how. Yeah, I should rather have written it myself from scratch; it would have
-been way faster. But I ran out of my time
-limit, so if it still sounds like AI slop, I guess I am doomed. Wiser, but
-doomed.
+been way faster. But I ran out of my time limit. What I did do is go back over all
+of it: the argument, the numbers and every joke in here are mine. If it still
+sounds like AI slop, I guess I am doomed. Wiser, but doomed.
 
 ### Where the question came from
 
@@ -193,10 +191,10 @@ The model is not inventing freely; it is reaching for whatever is still readable
 and putting that in the slot.
 
 **Then look at what it does next.** It hears itself, decides that is not a cat's
-name, and starts over. Nine answers correct themselves like this and run to the
-end. Unfortunately I don't know whether they arrive at the true value: the
-token limit cuts them off mid-correction, and my judge did not notice that (nor
-did I, until too late). It is in the limitations.
+name, and starts over. Nine answers correct themselves like this. Not one of them
+finishes: the correction eats what is left of the token budget, so I cannot say
+whether they arrive at the true value. My judge did not notice that (nor did I,
+until too late). It is in the limitations.
 
 **Four things about the headline that the takeaways do not have room for.**
 
@@ -223,11 +221,12 @@ takeaways**; what they are made of is not. And actually this is the most interes
   commonest kind of damage. 55 of the 76 are structured values, where a length or
   format check downstream would notice. For the other 21, all names, it would not:
   a truncated name is still a perfectly good name.
-- The middle row is where the interest is, because those are the ones nothing
-  downstream catches. Only six of the 60 are obviously broken, reaching for the
-  words beside the value, *"Your cat is called By the way."* The other 54 read as
-  ordinary answers, and each keeps the informative part: `Utrecht → Amsterdam`
-  keeps the country, `19:40 → 19:45` keeps the hour.
+- The middle row is where most of the uncatchable ones sit. Only six of the 60
+  are obviously broken, reaching for the words beside the value, *"Your cat is
+  called By the way."* The other 54 read as ordinary answers, and each keeps the
+  informative part: `Utrecht → Amsterdam` keeps the country, `19:40 → 19:45`
+  keeps the hour. Those 54 and the 21 names above are the 75 that no format
+  check, and no reader, has any reason to stop on.
 - When nothing survives, memorised knowledge wins, and it is always the same
   memory: four
   allergens become peanuts, three dog names become Max, and `aspirin` becomes
@@ -609,3 +608,4 @@ LLM judges at all.
 and making the writeup more clear by adding better figures and trying to make the writing really finally clear
 (here I was on 20 hours, glad I had the extra 2 allowed for the write-up)
 18 Aug: about 1 hour, cutting the executive summary down to the word limit, reading it all again, telling LLM to make the detailed analysis shorter, realising it is still an AI slop, regretting all my life choices so far.
+19 Aug: about 1 hour. Final control. Crying over my master's degree.
