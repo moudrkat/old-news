@@ -438,10 +438,10 @@ items, same doses. Counting only the items where the value is genuinely gone:
 
 | | claims it was told |
 |---|---|
-| ordinary system prompt | 70 of 97 · 75 of 86 |
+| ordinary system prompt | 70 of 97 · 75 of 85 |
 | **permission to say "I don't know"** | **62 of 87 · 58 of 64** |
 
-72% against 71% on one model, 87% against 91% on the other. The permission is not
+72% against 71% on one model, 88% against 91% on the other. The permission is not
 taken. A judge read all 366 replies and disagreed with the code on **none** of the
 yes/no answers and 3 of the value calls. It does limit one thing, though not the
 claim: the same sentence brings the true value back on some items at the same
