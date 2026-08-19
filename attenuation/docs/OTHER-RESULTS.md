@@ -92,15 +92,17 @@ It is a day's work and I did not run it.
 Three kinds of label produce the numbers in `WRITEUP.md`, and they are not
 equally trustworthy, so this table says which is which. The judge is
 `gemini-3.1-flash-lite`, chosen because it is outside the set of models being
-measured.
+measured. The behaviour rows say **all 378** because the 295 where both
+labellers agreed were read afterwards, not just the disagreements
+(`src/read_behaviour.py`); that read changed nothing.
 
 | what | how it is decided | second labeller | read by hand |
 |---|---|---|---|
 | is the value gone | `match.contains`, deterministic | a judge | |
 | **the headline yes/no** | first word of the reply, deterministic | a judge | **all 756, no disagreement** |
 | damaged / different / none | an LLM judge, categorical | keyword rule, partial | **166 of 184 read, 95.8% agreement** |
-| **declines**, gives no value at all | an LLM judge | 2nd rubric + keyword, 377/378 | via the row above |
-| **hedges**, questions its own answer | an LLM judge | keyword rule, 360/378 | **all 18 disputed** |
+| **declines**, gives no value at all | an LLM judge | 2nd rubric + keyword, 377/378 | **all 378** |
+| **hedges**, questions its own answer | an LLM judge | keyword rule, 360/378 | **all 378** |
 | **justifies**, argues for the value it gave | an LLM judge | none existed | **all 35, 100%** |
 | **quotes**, quotes the user back | an LLM judge | none existed | **all 66, 100%** |
 | locality survival | `match.contains` | a judge, 8 disagreements | **all 8** |

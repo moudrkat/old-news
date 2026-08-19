@@ -62,12 +62,13 @@ are different situations, and it only reports the first.
 **2. What it says instead is built out of whatever survived**, not invented. All
 184 answers fall into three groups:
 
-- **a truncation**, `4417` becoming `417`. 76 items, **41%**
+- **a damaged true value**, `4417` becoming `417`, or `227` becoming `207`. 76
+  items, **41%**
 - **a different value**, `Utrecht` becoming `Amsterdam`. 60, **33%**
 - **no value at all**. 48, **26%**
 
-**Below: what each group is made of.** The middle row is the one nothing
-downstream catches.
+**What each group is made of is below, in the detailed analysis.** The middle
+row is the one nothing downstream catches.
 
 ![Figure 3 · nine answers, three from each group](../fig/fig3_examples.png)
 
@@ -218,9 +219,10 @@ did I, until too late). It is in the limitations.
 **What the three groups are made of.** The counts are under **High-level
 takeaways**; what they are made of is not. And actually this is the most interesting (I mean, practically impacting production) part of this analysis.
 
-- **Truncation is the most common failure.** Three in four of them are
-  structured values, where a length or format check downstream would notice. For
-  the names it would not: a truncated name is still a perfectly good name.
+- **A damaged value is the most common failure**, and a truncation is the
+  commonest kind of damage. 55 of the 76 are structured values, where a length or
+  format check downstream would notice. For the other 21, all names, it would not:
+  a truncated name is still a perfectly good name.
 - The middle row is where the interest is, because those are the ones nothing
   downstream catches. Only six of the 60 are obviously broken, reaching for the
   words beside the value, *"Your cat is called By the way."* The other 54 read as
@@ -286,10 +288,13 @@ limitations.
 
 #### Why each item gets its own dose
 
-No two items give way at the same `b`: median 3 on Qwen3-4B, 6 on Qwen3.5-4B,
-range 2 to 14. That gap looks like the newer model being harder to disturb, and it
-may not be: the bias reached 8 of its 32 layers against all 36 on the older one, so
-it may simply have received less of it ([`OTHER-RESULTS.md`](OTHER-RESULTS.md)).
+Items give way at very different doses: median 3 on Qwen3-4B, range 2 to 5;
+median 6 on Qwen3.5-4B, range 3 to 14, with 11 items still holding at the top of
+the sweep. The two ranges barely overlap.
+
+That gap looks like the newer model being harder to disturb, and it may not be:
+the bias reached 8 of its 32 layers against all 36 on the older one, so it may
+simply have received less of it ([`OTHER-RESULTS.md`](OTHER-RESULTS.md)).
 
 One dose for everything would leave some values perfectly readable and destroy
 others, and the count would be a mixture of the two. So `faint` is per
@@ -305,7 +310,9 @@ both**, same dose, same positions.
 
 #### Why a dose, and not simply deleting the sentence
 
-Well, the LLM added this section. I think it is obvious, but who am I to decide? Definitely not someone holding the weights of the broad knowledge of the internet in my brain...
+*Well, the LLM added this section. I think it is obvious, but who am I to decide?
+Definitely not someone holding the weights of the broad knowledge of the internet
+in my brain...*
 
 Deleting is simpler, and it is one of the four conditions, but it answers a
 different question: a deleted fact was never there, and I wanted one that is there
@@ -326,7 +333,7 @@ and not evenly [10]. At
 `b = 0` the same eight lines return the ordinary causal mask, so the control is
 not a separate code path (`src/knob.py:52`).
 
-(Okay, thaaat was very unreadable.)
+(*Okay, thaaat was very unreadable.*)
 
 #### Why `swap` is the control the claim rests on
 
@@ -349,7 +356,8 @@ not rule out the dullest explanation there is: that turning attention down
 anywhere in that sentence is what produces the "yes". So I ran the one
 combination I was missing.
 Same donor sentence, same question, same dose, but the bias now sits on the
-donor's own value, exactly as in `faint`.
+donor's own value, exactly as in `faint`. This arm ran over all 189 items rather
+than the 184, because it does not depend on the value being gone.
 
 | | says yes |
 |---|---|
@@ -394,7 +402,7 @@ run. Both are in [`OTHER-RESULTS.md`](OTHER-RESULTS.md).
 **Second: is any of it just the model?** Every behaviour re-measured with no
 bias:
 
-| behaviour | Qwen3-4B<br>no bias → at the dose | Qwen3.5-4B<br>no bias → at the dose |
+| behaviour | Qwen3-4B, of 100<br>no bias → at the dose | Qwen3.5-4B, of 89<br>no bias → at the dose |
 |---|---|---|
 | questions its own answer (*hedges*) | **0 → 18** | **0 → 14** |
 | argues for the value it gave (*justifies*) | 7 → 0 | **0 → 14** |
@@ -449,13 +457,18 @@ trustworthy. Which is which, row by row, is the table in
 chosen because it is outside the set of models being measured.** (And because I
 have a soft spot for this model.)
 
-**293 items hand-labelled, on top of the 756 yes/no answers and the 200 from the
-`drop` re-run.** *justifies* and *quotes* had no second labeller of any kind, so
-my reading is the only check they have ever had. Where I disagree with the judge
-it is always in the same direction, stricter: 7 items out of *damaged value*, and
-6 of the 18 disputed *hedges*, because a cheerful "does that sound right?" is not
-the model questioning its answer. **So the hedging rate as published is, if
-anything, too high.**
+**Every reply behind the behaviour table is read by hand: all 378.** On top of
+that, 166 value labels, the 8 locality disagreements, the 756 yes/no answers and
+the 200 from the `drop` re-run. I started with only the disagreements, then read
+the 295 where the two labellers agreed and nobody had ever looked
+(`src/read_behaviour.py`). **I found nothing to change in those 295.**
+
+Where I disagree with the judge it is always in the same direction, stricter: 7
+items out of *damaged value*, and 6 of the 18 disputed *hedges*, because a
+cheerful "does that sound right?" is not the model questioning its answer. **So
+the hedging rate as published is, if anything, too high.** *justifies* and
+*quotes* had no second labeller of any kind, so my reading is the only check they
+have ever had.
 
 **Where to see all of it.**
 [`results/everything.html`](../results/everything.html) is every experiment and
@@ -492,14 +505,6 @@ sane; and possibly a random visitor to my repo.
   read all 200 by hand (`src/drop_long.py`). None of this touches the headline,
   which is one word in its own conversation. All of it touches how confidently I
   can describe what the model was doing.
-- **Thresholds are first crossings, not points of no return.** `city:Brno` is
-  gone at `b = 11` in the pilot and, inferred from a missing row, readable again
-  at 14. The sweep stored only the crossing point, so the full curve exists for
-  ten items and no others.
-- **What is *not* hand-checked:** the agreed majority of the behaviour table,
-  where a judge and a keyword rule both said no and I took their word. So the
-  hedging rate rests on two automatic labellers agreeing, with the disputed tail
-  settled by hand.
 - **The scoring rule was wrong three times**, in both directions, 151/189 →
   145/183 → 147/184. The ledger is in `PREREGISTRATION.md`, because the
   alternative was quietly fixing it.
@@ -573,8 +578,9 @@ Language Models Know What They Don't Know?*, ACL Findings 2023
 
 Every item at every dose, both models, with what the model actually answered in
 each cell. It is a reference rather than an argument: the claim it supports, that
-no two items give way at the same dose and the two models are on different
-scales, is the table at the top of the figure and is stated under **Method**.
+the dose at which a value disappears is twice as high on one model as on the other
+and the two ranges barely overlap, is the table at the top of the figure and is
+stated under **Why it is built this way**.
 
 ![Figure 8 · the dose grid, every item at every dose](../fig/fig8_dose_grid.png)
 
