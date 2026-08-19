@@ -3,7 +3,7 @@
 ### → [The write-up](docs/WRITEUP.md)
 
 Everything is in there: the claim, the method, every control, the limitations and
-what I would do next. Same text as [the Google Doc](https://docs.google.com/document/d/11Gr3ok2nMYT_I52vrlT1J1jf-BIZWasKrkuKyELek-c/edit) sent with the
+what I would do next. Same text as [the Google Doc](https://docs.google.com/document/d/11Gr3ok2nMYT_I52vrlT1J1jf-BIZWasKrkuKyELek-c/view) sent with the
 application.
 
 **A model is told a fact. The fact's own tokens are made hard to read, while the
