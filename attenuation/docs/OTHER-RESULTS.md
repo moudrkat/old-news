@@ -77,6 +77,16 @@ run it. I hand-checked all 8 items where the two labellers split and sided with
 the deterministic rule on 7, so the numbers above are `contains()` and not the
 judge's lower count.
 
+## Why "the newer model needs twice the dose" is not a claim
+
+Qwen3.5-4B gives way at a median `b` of 6, Qwen3-4B at 3, so on the face of it the
+newer model holds a fact under twice the pressure. It cannot be read that way. The
+bias reached 8 of Qwen3.5-4B's 32 layers and all 36 of Qwen3-4B's, so the two
+models were not given the same manipulation, and "more robust model" cannot be
+separated from "less of the bias arrived". The comparison that would settle it is
+the older model biased on 8 layers only, matched to what the newer one received.
+It is a day's work and I did not run it.
+
 ## How every label above was produced
 
 Three kinds of label produce the numbers in `WRITEUP.md`, and they are not

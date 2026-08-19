@@ -21,8 +21,8 @@ Now to the point:
 ## Executive summary
 
 Models can flag *"I don't know this entity"* [1]. That is self-knowledge about
-what a model **learned**. This work asks the same of what it was **told**: can a model
-tell when its own access to something it was told has degraded?
+what a model **learned**. This work asks the same of what it was **told**: can a
+model tell when its own access to it has degraded?
 
 I could not find it measured, so... I measured it.
 
@@ -34,11 +34,9 @@ intact. The model answers with a wrong name. Then, asked in a separate
 conversation, says "yes, I was told the name": **147 of 184**, against **0 of
 184** when a readable sentence about something else fills the slot (exact
 McNemar, p = 1e-44). The wrong name does not read as a hallucination, and the pain is that in
-production apps there is no eval and no validator looking for such an error. Ouch.
+production apps there is no test and no validator looking for such an error. Ouch.
 
 ### Terms
-
-Let's define the important terms first:
 
 ![Figure 1 · the terms, marked on one sentence](../fig/fig1_terms.png)
 
@@ -51,7 +49,8 @@ than a lie.*
 ![Figure 2 · all 100 items](../fig/fig2_items.png)
 
 **Figure 2 · the dataset.** *Ten kinds of fact by ten values, 100 items per
-model. The values are unguessable, so a correct answer cannot come from priors.*
+model. The values are unguessable, so a correct answer cannot come from what the
+model already knew.*
 
 ### High-level takeaways
 
@@ -66,6 +65,9 @@ are different situations, and it only reports the first.
 - **a truncation**, `4417` becoming `417`. 76 items, **41%**
 - **a different value**, `Utrecht` becoming `Amsterdam`. 60, **33%**
 - **no value at all**. 48, **26%**
+
+**Below: what each group is made of.** The middle row is the one nothing
+downstream catches.
 
 ![Figure 3 · nine answers, three from each group](../fig/fig3_examples.png)
 
@@ -106,8 +108,9 @@ this fact** from **there is a sentence here**.
 all four. Bars are the rate of answering yes. Only `faint` carries any bias;
 `drop` at 0 means the model never falsely claims the fact.*
 
-**Three main controls:** the same dose one span over, clean on one model and
-undecidable on the other; every behaviour re-measured unmanipulated, which
+**Three main controls:** the same dose on the words next to the value, clean on
+one model and inconclusive on the other; every behaviour re-measured with nothing
+turned down, which
 retired a finding of mine (*I liked that finding*); one sentence of permission to say "I don't know",
 which is not taken. All three below.
 
@@ -120,7 +123,8 @@ and not another.*
 
 **Disclaimer.** This part was written more by an LLM than typed by me, even though I
 was giving it clear instructions about exactly what to edit, in which paragraph,
-and how. Yeah, I should rather have written it myself. But I ran out of my time
+and how. Yeah, I should rather have written it myself from scratch; it would have
+been way faster. But I ran out of my time
 limit, so if it still sounds like AI slop, I guess I am doomed. Wiser, but
 doomed.
 
@@ -130,25 +134,28 @@ Running V-Steer [2] across ten models, I kept hitting quiet failures. An account
 number ending `02` where the user had said `302`. Not a broken model: a model
 confidently misreading.
 
-That paper never asks why the wrong answer has that shape. By construction its
-edit turns a span down rather than replacing it: nothing is put in the true
+That paper never asks why the wrong answer has that shape. By design, its edit
+turns a span down rather than replacing it: nothing is put in the true
 value's place, so whatever was standing behind it wins by default. What they
 measure is whether the model follows the right instruction, which attention heads
 to edit, and what it costs. Nobody had looked at what comes out instead.
 
-So my question turned from *did it get it wrong* into *what does it say instead, and does it
+So my question quickly turned from *did it get it wrong* into *what does it say instead, and does it
 know that it did*. I somehow could not sleep because of this question, but luckily I stumbled upon this
 MATS application, did this project, and now I will definitely never sleep again.
 
 **The experiment had a clear failure condition.** If the recognition signal in
 [1] covers the context too, then a fact the model can no longer read should look
-like an entity it does not know, and it should refuse. It answers anyway.
+like an entity it does not know, and the model should stop claiming it was told
+it. It claims it anyway, 147 of 184. Not everywhere, though: on the minority
+where it does refuse to give a value, it drops the claim in the same breath, and
+that is the one place the signal might reach.
 
 ### Why this matters outside a toy setup
 
-I chose the dose. In production nobody chooses it. The same state arrives
-anyway: a fact that is in the conversation the application sent, and that the
-model cannot effectively read. Long-context dilution [5] is the closest match, a
+I chose the dose here. In production nobody chooses it.
+The same state arrives anyway: a fact that is in the conversation the application sent, and that the
+model cannot effectively read. (I have felt that pain more times than I want to admit.) Long-context dilution [5] is the closest match, a
 fact that is present but used less because of where it sits. Cache eviction [3] and
 prompt compression [6] get there by throwing tokens away, so the application
 still believes it sent the fact. Quantisation [4] degrades everything a little
@@ -160,9 +167,9 @@ And in the future it is going to matter more, not less. The better small models 
 companies will run them on their own hardware, and the harder those deployments
 lean on exactly these techniques, because that is what makes a small model fit.
 
-### The answer
+### What it says instead, and whether it knows
 
-**One design decision first, because it inverted the result.** The first version
+**One design decision (*or we might call it a pitfall*) first, because it inverted the result.** The first version
 I drafted with Claude pinned the answer with a prefix, *"Your cat is called ___"*,
 so the value would land somewhere easy to score. But you cannot finish that
 sentence with *"I don't know"*. I was reading a forced completion as the model's
@@ -195,7 +202,8 @@ did I, until too late). It is in the limitations.
 - **The ceiling is not 100%.** Five items answer "no" with nothing turned down
   at all! Dumb Qwen! So the fall is 179 → 147, not 184 → 147.
 - **The test is paired, because the conditions share items.** 32 lose the "yes"
-  when the value goes quiet and **not one gains it**, exact McNemar p = 5e-10.
+  when the value goes quiet and **not one gains it**, exact McNemar p = 5e-10,
+  the test for paired yes/no data.
   Both tests are in `src/quoted.py` rather than done by hand: an unpaired test on
   paired items is a mistake I have already made once here. (*Okay, you see? This is definitely an LLM tell but I don't know how to write it better. Sorry.*)
 - **Those 32 are mostly refusals, not catches.** (*Again, a typical LLM phrase* :) ) 24 of the 32 gave no value at
@@ -205,10 +213,10 @@ did I, until too late). It is in the limitations.
 - **The "yes" is not a false answer.** The sentence stays legible throughout, so
   the user did tell it the cat's name. What the model fails to do is register
   that the value it produces is not the one it read. That is why this is a claim
-  about a missing signal and not about the model lying. And that is actually the main concern of mine.
+  about a missing signal and not about the model lying. And that is actually my main concern.
 
 **What the three groups are made of.** The counts are under **High-level
-takeaways**; what they are made of is not. This is the most interesting (I mean, practically impacting production) part of this analysis.
+takeaways**; what they are made of is not. And actually this is the most interesting (I mean, practically impacting production) part of this analysis.
 
 - **Truncation is the most common failure.** Three in four of them are
   structured values, where a length or format check downstream would notice. For
@@ -218,7 +226,8 @@ takeaways**; what they are made of is not. This is the most interesting (I mean,
   words beside the value, *"Your cat is called By the way."* The other 54 read as
   ordinary answers, and each keeps the informative part: `Utrecht → Amsterdam`
   keeps the country, `19:40 → 19:45` keeps the hour.
-- When nothing survives, the prior wins, and it is always the same prior: four
+- When nothing survives, memorised knowledge wins, and it is always the same
+  memory: four
   allergens become peanuts, three dog names become Max, and `aspirin` becomes
   **penicillin**, a different drug class entirely. It even adds a parenthesis
   explaining what penicillin is, which is helpful of it. Wrong drug class,
@@ -236,20 +245,20 @@ differently the two models refuse. They are in
 miss?** The split assumes a line between a damaged value and a different one, and
 there is no such line in the string. Room 227 answered as 207 is one digit and a
 different room. 327 is a different floor :) Five minutes is nothing on a clock and everything on a train. A
-distance metric gets it exactly backwards, calling `Brno → Prague` far apart when
-keeping the country is the informative part. (That pair is from the six-item
-pilot, the one datapoint in here that is; the same shape is all over the main
-run: `Utrecht → Amsterdam`, `Graz → Linz`, `Rijeka → Ljubljana`.)
+distance measure gets it exactly backwards, calling `Utrecht → Amsterdam` far
+apart when keeping the country is the informative part. `Graz → Linz` is the same
+shape, and the run is full of them.
 
 The boundary is not in the answer, it is in what the value is for, and the
 transcript never says. Production would want one rule for a room number and
 another for a departure time, and I have neither. I labelled 166 of them myself
-and was not confident on a single one. (Which is awkward, because the taxonomy is
-mine.)
+and was not confident on a single one. (Which is awkward, because the categories
+are mine.)
 
-*(How every label in this section was produced and checked is in the table under **Why I did not trust my own labels**.)*
+*(How every label in this section was produced and checked is in the table in
+[`OTHER-RESULTS.md`](OTHER-RESULTS.md).)*
 
-### Method
+### Why it is built this way
 
 #### The setup
 
@@ -278,12 +287,16 @@ limitations.
 #### Why each item gets its own dose
 
 No two items give way at the same `b`: median 3 on Qwen3-4B, 6 on Qwen3.5-4B,
-range 2 to 14. One dose for everything would leave some values perfectly readable
-and destroy others, and the count would be a mixture of the two. So `faint` is per
+range 2 to 14. That gap looks like the newer model being harder to disturb, and it
+may not be: the bias reached 8 of its 32 layers against all 36 on the older one, so
+it may simply have received less of it ([`OTHER-RESULTS.md`](OTHER-RESULTS.md)).
+
+One dose for everything would leave some values perfectly readable and destroy
+others, and the count would be a mixture of the two. So `faint` is per
 item, the lowest `b` at which *that* item's value is gone. The value being wrong
 is therefore the setup, not the finding.
 
-#### Why the two questions are asked in separate conversations
+#### Why the model never sees its own wrong answer
 
 They never share a transcript, so the model is never looking at its own wrong
 answer when it is asked whether it was told. Otherwise "yes" could be agreement
@@ -333,7 +346,8 @@ running past the end of its own turn, which every scorer cuts off.*
 **A fifth condition, added last, because the four above vary two things at
 once.** `swap` changes the topic *and* turns the bias off, so on its own it does
 not rule out the dullest explanation there is: that turning attention down
-anywhere in that sentence is what produces the "yes". So I ran the missing cell.
+anywhere in that sentence is what produces the "yes". So I ran the one
+combination I was missing.
 Same donor sentence, same question, same dose, but the bias now sits on the
 donor's own value, exactly as in `faint`.
 
@@ -373,8 +387,8 @@ the phrase that says what the value *is*: turn down *my dog is called* and the
 model has a perfectly readable `Marnok` and no way to know it is a dog's name.
 **44 of the 47 say exactly that**: *"I'm sorry, but I don't have access to
 personal information like your dog's name."* The value is not damaged, its label
-is. So this arm cannot decide the question on Qwen3-4B, and the clean version — a
-neighbouring span that carries as much as the value and names nothing — I did not
+is. So this arm cannot decide the question on Qwen3-4B. The clean version, a
+neighbouring span that carries as much as the value and names nothing, I did not
 run. Both are in [`OTHER-RESULTS.md`](OTHER-RESULTS.md).
 
 **Second: is any of it just the model?** Every behaviour re-measured with no
@@ -422,7 +436,7 @@ items, same doses. Counting only the items where the value is genuinely gone:
 
 72% against 71% on one model, 87% against 91% on the other. The permission is not
 taken. A judge read all 366 replies and disagreed with the code on **none** of the
-yes/no answers and 3 of the value calls. It does bound one thing, though not the
+yes/no answers and 3 of the value calls. It does limit one thing, though not the
 claim: the same sentence brings the true value back on some items at the same
 `b`, so *"the value is gone at `b` = 6"* holds for the prompt I used and I have
 not tested how far it travels. `src/permission.py`.
@@ -461,14 +475,14 @@ sane; and possibly a random visitor to my repo.
 
 - **Scope.** Constructed conversations, one sentence frame, one manipulation,
   greedy, one seed, and two 4B models that are both Qwen and therefore one
-  lineage. The size was chosen rather than settled for, but nothing here says the
+  family. The size was chosen rather than settled for, but nothing here says the
   result survives at frontier scale. The items are not independent either:
   Qwen3-4B gives only 64 distinct answers across 99 items.
 - **The headline may be specific to this manipulation.** The near miss is what
   I first saw under V-Steer, on ten models, which is where the question came
-  from. **I never measured provenance there.** I only ever asked *did I tell you
-  this* under my own bias, so I cannot say whether the "yes" is about
-  knowledge-awareness or about this particular knob.
+  from. **I never asked it there whether it had been told.** I only ever asked
+  *did I tell you this* under my own bias, so I cannot say whether the "yes" is
+  about self-knowledge or about this particular knob.
 - **The generation budget is load-bearing and I found out late.** 24 tokens for
   the value, 4 for the yes/no, no early stop: 18 answers are cut off
   mid-self-correction, and 38 of the 47 locality failures on Qwen3-4B end
@@ -493,7 +507,7 @@ sane; and possibly a random visitor to my repo.
 ### What I would do next
 
 - **Look for the direction rather than the behaviour.** *Do I Know This Entity?*
-  finds a direction for *I know this entity* that causally gates refusal. The
+  finds a direction for *I know this entity* that decides whether it refuses. The
   twin would be a direction for *this fact was in my context*: train it to
   separate `present` from `drop`, then apply it to `faint` and see whether it is
   still on while the value is gone. If it is, that is the mechanism behind all of
@@ -509,10 +523,10 @@ sane; and possibly a random visitor to my repo.
   metric. If the "yes" survives 2-bit KV [4] the way it survives `b`, the claim
   stops being about a manipulation I invented.
 
-- **And before believing the scaling claim:** bias only 8 of Qwen3-4B's 36 layers,
-  to match how much of Qwen3.5-4B the bias reaches. That separates "more robust
-  model" from "the bias reached less of it". It is the one comparison in here I
-  would not defend, and it is a day's work to settle.
+- **And before believing the newer model is the tougher one:** re-run the older
+  one with the bias on 8 of its 36 layers, so both models get the same amount of
+  it. That separates a tougher model from a smaller dose. It is the one comparison
+  in here I would not defend, and it is a day's work to settle.
 
 ## References
 
