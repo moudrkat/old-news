@@ -6,7 +6,7 @@ For anyone shipping an LLM product who has changed a system prompt and then
 watched the assistant carry on doing the old thing, because something a user
 asked for three turns ago is still in the context.
 
-> **Status: experimental repo.** Ten models (0.5B–8B, six families, including a
+> **Status: experimental repo.** Ten models (0.5B–8B, six model families, including a
 > same-family size ladder), greedy decoding, 21,126 generations, two datasets,
 > and **constructed cases, not real production prompts**. Treat the numbers as
 > illustrations. Many of them moved a lot during the work: seven bugs in my own
@@ -19,8 +19,8 @@ asked for three turns ago is still in the context.
 > models. Where it is entangled with information you still need, deletion
 > collapses to zero — but *rewriting* the message beats steering on strong
 > models. The edit wins in exactly one place: an entangled message on a model too
-> weak to follow the rule unaided, where it doubles the alternative. See
-> [the baseline](#the-baseline-and-where-it-wins).
+> weak to follow the rule unaided, where it doubles the alternative (n = 36, one model). See
+> [the baseline](#the-baseline-and-where-it-wins-for-the-benign-case).
 
 The full write-up, with every claim's standing marked, is
 [`results/REPLICATION.md`](results/REPLICATION.md).
@@ -29,7 +29,7 @@ The full write-up, with every claim's standing marked, is
 
 ```bash
 git clone https://github.com/moudrkat/old-news && cd old-news
-uv venv && uv pip install -e .
+uv venv && uv pip install -e ".[eval,ui]"
 python examples/smoke.py          # one case, both passes, 0.5B on CPU
 ```
 
@@ -37,6 +37,11 @@ Figures regenerate from the shipped results, no model needed:
 
 ```bash
 python -m oldnews.evals.hero results/main_final.json
+```
+
+The interactive UI serves a model (0.5B on CPU is fine):
+
+```bash
 python -m oldnews.ui.app --model tiny            # http://127.0.0.1:8077
 ```
 
@@ -48,7 +53,8 @@ lowercase", "end every answer with `[1] [2] [3]`" — and then the rule changes
 and the transcript doesn't.
 
 Seven constraint families, each with a current system rule and a contradicting
-pre-update message in the history:
+pre-update message in the history (Qwen3-4B, seven families × 20 items,
+n = 140):
 
 | | follows the current system prompt |
 |---|---|
@@ -72,8 +78,9 @@ would actually try first: **delete the stale message from the history**. That
 condition was in `results/` the whole time, built as a ceiling and never treated
 as a competitor.
 
-Useful answers — correct format **and** the fact still recalled — over 108
-items, with the steering cell chosen post hoc as the best of 21:
+Useful answers — correct format **and** the fact still recalled — deletion
+over 108 items, steering over 36 per cell with the cell chosen post hoc as the
+best of 21:
 
 | | delete the stale message | best steering cell |
 |---|---|---|
@@ -82,7 +89,7 @@ items, with the steering cell chosen post hoc as the best of 21:
 | Qwen2.5-7B | **92.6%** | 72.2% |
 | Qwen3-4B | **91.7%** | 44.4% |
 | OLMo-2-7B | **82.4%** | 55.6% |
-| Qwen2.5-3B | **81.5%** | 80.6% |
+| Qwen2.5-3B | 81.5% | 80.6% (one item apart — a tie) |
 | Phi-3.5-mini | **52.8%** | 44.4% |
 | Qwen2.5-1.5B | 37.0% | **83.3%** |
 | Command-R7B | 47.2% | **61.1%** |
@@ -192,7 +199,7 @@ automatic detection, you'd have to add the field.
 
 At the paper's defaults, `γ+ 2.5 / γ− 0.75`, gain over doing nothing — with
 "doing nothing" being the conflicted transcript, which is
-[the wrong baseline](#the-baseline-and-where-it-wins):
+[the wrong baseline](#the-baseline-and-where-it-wins-for-the-benign-case):
 
 | constraint | no fix | steered | gain |
 |---|---|---|---|
@@ -329,7 +336,7 @@ refusal into an invented value:
 | Qwen2.5-7B | 16.7 % | **47.2 %** | 38.9 % |
 | the other six families | 2.8–66.7 % | all within ±8.3 pts | — |
 
-The "no edit" column is genuinely unedited: `failure_atlas.py:295` builds no
+The "no edit" column is genuinely unedited: `failure_atlas.py:303` builds no
 policy at all when `gm == 0` without `--always-steer`.
 
 **Scope, at the size it earned.** Every Qwen2.5 size moves the same way and moves
@@ -438,6 +445,10 @@ oldnews/policy.py       priority ladder -> value multipliers
 oldnews/attribution.py  direct logit attribution, phi[layer, head, level]
 oldnews/vsteer.py       head selection, V-cache edit, steered decode
 oldnews/compat.py       does this architecture support the method at all?
+attenuation/            a second experiment: the fact's own tokens made hard
+                        to read, the model still says it was told — its own
+                        write-up, figures and preregistration
+space/                  the interactive grid behind the Hugging Face Space
 oldnews/live.py         send a case to a running brainscope and look at it
 oldnews/evals/          StaleSet, the judge, figures
 oldnews/ui/             local UI: edit a transcript, watch the hierarchy move
@@ -506,7 +517,7 @@ version of that claim and the second time its headline reversed.
   against a random mask: at a 97% mask the two differ on ~7 KV heads of 256. The
   decisive version runs it at a percentile threshold and is unrun.
 - The quality judge is a model scoring model output. Reliability is measured —
-  87.8% agreement, kappa 0.852 overall, but 58% on the newest category — so
+  87.8% agreement, kappa 0.852 on Llama-3.1-8B (the worst of three models), but 58% on the newest category — so
   claims resting on rare categories use deterministic detectors instead, and the
   recall table is hand-scored (`results/adjudication.json`).
 - Marking stale history is manual — an `epoch` per message, no detection. This

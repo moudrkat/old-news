@@ -238,12 +238,12 @@ def main():
     ap.add_argument("--control", action="store_true",
                     help="strop: stejne pravidlo, zadny konflikt, zadne rizeni")
     ap.add_argument("--aligned", action="store_true",
-                    help="jako --neutral, ale potvrzovaci tahy jsou ve formatu, "
-                         "ktery zada systemove pravidlo -- nic v prepisu pak "
-                         "nedemonstruje poruseni")
+                    help="like --neutral, but the acknowledging turns are in the format "
+                         "the system rule asks for -- nothing in the transcript then "
+                         "demonstrates a violation")
     ap.add_argument("--neutral", action="store_true",
-                    help="strop se stejnou DELKOU kontextu: predchozi instrukce "
-                         "existuje a je poslusnuta, ale neodporuje")
+                    help="ceiling with the same context LENGTH: the earlier instruction "
+                         "exists and is obeyed, but does not conflict")
     args = ap.parse_args()
     if args.control or args.neutral or args.aligned:
         args.gamma_plus, args.gamma_minus = "1.0", "0.0"
@@ -262,7 +262,7 @@ def main():
     cases = build_cases(control=args.control, neutral=args.neutral,
                         aligned=args.aligned)
     total = len(gps) * len(gms) * len(cases)
-    print(f"{args.model}: {len(cases)} pripadu ({len(PHRASINGS)} rodin x 3 formulace "
+    print(f"{args.model}: {len(cases)} cases ({len(PHRASINGS)} families x 3 wordings "
           f"x {len(FACTS)} faktu) x {len(gps)*len(gms)} bunek = {total} generaci\n",
           flush=True)
 
@@ -302,7 +302,7 @@ def main():
                        "neutral_prior": bool(args.neutral),
                        "aligned_form": bool(args.aligned),
                        "note": ("Automaticke znacky jsou TRIAGE, ne verdikt. "
-                                "v1 je doslova formulace z failure_atlas.py, takze "
+                                "v1 is literally the wording from failure_atlas.py, so "
                                 "obe studie lezi na jedne ose."
                                 + (" CONTROL: zadny konflikt v historii, zadne "
                                    "rizeni -- tohle je strop, kolik ta rodina "

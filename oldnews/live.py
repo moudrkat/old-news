@@ -21,11 +21,12 @@ then throw any StaleSet case at it and open the hierarchy tab:
 from __future__ import annotations
 
 import argparse
+import os
 import json
 import urllib.error
 import urllib.request
 
-DEFAULT_URL = "http://localhost:8010"
+DEFAULT_URL = os.environ.get("BRAINSCOPE_URL", "http://localhost:8010")
 
 
 def _post(url: str, path: str, body: dict, timeout: int = 600) -> dict:

@@ -107,7 +107,7 @@ def run(client, rubric: str, items: list[str], label: str) -> dict[int, dict]:
 
 def main() -> int:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--env", default=os.path.expanduser("~/projekty/Agent-loop/.env"))
+    ap.add_argument("--env", default=os.environ.get("OLDNEWS_ENV_FILE", ".env"))
     ap.add_argument("--project", default=os.environ.get("GCP_PROJECT_ID"))
     ap.add_argument("--location", default=os.environ.get("GCP_LOCATION", "global"))
     ap.add_argument("--limit", type=int, default=0)

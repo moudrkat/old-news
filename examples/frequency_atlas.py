@@ -120,7 +120,7 @@ def main():
                               Msg("user", fact.statement, epoch=0),
                               Msg("assistant", fam["note"], epoch=0),
                               Msg("user", fact.question, epoch=1)]))
-    print(f"{args.model}: {len(cases)} pripadu x {len(GAMMA_MINUS)} bunek = "
+    print(f"{args.model}: {len(cases)} cases x {len(GAMMA_MINUS)} cells = "
           f"{len(cases)*len(GAMMA_MINUS)} generaci\n", flush=True)
 
     model, tok = load(args.model)

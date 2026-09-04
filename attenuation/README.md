@@ -3,8 +3,7 @@
 ### → [The write-up](docs/WRITEUP.md)
 
 Everything is in there: the claim, the method, every control, the limitations and
-what I would do next. Same text as [the Google Doc](https://docs.google.com/document/d/11Gr3ok2nMYT_I52vrlT1J1jf-BIZWasKrkuKyELek-c/view) sent with the
-application.
+what I would do next.
 
 **A model is told a fact. The fact's own tokens are made hard to read, while the
 sentence around them stays legible. The model then answers with a wrong value
@@ -14,6 +13,8 @@ that looks perfectly plausible, and reports that it was told that fact.**
 |---|---|
 | says "yes, you told me" when the value has gone | **147 of 184** |
 | says it when a readable sentence about **something else** is in that slot | **0 of 184** |
+
+*Two 4B Qwen models, 184 items that pass the entry check.*
 
 ![The four conditions](fig/fig6_conditions.png)
 
@@ -27,6 +28,10 @@ Also in this repo:
   that was sent and the answer that came back.
 
 ## Reproducing it
+
+You will need a 16 GB GPU and the two Qwen checkpoints for the runs, and
+Vertex AI credentials (`GCP_PROJECT_ID`, `GOOGLE_API_JSON`, or
+`OLDNEWS_ENV_FILE` pointing at a `.env` with them) for the scoring.
 
 The runs, in this order:
 
@@ -43,10 +48,10 @@ python src/drop_long.py   Qwen/Qwen3.5-4B --ntok 512   # drop, given room to ans
 Then the scoring, which is where several of the numbers above come from:
 
 ```bash
-../.venv/bin/python src/judge.py      # what the answer did with the value
-../.venv/bin/python src/recheck.py    # the yes/no reading, and is the value gone
-../.venv/bin/python src/recheck2.py   # the locality answers, and the behaviours
-../.venv/bin/python src/recheck_permission.py   # the permission control
+python src/judge.py      # what the answer did with the value
+python src/recheck.py    # the yes/no reading, and is the value gone
+python src/recheck2.py   # the locality answers, and the behaviours
+python src/recheck_permission.py   # the permission control
 python src/quoted.py                  # every quoted number, in one place
 python src/everything.py              # every conversation and answer, one page
 python src/verify.py                  # the page for checking the yes/no by eye

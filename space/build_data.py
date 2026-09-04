@@ -90,7 +90,7 @@ FACT_TO_Q = {
 
 
 def whynear(key):
-    """Prefer the full grid if the aorus sweep has produced it.
+    """Prefer the full grid if the GPU sweep has produced it.
 
     whynear_grid_* carries gamma_plus per row and covers every notch;
     whynear_all_* is the original three-setting sweep at gamma_plus 4.0 and is

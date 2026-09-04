@@ -1,5 +1,13 @@
 [transformers] The fast path is not available because one of the required library is not installed. Falling back to torch implementation. To install follow https://github.com/fla-org/flash-linear-attention#installation and https://github.com/Dao-AILab/causal-conv1d
-Loading weights:   0%|          | 0/426 [00:00<?, ?it/s]Loading weights:   5%|▌         | 22/426 [00:00<00:01, 216.95it/s]Loading weights:  22%|██▏       | 93/426 [00:00<00:00, 498.15it/s]Loading weights:  37%|███▋      | 158/426 [00:00<00:00, 566.66it/s]Loading weights:  53%|█████▎    | 226/426 [00:00<00:00, 610.45it/s]Loading weights:  69%|██████▉   | 293/426 [00:00<00:00, 628.49it/s]Loading weights:  85%|████████▌ | 364/426 [00:00<00:00, 652.43it/s]Loading weights: 100%|██████████| 426/426 [00:00<00:00, 616.61it/s]
+
+Loading weights:   0%|          | 0/426 [00:00<?, ?it/s]
+Loading weights:   5%|▌         | 22/426 [00:00<00:01, 216.95it/s]
+Loading weights:  22%|██▏       | 93/426 [00:00<00:00, 498.15it/s]
+Loading weights:  37%|███▋      | 158/426 [00:00<00:00, 566.66it/s]
+Loading weights:  53%|█████▎    | 226/426 [00:00<00:00, 610.45it/s]
+Loading weights:  69%|██████▉   | 293/426 [00:00<00:00, 628.49it/s]
+Loading weights:  85%|████████▌ | 364/426 [00:00<00:00, 652.43it/s]
+Loading weights: 100%|██████████| 426/426 [00:00<00:00, 616.61it/s]
 Qwen/Qwen3.5-4B   89 items
 
 n=89  (skipped 0 where the control span would overlap)
@@ -18,10 +26,18 @@ same dose, same number of tokens, same sentence — only the position differs
   dog:Bristle    b=6.0   off: Your dog is called **Bristle**.
   dog:Yorrick    b=3.0   off: Your dog is called **Yorrick**.
 
-wrote /home/kachna/tmp/attenuation/results/locality_Qwen3.5-4B.json
+wrote <path>
 =====
-Ignoring corrupted tree cache file /home/kachna/projects/science/instruct-steer/hf-cache/hub/models--Qwen--Qwen3-4B-Instruct-2507/trees/cdbee75f17c01a7cc42f958dc650907174af0554.json: [Errno 13] Permission denied: '/home/kachna/projects/science/instruct-steer/hf-cache/hub/models--Qwen--Qwen3-4B-Instruct-2507/trees/cdbee75f17c01a7cc42f958dc650907174af0554.json'
-Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights:   7%|▋         | 28/398 [00:00<00:01, 277.96it/s]Loading weights:  23%|██▎       | 93/398 [00:00<00:00, 494.70it/s]Loading weights:  40%|███▉      | 159/398 [00:00<00:00, 561.22it/s]Loading weights:  57%|█████▋    | 225/398 [00:00<00:00, 591.94it/s]Loading weights:  73%|███████▎  | 291/398 [00:00<00:00, 611.36it/s]Loading weights:  90%|████████▉ | 357/398 [00:00<00:00, 621.03it/s]Loading weights: 100%|██████████| 398/398 [00:00<00:00, 595.62it/s]
+Ignoring corrupted tree cache file <path> [Errno 13] Permission denied: '<path>'
+
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]
+Loading weights:   7%|▋         | 28/398 [00:00<00:01, 277.96it/s]
+Loading weights:  23%|██▎       | 93/398 [00:00<00:00, 494.70it/s]
+Loading weights:  40%|███▉      | 159/398 [00:00<00:00, 561.22it/s]
+Loading weights:  57%|█████▋    | 225/398 [00:00<00:00, 591.94it/s]
+Loading weights:  73%|███████▎  | 291/398 [00:00<00:00, 611.36it/s]
+Loading weights:  90%|████████▉ | 357/398 [00:00<00:00, 621.03it/s]
+Loading weights: 100%|██████████| 398/398 [00:00<00:00, 595.62it/s]
 Qwen/Qwen3-4B-Instruct-2507   100 items
 
 n=100  (skipped 0 where the control span would overlap)
@@ -40,6 +56,6 @@ same dose, same number of tokens, same sentence — only the position differs
   dog:Bristle    b=4.0   off: Based on your message, "By the way, my dog is called Bristle," i
   dog:Yorrick    b=3.0   off: Hmm, I'm sorry, but I don't seem to have any information about a
 
-wrote /home/kachna/tmp/attenuation/results/locality_Qwen3-4B-Instruct-2507.json
+wrote <path>
 =====
 DONE

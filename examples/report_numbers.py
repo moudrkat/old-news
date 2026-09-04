@@ -67,7 +67,7 @@ def section(title):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--check", help="markdown, ve kterem overit, ze cisla existuji")
+    ap.add_argument("--check", help="markdown file to check that every number in it exists in the results")
     args = ap.parse_args()
     claims = []
 
@@ -186,7 +186,7 @@ def main():
     if args.check:
         md = open(args.check).read()
         missing = [c for c in claims if c not in md]
-        print(f"\ncisla, ktera v {args.check} nejsou: {missing or 'zadna'}")
+        print(f"\nnumbers missing from {args.check}: {missing or 'none'}")
 
 
 if __name__ == "__main__":

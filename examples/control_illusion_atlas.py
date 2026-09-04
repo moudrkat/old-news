@@ -165,7 +165,7 @@ def main():
 
     gps = [float(x) for x in args.gamma_plus.split(",")]
     gms = [float(x) for x in args.gamma_minus.split(",")]
-    print(f"{args.model}: {len(cases)} pripadu x {len(gps)*len(gms)} bunek = "
+    print(f"{args.model}: {len(cases)} cases x {len(gps)*len(gms)} cells = "
           f"{len(cases)*len(gps)*len(gms)} generaci\n", flush=True)
 
     model, tok = load(args.model)
@@ -196,7 +196,7 @@ def main():
                        "max_new_tokens": args.max_new_tokens,
                        "note": ("Constraint1 = pravidlo v platnosti (system, "
                                 "aktualni epocha), constraint2 = zastarale "
-                                "(demoted). Vsechny kontroly jsou pocitadla, "
+                                "(demoted). All checks are counters, "
                                 "zadny soud."),
                        "records": records}, open(out, "w"), ensure_ascii=False)
     print("\n->", out)

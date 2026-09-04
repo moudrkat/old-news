@@ -31,7 +31,7 @@ from told2 import yesno                                      # noqa: E402
 
 def main() -> int:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--env", default=os.path.expanduser("~/projekty/Agent-loop/.env"))
+    ap.add_argument("--env", default=os.environ.get("OLDNEWS_ENV_FILE", ".env"))
     ap.add_argument("--project", default=os.environ.get("GCP_PROJECT_ID"))
     ap.add_argument("--location", default=os.environ.get("GCP_LOCATION", "global"))
     a = ap.parse_args()

@@ -39,7 +39,7 @@ kept 89   dropped: 0 answered wrong unmanipulated, 11 never lost the value
     31               1.000         0.700                    0.978
     32               1.000         0.700                    0.978
 
-wrote /home/kachna/tmp/attenuation/results/probe2_Qwen3.5-4B.json
+wrote <path>
 
 layer 0 AUC is the null: if it is not near 0.5, the probe is reading tokens and nothing below it counts.
 =====
@@ -88,7 +88,7 @@ kept 100   dropped: 0 answered wrong unmanipulated, 0 never lost the value
     35               1.000         0.300                    0.560
     36               1.000         0.600                    0.490
 
-wrote /home/kachna/tmp/attenuation/results/probe2_Qwen3-4B-Instruct-2507.json
+wrote <path>
 
 layer 0 AUC is the null: if it is not near 0.5, the probe is reading tokens and nothing below it counts.
 =====

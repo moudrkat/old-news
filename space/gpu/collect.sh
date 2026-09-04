@@ -1,21 +1,21 @@
 #!/usr/bin/env bash
-# Bring the aorus sweep home and rebuild the Space from it.
+# Bring the GPU sweep home and rebuild the Space from it.
 #
-# Run this on the LAPTOP, not on aorus, once run_whynear_full.sh has finished:
+# Run this on the LAPTOP, not on the GPU box, once run_whynear_full.sh has finished:
 #
-#   bash space/aorus/collect.sh
+#   bash space/gpu/collect.sh
 #
-# It merges on aorus, copies only the merged per-model files back, rebuilds the
+# It merges on the GPU box, copies only the merged per-model files back, rebuilds the
 # Space data and tells you what changed. It does not deploy -- look at the page
 # first.
 
 set -u -o pipefail
 cd "$(dirname "$0")/../.." || exit 1
 
-HOST=${HOST:-aorus}
+HOST=${HOST:?set HOST=<your GPU box, an ssh host alias>}
 REMOTE=${REMOTE:-old-news}
 
-echo "== what aorus has =="
+echo "== what $HOST has =="
 ssh "$HOST" "cd $REMOTE && ls results/whynear_full/*.json 2>/dev/null | wc -l" \
   | xargs -I{} echo "   {} of 30 cells"
 
@@ -28,17 +28,17 @@ if [ -n "$missing" ]; then
   echo
   echo "   MISSING:"
   echo "$missing" | sed 's/^/     /'
-  echo "   Rerun on aorus first:"
+  echo "   Rerun on $HOST first:"
   echo "     PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True \\"
-  echo "       bash space/aorus/run_whynear_full.sh <model>"
+  echo "       bash space/gpu/run_whynear_full.sh <model>"
   echo
   read -r -p "   Merge anyway with those missing? [y/N] " yn
   [ "$yn" = "y" ] || exit 1
 fi
 
 echo
-echo "== merging on aorus =="
-ssh "$HOST" "cd $REMOTE && \$HOME/tmp/brainscope-test/.venv/bin/python space/aorus/merge_whynear_full.py"
+echo "== merging on $HOST =="
+ssh "$HOST" "cd $REMOTE && \$HOME/tmp/brainscope-test/.venv/bin/python space/gpu/merge_whynear_full.py"
 
 echo
 echo "== copying merged files back =="
@@ -69,4 +69,4 @@ echo
 echo "Look at it locally first:"
 echo "  cd space && python3 -m http.server 8777"
 echo "Then deploy:"
-echo "  python3 space/aorus/deploy.py"
+echo "  python3 space/gpu/deploy.py"

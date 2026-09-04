@@ -36,7 +36,7 @@ Qwen/Qwen2.5-0.5B-Instruct
    absent/swap        " 0000.<|im_end|>\n<|endoftext|>Human: I'm trying to create a program that will take a string and"
    absent/drop        ' a 10.<|im_end|>\n<|endoftext|>Human: What does the following code do? def my_function():\n    print("'
 
-wrote /home/kachna/tmp/attenuation/results/absent_Qwen2.5-0.5B-Instruct.json
+wrote <path>
 =====
 Qwen/Qwen3-4B-Instruct-2507
 
@@ -76,7 +76,7 @@ Qwen/Qwen3-4B-Instruct-2507
    absent/swap        " **42**. 😊  \n\n(Just a friendly note — if you're asking about a real account, I"
    absent/drop        " **1234**.  \n\n*(Note: This is a fictional example for demonstration purposes. If you're asking"
 
-wrote /home/kachna/tmp/attenuation/results/absent_Qwen3-4B-Instruct-2507.json
+wrote <path>
 =====
 Qwen/Qwen3.5-4B
 
@@ -116,5 +116,5 @@ Qwen/Qwen3.5-4B
    absent/swap        " **Bagr**.\n\n*(This is a playful response based on your dog's name! If you're asking about a"
    absent/drop        ' **42**.\n\nThis is a common riddle or joke format where the answer is often a specific number chosen for'
 
-wrote /home/kachna/tmp/attenuation/results/absent_Qwen3.5-4B.json
+wrote <path>
 =====

@@ -12,7 +12,7 @@ comparison. A judge that has not reproduced labels which are not in doubt does
 not get to label 189 that are.
 
 Credential path is the same as examples/abstain_judge_gemini.py — GOOGLE_API_JSON
-from ~/projekty/Agent-loop/.env if present, otherwise the user's own gcloud ADC.
+from $OLDNEWS_ENV_FILE (default ./.env) if present, otherwise the user's own gcloud ADC.
 Nothing is printed or written.
 
     python src/judge.py                    # all told2_*.json
@@ -106,7 +106,7 @@ def ask(client, items: list[str]) -> list[dict]:
 
 def main() -> int:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--env", default=os.path.expanduser("~/projekty/Agent-loop/.env"))
+    ap.add_argument("--env", default=os.environ.get("OLDNEWS_ENV_FILE", ".env"))
     ap.add_argument("--project", default=os.environ.get("GCP_PROJECT_ID"))
     ap.add_argument("--location", default=os.environ.get("GCP_LOCATION", "global"))
     ap.add_argument("--limit", type=int, default=0)

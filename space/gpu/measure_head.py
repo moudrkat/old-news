@@ -17,7 +17,7 @@ The product alpha * vnorm is the magnitude of that token's contribution to the
 head's output. It is a magnitude, not the output itself -- the real output is a
 vector sum and terms can cancel -- and the page says so.
 
-    PYTHONPATH=.:examples python space/aorus/measure_head.py --model llama
+    PYTHONPATH=.:examples python space/gpu/measure_head.py --model llama
 """
 import argparse
 import json

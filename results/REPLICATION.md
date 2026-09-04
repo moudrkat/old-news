@@ -21,7 +21,7 @@ how often the current instruction wins. We ask three questions it does not: how
 large is the hole being filled, which half of the edit fills it, and what the
 failures look like when it does not.
 
-21 126 greedy generations across ten models (0.5B–8B, six families, including a
+21 126 greedy generations across ten models (0.5B–8B, six model families, including a
 same-family size ladder), two datasets, seven conditions.
 
 **One result is strong enough to carry a claim:**
@@ -83,8 +83,8 @@ The reported measure is a **useful answer**: compliance ∧ recall. Format alone
 not enough: under a strong edit a model emits `{"question": "When does my flight
 land?"}`, which is valid JSON and answers nothing.
 
-**Constraints.** Six families — uppercase, `ACK:` prefix, JSON, bullets, length,
-numbered options — each with three independently worded versions. Six facts:
+**Constraints.** Seven families — uppercase, `ACK:` prefix, JSON, bullets, length,
+numbered options, answer language — each with three independently worded versions. Six facts:
 `4417-B`, `bagr`, `brno`, `19:40`, `E-88`, `302`.
 
 **Models.** Qwen2.5-0.5B/1.5B/3B/7B, Qwen3-4B, Phi-3.5-mini, OLMo-2-7B,
@@ -578,8 +578,8 @@ message**. That condition
 existed in `results/` throughout under the name `ceiling`, treated as an upper
 bound rather than as a competitor. `examples/deletion_baseline.py`, no GPU.
 
-Useful answers (compliance ∧ recall) over 108 items, steering cell chosen post
-hoc as the best of 21:
+Useful answers (compliance ∧ recall): deletion over 108 items, steering over
+36 per cell with the cell chosen post hoc as the best of 21:
 
 | | delete the stale message | best steering cell |
 |---|---|---|
@@ -606,12 +606,12 @@ instruction is *cleanly separable* from the content the question needs. On such
 a transcript, deletion is obviously correct and the edit is a worse route to a
 worse answer.
 
-The case that would justify the method is unrun: **an instruction and live
+The case that would justify the method is **an instruction and live
 information sharing one turn** — "always reply in lowercase, and my order number
 is 4417-B". Deleting that costs the order number outright; the edit demotes the
 message's values while the fact remains in context, and §3 shows the fact
-surviving at γ⁻ = 0.5. It needs a `build_cases` variant concatenating the fact
-into the stale message, and it has not been run.
+surviving at γ⁻ = 0.5. That case was run afterwards as §7c (a `build_cases`
+variant concatenating the fact into the stale message).
 
 There is also a cost asymmetry no number here captures: deleting a message
 invalidates the KV prefix from that point and forces a re-prefill, whereas the

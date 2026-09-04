@@ -18,6 +18,8 @@ from oldnews.vsteer import edit_value_cache, select_heads, steer
 
 @pytest.fixture(scope="module")
 def mt():
+    if os.environ.get("HF_HUB_OFFLINE") == "1" and not os.environ.get("OLDNEWS_TEST_MODEL"):
+        pytest.skip("needs the tiny model from the Hub; set OLDNEWS_TEST_MODEL to a local path")
     # OLDNEWS_TEST_MODEL lets the same suite run against a different head
     # layout -- Qwen2.5-0.5B is 14 query heads over 2 KV heads, Qwen3-4B is
     # 32 over 8, and the GQA reduction has to be right for both.

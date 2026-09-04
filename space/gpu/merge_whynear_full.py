@@ -6,7 +6,7 @@ arguments. The Space wants one file per model with gamma_plus carried on each
 row, the same shape as the existing results/whynear_all_<model>.json but across
 the whole grid.
 
-    python space/aorus/merge_whynear_full.py
+    python space/gpu/merge_whynear_full.py
 
 Writes results/whynear_grid_<model>.json. Leaves the old whynear_all_* files
 alone: they are what the published numbers were read from, and nothing should
@@ -25,7 +25,7 @@ PAT = re.compile(r"whynear_(?P<model>[a-z0-9]+)_gp(?P<gp>[0-9.]+)\.json$")
 def main():
     files = sorted(glob.glob(os.path.join(SRC, "whynear_*_gp*.json")))
     if not files:
-        sys.exit(f"nothing in {SRC}/ -- run space/aorus/run_whynear_full.sh first")
+        sys.exit(f"nothing in {SRC}/ -- run space/gpu/run_whynear_full.sh first")
 
     by_model = {}
     for path in files:

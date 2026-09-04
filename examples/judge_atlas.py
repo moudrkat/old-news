@@ -130,7 +130,7 @@ def main():
     ap.add_argument("--chunk", type=int, default=12)
     ap.add_argument("--project", default=os.environ.get("GCP_PROJECT_ID"))
     ap.add_argument("--location", default=os.environ.get("GCP_PROJECT_LOCATION", "global"))
-    ap.add_argument("--env", default=os.path.expanduser("~/projekty/Agent-loop/.env"))
+    ap.add_argument("--env", default=os.environ.get("OLDNEWS_ENV_FILE", ".env"))
     args = ap.parse_args()
 
     from google import genai

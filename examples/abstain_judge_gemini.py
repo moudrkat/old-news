@@ -182,7 +182,7 @@ def main():
     ap.add_argument("--location",
                     default=os.environ.get("GCP_PROJECT_LOCATION", "global"))
     ap.add_argument("--env",
-                    default=os.path.expanduser("~/projekty/Agent-loop/.env"))
+                    default=os.environ.get("OLDNEWS_ENV_FILE", ".env"))
     ap.add_argument("--min-calib", type=int, default=18)
     args = ap.parse_args()
 

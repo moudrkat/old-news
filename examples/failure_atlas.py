@@ -266,12 +266,12 @@ def main():
                     help="head-selection margin. 0 steers nearly every head; "
                          "0.05 is selective (see results/headcrit_*.json)")
     ap.add_argument("--fact-epoch", type=int, default=0,
-                    help="1 = fakt NEni v potlacovanem useku (kontrola cileni)")
+                    help="1 = the fact is NOT inside the demoted span (targeting control)")
     ap.add_argument("--fact-absent", choices=("no", "swap", "drop"),
                     default="no",
-                    help="fakt v kontextu vubec nebyl. swap = misto nej je "
-                         "vyrok o jinem faktu (stejna delka i pozice), "
-                         "drop = vyrok i potvrzeni pryc")
+                    help="the fact was never in the context. swap = in its place there is "
+                         "a statement about a different fact (same length and position), "
+                         "drop = the statement and the acknowledgement are both gone")
     args = ap.parse_args()
 
     out = args.out or f"results/atlas_{args.model}.json"
@@ -288,7 +288,7 @@ def main():
     cases = build_cases(fact_epoch=args.fact_epoch,
                         fact_absent=args.fact_absent)
     total = len(gps) * len(gms) * len(cases)
-    print(f"{args.model}: {len(cases)} pripadu x {len(gps)} gamma+ x "
+    print(f"{args.model}: {len(cases)} cases x {len(gps)} gamma+ x "
           f"{len(gms)} gamma- = {total} generaci\n")
 
     model, tok = load(args.model)
@@ -336,7 +336,7 @@ def main():
                        "families": [f["key"] for f in FAMILIES],
                        "max_new_tokens": args.max_new_tokens, "greedy": True,
                        "note": ("Automaticke znacky jsou TRIAGE, ne verdikt. "
-                                "Cisla, na kterych zalezi, se ctou rucne."),
+                                "The numbers that matter are read by hand."),
                        "records": records}, open(out, "w"),
                       ensure_ascii=False)
     print(f"\n-> {out}  ({len(records)} zaznamu)")

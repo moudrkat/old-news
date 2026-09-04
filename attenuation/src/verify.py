@@ -57,7 +57,7 @@ def main() -> int:
             print(f"{f.name}: no raw text saved.\n"
                   f"  Rerun src/told2.py (it saves it now), or copy the newer "
                   f"results over:\n"
-                  f"  scp aorus:'~/tmp/attenuation/results/told2_*.json' results/")
+                  f"  scp <gpu-box>:'~/tmp/attenuation/results/told2_*.json' results/")
             return 1
         for r in rows:
             value = r["key"].split(":", 1)[1]

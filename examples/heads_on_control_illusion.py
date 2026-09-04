@@ -61,7 +61,7 @@ def main() -> None:
 
     path = os.path.join(args.data, args.file)
     rows = [json.loads(l) for l in open(path) if l.strip()][: args.limit]
-    print(f"{len(rows)} pripadu z {args.file}, model {args.model}, eps={args.eps}\n")
+    print(f"{len(rows)} cases from {args.file}, model {args.model}, eps={args.eps}\n")
 
     model, tok = load(args.model)
     pol = SteerPolicy(mode="binary", eps=args.eps)

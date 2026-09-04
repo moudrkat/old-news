@@ -16,10 +16,10 @@
 # (the shortest unsteered prefix that already contains the gold value). Only the
 # sweep is wider.
 #
-# GPU ONLY -- this is an aorus job. Nothing here should run on the CPU box.
+# GPU ONLY -- this is a GPU-box job. Nothing here should run on the CPU box.
 #
-#   bash space/aorus/run_whynear_full.sh              # everything, resumable
-#   bash space/aorus/run_whynear_full.sh llama mid    # just these models
+#   bash space/gpu/run_whynear_full.sh              # everything, resumable
+#   bash space/gpu/run_whynear_full.sh llama mid    # just these models
 #
 # Resumable: a (model, gamma_plus) pair whose output file already exists is
 # skipped, so a killed run picks up where it stopped. Delete the file to redo it.
@@ -87,6 +87,6 @@ if [ "$fail" -gt 0 ]; then
   echo "$fail cell(s) failed. Rerun this script -- finished ones are skipped."
 else
   echo "All cells present. Now merge and rebuild the Space data:"
-  echo "  python space/aorus/merge_whynear_full.py"
+  echo "  python space/gpu/merge_whynear_full.py"
   echo "  python space/build_data.py"
 fi

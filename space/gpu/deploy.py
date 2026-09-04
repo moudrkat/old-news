@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """Push space/ to the Hugging Face Space.
 
-    python3 space/aorus/deploy.py
-    python3 space/aorus/deploy.py -m "what changed"
+    python3 space/gpu/deploy.py
+    python3 space/gpu/deploy.py -m "what changed"
 
-Uploads index.html, README.md, build_data.py and data/ only. The aorus scripts
+Uploads index.html, README.md, build_data.py and data/ only. The GPU scripts
 and the promo screenshots stay out: the first are for the GPU box and the second
 are for LinkedIn, and neither belongs in a page anyone can view source on.
 """
@@ -13,7 +13,7 @@ import pathlib
 import sys
 
 REPO = "Unt1l1f1nd/turn-the-knob"
-IGNORE = ["promo/*", "aorus/*", "__pycache__/*", ".DS_Store", "*.pyc"]
+IGNORE = ["promo/*", "gpu/*", "__pycache__/*", ".DS_Store", "*.pyc"]
 
 
 def main():
